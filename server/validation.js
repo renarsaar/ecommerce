@@ -44,6 +44,25 @@ function editUserValidation(data) {
   return schema.validate(data);
 }
 
+// Add product validation
+function addProductValidation(data) {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    brand: Joi.string().required(),
+    category: Joi.string().required(),
+    subCategory: Joi.string().required(),
+    gender: Joi.string(),
+    sizes: Joi.array(),
+    description: Joi.array().required(),
+    stock: Joi.number().required(),
+    price: Joi.number().required(),
+    discountPrice: Joi.number(),
+  });
+
+  return schema.validate(data);
+}
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
 module.exports.editUserValidation = editUserValidation;
+module.exports.addProductValidation = addProductValidation;
