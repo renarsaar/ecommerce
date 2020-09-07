@@ -11,5 +11,7 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "import/newline-after-import": "off",
+        "consistent-return": "off"
     }
 }
