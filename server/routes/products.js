@@ -1,6 +1,35 @@
 const router = require('express').Router();
+const multer = require('multer');
 const Product = require('../model/Product');
 const { addProductValidation } = require('../validation');
+
+// Store files to /uploads
+const storage = multer.diskStorage({
+  destination: (req, file, res) => {
+    res(null, './uploads/');
+  },
+  filename: (req, file, res) => {
+    res(null, file.originalname);
+  },
+});
+
+// Reject files that are not images
+const fileFilter = (req, file, res) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+    res(null, true);
+  } else {
+    res(new Error('Only PNG, JPG & JPEG files allowed'), false);
+  }
+};
+
+// Init multer
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter,
+});
 
 // @desc    Get all products
 // @route   GET /products
@@ -15,7 +44,7 @@ router.get('/', async (req, res) => {
 
 // @desc    Add a product
 // @route   POST /products
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   // Validation
   const { error } = addProductValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -31,12 +60,13 @@ router.post('/', async (req, res) => {
     stock: req.body.stock,
     price: req.body.price,
     discountPrice: req.body.discountPrice,
+    image: req.file.path,
   });
 
   // Add a product
   try {
     await product.save();
-    res.status(201).send({ product: product._id });
+    res.status(201).send({ product });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }

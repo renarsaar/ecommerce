@@ -10,6 +10,7 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 // Route Middlewares
 app.use('/products', require('./routes/products'));

@@ -57,6 +57,7 @@ function addProductValidation(data) {
     stock: Joi.number().required(),
     price: Joi.number().required(),
     discountPrice: Joi.number(),
+    image: Joi.string(),
   });
 
   return schema.validate(data);
