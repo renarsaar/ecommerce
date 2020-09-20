@@ -44,15 +44,26 @@ a {
         animation: drawSVG .9s; }
     .header-navbar .item {
       cursor: pointer;
+      position: relative;
       margin: auto 1rem;
       font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
       font-weight: 500;
       transition: .3s ease; }
       .header-navbar .item:hover {
-        opacity: .5;
+        color: #ff600a;
         transition: .3s ease; }
-      .header-navbar .item i {
-        margin-left: 0.3rem; }
+      .header-navbar .item.active {
+        color: #ff600a; }
+      .header-navbar .item.active::before {
+        position: absolute;
+        content: "";
+        background: #ff600a;
+        width: 6px;
+        height: 6px;
+        top: 30px;
+        left: 50%;
+        border-radius: 50%;
+        transform: translateX(-50%); }
   .header-actions {
     display: flex;
     align-items: center; }
@@ -112,14 +123,14 @@ a {
     .catalog .products .product {
       position: relative;
       width: 250px;
-      height: 350px;
+      height: 400px;
       margin: auto; }
       .catalog .products .product img {
         width: 100%;
-        height: 225px;
+        height: 250px;
         object-fit: cover;
         margin-bottom: 0.5rem; }
-      .catalog .products .product span {
+      .catalog .products .product .new {
         cursor: default;
         font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         font-weight: 300;
@@ -129,6 +140,17 @@ a {
         position: absolute;
         top: 15px;
         left: 15px;
+        padding: 0.25rem 0.55rem; }
+      .catalog .products .product .discount {
+        cursor: default;
+        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+        font-weight: 300;
+        background: #ff600a;
+        color: #fff;
+        text-transform: uppercase;
+        position: absolute;
+        top: 15px;
+        right: 15px;
         padding: 0.25rem 0.55rem; }
       .catalog .products .product h1 {
         cursor: pointer;
@@ -197,6 +219,7 @@ a {
       font-weight: 700;
       color: #33333d;
       background: #fff;
+      box-shadow: 0 0 0 1px #fff;
       text-transform: uppercase;
       letter-spacing: 2px;
       height: 40px;
@@ -224,6 +247,39 @@ a {
         background: #d62976; }
       .footer .container .newsletter .socials .la-youtube {
         background: #FF0000; }
+
+.intro {
+  background: #f4f4f4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .intro-text .hide {
+    background: #f4f4f4;
+    overflow: hidden; }
+    .intro-text .hide .vra {
+      fill: transparent;
+      stroke: #ff600a;
+      width: 160px;
+      height: 80px;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transform: translateY(150%);
+      display: inline-block; }
+
+.slider {
+  background: #ff600a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%); }
 
 @keyframes drawSVG {
   from {
