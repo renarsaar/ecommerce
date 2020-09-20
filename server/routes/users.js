@@ -91,7 +91,7 @@ router.delete('/:id', getUser, async (req, res) => {
   }
 });
 
-// Get User Middleware
+// Get User by ID Middleware
 async function getUser(req, res, next) {
   let user;
 
