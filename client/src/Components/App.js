@@ -27,7 +27,7 @@ export default function App() {
         </Switch>
       </Router>
       <Footer />
-      {/* <SplashScreen /> */}
+      <SplashScreen />
     </div>
   );
 }
