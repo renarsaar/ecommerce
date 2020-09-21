@@ -42,6 +42,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @desc    Get single product
+// @route   GET /products/:id
+router.get('/:id', getProduct, async (req, res) => {
+  try {
+    const product = await res.product;
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // @desc    Add a product
 // @route   POST /products
 router.post('/', upload.single('image'), async (req, res) => {
@@ -75,7 +86,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 });
 
 // @desc    Edit a product
-// @route   PATCH /products
+// @route   PATCH /products/:id
 router.patch('/:id', getProduct, async (req, res) => {
   // Check for user input
   if (req.body.name) res.product.name = req.body.name;
@@ -103,7 +114,7 @@ router.patch('/:id', getProduct, async (req, res) => {
 });
 
 // @desc    Delete a product
-// @route   POST /products
+// @route   POST /products/:id
 router.delete('/:id', getProduct, async (req, res) => {
   try {
     await res.product.remove();
