@@ -7,7 +7,9 @@ import Product from './Product';
 export default function Catalog() {
   const dispatch = useDispatch();
   const { loading, products, error } = useSelector((state) => state.products);
-  const { oldest, newest, cheapest, expensivest, name, discount } = useSelector((state) => state.sort);
+  const {
+    oldest, newest, cheapest, expensivest, name, discount,
+  } = useSelector((state) => state.sort);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -61,16 +63,18 @@ export default function Catalog() {
   }
 
   return (
-    <div className="products">
+    <div className="product-list">
       {loading && <div>Loading</div>}
-      {products && <>
-        {oldest && <>{sortOldest()}</>}
-        {newest && <>{sortNewest()}</>}
-        {cheapest && <>{sortCheapest()}</>}
-        {expensivest && <>{sortExpensivest()}</>}
-        {name && <>{sortName()}</>}
-        {discount && <>{sortDiscount()}</>}
-      </>}
+      {products && (
+        <>
+          {oldest && <>{sortOldest()}</>}
+          {newest && <>{sortNewest()}</>}
+          {cheapest && <>{sortCheapest()}</>}
+          {expensivest && <>{sortExpensivest()}</>}
+          {name && <>{sortName()}</>}
+          {discount && <>{sortDiscount()}</>}
+        </>
+      )}
       {error && <div>error</div>}
     </div>
   );
