@@ -18,20 +18,20 @@ export default (state = [], action) => {
         ...state,
         loading: false,
         error: action.payload,
-        products: []
+        products: [],
+        selectedProduct: [],
       };
 
     case FETCH_PRODUCTS:
-      return { ...state, loading: false, products: action.payload };
-
-    // const newObject = action.payload.reduce(
-    //   (map, item) => ({ ...map, [item.id]: item }),
-    //   {}
-    // );
-    // return { ...state, ...newObject };
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        selectedProduct: null,
+      };
 
     case FETCH_PRODUCT:
-      return { ...state, [action.payload.id]: action.payload };
+      return { loading: false, selectedProduct: action.payload };
 
     case EDIT_PRODUCT:
       return { ...state, [action.payload.id]: action.payload };

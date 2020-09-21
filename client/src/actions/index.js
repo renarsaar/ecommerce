@@ -29,7 +29,11 @@ export const fetchProducts = () => async (dispatch) => {
 
 // Fetch single product
 export const fetchProduct = (id) => async (dispatch) => {
+  dispatch({ type: LOADING });
 
+  products.get(`/products/${id}`)
+    .then((response) => dispatch({ type: FETCH_PRODUCT, payload: response.data }))
+    .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };
 
 // Edit a product
@@ -47,52 +51,16 @@ export const createProduct = (id) => async (dispatch) => {
 
 };
 
-// Set menu to Shop
-export const showShop = () => {
-  return { type: SHOW_SHOP };
-}
+// Set menu navigation
+export const showShop = () => ({ type: SHOW_SHOP });
+export const showFabric = () => ({ type: SHOW_FABRIC });
+export const showJournal = () => ({ type: SHOW_JOURNAL });
+export const showAbout = () => ({ type: SHOW_ABOUT });
 
-// Set menu to Fabric
-export const showFabric = () => {
-  return { type: SHOW_FABRIC };
-}
-
-// Set menu to Journal
-export const showJournal = () => {
-  return { type: SHOW_JOURNAL };
-}
-
-// Set menu to About
-export const showAbout = () => {
-  return { type: SHOW_ABOUT };
-}
-
-// Sort products by oldest
-export const sortOldest = () => {
-  return { type: SORT_OLDEST };
-}
-
-// Sort products by newest
-export const sortNewest = () => {
-  return { type: SORT_NEWEST };
-}
-
-// Sort products by cheapest  
-export const sortCheapest = () => {
-  return { type: SORT_CHEAPEST };
-}
-
-// Sort products by price  
-export const sortExpensivest = () => {
-  return { type: SORT_EXPENSIVEST };
-}
-
-// Sort products by name
-export const sortName = () => {
-  return { type: SORT_NAME };
-}
-
-// Sort products by discount
-export const sortDiscount = () => {
-  return { type: SORT_DISCOUNT };
-}
+// Handle products sorting
+export const sortOldest = () => ({ type: SORT_OLDEST });
+export const sortNewest = () => ({ type: SORT_NEWEST });
+export const sortCheapest = () => ({ type: SORT_CHEAPEST });
+export const sortExpensivest = () => ({ type: SORT_EXPENSIVEST });
+export const sortName = () => ({ type: SORT_NAME });
+export const sortDiscount = () => ({ type: SORT_DISCOUNT });
