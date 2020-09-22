@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   sortOldest,
   sortCheapest,
@@ -11,8 +11,9 @@ import {
 
 export default function SubHeader() {
   const dispatch = useDispatch();
+  const { selectedProduct } = useSelector((state) => state.products);
 
-  // Hnadle sorting
+  // Handle sorting
   function handleChange(e) {
     const { value } = e.target;
 
@@ -24,14 +25,25 @@ export default function SubHeader() {
     if (value === 'discount') dispatch(sortDiscount());
   }
 
+  // Display breadcrumb menu items
+  function handleBreadcrumb() {
+    const { category, gender, subCategory } = selectedProduct || '';
+
+    if (category && gender && subCategory) return (
+      <ul className="breadcrumb">
+        <li>{gender}</li>
+        <li>{category}</li>
+        <li>{subCategory}</li>
+      </ul>
+    )
+
+    return <ul className="breadcrumb"></ul>;
+  }
+
   return (
     <div className="subheader">
       <div className="container">
-        <ul className="breadcrumb">
-          <li>Men</li>
-          <li>Appareal</li>
-          <li>Shirts</li>
-        </ul>
+        {handleBreadcrumb()}
         <div className="sort">
           Sort by
           <select onChange={handleChange}>

@@ -18,8 +18,8 @@ export default function App() {
       <Header />
       <SubHeader />
       <Router history={createBrowserHistory}>
-        <Catalog />
         <Switch>
+          <Route path="/" exact component={Catalog} />
           <Route path="/products/new" exact component={ProductCreate} />
           <Route path="/products/edit/:id" exact component={ProductEdit} />
           <Route path="/products/delete/:id" exact component={ProductDelete} />

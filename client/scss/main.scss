@@ -2,12 +2,12 @@
 
 $black: #0a0a0a;
 $dark-grey: #626166;
-$grey: #6a696e;
-$light-grey: #cacaca;
-$orange: #ff600a;
-$dark-blue: #33333d;
+$grey: #a3a3a3;
+$light-grey: #d3d3d3;
 $lighter: #f4f4f4;
 $white: #fff;
+$orange: #ff600a;
+$dark-blue: #33333d;
 $page-width: 1180px;
 $H: "Montserrat", "Trebuchet MS", Arial, sans-serif;
 $P: "Open Sans", Arial, sans-serif;
@@ -30,6 +30,75 @@ li {
 
 a {
   text-decoration: none;
+}
+
+%tooltip-shared {
+  cursor: default;
+  position: relative;
+  display: inline-block;
+
+  &:hover .tooltiptext {
+    visibility: visible;
+    transition: .3s ease;
+    animation-name: fadeIn;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+  }
+  
+  .tooltiptext {
+    visibility: hidden;
+    background: $dark-blue;
+    color: $lighter;
+    position: absolute;
+    width: 160px;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    border-radius: 3px;
+    z-index: 1;
+    transition: .3s ease;
+  }
+}
+
+%btn-shared {
+  cursor: pointer;
+  background: $lighter;
+  color: $dark-grey;
+  width: 50px;
+  height: 50px;
+  border: 1px solid $light-grey;
+  transition: .3s ease;
+
+  &:hover {
+    background: $light-grey;
+    border: 1px solid $grey;
+    transition: .3s ease;
+  }
+}
+
+%btn-shared-large {
+  cursor: pointer;
+  margin-left: 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: $H;
+  width: 200px;
+  height: 50px;
+  border: 0;
+  transition: .3s ease;
+
+  &:focus {
+    outline: none;
+    transition: .3s ease;
+  }
+
+  &:hover {
+    opacity: .8;
+    transition: .3s ease;
+  }
 }
 
 // HEADER
@@ -179,15 +248,15 @@ a {
     margin: 1rem 1rem 1rem 0;
   }
 
-  // PRODUCTS
-  .products {
+  // PRODUCTLIST
+  .product-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 1rem 0 3rem 1rem;
     width: $page-width;
     
     // PRODUCT
-    .product {
+    &-item {
       position: relative;
       width: 250px;
       height: 400px;
@@ -248,6 +317,200 @@ a {
       a:hover h1, a:hover p {
         opacity: .5;
         transition: .3s ease;
+      }
+    }
+  }
+}
+
+// PRODUCTSHOW
+.product-show {
+  width: $page-width;
+  margin: auto;
+
+  &-item {
+    display: flex;
+    margin: 3rem 0;
+
+    .gallery {
+      img {
+        width: 350px;
+        height: 400px;
+        object-fit: cover;
+      }
+
+      .share {
+        display: flex;
+        align-items: center;
+        color: $grey;
+        margin-top: 0.4rem;
+        
+        h3 {
+          font-size: 1rem;
+          font-family: $H;
+          font-weight: 400;
+          margin-right: 0.5rem;
+        }
+
+        i {
+          cursor: pointer;
+          margin-left: 0.5rem;
+          font-size: 1.2rem;
+          transition: .3s;
+          
+          &:hover {
+            color: $orange;
+            transition: .3s;
+          }  
+        }
+
+        .tooltip {
+          @extend %tooltip-shared;
+
+          .tooltiptext {
+            top: 20px;
+          }
+        }
+      }
+    }
+
+    .details {
+      margin-left: 3rem;
+
+      .name {
+        font-size: 1.8rem;
+        font-family: $H;
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: $dark-blue;
+      }
+
+      .price {
+        font-family: $H;
+        margin-top: 0.5rem;
+        font-weight: 500;
+        color: $orange;
+      }
+
+      .container {
+        margin-top: 1.7rem;
+        margin-left: 0.6rem;
+
+        .description {
+          
+          h2 {
+            letter-spacing: 1px;
+            font-family: $H;
+            font-weight: 500;
+            color: $dark-grey;
+          }
+
+          ul {
+            margin-top: 1rem;
+
+            li {
+              margin-top: 0.5rem;
+              color: $grey;
+            }
+          }
+        }
+
+        .size {
+          h2 {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            font-family: $H;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: $dark-grey;
+          }
+
+          ul {
+            margin-bottom: 2rem;
+
+            li {
+              @extend %btn-shared;
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              margin-right: 1.5rem;
+              text-align: center;
+
+              &.selected {
+                border: 1px solid $orange;
+                background: rgba($color: $orange, $alpha: 0.1);
+              }
+            }
+          }
+        }
+
+        .quantity {
+          h2 {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            font-family: $H;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: $dark-grey;
+
+            p {
+              margin-left: 1.5rem;
+              display: inline;
+              font-size: 0.7rem;
+            }
+          }
+
+          .increment, .decrement {
+            @extend %btn-shared;
+          }
+
+          span {
+            margin: 0 1rem;
+          }
+
+          .add-cart {
+            @extend %btn-shared-large;
+            background: $dark-blue;
+            color: $white;
+          }
+
+          div {
+            display: inline;
+            position: relative;
+
+            i {
+              position: absolute;
+              top: 4px;
+              left: 55px;
+              font-size: 1.5rem;
+              color: $dark-blue;
+              z-index: 1;
+            }
+
+            .tooltip {
+              @extend %tooltip-shared;
+              
+              .tooltiptext {
+                bottom: 30px;
+                left: 10px;
+              }
+            }
+            
+            .add-wishlist {
+              padding-left: 1.5rem;
+              @extend %btn-shared-large;
+              background: transparent;
+              border-bottom: 4px solid $dark-blue;
+
+              &:hover {
+                background: $lighter;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -383,6 +646,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 
   &-text {
     .hide {
@@ -412,6 +676,7 @@ a {
   width: 100%;
   height: 100%;
   transform: translateY(100%);
+  z-index: 99;
 }
 
 @keyframes drawSVG {
@@ -421,5 +686,15 @@ a {
 
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  } to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

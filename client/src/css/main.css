@@ -15,6 +15,62 @@ li {
 a {
   text-decoration: none; }
 
+.product-show-item .gallery .share .tooltip, .product-show-item .details .container .quantity div .tooltip {
+  cursor: default;
+  position: relative;
+  display: inline-block; }
+  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .quantity div .tooltip:hover .tooltiptext {
+    visibility: visible;
+    transition: .3s ease;
+    animation-name: fadeIn;
+    animation-duration: .5s;
+    animation-iteration-count: 1; }
+  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .quantity div .tooltip .tooltiptext {
+    visibility: hidden;
+    background: #33333d;
+    color: #f4f4f4;
+    position: absolute;
+    width: 160px;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    border-radius: 3px;
+    z-index: 1;
+    transition: .3s ease; }
+
+.product-show-item .details .container .size ul li, .product-show-item .details .container .quantity .increment, .product-show-item .details .container .quantity .decrement {
+  cursor: pointer;
+  background: #f4f4f4;
+  color: #626166;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #d3d3d3;
+  transition: .3s ease; }
+  .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .quantity .increment:hover, .product-show-item .details .container .quantity .decrement:hover {
+    background: #d3d3d3;
+    border: 1px solid #a3a3a3;
+    transition: .3s ease; }
+
+.product-show-item .details .container .quantity .add-cart, .product-show-item .details .container .quantity div .add-wishlist {
+  cursor: pointer;
+  margin-left: 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+  width: 200px;
+  height: 50px;
+  border: 0;
+  transition: .3s ease; }
+  .product-show-item .details .container .quantity .add-cart:focus, .product-show-item .details .container .quantity div .add-wishlist:focus {
+    outline: none;
+    transition: .3s ease; }
+  .product-show-item .details .container .quantity .add-cart:hover, .product-show-item .details .container .quantity div .add-wishlist:hover {
+    opacity: .8;
+    transition: .3s ease; }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -99,7 +155,7 @@ a {
         content: "/\00a0";
         padding: 0.5rem; }
     .subheader .container .sort select {
-      color: #6a696e;
+      color: #a3a3a3;
       padding: 0.4rem;
       margin-left: 0.5rem;
       text-transform: uppercase; }
@@ -115,22 +171,22 @@ a {
     width: 30%;
     min-height: 100%;
     margin: 1rem 1rem 1rem 0; }
-  .catalog .products {
+  .catalog .product-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 1rem 0 3rem 1rem;
     width: 1180px; }
-    .catalog .products .product {
+    .catalog .product-list-item {
       position: relative;
       width: 250px;
       height: 400px;
       margin: auto; }
-      .catalog .products .product img {
+      .catalog .product-list-item img {
         width: 100%;
         height: 250px;
         object-fit: cover;
         margin-bottom: 0.5rem; }
-      .catalog .products .product .new {
+      .catalog .product-list-item .new {
         cursor: default;
         font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         font-weight: 300;
@@ -141,7 +197,7 @@ a {
         top: 15px;
         left: 15px;
         padding: 0.25rem 0.55rem; }
-      .catalog .products .product .discount {
+      .catalog .product-list-item .discount {
         cursor: default;
         font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         font-weight: 300;
@@ -152,7 +208,7 @@ a {
         top: 15px;
         right: 15px;
         padding: 0.25rem 0.55rem; }
-      .catalog .products .product h1 {
+      .catalog .product-list-item h1 {
         cursor: pointer;
         color: #0a0a0a;
         font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
@@ -161,13 +217,127 @@ a {
         line-height: 1.7;
         margin-bottom: 0.5rem;
         transition: .3s ease; }
-      .catalog .products .product p {
+      .catalog .product-list-item p {
         color: #0a0a0a;
         cursor: pointer;
         transition: .3s ease; }
-      .catalog .products .product a:hover h1, .catalog .products .product a:hover p {
+      .catalog .product-list-item a:hover h1, .catalog .product-list-item a:hover p {
         opacity: .5;
         transition: .3s ease; }
+
+.product-show {
+  width: 1180px;
+  margin: auto; }
+  .product-show-item {
+    display: flex;
+    margin: 3rem 0; }
+    .product-show-item .gallery img {
+      width: 350px;
+      height: 400px;
+      object-fit: cover; }
+    .product-show-item .gallery .share {
+      display: flex;
+      align-items: center;
+      color: #a3a3a3;
+      margin-top: 0.4rem; }
+      .product-show-item .gallery .share h3 {
+        font-size: 1rem;
+        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+        font-weight: 400;
+        margin-right: 0.5rem; }
+      .product-show-item .gallery .share i {
+        cursor: pointer;
+        margin-left: 0.5rem;
+        font-size: 1.2rem;
+        transition: .3s; }
+        .product-show-item .gallery .share i:hover {
+          color: #ff600a;
+          transition: .3s; }
+      .product-show-item .gallery .share .tooltip .tooltiptext {
+        top: 20px; }
+    .product-show-item .details {
+      margin-left: 3rem; }
+      .product-show-item .details .name {
+        font-size: 1.8rem;
+        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: #33333d; }
+      .product-show-item .details .price {
+        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+        margin-top: 0.5rem;
+        font-weight: 500;
+        color: #ff600a; }
+      .product-show-item .details .container {
+        margin-top: 1.7rem;
+        margin-left: 0.6rem; }
+        .product-show-item .details .container .description h2 {
+          letter-spacing: 1px;
+          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+          font-weight: 500;
+          color: #626166; }
+        .product-show-item .details .container .description ul {
+          margin-top: 1rem; }
+          .product-show-item .details .container .description ul li {
+            margin-top: 0.5rem;
+            color: #a3a3a3; }
+        .product-show-item .details .container .size h2 {
+          margin-top: 2rem;
+          margin-bottom: 1.5rem;
+          letter-spacing: 1px;
+          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+          font-weight: 500;
+          font-size: 1.1rem;
+          text-transform: uppercase;
+          color: #626166; }
+        .product-show-item .details .container .size ul {
+          margin-bottom: 2rem; }
+          .product-show-item .details .container .size ul li {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+            text-align: center; }
+            .product-show-item .details .container .size ul li.selected {
+              border: 1px solid #ff600a;
+              background: rgba(255, 96, 10, 0.1); }
+        .product-show-item .details .container .quantity h2 {
+          margin-top: 2rem;
+          margin-bottom: 1.5rem;
+          letter-spacing: 1px;
+          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+          font-weight: 500;
+          font-size: 1.1rem;
+          text-transform: uppercase;
+          color: #626166; }
+          .product-show-item .details .container .quantity h2 p {
+            margin-left: 1.5rem;
+            display: inline;
+            font-size: 0.7rem; }
+        .product-show-item .details .container .quantity span {
+          margin: 0 1rem; }
+        .product-show-item .details .container .quantity .add-cart {
+          background: #33333d;
+          color: #fff; }
+        .product-show-item .details .container .quantity div {
+          display: inline;
+          position: relative; }
+          .product-show-item .details .container .quantity div i {
+            position: absolute;
+            top: 4px;
+            left: 55px;
+            font-size: 1.5rem;
+            color: #33333d;
+            z-index: 1; }
+          .product-show-item .details .container .quantity div .tooltip .tooltiptext {
+            bottom: 30px;
+            left: 10px; }
+          .product-show-item .details .container .quantity div .add-wishlist {
+            padding-left: 1.5rem;
+            background: transparent;
+            border-bottom: 4px solid #33333d; }
+            .product-show-item .details .container .quantity div .add-wishlist:hover {
+              background: #f4f4f4; }
 
 .footer {
   width: 100%;
@@ -178,7 +348,7 @@ a {
     text-align: center;
     font-size: 0.9rem;
     font-weight: 400;
-    color: #cacaca;
+    color: #d3d3d3;
     padding-bottom: 3rem; }
   .footer .container {
     display: flex;
@@ -192,7 +362,7 @@ a {
       font-size: 1.6rem;
       margin: 2.5rem 0 2rem; }
     .footer .container ul li {
-      color: #cacaca;
+      color: #d3d3d3;
       line-height: 2; }
     .footer .container .newsletter h1 {
       font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
@@ -204,14 +374,14 @@ a {
       width: 400px;
       height: 40px;
       padding-left: 0.5rem;
-      border: 1px solid #6a696e;
+      border: 1px solid #a3a3a3;
       background: transparent;
       color: #fff;
       margin-right: 1rem; }
       .footer .container .newsletter form input:focus {
         outline: 1px solid #fff; }
       .footer .container .newsletter form input::placeholder {
-        color: #cacaca; }
+        color: #d3d3d3; }
     .footer .container .newsletter form button {
       cursor: pointer;
       font-size: 0.7rem;
@@ -257,7 +427,8 @@ a {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  z-index: 99; }
   .intro-text .hide {
     background: #f4f4f4;
     overflow: hidden; }
@@ -279,10 +450,19 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  transform: translateY(100%); }
+  transform: translateY(100%);
+  z-index: 99; }
 
 @keyframes drawSVG {
   from {
     stroke-dashoffset: -100; }
   to {
     stroke-dashoffset: 0; } }
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0; }
+  to {
+    transform: translateY(0);
+    opacity: 1; } }

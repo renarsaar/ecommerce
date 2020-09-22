@@ -44,7 +44,7 @@ export default function Product({ product }) {
       <Link to={`/products/${_id}`}>
         <h1>{name}</h1>
         <p>
-          {price}
+          {discountPrice === price ? price : discountPrice}
           €
         </p>
       </Link>
