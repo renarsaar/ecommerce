@@ -2,16 +2,48 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../../actions';
 
-export default function ProductShow({ match }) {
+export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
   const { id } = match.params;
   const { loading, selectedProduct, error } = useSelector((state) => state.products);
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [copyLink, setCopyLink] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [dispatch]);
+
+  useEffect(() => {
+    const linkTimeOut = window.setTimeout(() => {
+      setCopyLink(false);
+    }, 4000)
+
+    return () => {
+      window.clearTimeout(linkTimeOut);
+    }
+  }, [copyLink])
+
+  // Copy link to clipboard
+  function handleShareLink() {
+    navigator.clipboard.writeText(location.pathname);
+    setCopyLink(true);
+  }
+
+  // Web Share API
+  async function handleWebShare(name) {
+    const shareData = {
+      title: name,
+      text: 'VRA Ecommerce',
+      url: location.pathname,
+    };
+
+    try {
+      await navigator.share(shareData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // Handle product quantity
   function handleQuantity(e) {
@@ -42,8 +74,11 @@ export default function ProductShow({ match }) {
             <i className="tooltip las la-question-circle">
               <span className="tooltiptext">Share this product via shareable link</span>
             </i>
-            <i className="mobile las la-share-alt-square" />
-            <i className="desktop las la-link" />
+            <i className="mobile las la-share-alt-square" onClick={() => handleWebShare(name)} />
+            <i className="desktop las la-link" onClick={handleShareLink} />
+            <div className={copyLink ? 'clipboard show' : 'clipboard'}>
+              <h4>Link copied to clipboard</h4>
+            </div>
           </div>
         </div>
         <div className="details">
