@@ -5,26 +5,39 @@ import Filter from './Filter';
 import ProductList from './products/ProductList';
 
 export default function Catalog() {
-  const { shop, fabric, journal, about } = useSelector((state) => state.menu);
+  const {
+    shop,
+    fabric,
+    journal,
+    about,
+  } = useSelector((state) => state.menu);
 
   return (
     <div className="catalog">
-      {shop && <>
-        <Filter />
-        <ProductList />
-      </>}
+      {shop && (
+        <>
+          <Filter />
+          <ProductList />
+        </>
+      )}
 
-      {fabric && <>
-        Fabric
-      </>}
+      {fabric && (
+        <>
+          Fabric
+        </>
+      )}
 
-      {journal && <>
-        Journal
-      </>}
+      {journal && (
+        <>
+          Journal
+        </>
+      )}
 
-      {about && <>
-        About
-      </>}
+      {about && (
+        <>
+          About
+        </>
+      )}
     </div>
   );
 }

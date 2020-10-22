@@ -32,6 +32,15 @@ a {
   text-decoration: none;
 }
 
+.orange {color: $orange;}
+.show {display: block;}
+.hide {display: none;}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: .4s ease;
+}
+
 %tooltip-shared {
   cursor: default;
   position: relative;
@@ -241,13 +250,69 @@ a {
   display: flex;
   margin: auto;
   width: $page-width;
+  margin: 1.5rem auto;
 
   // FILTER
   .filter {
-    background-color: $lighter;
-    width: 30%;
+    width: 350px;
     min-height: 100%;
     margin: 1rem 1rem 1rem 0;
+    
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 3px solid $lighter;
+      color: $dark-grey;
+
+      h4 {
+        text-transform: uppercase;
+        font-family: $H;
+        font-weight: 500;
+
+        &:last-child {
+          cursor: pointer;
+          color: $orange;
+        }
+      }
+    }
+      
+      h2 {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: $H;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        transition: .4s ease;
+  
+        &:hover, &:hover i {
+          color: $orange;
+          transition: .4s ease;
+        }
+      }
+
+      ul {
+        margin-left: 1rem;
+        margin-bottom: 2rem;
+  
+      li {
+        cursor: pointer;
+        font-family: $P;
+        font-weight: 600;
+        padding: 0.75rem 0;
+        text-transform: uppercase;
+        color: $dark-grey;
+        transition: .4s ease;
+
+        &:hover {
+          color: $orange;
+          transition: .4s ease;
+        }
+      }
+    }
   }
 
   // PRODUCTLIST
@@ -256,13 +321,14 @@ a {
     grid-template-columns: repeat(3, 1fr);
     margin: 1rem 0 3rem 1rem;
     width: $page-width;
+    min-height: 400px;
     
     // PRODUCT
     &-item {
       position: relative;
       width: 250px;
       height: 400px;
-      margin: auto;
+      margin: 0 auto;
 
       img {
         width: 100%;
@@ -308,13 +374,12 @@ a {
         transition: .3s ease;
 
       }
-
-      p {
-        color: $black;
-        cursor: pointer;
-        transition: .3s ease;
-
-      }
+  
+        p {
+          color: $black;
+          cursor: pointer;
+          transition: .3s ease;
+        }
 
       a:hover h1, a:hover p {
         opacity: .5;
@@ -464,6 +529,7 @@ a {
               text-align: center;
 
               &.selected {
+                color: $orange;
                 border: 1px solid $orange;
                 background: rgba($color: $orange, $alpha: 0.1);
               }

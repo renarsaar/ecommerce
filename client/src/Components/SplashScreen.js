@@ -26,5 +26,5 @@ export default function SplashScreen() {
       </div>
       <div className="slider" ref={slider} />
     </>
-  )
+  );
 }

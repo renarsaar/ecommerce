@@ -17,12 +17,12 @@ export default function ProductShow({ match, location }) {
   useEffect(() => {
     const linkTimeOut = window.setTimeout(() => {
       setCopyLink(false);
-    }, 4000)
+    }, 4000);
 
     return () => {
       window.clearTimeout(linkTimeOut);
-    }
-  }, [copyLink])
+    };
+  }, [copyLink]);
 
   // Copy link to clipboard
   function handleShareLink() {
@@ -40,8 +40,8 @@ export default function ProductShow({ match, location }) {
 
     try {
       await navigator.share(shareData);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -50,12 +50,12 @@ export default function ProductShow({ match, location }) {
     const { value } = e.target;
 
     if (value === 'increment') {
-      setQuantity(quantity + 1);
+      setQuantity((currQuantity) => currQuantity + 1);
       if (quantity >= selectedProduct.stock) setQuantity(selectedProduct.stock);
     }
 
     if (value === 'decrement') {
-      setQuantity(quantity - 1);
+      setQuantity((currQuantity) => currQuantity - 1);
       if (quantity <= 1) setQuantity(1);
     }
   }
@@ -110,7 +110,13 @@ export default function ProductShow({ match, location }) {
               </ul>
             </div>
             <div className="quantity">
-              <h2>Quantity<p>Stock: {stock}</p></h2>
+              <h2>
+                Quantity
+                <p>
+                  Stock:
+                  {stock}
+                </p>
+              </h2>
               <button type="button" value="decrement" className="increment" onClick={handleQuantity}>-</button>
               <span>{quantity}</span>
               <button type="button" value="increment" className="decrement" onClick={handleQuantity}>+</button>

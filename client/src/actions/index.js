@@ -9,20 +9,17 @@ import {
   SHOW_FABRIC,
   SHOW_JOURNAL,
   SHOW_ABOUT,
-  SORT_OLDEST,
-  SORT_NEWEST,
-  SORT_CHEAPEST,
-  SORT_EXPENSIVEST,
-  SORT_NAME,
-  SORT_DISCOUNT,
+  SET_FILTER_APPARELTERM,
+  SET_FILTER_BRANDTERM,
+  RESET_FILTERS,
 } from './types';
-import products from '../api/products';
+import product from '../api/product';
 
 // Fetch all products
 export const fetchProducts = () => async (dispatch) => {
   dispatch({ type: LOADING });
 
-  products.get('/products')
+  product.get('/products')
     .then((response) => dispatch({ type: FETCH_PRODUCTS, payload: response.data }))
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };
@@ -31,7 +28,7 @@ export const fetchProducts = () => async (dispatch) => {
 export const fetchProduct = (id) => async (dispatch) => {
   dispatch({ type: LOADING });
 
-  products.get(`/products/${id}`)
+  product.get(`/products/${id}`)
     .then((response) => dispatch({ type: FETCH_PRODUCT, payload: response.data }))
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };
@@ -58,9 +55,9 @@ export const showJournal = () => ({ type: SHOW_JOURNAL });
 export const showAbout = () => ({ type: SHOW_ABOUT });
 
 // Handle products sorting
-export const sortOldest = () => ({ type: SORT_OLDEST });
-export const sortNewest = () => ({ type: SORT_NEWEST });
-export const sortCheapest = () => ({ type: SORT_CHEAPEST });
-export const sortExpensivest = () => ({ type: SORT_EXPENSIVEST });
-export const sortName = () => ({ type: SORT_NAME });
-export const sortDiscount = () => ({ type: SORT_DISCOUNT });
+export const sortProducts = (value, products) => ({ type: value, products });
+
+// Handle products filtering
+export const setFilterApparelTerm = (apparelTerm, products) => ({ type: SET_FILTER_APPARELTERM, apparelTerm, products });
+export const setFilterBrandTerm = (brandTerm, products) => ({ type: SET_FILTER_BRANDTERM, brandTerm, products });
+export const resetFilters = () => ({ type: RESET_FILTERS });

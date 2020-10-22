@@ -9,48 +9,44 @@ const INITIAL_STATE = {
   shop: true,
   fabric: false,
   journal: false,
-  about: false
+  about: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SHOW_SHOP:
       return {
-        ...state,
         shop: true,
         fabric: false,
         journal: false,
-        about: false
+        about: false,
       };
 
     case SHOW_FABRIC:
       return {
-        ...state,
         shop: false,
         fabric: true,
         journal: false,
-        about: false
+        about: false,
       };
 
     case SHOW_JOURNAL:
       return {
-        ...state,
         shop: false,
         fabric: false,
         journal: true,
-        about: false
+        about: false,
       };
 
     case SHOW_ABOUT:
       return {
-        ...state,
         shop: false,
         fabric: false,
         journal: false,
-        about: true
+        about: true,
       };
 
     default:
       return state;
   }
-}
+};
