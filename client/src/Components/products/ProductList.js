@@ -29,7 +29,41 @@ export default function Catalog() {
 
   return (
     <div className="product-list">
-      {loading && <div>Loading</div>}
+      {loading
+        && (
+          <>
+            <div className="product-list-item">
+              <div className="img placeholder" />
+              <div className="heading placeholder" />
+              <div className="heading placeholder" />
+            </div>
+            <div className="product-list-item">
+              <div className="img placeholder" />
+              <div className="heading placeholder" />
+              <div className="heading placeholder" />
+            </div>
+            <div className="product-list-item">
+              <div className="img placeholder" />
+              <div className="heading placeholder" />
+              <div className="heading placeholder" />
+            </div>
+            <div className="product-list-item">
+              <div className="img placeholder" />
+              <div className="heading placeholder" />
+              <div className="heading placeholder" />
+            </div>
+            <div className="product-list-item">
+              <div className="img placeholder" />
+              <div className="heading placeholder" />
+              <div className="heading placeholder" />
+            </div>
+            <div className="product-list-item">
+              <div className="img placeholder" />
+              <div className="heading placeholder" />
+              <div className="heading placeholder" />
+            </div>
+          </>
+        )}
       {products && renderProducts()}
       {error && <div>error</div>}
     </div>

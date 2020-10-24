@@ -40,7 +40,7 @@ export default function SubHeader() {
     <div className="subheader">
       <div className="container">
         {handleBreadcrumb()}
-        <div className="sort">
+        <div className={selectedProduct ? 'hide' : 'sort show'}>
           Sort by
           <select onChange={handleChange} defaultValue={sortValue}>
             <option value="SORT_OLDEST" />

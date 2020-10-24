@@ -28,6 +28,10 @@ a {
   transform: rotate(180deg);
   transition: .4s ease; }
 
+.placeholder {
+  background-image: linear-gradient(90deg, #e4e4e4 0%, #f1f1f1 40%, #ededed 60%, #e4e4e4 100%);
+  animation: 5s infinite placeholder-animate ease-in-out; }
+
 .product-show-item .gallery .share .tooltip, .product-show-item .details .container .quantity div .tooltip {
   cursor: default;
   position: relative;
@@ -235,7 +239,7 @@ a {
       width: 250px;
       height: 400px;
       margin: 0 auto; }
-      .catalog .product-list-item img {
+      .catalog .product-list-item img, .catalog .product-list-item .img {
         width: 100%;
         height: 250px;
         object-fit: cover;
@@ -262,7 +266,7 @@ a {
         top: 15px;
         right: 15px;
         padding: 0.25rem 0.55rem; }
-      .catalog .product-list-item h1 {
+      .catalog .product-list-item h1, .catalog .product-list-item .heading {
         cursor: pointer;
         color: #0a0a0a;
         font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
@@ -271,6 +275,9 @@ a {
         line-height: 1.7;
         margin-bottom: 0.5rem;
         transition: .3s ease; }
+        .catalog .product-list-item h1.placeholder, .catalog .product-list-item .heading.placeholder {
+          width: 100%;
+          height: 30px; }
       .catalog .product-list-item p {
         color: #0a0a0a;
         cursor: pointer;
@@ -285,7 +292,7 @@ a {
   .product-show-item {
     display: flex;
     margin: 3rem 0; }
-    .product-show-item .gallery img {
+    .product-show-item .gallery img, .product-show-item .gallery .img {
       width: 350px;
       height: 400px;
       object-fit: cover; }
@@ -335,11 +342,17 @@ a {
         font-weight: 500;
         letter-spacing: 1px;
         color: #33333d; }
+        .product-show-item .details .name.placeholder {
+          width: 600px;
+          height: 30px; }
       .product-show-item .details .price {
         font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         margin-top: 0.5rem;
         font-weight: 500;
         color: #ff600a; }
+        .product-show-item .details .price.placeholder {
+          width: 300px;
+          height: 30px; }
       .product-show-item .details .container {
         margin-top: 1.7rem;
         margin-left: 0.6rem; }
@@ -362,6 +375,10 @@ a {
           font-size: 1.1rem;
           text-transform: uppercase;
           color: #626166; }
+          .product-show-item .details .container .size h2.placeholder {
+            margin: 0.75rem 0;
+            width: 500px;
+            height: 50px; }
         .product-show-item .details .container .size ul {
           margin-bottom: 2rem; }
           .product-show-item .details .container .size ul li {
@@ -539,3 +556,11 @@ a {
   to {
     transform: translateY(0);
     opacity: 1; } }
+
+@keyframes placeholder-animate {
+  0% {
+    background-position: 0 0; }
+  50% {
+    background-position: 1000px 0; }
+  100% {
+    background-position: 0 0; } }

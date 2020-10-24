@@ -60,6 +60,31 @@ export default function ProductShow({ match, location }) {
     }
   }
 
+  function renderPlaceHolder() {
+    return (
+      <div className="product-show-item">
+        <div className="gallery">
+          <div className="img placeholder" />
+        </div>
+
+        <div className="details">
+          <h1 className="name placeholder" />
+          <h2 className="price placeholder" />
+
+          <div className="container">
+            <div className="size">
+              <h2 className="placeholder" />
+              <h2 className="placeholder" />
+              <h2 className="placeholder" />
+              <h2 className="placeholder" />
+              <h2 className="placeholder" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function renderProduct() {
     const {
       description, discountPrice, image, name, price, sizes, stock,
@@ -81,6 +106,7 @@ export default function ProductShow({ match, location }) {
             </div>
           </div>
         </div>
+
         <div className="details">
           <h1 className="name">{name}</h1>
           <h2 className="price">
@@ -136,7 +162,7 @@ export default function ProductShow({ match, location }) {
 
   return (
     <div className="product-show">
-      {loading && <div>Loading</div>}
+      {loading && <div>{renderPlaceHolder()}</div>}
       {selectedProduct && <>{renderProduct()}</>}
       {error && <div>error</div>}
     </div>

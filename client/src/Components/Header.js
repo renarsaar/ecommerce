@@ -7,7 +7,10 @@ export default function Header() {
   const { shop, fabric, journal, about } = useSelector((state) => state.menu);
 
   // Handle menu
-  const handleShop = () => dispatch(showShop());
+  const handleShop = (e) => {
+    console.log(e.target.value)
+    dispatch(showShop());
+  };
   const handleFabric = () => dispatch(showFabric());
   const handleJournal = () => dispatch(showJournal());
   const handleAbout = () => dispatch(showAbout());
@@ -21,7 +24,7 @@ export default function Header() {
             <path d="M1.01001 26.0827C15.8466 31.3683 24.1649 34.3317 39.0015 39.6173L39.01 28.063C24.1734 22.777 15.8552 19.8133 1.01858 14.5273M1.01001 26.0827L1.01858 14.5273M1.01001 26.0827C15.8533 20.822 24.1753 17.8725 39.0185 12.6117C39.0219 8.08807 39.0238 5.55183 39.0271 1.02817C24.1838 6.29992 15.8618 9.25558 1.01858 14.5273" />
           </svg>
         </a>
-        <li className={shop ? 'item active' : 'item'} onClick={handleShop}>
+        <li className={shop ? 'item active' : 'item'} onClick={handleShop} value={'asdasd'}>
           Shop
         </li>
         <li className={fabric ? 'item active' : 'item'} onClick={handleFabric}>
