@@ -56,7 +56,7 @@ a {
     z-index: 1;
     transition: .3s ease; }
 
-.product-show-item .details .container .size ul li, .product-show-item .details .container .quantity .increment, .product-show-item .details .container .quantity .decrement {
+.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .quantity .increment, .product-show-item .details .container .quantity .decrement {
   cursor: pointer;
   background: #f4f4f4;
   color: #626166;
@@ -64,7 +64,7 @@ a {
   height: 50px;
   border: 1px solid #d3d3d3;
   transition: .3s ease; }
-  .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .quantity .increment:hover, .product-show-item .details .container .quantity .decrement:hover {
+  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .quantity .increment:hover, .product-show-item .details .container .quantity .decrement:hover {
     background: #d3d3d3;
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
@@ -185,7 +185,7 @@ a {
   width: 1180px;
   margin: 1.5rem auto; }
   .catalog .filter {
-    width: 350px;
+    width: 300px;
     min-height: 100%;
     margin: 1rem 1rem 1rem 0; }
     .catalog .filter .heading {
@@ -228,63 +228,79 @@ a {
         .catalog .filter ul li:hover {
           color: #ff600a;
           transition: .4s ease; }
-  .catalog .product-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 1rem 0 3rem 1rem;
-    width: 1180px;
-    min-height: 400px; }
-    .catalog .product-list-item {
-      position: relative;
-      width: 250px;
-      height: 400px;
-      margin: 0 auto; }
-      .catalog .product-list-item img, .catalog .product-list-item .img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        margin-bottom: 0.5rem; }
-      .catalog .product-list-item .new {
-        cursor: default;
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-        font-weight: 300;
-        background: #ff600a;
-        color: #fff;
-        text-transform: uppercase;
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        padding: 0.25rem 0.55rem; }
-      .catalog .product-list-item .discount {
-        cursor: default;
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-        font-weight: 300;
-        background: #ff600a;
-        color: #fff;
-        text-transform: uppercase;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        padding: 0.25rem 0.55rem; }
-      .catalog .product-list-item h1, .catalog .product-list-item .heading {
-        cursor: pointer;
-        color: #0a0a0a;
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-        font-weight: 500;
-        font-size: 1.15rem;
-        line-height: 1.7;
-        margin-bottom: 0.5rem;
-        transition: .3s ease; }
-        .catalog .product-list-item h1.placeholder, .catalog .product-list-item .heading.placeholder {
+  .catalog .product-list-container {
+    width: 1180px; }
+    .catalog .product-list-container .product-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 1rem 0 1rem 1rem;
+      width: 100%;
+      min-height: 400px; }
+      .catalog .product-list-container .product-list-item {
+        position: relative;
+        width: 250px;
+        height: 400px;
+        margin: 0 auto; }
+        .catalog .product-list-container .product-list-item img, .catalog .product-list-container .product-list-item .img {
           width: 100%;
-          height: 30px; }
-      .catalog .product-list-item p {
-        color: #0a0a0a;
-        cursor: pointer;
-        transition: .3s ease; }
-      .catalog .product-list-item a:hover h1, .catalog .product-list-item a:hover p {
-        opacity: .5;
-        transition: .3s ease; }
+          height: 250px;
+          object-fit: cover;
+          margin-bottom: 0.5rem; }
+        .catalog .product-list-container .product-list-item .new {
+          cursor: default;
+          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+          font-weight: 300;
+          background: #ff600a;
+          color: #fff;
+          text-transform: uppercase;
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          padding: 0.25rem 0.55rem; }
+        .catalog .product-list-container .product-list-item .discount {
+          cursor: default;
+          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+          font-weight: 300;
+          background: #ff600a;
+          color: #fff;
+          text-transform: uppercase;
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          padding: 0.25rem 0.55rem; }
+        .catalog .product-list-container .product-list-item h1, .catalog .product-list-container .product-list-item .heading {
+          cursor: pointer;
+          color: #0a0a0a;
+          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+          font-weight: 500;
+          font-size: 1.15rem;
+          line-height: 1.7;
+          margin-bottom: 0.5rem;
+          transition: .3s ease; }
+          .catalog .product-list-container .product-list-item h1.placeholder, .catalog .product-list-container .product-list-item .heading.placeholder {
+            width: 100%;
+            height: 30px; }
+        .catalog .product-list-container .product-list-item p {
+          color: #0a0a0a;
+          cursor: pointer;
+          transition: .3s ease; }
+        .catalog .product-list-container .product-list-item a:hover h1, .catalog .product-list-container .product-list-item a:hover p {
+          opacity: .5;
+          transition: .3s ease; }
+    .catalog .product-list-container .product-page-nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem; }
+      .catalog .product-list-container .product-page-nav .btn {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 1rem; }
+        .catalog .product-list-container .product-page-nav .btn.highlight {
+          border: 1px solid #ff600a;
+          background: rgba(255, 96, 10, 0.1); }
+          .catalog .product-list-container .product-page-nav .btn.highlight:hover {
+            background: rgba(255, 96, 10, 0.3); }
 
 .product-show {
   width: 1180px;

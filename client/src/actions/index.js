@@ -16,10 +16,15 @@ import {
 import product from '../api/product';
 
 // Fetch all products
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (page) => async (dispatch) => {
   dispatch({ type: LOADING });
 
-  product.get('/products')
+  product.get('/products', {
+    params: {
+      page,
+      limit: 6,
+    }
+  })
     .then((response) => dispatch({ type: FETCH_PRODUCTS, payload: response.data }))
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };

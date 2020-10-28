@@ -64,7 +64,7 @@ a {
     animation-duration: .5s;
     animation-iteration-count: 1;
   }
-  
+
   .tooltiptext {
     visibility: hidden;
     background: $dark-blue;
@@ -231,7 +231,7 @@ a {
     align-items: center;
     width: $page-width;
     padding: 1.3rem 0;
-  
+
     .breadcrumb {
       display: flex;
 
@@ -240,14 +240,14 @@ a {
         padding: 0.5rem;
       }
     }
-  
+
     .sort {
       select {
         color: $grey;
         padding: 0.4rem;
         margin-left: 0.5rem;
         text-transform: uppercase;
-        
+
         &:focus {
           outline: none;
         }
@@ -265,10 +265,10 @@ a {
 
   // FILTER
   .filter {
-    width: 350px;
+    width: 300px;
     min-height: 100%;
     margin: 1rem 1rem 1rem 0;
-    
+
     .heading {
       display: flex;
       justify-content: space-between;
@@ -288,7 +288,7 @@ a {
         }
       }
     }
-      
+
       h2 {
         cursor: pointer;
         display: flex;
@@ -298,7 +298,7 @@ a {
         font-weight: 500;
         margin-bottom: 1rem;
         transition: .4s ease;
-  
+
         &:hover, &:hover i {
           color: $orange;
           transition: .4s ease;
@@ -308,7 +308,7 @@ a {
       ul {
         margin-left: 1rem;
         margin-bottom: 2rem;
-  
+
       li {
         cursor: pointer;
         font-family: $P;
@@ -327,78 +327,106 @@ a {
   }
 
   // PRODUCTLIST
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 1rem 0 3rem 1rem;
+  .product-list-container {
     width: $page-width;
-    min-height: 400px;
-    
-    // PRODUCT
-    &-item {
-      position: relative;
-      width: 250px;
-      height: 400px;
-      margin: 0 auto;
 
-      img, .img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        margin-bottom: 0.5rem;
-      }
-
-      .new {
-        cursor: default;
-        font-family: $H;
-        font-weight: 300;
-        background: $orange;
-        color: $white;
-        text-transform: uppercase;
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        padding: 0.25rem 0.55rem;
-      }
-
-      .discount {
-        cursor: default;
-        font-family: $H;
-        font-weight: 300;
-        background: $orange;
-        color: $white;
-        text-transform: uppercase;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        padding: 0.25rem 0.55rem;
-      }
-
-      h1, .heading {
-        cursor: pointer;
-        color: $black;
-        font-family: $H;
-        font-weight: 500;
-        font-size: 1.15rem;
-        line-height: 1.7;
-        margin-bottom: 0.5rem;
-        transition: .3s ease;
-
-        &.placeholder {
-          width: 100%;
-          height: 30px;
-        }
-      }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 1rem 0 1rem 1rem;
+      width: 100%;
+      min-height: 400px;
   
-        p {
-          color: $black;
+      // PRODUCT
+      &-item {
+        position: relative;
+        width: 250px;
+        height: 400px;
+        margin: 0 auto;
+  
+        img, .img {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+          margin-bottom: 0.5rem;
+        }
+  
+        .new {
+          cursor: default;
+          font-family: $H;
+          font-weight: 300;
+          background: $orange;
+          color: $white;
+          text-transform: uppercase;
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          padding: 0.25rem 0.55rem;
+        }
+  
+        .discount {
+          cursor: default;
+          font-family: $H;
+          font-weight: 300;
+          background: $orange;
+          color: $white;
+          text-transform: uppercase;
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          padding: 0.25rem 0.55rem;
+        }
+  
+        h1, .heading {
           cursor: pointer;
+          color: $black;
+          font-family: $H;
+          font-weight: 500;
+          font-size: 1.15rem;
+          line-height: 1.7;
+          margin-bottom: 0.5rem;
+          transition: .3s ease;
+  
+          &.placeholder {
+            width: 100%;
+            height: 30px;
+          }
+        }
+  
+          p {
+            color: $black;
+            cursor: pointer;
+            transition: .3s ease;
+          }
+  
+        a:hover h1, a:hover p {
+          opacity: .5;
           transition: .3s ease;
         }
+      }
+    }
+  
+    // PRODUCTS PAGE NAV
+    .product-page-nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+  
+      .btn {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 1rem;
+        @extend %btn-shared;
 
-      a:hover h1, a:hover p {
-        opacity: .5;
-        transition: .3s ease;
+        &.highlight {
+          border: 1px solid $orange;
+          background: rgba($color: $orange, $alpha: 0.1);
+        
+          &:hover {
+            background: rgba($color: $orange, $alpha: 0.3);
+          } 
+        }
       }
     }
   }
@@ -425,7 +453,7 @@ a {
         align-items: center;
         color: $grey;
         margin-top: 0.4rem;
-        
+
         h3 {
           font-size: 1rem;
           font-family: $H;
@@ -438,11 +466,11 @@ a {
           margin-left: 0.5rem;
           font-size: 1.2rem;
           transition: .3s;
-          
+
           &:hover {
             color: $orange;
             transition: .3s;
-          }  
+          }
         }
 
         .tooltip {
@@ -614,13 +642,13 @@ a {
 
             .tooltip {
               @extend %tooltip-shared;
-              
+
               .tooltiptext {
                 bottom: 30px;
                 left: 10px;
               }
             }
-            
+
             .add-wishlist {
               padding-left: 1.5rem;
               @extend %btn-shared-large;
@@ -696,7 +724,7 @@ a {
           &:focus {
             outline: 1px solid $white;
           }
-          
+
           &::placeholder {
             color: $light-grey;
           }

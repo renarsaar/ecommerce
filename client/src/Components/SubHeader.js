@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortProducts } from '../actions';
 
 export default function SubHeader() {
   const dispatch = useDispatch();
-  const { products, selectedProduct } = useSelector((state) => state.products);
+  const { paginatedProducts, selectedProduct } = useSelector((state) => state.products);
   const { sortValue } = useSelector((state) => state.sort);
   const { filteredProducts } = useSelector((state) => state.filter);
+
+  // Sort products again on next/previous page click
+  useEffect(() => {
+    if (sortValue && !selectedProduct) {
+      if (filteredProducts) {
+        dispatch(sortProducts(sortValue, filteredProducts));
+      } else {
+        dispatch(sortProducts(sortValue, paginatedProducts));
+      }
+    }
+  }, [paginatedProducts]);
+
+  // Sort filtered products again on render
+  useEffect(() => {
+    if (filteredProducts && sortValue) {
+      dispatch(sortProducts(sortValue, filteredProducts));
+    }
+  }, [sortValue, filteredProducts]);
 
   // Display breadcrumb menu items
   function handleBreadcrumb() {
@@ -32,7 +50,7 @@ export default function SubHeader() {
     if (filteredProducts) {
       dispatch(sortProducts(value, filteredProducts));
     } else {
-      dispatch(sortProducts(value, products));
+      dispatch(sortProducts(value, paginatedProducts));
     }
   }
 

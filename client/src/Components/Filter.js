@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilterApparelTerm, setFilterBrandTerm, resetFilters } from '../actions';
+import { setFilterApparelTerm, setFilterBrandTerm, resetFilters, sortProducts } from '../actions';
 
 export default function Filter() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
+  const { products, paginatedProducts } = useSelector((state) => state.products);
   const { apparelTerm, brandTerm } = useSelector((state) => state.filter);
+  const { sortValue } = useSelector((state) => state.sort);
   const [showApparelsMenu, setShowApparelsMenu] = useState(true);
   const [showBrandsMenu, setShowBrandsMenu] = useState(false);
   const [apparelsList, setApparelsList] = useState([]);
@@ -43,13 +44,24 @@ export default function Filter() {
   // Reset filter terms
   function handleResetFilters() {
     dispatch(resetFilters());
+    if (sortValue) {
+      // Reset both filters and return sorted products
+      dispatch(sortProducts(sortValue, paginatedProducts));
+    }
   }
 
   // Handle click on appareal
   function handleClickApparel(category, products) {
     // Reset filtering if click on the same category
     if (apparelTerm === category) {
-      dispatch(setFilterApparelTerm('', products));
+      if (sortValue) {
+        // Reset filter and return sorted paginatedProducts
+        dispatch(setFilterApparelTerm('', products));
+        dispatch(sortProducts(sortValue, paginatedProducts));
+      } else {
+        // Reset Brand filter term
+        dispatch(setFilterApparelTerm('', products));
+      }
     } else {
       dispatch(setFilterApparelTerm(category, products));
     }
@@ -59,7 +71,14 @@ export default function Filter() {
   function handleCLickBrand(brand, products) {
     // Reset filtering if click on the same brand
     if (brandTerm === brand) {
-      dispatch(setFilterBrandTerm('', products));
+      if (sortValue) {
+        // Reset filters and return sorted paginatedProducts
+        dispatch(setFilterBrandTerm('', products));
+        dispatch(sortProducts(sortValue, paginatedProducts));
+      } else {
+        // Reset Apparel filter term
+        dispatch(setFilterBrandTerm('', products));
+      }
     } else {
       dispatch(setFilterBrandTerm(brand, products));
     }

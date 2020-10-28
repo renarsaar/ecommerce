@@ -5,6 +5,7 @@ import {
   SORT_EXPENSIVEST,
   SORT_NAME,
   SORT_DISCOUNT,
+  SORT_RESET,
 } from '../actions/types';
 
 export default (state = [], action) => {
@@ -30,7 +31,7 @@ export default (state = [], action) => {
     case SORT_CHEAPEST:
       return {
         ...state,
-        sortValue: 'SORT_CHEAPEST',
+        sortValue: SORT_CHEAPEST,
         sortedProducts: action.products.sort(
           (previous, current) => previous.discountPrice - current.discountPrice,
         ),
@@ -39,7 +40,7 @@ export default (state = [], action) => {
     case SORT_EXPENSIVEST:
       return {
         ...state,
-        sortValue: 'SORT_EXPENSIVEST',
+        sortValue: SORT_EXPENSIVEST,
         sortedProducts: action.products.sort(
           (previous, current) => current.discountPrice - previous.discountPrice,
         ),
@@ -48,7 +49,7 @@ export default (state = [], action) => {
     case SORT_NAME:
       return {
         ...state,
-        sortValue: 'SORT_NAME',
+        sortValue: SORT_NAME,
         sortedProducts: action.products.sort(
           (previous, current) => previous.name.localeCompare(current.name),
         ),
@@ -57,7 +58,7 @@ export default (state = [], action) => {
     case SORT_DISCOUNT:
       return {
         ...state,
-        sortValue: 'SORT_DISCOUNT',
+        sortValue: SORT_DISCOUNT,
         sortedProducts: action.products.sort((previous, current) => {
           const currentDiscount = current.price - current.discountPrice;
           const previousDiscount = previous.price - previous.discountPrice;

@@ -38,12 +38,7 @@ export default (state = [], action) => {
       return { ...state, brandTerm: action.brandTerm, filteredProducts };
 
     case RESET_FILTERS:
-      return {
-        ...state,
-        apparelTerm: '',
-        brandTerm: '',
-        filteredProducts: undefined,
-      };
+      return { state: [] };
 
     default:
       return state;
