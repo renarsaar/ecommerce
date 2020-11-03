@@ -7,7 +7,7 @@ import Product from './Product';
 export default function Catalog() {
   const dispatch = useDispatch();
   const {
-    loading, products, next, previous, paginatedProducts, error,
+    loading, next, previous, paginatedProducts, error,
   } = useSelector((state) => state.products);
   const { sortedProducts } = useSelector((state) => state.sort);
   const { filteredProducts } = useSelector((state) => state.filter);
@@ -31,15 +31,9 @@ export default function Catalog() {
 
   function handleClickPreviousPage(previousPage) {
     dispatch(fetchProducts(previousPage));
-
-    if (sortedProducts) {
-    }
   }
   function handleClickNextPage(nextPage) {
     dispatch(fetchProducts(nextPage));
-
-    if (sortedProducts) {
-    }
   }
 
   function handlePreviousNextPage() {
@@ -49,7 +43,7 @@ export default function Catalog() {
     if (previous) currentPage = previous.page + 1;
 
     return (
-      <div className={filteredProducts ? "hide" : "product-page-nav"}>
+      <div className={filteredProducts ? 'hide' : 'product-page-nav'}>
         {previous && (
           <div className="btn" onClick={() => handleClickPreviousPage(previous.page)}>{previous.page}</div>
         )}

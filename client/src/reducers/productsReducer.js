@@ -14,7 +14,6 @@ export default (state = [], action) => {
       return {
         ...state,
         loading: true,
-        products: [],
         paginatedProducts: [],
       };
 
@@ -24,7 +23,6 @@ export default (state = [], action) => {
         loading: false,
         error: action.payload,
         products: [],
-        selectedProduct: [],
         paginatedProducts: [],
         next: null,
         previous: null,
@@ -34,7 +32,7 @@ export default (state = [], action) => {
       return {
         ...state,
         loading: false,
-        selectedProduct: null,
+        error: false,
         products: action.payload.results,
         paginatedProducts: action.payload.paginatedResults,
         next: action.payload.next,
@@ -42,7 +40,12 @@ export default (state = [], action) => {
       };
 
     case FETCH_PRODUCT:
-      return { loading: false, selectedProduct: action.payload };
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        selectedProduct: action.payload
+      };
 
     // case EDIT_PRODUCT:
     //   return { ...state, [action.payload.id]: action.payload };

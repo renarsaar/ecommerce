@@ -1,19 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { showShop, showFabric, showJournal, showAbout } from '../actions';
+import { fetchProducts, showShop, showFabric, showJournal, showAbout } from '../actions';
+
+import CartModal from './CartModal';
+import WishListModal from './WishListModal';
 
 export default function Header() {
   const dispatch = useDispatch();
   const { shop, fabric, journal, about } = useSelector((state) => state.menu);
+  const { products } = useSelector((state) => state.products);
+  const [showCart, setShowCart] = useState(false);
+  const [showWishList, setShowWishList] = useState(false);
+
+  // Load products if link directly to ProductShow
+  useEffect(() => {
+    if (!products) {
+      dispatch(fetchProducts());
+    }
+  }, [products]);
 
   // Handle menu
-  const handleShop = (e) => {
-    console.log(e.target.value)
-    dispatch(showShop());
-  };
+  const handleShop = () => dispatch(showShop());
   const handleFabric = () => dispatch(showFabric());
   const handleJournal = () => dispatch(showJournal());
   const handleAbout = () => dispatch(showAbout());
+
+  // Handle show shopping cart
+  function handleCart() {
+    if (showWishList) {
+      setShowWishList(false)
+    }
+
+    setShowCart(!showCart);
+  }
+
+  // Handle show wishlist
+  function handleWishlist() {
+    if (showCart) {
+      setShowCart(false);
+    }
+
+    setShowWishList(!showWishList);
+  }
 
   return (
     <div className="header">
@@ -24,7 +52,7 @@ export default function Header() {
             <path d="M1.01001 26.0827C15.8466 31.3683 24.1649 34.3317 39.0015 39.6173L39.01 28.063C24.1734 22.777 15.8552 19.8133 1.01858 14.5273M1.01001 26.0827L1.01858 14.5273M1.01001 26.0827C15.8533 20.822 24.1753 17.8725 39.0185 12.6117C39.0219 8.08807 39.0238 5.55183 39.0271 1.02817C24.1838 6.29992 15.8618 9.25558 1.01858 14.5273" />
           </svg>
         </a>
-        <li className={shop ? 'item active' : 'item'} onClick={handleShop} value={'asdasd'}>
+        <li className={shop ? 'item active' : 'item'} onClick={handleShop}>
           Shop
         </li>
         <li className={fabric ? 'item active' : 'item'} onClick={handleFabric}>
@@ -46,8 +74,19 @@ export default function Header() {
           <i className="lar la-user-circle" />
         </span>
         <i className="las la-search" />
-        <i className="lar la-heart" />
-        <i className="las la-shopping-bag" />
+        <i
+          className={showWishList ? 'lar la-heart orange' : 'lar la-heart'}
+          onClick={handleWishlist}
+        />
+        <WishListModal
+          products={products}
+          showWishList={showWishList}
+        />
+        <i
+          className={showCart ? 'las la-shopping-bag orange' : 'las la-shopping-bag'}
+          onClick={handleCart}
+        />
+        <CartModal showCart={showCart} />
       </div>
     </div>
   );

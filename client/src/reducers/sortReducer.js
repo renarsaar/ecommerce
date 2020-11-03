@@ -5,7 +5,6 @@ import {
   SORT_EXPENSIVEST,
   SORT_NAME,
   SORT_DISCOUNT,
-  SORT_RESET,
 } from '../actions/types';
 
 export default (state = [], action) => {

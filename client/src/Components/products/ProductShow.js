@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../../actions';
+import { fetchProduct, addWishlist, addCart } from '../../actions';
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
@@ -10,10 +10,19 @@ export default function ProductShow({ match, location }) {
   const [quantity, setQuantity] = useState(1);
   const [copyLink, setCopyLink] = useState(false);
 
+  // Fetch single product
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [dispatch]);
 
+  // Set default size
+  useEffect(() => {
+    if (selectedProduct) {
+      setSize(selectedProduct.sizes[0]);
+    }
+  }, [selectedProduct]);
+
+  // Clear clipboard link timeout
   useEffect(() => {
     const linkTimeOut = window.setTimeout(() => {
       setCopyLink(false);
@@ -60,6 +69,30 @@ export default function ProductShow({ match, location }) {
     }
   }
 
+  // Add product to wishlist
+  function handlewishList() {
+    dispatch(addWishlist(selectedProduct._id));
+  }
+
+  // Add product to shopping cart
+  function handleCart() {
+    const product = {
+      id: selectedProduct._id,
+      key: `${selectedProduct._id}-${size}`,
+      name: selectedProduct.name,
+      image: selectedProduct.image,
+      productPrice: selectedProduct.discountPrice,
+      totalPrice: selectedProduct.discountPrice * quantity,
+      stock: selectedProduct.stock,
+      quantity,
+      size,
+    };
+
+    dispatch(addCart(product));
+  }
+
+
+  // Placeholder for product
   function renderPlaceHolder() {
     return (
       <div className="product-show-item">
@@ -146,12 +179,12 @@ export default function ProductShow({ match, location }) {
               <button type="button" value="decrement" className="increment" onClick={handleQuantity}>-</button>
               <span>{quantity}</span>
               <button type="button" value="increment" className="decrement" onClick={handleQuantity}>+</button>
-              <button type="button" className="btn add-cart">Add to cart</button>
+              <button type="button" className="btn add-cart" onClick={handleCart}>Add to cart</button>
               <div>
                 <i className="tooltip las la-question-circle">
                   <span className="tooltiptext">All the products in wishlist can be accessed via heart icon</span>
                 </i>
-                <button type="button" className="btn add-wishlist">Add to wishlist</button>
+                <button type="button" className="btn add-wishlist" onClick={handlewishList}>Add to wishlist</button>
               </div>
             </div>
           </div>

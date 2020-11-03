@@ -35,6 +35,8 @@ a {
 .orange {color: $orange;}
 .show {display: block;}
 .hide {display: none;}
+.hidden {visibility: hidden;}
+.visible {visibility: visible;}
 
 .rotate {
   transform: rotate(180deg);
@@ -191,6 +193,7 @@ a {
   }
 
   &-actions {
+    position: relative;
     display: flex;
     align-items: center;
 
@@ -829,6 +832,99 @@ a {
   height: 100%;
   transform: translateY(100%);
   z-index: 99;
+}
+
+%modal-shared {
+  overflow-y: scroll;
+  position: absolute;
+  background: $white;
+  width: 400px;
+  height: 85%;
+  box-shadow: 4px 4px 30px 5px rgba($color: $light-grey, $alpha: 0.7);
+  top: 75px;
+  right: 0;
+}
+
+// MODALS
+.wishlist-modal, .cart-modal {
+  @extend %modal-shared;
+
+  .modal-main {
+    padding: 1rem;
+    
+    h2 {
+      font-family: $H;
+      margin-bottom: 1rem;
+    }
+
+    .modal-items {
+      li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid $light-grey;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .cart-product, .wishlist-product {
+          display: flex;
+          justify-content: space-between;
+          margin-right: 1.5rem;
+
+          img {
+            margin-right: 1rem;
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+          } 
+          
+          .info {
+            display: block;
+
+            h1 {
+              font-family: $H;
+              font-size: 1rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+    
+            div {
+              display: flex;
+              justify-content: space-between;
+            }
+          }
+
+        }
+
+        div {
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          i {
+            padding: 0.3rem;
+            font-size: 1.75rem;
+            transition: .4s ease;
+
+              &:hover {
+                color: $orange;
+                transition: .4s ease;
+              }
+          }
+        }
+      }
+
+    }
+
+    .price-total {
+      font-family: $H;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 // LOGO SVG

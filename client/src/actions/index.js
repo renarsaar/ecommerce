@@ -5,6 +5,13 @@ import {
   DELETE_PRODUCT,
   LOADING,
   ERROR,
+  ADD_WISHLIST,
+  REMOVE_WISHLIST,
+  CLEAR_WISHLIST,
+  ADD_CART,
+  ADD_CART_QUANTITY,
+  REMOVE_CART,
+  CLEAR_CART,
   SHOW_SHOP,
   SHOW_FABRIC,
   SHOW_JOURNAL,
@@ -52,6 +59,16 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const createProduct = (id) => async (dispatch) => {
 
 };
+
+// Handle Wishlist
+export const addWishlist = (productID) => ({ type: ADD_WISHLIST, productID });
+export const removeWishlist = (id) => ({ type: REMOVE_WISHLIST, id });
+export const clearWishlist = () => ({ type: CLEAR_WISHLIST });
+
+// Handle shopping cart
+export const addCart = (product) => ({ type: ADD_CART, product });
+export const removeCart = (index, productPrice) => ({ type: REMOVE_CART, index, productPrice });
+export const clearCart = () => ({ type: CLEAR_CART });
 
 // Set menu navigation
 export const showShop = () => ({ type: SHOW_SHOP });
