@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { Router } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
+import createBrowserHistory from './history';
+
 
 import App from './Components/App';
 import reducers from './reducers';
@@ -17,7 +20,9 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <Router history={createBrowserHistory}>
+        <App />
+      </Router>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root'),

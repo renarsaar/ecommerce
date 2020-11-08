@@ -9,6 +9,9 @@ body {
   min-height: 100vh;
   margin: auto; }
 
+h1, h2, h3, h4, h5, h6, button {
+  font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif; }
+
 li {
   list-style: none; }
 
@@ -75,7 +78,7 @@ a {
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
 
-.product-show-item .details .container .quantity .add-cart, .product-show-item .details .container .quantity div .add-wishlist {
+.product-show-item .details .container .quantity .add-cart, .product-show-item .details .container .quantity div .add-wishlist, .footer .container .newsletter form button {
   cursor: pointer;
   margin-left: 1.5rem;
   text-transform: uppercase;
@@ -87,10 +90,10 @@ a {
   height: 50px;
   border: 0;
   transition: .3s ease; }
-  .product-show-item .details .container .quantity .add-cart:focus, .product-show-item .details .container .quantity div .add-wishlist:focus {
+  .product-show-item .details .container .quantity .add-cart:focus, .product-show-item .details .container .quantity div .add-wishlist:focus, .footer .container .newsletter form button:focus {
     outline: none;
     transition: .3s ease; }
-  .product-show-item .details .container .quantity .add-cart:hover, .product-show-item .details .container .quantity div .add-wishlist:hover {
+  .product-show-item .details .container .quantity .add-cart:hover, .product-show-item .details .container .quantity div .add-wishlist:hover, .footer .container .newsletter form button:hover {
     opacity: .8;
     transition: .3s ease; }
 
@@ -102,7 +105,6 @@ a {
   margin: auto;
   padding: 1.3rem 0; }
   .header h1 {
-    font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
     color: #0a0a0a; }
   .header-navbar {
     display: flex; }
@@ -126,11 +128,9 @@ a {
       position: relative;
       margin: auto 1rem;
       font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-      font-weight: 500;
-      transition: .3s ease; }
+      font-weight: 500; }
       .header-navbar .item:hover {
-        color: #ff600a;
-        transition: .3s ease; }
+        color: #ff600a; }
       .header-navbar .item.active {
         color: #ff600a; }
       .header-navbar .item.active::before {
@@ -148,18 +148,20 @@ a {
     display: flex;
     align-items: center; }
     .header-actions span {
+      cursor: pointer;
       display: flex;
-      align-items: center;
-      font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-      font-weight: 500; }
+      align-items: center; }
+      .header-actions span h1 {
+        font-weight: 500;
+        font-size: 1rem; }
+      .header-actions span:hover h1, .header-actions span:hover i {
+        color: #ff600a; }
     .header-actions i {
       cursor: pointer;
       margin: 0 1.1rem;
-      font-size: 1.5rem;
-      transition: .3s ease; }
+      font-size: 1.5rem; }
       .header-actions i:hover {
-        color: #ff600a;
-        transition: .3s ease; }
+        color: #ff600a; }
       .header-actions i:nth-child(4) {
         margin-right: 0; }
 
@@ -204,7 +206,6 @@ a {
       color: #626166; }
       .catalog .filter .heading h4 {
         text-transform: uppercase;
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         font-weight: 500; }
         .catalog .filter .heading h4:last-child {
           cursor: pointer;
@@ -214,7 +215,6 @@ a {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
       font-weight: 500;
       margin-bottom: 1rem;
       transition: .4s ease; }
@@ -226,7 +226,6 @@ a {
       margin-bottom: 2rem; }
       .catalog .filter ul li {
         cursor: pointer;
-        font-family: "Open Sans", Arial, sans-serif;
         font-weight: 600;
         padding: 0.75rem 0;
         text-transform: uppercase;
@@ -278,7 +277,6 @@ a {
         .catalog .product-list-container .product-list-item h1, .catalog .product-list-container .product-list-item .heading {
           cursor: pointer;
           color: #0a0a0a;
-          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
           font-weight: 500;
           font-size: 1.15rem;
           line-height: 1.7;
@@ -326,7 +324,6 @@ a {
       margin-top: 0.4rem; }
       .product-show-item .gallery .share h3 {
         font-size: 1rem;
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         font-weight: 400;
         margin-right: 0.5rem; }
       .product-show-item .gallery .share i {
@@ -351,7 +348,6 @@ a {
         border-radius: 5px;
         transition: .4s ease; }
         .product-show-item .gallery .share .clipboard h4 {
-          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
           font-weight: 500; }
         .product-show-item .gallery .share .clipboard.show {
           opacity: 1;
@@ -361,7 +357,6 @@ a {
       margin-left: 3rem; }
       .product-show-item .details .name {
         font-size: 1.8rem;
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         font-weight: 500;
         letter-spacing: 1px;
         color: #33333d; }
@@ -369,7 +364,6 @@ a {
           width: 600px;
           height: 30px; }
       .product-show-item .details .price {
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
         margin-top: 0.5rem;
         font-weight: 500;
         color: #ff600a; }
@@ -381,7 +375,6 @@ a {
         margin-left: 0.6rem; }
         .product-show-item .details .container .description h2 {
           letter-spacing: 1px;
-          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
           font-weight: 500;
           color: #626166; }
         .product-show-item .details .container .description ul {
@@ -393,7 +386,6 @@ a {
           margin-top: 2rem;
           margin-bottom: 1.5rem;
           letter-spacing: 1px;
-          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
           font-weight: 500;
           font-size: 1.1rem;
           text-transform: uppercase;
@@ -418,7 +410,6 @@ a {
           margin-top: 2rem;
           margin-bottom: 1.5rem;
           letter-spacing: 1px;
-          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
           font-weight: 500;
           font-size: 1.1rem;
           text-transform: uppercase;
@@ -457,7 +448,6 @@ a {
   background: #33333d;
   color: #fff; }
   .footer .copyright {
-    font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
     text-align: center;
     font-size: 0.9rem;
     font-weight: 400;
@@ -470,7 +460,6 @@ a {
     margin: auto;
     margin-bottom: 3rem; }
     .footer .container ul h1 {
-      font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
       font-weight: 400;
       font-size: 1.6rem;
       margin: 2.5rem 0 2rem; }
@@ -478,7 +467,6 @@ a {
       color: #d3d3d3;
       line-height: 2; }
     .footer .container .newsletter h1 {
-      font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
       font-weight: 400;
       font-size: 1.6rem;
       margin: 2.5rem 0 2rem; }
@@ -489,26 +477,13 @@ a {
       padding-left: 0.5rem;
       border: 1px solid #a3a3a3;
       background: transparent;
-      color: #fff;
-      margin-right: 1rem; }
+      color: #fff; }
       .footer .container .newsletter form input:focus {
         outline: 1px solid #fff; }
       .footer .container .newsletter form input::placeholder {
         color: #d3d3d3; }
     .footer .container .newsletter form button {
-      cursor: pointer;
-      font-size: 0.7rem;
-      font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-      font-weight: 700;
-      color: #33333d;
-      background: #fff;
-      box-shadow: 0 0 0 1px #fff;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      height: 40px;
-      padding: 0 2rem;
-      border: none;
-      transition: .3s ease; }
+      height: 40px; }
       .footer .container .newsletter form button:hover {
         opacity: .7;
         transition: .3s ease; }
@@ -578,9 +553,14 @@ a {
 
 .wishlist-modal .modal-main, .cart-modal .modal-main {
   padding: 1rem; }
-  .wishlist-modal .modal-main h2, .cart-modal .modal-main h2 {
-    font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-    margin-bottom: 1rem; }
+  .wishlist-modal .modal-main .modal-header, .cart-modal .modal-main .modal-header {
+    display: flex;
+    justify-content: space-between; }
+    .wishlist-modal .modal-main .modal-header h2, .cart-modal .modal-main .modal-header h2 {
+      margin-bottom: 1rem; }
+    .wishlist-modal .modal-main .modal-header h3 i, .cart-modal .modal-main .modal-header h3 i {
+      padding-right: 0.5rem;
+      font-size: 1.5rem; }
   .wishlist-modal .modal-main .modal-items li, .cart-modal .modal-main .modal-items li {
     display: flex;
     justify-content: space-between;
@@ -601,7 +581,6 @@ a {
       .wishlist-modal .modal-main .modal-items li .cart-product .info, .wishlist-modal .modal-main .modal-items li .wishlist-product .info, .cart-modal .modal-main .modal-items li .cart-product .info, .cart-modal .modal-main .modal-items li .wishlist-product .info {
         display: block; }
         .wishlist-modal .modal-main .modal-items li .cart-product .info h1, .wishlist-modal .modal-main .modal-items li .wishlist-product .info h1, .cart-modal .modal-main .modal-items li .cart-product .info h1, .cart-modal .modal-main .modal-items li .wishlist-product .info h1 {
-          font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
           font-size: 1rem;
           margin-bottom: 0.75rem;
           font-weight: 600; }
@@ -615,14 +594,145 @@ a {
       align-items: center; }
       .wishlist-modal .modal-main .modal-items li div i, .cart-modal .modal-main .modal-items li div i {
         padding: 0.3rem;
-        font-size: 1.75rem;
-        transition: .4s ease; }
+        font-size: 1.75rem; }
         .wishlist-modal .modal-main .modal-items li div i:hover, .cart-modal .modal-main .modal-items li div i:hover {
-          color: #ff600a;
-          transition: .4s ease; }
+          color: #ff600a; }
   .wishlist-modal .modal-main .price-total, .cart-modal .modal-main .price-total {
-    font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+    font-weight: 600;
     font-size: 1.2rem; }
+
+.account-container {
+  display: flex;
+  height: 100vh; }
+  .account-container .login-container {
+    overflow-y: auto;
+    width: 400px;
+    padding: 1rem 1rem 1rem 2.5rem; }
+    .account-container .login-container .logo {
+      display: flex;
+      align-items: center; }
+      .account-container .login-container .logo h1 {
+        font-size: 1.4rem;
+        margin-left: 3rem;
+        font-weight: 600;
+        color: rgba(255, 96, 10, 0.8);
+        letter-spacing: 1px; }
+      .account-container .login-container .logo a svg {
+        fill: transparent;
+        stroke: #ff600a;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        width: 50px;
+        height: 100%;
+        transform: rotate(90deg); }
+    .account-container .login-container .headline {
+      font-size: 1.7rem;
+      letter-spacing: 0.6px;
+      line-height: 1.4;
+      color: #33333d;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem; }
+    .account-container .login-container button {
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      border: none;
+      background: #4285f4;
+      width: 100%;
+      height: 40px;
+      border-radius: 5px; }
+      .account-container .login-container button img {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 36px;
+        height: 36px;
+        border-radius: 5px;
+        padding: 0.3rem;
+        background: #fff; }
+      .account-container .login-container button h1 {
+        padding-left: 46px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        margin: auto; }
+      .account-container .login-container button:hover {
+        opacity: 0.9; }
+    .account-container .login-container span {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0; }
+      .account-container .login-container span::before, .account-container .login-container span::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        width: 45%;
+        height: 1.5px;
+        background: #d3d3d3; }
+      .account-container .login-container span::after {
+        left: 0; }
+      .account-container .login-container span::before {
+        right: 0; }
+    .account-container .login-container form {
+      display: flex;
+      flex-direction: column; }
+      .account-container .login-container form label {
+        margin-bottom: 0.3rem; }
+      .account-container .login-container form input {
+        margin-bottom: 1rem;
+        background: #f4f4f4;
+        border: 1px solid #33333d;
+        padding-left: 0.8rem;
+        height: 40px;
+        border-radius: 3px; }
+        .account-container .login-container form input[type=submit] {
+          font-size: 1rem;
+          cursor: pointer;
+          margin-top: 3rem; }
+          .account-container .login-container form input[type=submit]:hover {
+            background: #d3d3d3; }
+    .account-container .login-container h3 {
+      margin: 1rem 0;
+      font-size: 1rem;
+      font-weight: 600; }
+  .account-container .showcase {
+    position: relative;
+    width: calc(100vw - 400px); }
+    .account-container .showcase img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%; }
+    .account-container .showcase div {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: #626166;
+      opacity: 0.25; }
+    .account-container .showcase h2 {
+      background: rgba(51, 51, 61, 0.75);
+      padding: 1rem;
+      position: absolute;
+      color: #fff;
+      content: "";
+      bottom: 40px;
+      left: 30px; }
+      .account-container .showcase h2::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: -10px;
+        width: 40px;
+        height: 5px;
+        background: #fff;
+        z-index: 222;
+        transform: translate(-50%, -50%); }
+      .account-container .showcase h2 a {
+        color: #ff600a; }
 
 @keyframes drawSVG {
   from {

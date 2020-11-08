@@ -16,7 +16,7 @@ export default (state = [], action) => {
         state[index].quantity += action.product.quantity;
         state[index].totalPrice += action.product.totalPrice;
 
-        // If more products in cart than in stock 
+        // If more products in cart than in stock
         if (state[index].quantity >= action.product.stock) {
           state[index].quantity = action.product.stock;
           state[index].totalPrice = action.product.productPrice * action.product.stock;

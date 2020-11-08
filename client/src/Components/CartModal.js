@@ -30,6 +30,7 @@ export default function CartModal({ showCart }) {
     ));
   }
 
+  // Return cart total price
   function handleCartPrice() {
     const totalCartPrice = cartProducts.reduce((acc, cv) => acc + cv.totalPrice, 0);
 
@@ -39,14 +40,17 @@ export default function CartModal({ showCart }) {
   return ReactDOM.createPortal(
     <div className={modalClassName}>
       <div className="modal-main">
-        <h2>Shopping Cart</h2>
+        <div className="modal-header">
+          <h2>Shopping Cart</h2>
+        </div>
+
         <ul className="modal-items">
           {cartProducts && renderCartItems()}
         </ul>
 
-        <div className="price-total">
-          Total Price: {cartProducts.length >= 1 && handleCartPrice()} €
-        </div>
+        <h1 className="price-total">
+          {cartProducts.length >= 1 && `Total Price: ${handleCartPrice()} €`}
+        </h1>
       </div>
     </div>,
     document.getElementById('cart'),

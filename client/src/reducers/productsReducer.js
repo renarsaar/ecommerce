@@ -14,6 +14,7 @@ export default (state = [], action) => {
       return {
         ...state,
         loading: true,
+        selectedProduct: null,
         paginatedProducts: [],
       };
 

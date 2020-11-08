@@ -1,6 +1,14 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function Footer() {
+  const location = useLocation();
+
+  // Do not render on admin page
+  if (location.pathname === '/account/login') {
+    return <></>;
+  }
+
   return (
     <div className="footer">
       <div className="container">

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { fetchProducts, showShop, showFabric, showJournal, showAbout } from '../actions';
 
 import CartModal from './CartModal';
@@ -9,8 +11,10 @@ export default function Header() {
   const dispatch = useDispatch();
   const { shop, fabric, journal, about } = useSelector((state) => state.menu);
   const { products } = useSelector((state) => state.products);
+  // const { isSignedIn, userId } = useSelector((state) => state.auth);
   const [showCart, setShowCart] = useState(false);
   const [showWishList, setShowWishList] = useState(false);
+  const location = useLocation();
 
   // Load products if link directly to ProductShow
   useEffect(() => {
@@ -43,6 +47,11 @@ export default function Header() {
     setShowWishList(!showWishList);
   }
 
+  // Do not render on admin page
+  if (location.pathname === '/account/login') {
+    return <></>;
+  }
+
   return (
     <div className="header">
       <ul className="header-navbar">
@@ -67,21 +76,23 @@ export default function Header() {
       </ul>
 
       <div className="header-actions">
-        <span>
-          <p>
-            Account
-          </p>
-          <i className="lar la-user-circle" />
-        </span>
+        <Link to="/account/login" style={{ color: 'inherit' }}>
+          <span>
+            <h1>
+              Account
+            </h1>
+            <i className="lar la-user-circle" />
+          </span>
+        </Link>
+
         <i className="las la-search" />
+
         <i
           className={showWishList ? 'lar la-heart orange' : 'lar la-heart'}
           onClick={handleWishlist}
         />
-        <WishListModal
-          products={products}
-          showWishList={showWishList}
-        />
+        <WishListModal products={products} showWishList={showWishList} />
+
         <i
           className={showCart ? 'las la-shopping-bag orange' : 'las la-shopping-bag'}
           onClick={handleCart}

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { sortProducts } from '../actions';
 
 export default function SubHeader() {
@@ -7,6 +8,7 @@ export default function SubHeader() {
   const { paginatedProducts, selectedProduct } = useSelector((state) => state.products);
   const { sortValue } = useSelector((state) => state.sort);
   const { filteredProducts } = useSelector((state) => state.filter);
+  const location = useLocation();
 
   // Sort products again on next/previous page click
   useEffect(() => {
@@ -52,6 +54,11 @@ export default function SubHeader() {
     } else {
       dispatch(sortProducts(value, paginatedProducts));
     }
+  }
+
+  // Do not render on admin page
+  if (location.pathname === '/account/login') {
+    return <></>;
   }
 
   return (

@@ -5,6 +5,8 @@ import {
   DELETE_PRODUCT,
   LOADING,
   ERROR,
+  SIGN_IN,
+  SIGN_OUT,
   ADD_WISHLIST,
   REMOVE_WISHLIST,
   CLEAR_WISHLIST,
@@ -59,6 +61,10 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const createProduct = (id) => async (dispatch) => {
 
 };
+
+// Handle sign in/out
+export const signIn = (userId) => ({ type: SIGN_IN, payload: userId });
+export const signOut = () => ({ type: SIGN_OUT });
 
 // Handle Wishlist
 export const addWishlist = (productID) => ({ type: ADD_WISHLIST, productID });
