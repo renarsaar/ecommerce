@@ -4,8 +4,11 @@ import { useLocation } from 'react-router-dom';
 export default function Footer() {
   const location = useLocation();
 
-  // Do not render on admin page
-  if (location.pathname === '/account/login') {
+  // Do not render on login/register page
+  if (
+    location.pathname === '/account/login' ||
+    location.pathname === '/account/register'
+  ) {
     return <></>;
   }
 

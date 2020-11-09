@@ -9,7 +9,7 @@ import ProductCreate from './products/ProductCreate';
 import ProductDelete from './products/ProductDelete';
 import ProductEdit from './products/ProductEdit';
 import ProductShow from './products/ProductShow';
-import LogIn from './LogIn';
+import Account from './Account';
 import Footer from './Footer';
 
 export default function App() {
@@ -23,7 +23,8 @@ export default function App() {
         <Route path="/products/edit/:id" exact component={ProductEdit} />
         <Route path="/products/delete/:id" exact component={ProductDelete} />
         <Route path="/products/:id" exact component={ProductShow} />
-        <Route path="/account/login" exact component={LogIn} />
+        <Route path="/account/login" exact render={(props) => <Account {...props} login={true} />} />
+        <Route path="/account/register" exact render={(props) => <Account {...props} register={true} />} />
       </Switch>
       <Footer />
       {/* <SplashScreen /> */}

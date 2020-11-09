@@ -916,11 +916,11 @@ a {
 }
 
 // Login page
-.account-container {
+.account {
   display: flex;
   height: 100vh;
 
-  .login-container {
+  &-container {
     overflow-y: auto;
     width: 400px;
     padding: 1rem 1rem 1rem 2.5rem;
@@ -1047,6 +1047,7 @@ a {
     }
   }
 
+  // Image
   .showcase {
     position: relative;
     width: calc(100vw - 400px);
