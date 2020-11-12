@@ -16,7 +16,7 @@ app.use('/uploads', express.static('uploads'));
 
 // Route Middlewares
 app.use('/products', require('./routes/products'));
-app.use('/users', require('./routes/users'));
+app.use('/account', require('./routes/account'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));

@@ -8,7 +8,7 @@ const {
 } = require('../validation');
 
 // @desc    Register a new user
-// @route   POST /users/register
+// @route   POST /account/register
 router.post('/register', async (req, res) => {
   // Validation
   const { error } = registerValidation(req.body);
@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
 });
 
 // @desc    Log in
-// @route   POST /users/login
+// @route   POST /account/login
 router.post('/login', async (req, res) => {
   // Validation
   const { error } = loginValidation(req.body);
@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
 });
 
 // @desc    Edit user password
-// @route   PATCH /users
+// @route   PATCH /account
 router.patch('/:id', getUser, async (req, res) => {
   // Check for user input
   if (req.body.password) {
@@ -81,7 +81,7 @@ router.patch('/:id', getUser, async (req, res) => {
 });
 
 // @desc    Delete user
-// @route   POST /users
+// @route   POST /account
 router.delete('/:id', getUser, async (req, res) => {
   try {
     await res.user.remove();

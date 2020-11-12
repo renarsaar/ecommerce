@@ -34,11 +34,26 @@ a {
   text-decoration: none;
 }
 
+.mb-1 { margin-bottom: 1rem; }
+
 .orange {color: $orange;}
 .show {display: block;}
 .hide {display: none;}
 .hidden {visibility: hidden;}
 .visible {visibility: visible;}
+
+.input-err {
+  color: red;
+  border: 1px solid red !important;
+
+  &:focus {
+    outline: 1px solid red;
+  }
+}
+
+.err {
+  color: red;
+}
 
 .rotate {
   transform: rotate(180deg);
@@ -1012,6 +1027,13 @@ a {
       &::before { right: 0; }
     }
 
+    .registration-success {
+      background: #d8f8d0;
+      border: 1px solid #3db81e;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
     form {
       display: flex;
       flex-direction: column;
@@ -1021,7 +1043,6 @@ a {
       }
 
       input {
-        margin-bottom: 1rem;
         background: $lighter;
         border: 1px solid $dark-blue;
         padding-left: 0.8rem;

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function LogIn() {
+  const location = useLocation();
+
   return (
     <>
       <h1 className="headline">Log in to your account</h1>
@@ -13,12 +16,16 @@ export default function LogIn() {
 
       <span>or</span>
 
+      {location.state && <div className="registration-success">
+        Account created, you may log in now with your Email Address
+        </div>}
+
       <form>
         <label htmlFor="email">Email Address</label>
-        <input type="text" name="email" />
+        <input className="mb-1" type="text" name="email" />
 
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" />
+        <input className="mb-1" type="password" name="password" />
 
         <input type="submit" value="Login" />
       </form>

@@ -11,7 +11,6 @@ import {
   REMOVE_WISHLIST,
   CLEAR_WISHLIST,
   ADD_CART,
-  ADD_CART_QUANTITY,
   REMOVE_CART,
   CLEAR_CART,
   SHOW_SHOP,
@@ -22,13 +21,13 @@ import {
   SET_FILTER_BRANDTERM,
   RESET_FILTERS,
 } from './types';
-import product from '../api/product';
+import api from '../api';
 
 // Fetch all products
 export const fetchProducts = (page) => async (dispatch) => {
   dispatch({ type: LOADING });
 
-  product.get('/products', {
+  api.get('/products', {
     params: {
       page,
       limit: 6,
@@ -42,7 +41,7 @@ export const fetchProducts = (page) => async (dispatch) => {
 export const fetchProduct = (id) => async (dispatch) => {
   dispatch({ type: LOADING });
 
-  product.get(`/products/${id}`)
+  api.get(`/products/${id}`)
     .then((response) => dispatch({ type: FETCH_PRODUCT, payload: response.data }))
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };

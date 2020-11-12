@@ -9,7 +9,7 @@ import ProductCreate from './products/ProductCreate';
 import ProductDelete from './products/ProductDelete';
 import ProductEdit from './products/ProductEdit';
 import ProductShow from './products/ProductShow';
-import Account from './Account';
+import Account from './account/Account';
 import Footer from './Footer';
 
 export default function App() {

@@ -18,6 +18,9 @@ li {
 a {
   text-decoration: none; }
 
+.mb-1 {
+  margin-bottom: 1rem; }
+
 .orange {
   color: #ff600a; }
 
@@ -32,6 +35,15 @@ a {
 
 .visible {
   visibility: visible; }
+
+.input-err {
+  color: red;
+  border: 1px solid red !important; }
+  .input-err:focus {
+    outline: 1px solid red; }
+
+.err {
+  color: red; }
 
 .rotate {
   transform: rotate(180deg);
@@ -675,13 +687,17 @@ a {
         left: 0; }
       .account-container span::before {
         right: 0; }
+    .account-container .registration-success {
+      background: #d8f8d0;
+      border: 1px solid #3db81e;
+      padding: 1rem;
+      margin-bottom: 1rem; }
     .account-container form {
       display: flex;
       flex-direction: column; }
       .account-container form label {
         margin-bottom: 0.3rem; }
       .account-container form input {
-        margin-bottom: 1rem;
         background: #f4f4f4;
         border: 1px solid #33333d;
         padding-left: 0.8rem;
