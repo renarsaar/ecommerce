@@ -8,26 +8,40 @@ export default function Register() {
   const [emailErr, setEmailErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
   const [confirmPasswordErr, setConfirmPasswordErr] = useState('');
+  const [registrationMessage, setRegistrationMessage] = useState('');
 
   // Submit form & register account
   async function handleRegistration(e) {
     e.preventDefault();
-    const { name, email, password, confirmPassword } = e.target;
+    const {
+      name, email, password, confirmPassword,
+    } = e.target;
 
-    if (!name.value) setNameErr('Please add your name');
-    if (!email.value) setEmailErr('Please add your Email');
-    if (!password.value) setPasswordErr('Please choose a password');
+    // Check for empty values
+    if (!name.value) {
+      setNameErr('Please add your name');
+      return false;
+    }
 
-    // if no empty fields
-    if (name.value && email.value && password.value) {
-      // Validate passwords
+    if (!email.value && !nameErr) {
+      setEmailErr('Please add your Email');
+      return false;
+    }
+
+    if (!password.value && !nameErr && !emailErr) {
+      setPasswordErr('Please choose a password');
+      return false;
+    }
+
+    // if no errors
+    if (!nameErr && !emailErr && !passwordErr) {
+      // Check if both passwords match
       if (password.value !== confirmPassword.value) {
         setConfirmPasswordErr('Passwords do not match');
-
         return false;
-      } else {
-        setConfirmPasswordErr('');
       }
+
+      setConfirmPasswordErr('');
 
       api.post('/account/register', {
         name: name.value,
@@ -40,18 +54,21 @@ export default function Register() {
             history.push({ pathname: '/account/login', state: { registerSuccess: true } });
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => setRegistrationMessage(error.response.data));
     }
   }
 
   // Validate form values
   function handleValidation(e) {
     const emailRegex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+    const nameRegex = /^[a-zA-ZöäüõÖÄÜÕ \-']+$/;
     const { name, value } = e.target;
 
     if (name === 'name') {
       if (value.length > 0 && value.length < 4) {
         setNameErr('Name must be atleast 4 characters long');
+      } else if (value.length >= 4 && !nameRegex.test(value)) {
+        setNameErr('Please enter a valid Full Name');
       } else {
         setNameErr('');
       }
@@ -79,7 +96,7 @@ export default function Register() {
       <h1 className="headline">Register a new Account</h1>
 
       <button type="button" className="login-google">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="signin-google" />
         <h1>Sign up with Google</h1>
       </button>
 
@@ -121,7 +138,9 @@ export default function Register() {
           name="confirmPassword"
           onBlur={handleValidation}
         />
-        <p className="err">{confirmPasswordErr}</p>
+        <p className="err mb-1">{confirmPasswordErr}</p>
+
+        <p className="err">{registrationMessage}</p>
 
         <input type="submit" value="Register" />
       </form>
