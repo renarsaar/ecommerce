@@ -91,7 +91,6 @@ export default function ProductShow({ match, location }) {
     dispatch(addCart(product));
   }
 
-
   // Placeholder for product
   function renderPlaceHolder() {
     return (
