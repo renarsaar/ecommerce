@@ -58,8 +58,8 @@ export default function SubHeader() {
 
   // Do not render on login/register page
   if (
-    location.pathname === '/account/login' ||
-    location.pathname === '/account/register'
+    location.pathname === '/account/login'
+    || location.pathname === '/account/register'
   ) {
     return <></>;
   }

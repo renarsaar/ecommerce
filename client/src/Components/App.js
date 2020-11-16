@@ -23,8 +23,8 @@ export default function App() {
         <Route path="/products/edit/:id" exact component={ProductEdit} />
         <Route path="/products/delete/:id" exact component={ProductDelete} />
         <Route path="/products/:id" exact component={ProductShow} />
-        <Route path="/account/login" exact render={(props) => <Account {...props} login={true} />} />
-        <Route path="/account/register" exact render={(props) => <Account {...props} register={true} />} />
+        <Route path="/account/login" exact render={() => <Account login />} />
+        <Route path="/account/register" exact render={() => <Account register />} />
       </Switch>
       <Footer />
       {/* <SplashScreen /> */}

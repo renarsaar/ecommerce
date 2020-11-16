@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { fetchProducts, showShop, showFabric, showJournal, showAbout } from '../actions';
+import {
+  fetchProducts, showShop, showFabric, showJournal, showAbout,
+} from '../actions';
 
 import CartModal from './CartModal';
 import WishListModal from './WishListModal';
@@ -32,7 +33,7 @@ export default function Header() {
   // Handle show shopping cart
   function handleCart() {
     if (showWishList) {
-      setShowWishList(false)
+      setShowWishList(false);
     }
 
     setShowCart(!showCart);
@@ -49,8 +50,8 @@ export default function Header() {
 
   // Do not render on login/register page
   if (
-    location.pathname === '/account/login' ||
-    location.pathname === '/account/register'
+    location.pathname === '/account/login'
+    || location.pathname === '/account/register'
   ) {
     return <></>;
   }

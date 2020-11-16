@@ -130,7 +130,6 @@ export default function Register() {
         />
         <p className="err mb-1">{passwordErr}</p>
 
-
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
           className={confirmPasswordErr ? 'input-err' : ''}
