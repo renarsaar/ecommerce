@@ -6,8 +6,8 @@ export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
-export const SIGN_IN = 'SIGN_IN';
-export const SIGN_OUT = 'SIGN_OUT';
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
 
 export const ADD_WISHLIST = 'ADD_WISHLIST';
 export const REMOVE_WISHLIST = 'REMOVE_WISHLIST';

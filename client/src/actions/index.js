@@ -5,18 +5,23 @@ import {
   DELETE_PRODUCT,
   LOADING,
   ERROR,
-  SIGN_IN,
-  SIGN_OUT,
+
+  LOG_IN,
+  LOG_OUT,
+
   ADD_WISHLIST,
   REMOVE_WISHLIST,
   CLEAR_WISHLIST,
+
   ADD_CART,
   REMOVE_CART,
   CLEAR_CART,
+
   SHOW_SHOP,
   SHOW_FABRIC,
   SHOW_JOURNAL,
   SHOW_ABOUT,
+
   SET_FILTER_APPARELTERM,
   SET_FILTER_BRANDTERM,
   RESET_FILTERS,
@@ -62,8 +67,8 @@ export const createProduct = (id) => async (dispatch) => {
 };
 
 // Handle sign in/out
-export const signIn = (userId) => ({ type: SIGN_IN, payload: userId });
-export const signOut = () => ({ type: SIGN_OUT });
+export const logIn = (userId) => ({ type: LOG_IN, payload: userId });
+export const logOut = () => ({ type: LOG_OUT });
 
 // Handle Wishlist
 export const addWishlist = (productID) => ({ type: ADD_WISHLIST, productID });
