@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeCart } from '../actions';
+import { removeCart } from '../actions/cartActions';
 
 export default function CartModal({ showCart }) {
   const dispatch = useDispatch();

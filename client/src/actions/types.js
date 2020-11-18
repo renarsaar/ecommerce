@@ -8,6 +8,7 @@ export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
+export const AUTH_LOADING = 'AUTH_LOADING';
 
 export const ADD_WISHLIST = 'ADD_WISHLIST';
 export const REMOVE_WISHLIST = 'REMOVE_WISHLIST';

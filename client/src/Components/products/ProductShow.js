@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct, addWishlist, addCart } from '../../actions';
+import { fetchProduct } from '../../actions/productsActions';
+import { addWishlist } from '../../actions/wishListActions';
+import { addCart } from '../../actions/cartActions';
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { sortProducts } from '../actions';
+import { sortProducts } from '../actions/sortActions';
 
 export default function SubHeader() {
   const dispatch = useDispatch();

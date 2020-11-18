@@ -43,7 +43,7 @@ export default function Register() {
 
       setConfirmPasswordErr('');
 
-      api.post('/account/register', {
+      api.post('/auth/register', {
         name: name.value,
         email: email.value,
         password: password.value,
@@ -144,7 +144,11 @@ export default function Register() {
         <input type="submit" value="Register" />
       </form>
 
-      <h3>Have an account? <Link to="/account/login">Log in now</Link></h3>
+      <h3>
+        Have an account?
+        {' '}
+        <Link to="/account/login">Log in now</Link>
+      </h3>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilterApparelTerm, setFilterBrandTerm, resetFilters, sortProducts } from '../actions';
+import { setFilterApparelTerm, setFilterBrandTerm, resetFilters } from '../actions/filterActions';
+import { sortProducts } from '../actions/sortActions';
 
 export default function Filter() {
   const dispatch = useDispatch();

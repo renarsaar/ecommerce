@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeWishlist } from '../actions';
+import { removeWishlist } from '../actions/wishListActions';
 
 export default function WishListModal({ showWishList, products }) {
   const dispatch = useDispatch();
