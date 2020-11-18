@@ -2,17 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchProducts, showShop, showFabric, showJournal, showAbout,
-} from '../actions';
+  showShop, showFabric, showJournal, showAbout,
+} from '../actions/menuActions';
+import { fetchProducts } from '../actions/productsActions';
 
 import CartModal from './CartModal';
 import WishListModal from './WishListModal';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const { shop, fabric, journal, about } = useSelector((state) => state.menu);
+  const {
+    shop,
+    fabric,
+    journal,
+    about,
+  } = useSelector((state) => state.menu);
   const { products } = useSelector((state) => state.products);
-  // const { isSignedIn, userId } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [showCart, setShowCart] = useState(false);
   const [showWishList, setShowWishList] = useState(false);
   const location = useLocation();
@@ -83,7 +89,9 @@ export default function Header() {
         <Link to="/account/login" style={{ color: 'inherit' }}>
           <span>
             <h1>
-              Account
+              {user
+                ? `Welcome, ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`
+                : 'Account'}
             </h1>
             <i className="lar la-user-circle" />
           </span>
