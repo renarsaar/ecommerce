@@ -12,7 +12,11 @@ function registerValidation(data) {
       .email(),
     password: Joi.string()
       .min(8)
-      .required(),
+      .required()
+      .label('password'),
+    confirmPassword: Joi.any().equal(Joi.ref('password'))
+      .required()
+      .messages({ 'any.only': 'Passwords do not match' }),
   });
 
   return schema.validate(data);
