@@ -1,93 +1,64 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import history from '../../history';
-import api from '../../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
 export default function Register() {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
   const [nameErr, setNameErr] = useState('');
   const [emailErr, setEmailErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState('');
-  const [registrationMessage, setRegistrationMessage] = useState('');
 
   // Submit form & register account
   async function handleRegistration(e) {
     e.preventDefault();
-    const {
-      name, email, password, confirmPassword,
-    } = e.target;
 
-    // Check for empty values
-    if (!name.value) {
-      setNameErr('Please add your name');
-      return false;
-    }
+    const values = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      confirmPassword: e.target.confirmPassword.value,
+    };
 
-    if (!email.value && !nameErr) {
-      setEmailErr('Please add your Email');
-      return false;
-    }
-
-    if (!password.value && !nameErr && !emailErr) {
-      setPasswordErr('Please choose a password');
-      return false;
-    }
-
-    // if no errors
-    if (!nameErr && !emailErr && !passwordErr) {
-      // Check if both passwords match
-      if (password.value !== confirmPassword.value) {
-        setConfirmPasswordErr('Passwords do not match');
-        return false;
-      }
-
-      setConfirmPasswordErr('');
-
-      api.post('/auth/register', {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-      })
-        .then((response) => {
-          if (response.status === 201) {
-            // Success, push to login page
-            history.push({ pathname: '/account/login', state: { registerSuccess: true } });
-          }
-        })
-        .catch((error) => setRegistrationMessage(error.response.data));
-    }
+    dispatch(registerUser(values));
   }
 
-  // Validate form values
+  // Handle client side validation
   function handleValidation(e) {
     const emailRegex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
     const nameRegex = /^[a-zA-ZöäüõÖÄÜÕ \-']+$/;
     const { name, value } = e.target;
 
-    if (name === 'name') {
-      if (value.length > 0 && value.length < 4) {
-        setNameErr('Name must be atleast 4 characters long');
-      } else if (value.length >= 4 && !nameRegex.test(value)) {
-        setNameErr('Please enter a valid Full Name');
-      } else {
-        setNameErr('');
-      }
-    }
+    switch (name) {
+      case 'name':
+        if (value.length > 0 && value.length < 4) {
+          setNameErr('Name must be atleast 4 characters long');
+        } else if (value.length >= 4 && !nameRegex.test(value)) {
+          setNameErr('Please enter a valid Full Name');
+        } else {
+          setNameErr('');
+        }
+        break;
 
-    if (name === 'email') {
-      if (value.length > 0 && !emailRegex.test(value)) {
-        setEmailErr('Invalid Email adress');
-      } else {
-        setEmailErr('');
-      }
-    }
+      case 'email':
+        if (value.length > 0 && !emailRegex.test(value)) {
+          setEmailErr('Invalid Email adress');
+        } else {
+          setEmailErr('');
+        }
+        break;
 
-    if (name === 'password') {
-      if (value.length > 0 && value.length < 8) {
-        setPasswordErr('Password must be atleast 8 characters long');
-      } else {
-        setPasswordErr('');
-      }
+      case 'password':
+        if (value.length > 0 && value.length < 8) {
+          setPasswordErr('Password must be atleast 8 characters long');
+        } else {
+          setPasswordErr('');
+        }
+        break;
+
+      default:
+        break;
     }
   }
 
@@ -102,7 +73,7 @@ export default function Register() {
 
       <span>or</span>
 
-      <form onSubmit={handleRegistration}>
+      <form style={{ opacity: loading ? '0.4' : '1' }} onSubmit={handleRegistration}>
         <label htmlFor="name">Name</label>
         <input
           className={nameErr ? 'input-err' : ''}
@@ -132,16 +103,25 @@ export default function Register() {
 
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
-          className={confirmPasswordErr ? 'input-err' : ''}
+          className="mb-1"
           type="password"
           name="confirmPassword"
-          onBlur={handleValidation}
         />
-        <p className="err mb-1">{confirmPasswordErr}</p>
 
-        <p className="err">{registrationMessage}</p>
+        <p className="err">{error}</p>
 
         <input type="submit" value="Register" />
+
+        {loading && (
+          <div className="loading-container">
+            <div className="loading">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        )}
       </form>
 
       <h3>

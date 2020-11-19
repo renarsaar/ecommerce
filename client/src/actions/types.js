@@ -6,9 +6,13 @@ export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
+export const AUTH_LOADING = 'AUTH_LOADING';
+export const REGISTER_LOADING = 'AUTH_LOADING';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
-export const AUTH_LOADING = 'AUTH_LOADING';
+export const REGISTER_ACCOUNT = 'REGISTER_ACCOUNT';
+export const AUTH_ERROR = 'LOG_IN_ERROR';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
 
 export const ADD_WISHLIST = 'ADD_WISHLIST';
 export const REMOVE_WISHLIST = 'REMOVE_WISHLIST';

@@ -1,5 +1,5 @@
 import {
-  LOG_IN, LOG_OUT, AUTH_LOADING, ERROR,
+  AUTH_LOADING, REGISTER_LOADING, LOG_IN, LOG_OUT, REGISTER_ACCOUNT, AUTH_ERROR, REGISTER_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -13,9 +13,18 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AUTH_LOADING:
+    case REGISTER_LOADING:
       return {
         ...state,
         loading: true,
+        error: null,
+      };
+
+    case REGISTER_ACCOUNT:
+      return {
+        ...state,
+        loading: false,
+        error: null,
       };
 
     case LOG_IN:
@@ -38,14 +47,15 @@ export default (state = INITIAL_STATE, action) => {
         error: null,
       };
 
-    case ERROR:
+    case AUTH_ERROR:
+    case REGISTER_ERROR:
       return {
         ...state,
         isLoggedIn: false,
         loading: false,
         user: null,
         error: action.payload,
-      }
+      };
 
     default:
       return state;
