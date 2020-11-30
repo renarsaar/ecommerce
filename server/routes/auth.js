@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const url = require('url');
+const { google } = require('googleapis');
 const auth = require('../middleware/auth');
 const User = require('../model/User');
 const {
@@ -40,6 +42,73 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// Init OAuth2
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.REDIRECT_URL,
+);
+
+const scopes = [
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/userinfo.email',
+];
+
+// @desc Send the OAuth2 link to client
+// @route GET /auth/google/
+// @access public
+router.get('/google', async (req, res) => {
+  // Generate OAuth2 link for OAuth2 workflow
+  const authorizeUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: scopes,
+  });
+
+  // Go through the OAuth2 content workflow.
+  try {
+    res.status(200).send(authorizeUrl);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+// @desc Retrieve the full client from OAuth2 workflow
+// @route GET /auth/google/callback
+// @access public
+router.get('/google/callback', async (req, res) => {
+  // Acquire the code from the querystring
+  const qs = new url.URL(req.url, 'http://localhost:8080').searchParams;
+  const code = qs.get('code');
+
+  // Acquire tokens with code & set the credentials on the OAuth2 client
+  const { tokens } = await oAuth2Client.getToken(code);
+  oAuth2Client.setCredentials(tokens);
+
+  // Get the user email address
+  const tokenInfoEmail = await oAuth2Client.getTokenInfo(
+    oAuth2Client.credentials.access_token,
+  );
+
+  // Get user names from peoples API
+  const tokenInfoName = await oAuth2Client.request({ url: 'https://people.googleapis.com/v1/people/me?personFields=names' });
+
+  console.log(tokenInfoEmail.email);
+  console.log(tokenInfoName.data.names[0].displayName);
+
+  res.redirect('http://localhost:3000/');
+  /**
+   *    (if googleId exists in db)
+   *        login, send credentials
+   *    (if google id does not exists in db, but email does)
+   *        add googleId to existing user
+   *        login, send credentials
+   *    (if googleId && gmail does not exists in db)
+   *        make a new user, fill in User details
+   *        login, send credentials
+   * res.redirect('/)
+   */
+});
+
 // @desc    Log in
 // @route   POST /auth/login
 // @access  public
@@ -57,7 +126,7 @@ router.post('/login', async (req, res) => {
   if (!validPass) return res.status(400).send('Invalid Password!');
 
   // Create and assign jwt token
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
   res.header('x-auth-token', token).send({
     token,
     id: user._id,

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
+import api from '../../api';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -22,6 +23,13 @@ export default function Register() {
     };
 
     dispatch(registerUser(values));
+  }
+
+  // Register user with Google OAuth2
+  function handleOAuth2Registration() {
+    api.get('/auth/google')
+      .then((response) => window.location.href = response.data)
+      .catch((err) => console.log(err));
   }
 
   // Handle client side validation
@@ -66,9 +74,14 @@ export default function Register() {
     <>
       <h1 className="headline">Register a new Account</h1>
 
-      <button type="button" className="login-google">
+      <button
+        type="button"
+        className="login-google"
+        onClick={handleOAuth2Registration}
+      >
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="signin-google" />
-        <h1>Sign up with Google</h1>
+        <h1 className="g-signin2" data-onsuccess="onSignIn">Sign up with Google</h1>
+        {/* <div className="g-signin2" data-onsuccess="onSignIn" /> */}
       </button>
 
       <span>or</span>
