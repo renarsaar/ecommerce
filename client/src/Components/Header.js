@@ -54,10 +54,11 @@ export default function Header() {
     setShowWishList(!showWishList);
   }
 
-  // Do not render on login/register page
+  // Do not render on login/register/validation page
   if (
-    location.pathname === '/account/login'
-    || location.pathname === '/account/register'
+    location.pathname.includes('/account/login')
+    || location.pathname.includes('/account/register')
+    || location.pathname.includes('/account/validation')
   ) {
     return <></>;
   }

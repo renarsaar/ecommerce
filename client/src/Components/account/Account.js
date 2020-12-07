@@ -1,9 +1,11 @@
 import React from 'react';
+import queryString from 'query-string';
 
 import LogIn from './LogIn';
 import Register from './Register';
+import Validation from './Validation';
 
-export default function Account({ login, register }) {
+export default function Account({ login, register, validation, location }) {
   return (
     <div className="account">
       <div className="account-container">
@@ -19,6 +21,7 @@ export default function Account({ login, register }) {
 
         {login && <LogIn />}
         {register && <Register />}
+        {validation && <Validation parsedUrlParams={queryString.parse(location.search)} />}
       </div>
 
       <div className="showcase">

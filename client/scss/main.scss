@@ -988,6 +988,12 @@ a {
       margin-bottom: 2rem;
     }
 
+    .headline-description {
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
     // Google btn
     button {
       cursor: pointer;
@@ -1071,7 +1077,8 @@ a {
           margin-top: 3rem;
 
           &:hover {
-            background: $light-grey;
+            background: rgba($color: $orange, $alpha: 0.25);
+            border: 1px solid $orange;
           }
         }
       }

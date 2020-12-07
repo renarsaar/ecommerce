@@ -1,5 +1,14 @@
 import {
-  AUTH_LOADING, REGISTER_LOADING, LOG_IN, LOG_OUT, REGISTER_ACCOUNT, AUTH_ERROR, REGISTER_ERROR,
+  AUTH_LOADING,
+  REGISTER_LOADING,
+  VALIDATE_LOADING,
+  LOG_IN,
+  VALIDATE_USER,
+  LOG_OUT,
+  REGISTER_ACCOUNT,
+  VALIDATE_ERROR,
+  AUTH_ERROR,
+  REGISTER_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -14,6 +23,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AUTH_LOADING:
     case REGISTER_LOADING:
+    case VALIDATE_LOADING:
       return {
         ...state,
         loading: true,
@@ -28,6 +38,7 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case LOG_IN:
+    case VALIDATE_USER:
       return {
         ...state,
         token: sessionStorage.setItem('token', action.token),
@@ -49,6 +60,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case AUTH_ERROR:
     case REGISTER_ERROR:
+    case VALIDATE_ERROR:
       return {
         ...state,
         isLoggedIn: false,

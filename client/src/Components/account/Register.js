@@ -26,7 +26,7 @@ export default function Register() {
   }
 
   // Register user with Google OAuth2
-  function handleOAuth2Registration() {
+  function handleOAuth2Request() {
     api.get('/auth/google')
       .then((response) => window.location.href = response.data)
       .catch((err) => console.log(err));
@@ -77,11 +77,10 @@ export default function Register() {
       <button
         type="button"
         className="login-google"
-        onClick={handleOAuth2Registration}
+        onClick={handleOAuth2Request}
       >
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="signin-google" />
-        <h1 className="g-signin2" data-onsuccess="onSignIn">Sign up with Google</h1>
-        {/* <div className="g-signin2" data-onsuccess="onSignIn" /> */}
+        <h1>Sign up with Google</h1>
       </button>
 
       <span>or</span>

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const url = require('url');
+const generator = require('generate-password');
 const { google } = require('googleapis');
 const auth = require('../middleware/auth');
 const User = require('../model/User');
@@ -84,29 +85,119 @@ router.get('/google/callback', async (req, res) => {
   const { tokens } = await oAuth2Client.getToken(code);
   oAuth2Client.setCredentials(tokens);
 
-  // Get the user email address
-  const tokenInfoEmail = await oAuth2Client.getTokenInfo(
-    oAuth2Client.credentials.access_token,
-  );
+  // Get token info from OAuth2Client response
+  const tokenInfo = await oAuth2Client.getTokenInfo(oAuth2Client.credentials.access_token);
 
-  // Get user names from peoples API
-  const tokenInfoName = await oAuth2Client.request({ url: 'https://people.googleapis.com/v1/people/me?personFields=names' });
+  // Get user credentials from Google people API
+  const peopleAPIResponse = await oAuth2Client.request({ url: 'https://people.googleapis.com/v1/people/me?personFields=names' });
 
-  console.log(tokenInfoEmail.email);
-  console.log(tokenInfoName.data.names[0].displayName);
+  // User data
+  const userEmail = tokenInfo.email;
+  const userName = peopleAPIResponse.data.names[0].displayName;
+  const userId = peopleAPIResponse.data.names[0].metadata.source.id;
 
-  res.redirect('http://localhost:3000/');
-  /**
-   *    (if googleId exists in db)
-   *        login, send credentials
-   *    (if google id does not exists in db, but email does)
-   *        add googleId to existing user
-   *        login, send credentials
-   *    (if googleId && gmail does not exists in db)
-   *        make a new user, fill in User details
-   *        login, send credentials
-   * res.redirect('/)
-   */
+  // Find the user with the same Email as OAuth Email
+  let user = await User.findOne({ email: userEmail });
+
+  // If user without googleId exists in database, verify
+  if (user && !user.googleId) {
+    return res.redirect(url.format({
+      pathname: `http://localhost:3000/account/validation/${user._id}`,
+      query: {
+        id: `${user._id}`,
+        googleId: userId,
+        email: userEmail,
+        name: userName,
+      },
+    }));
+  }
+
+  // If user with googleId exists in database
+  if (user && user.googleId) {
+    // Create and assign jwt token
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
+
+    // Log user in, redirect to /
+    return res.redirect(url.format({
+      pathname: 'http://localhost:3000/',
+      query: {
+        token,
+      },
+    }));
+  }
+
+  // If OAuth user does not exists in database
+  if (!user) {
+    // Make a random password that is required by User model
+    const password = generator.generate({
+      length: 40,
+      numbers: true,
+      symbols: true,
+    });
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    // Make a new user, add to database
+    const newUser = new User({
+      googleId: userId,
+      name: userName,
+      email: userEmail,
+      password: hashPassword,
+    });
+
+    try {
+      await newUser.save();
+
+      // Request a new user to get user._id
+      user = await User.findOne({ email: userEmail });
+
+      // Create and assign jwt token
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
+
+      // Log user in, redirect to /
+      return res.redirect(url.format({
+        pathname: 'http://localhost:3000/',
+        query: {
+          token,
+        },
+      }));
+    } catch (err) {
+      res.status(400).send(err.message);
+    }
+  }
+});
+
+// @desc    Validate user & add google sign in method
+// @route   PATCH /auth/validation
+// @access  public
+router.patch('/validation/:id', async (req, res) => {
+  // Check if the email exists
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(500).send('Validation error, please try again later');
+
+  // Check if password is correct
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass) return res.status(400).send('Invalid Password!');
+
+  user.googleId = req.body.googleId;
+
+  // Update user password
+  try {
+    await user.save();
+
+    // Create, assign jwt token & send user credentials
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
+    res.status(201).header('x-auth-token', token).send({
+      token,
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // @desc    Log in

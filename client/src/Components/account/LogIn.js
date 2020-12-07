@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn } from '../../actions/authActions';
+import { logIn, validateOAuthUser } from '../../actions/authActions';
+import api from '../../api';
 
 export default function LogIn() {
   const dispatch = useDispatch();
@@ -26,11 +27,18 @@ export default function LogIn() {
     }
   }
 
+  // Log user in with Google OAuth2
+  function handleOAuth2Request() {
+    api.get('/auth/google')
+      .then((response) => window.location.href = response.data)
+      .catch((err) => console.log(err));
+  }
+
   return (
     <>
       <h1 className="headline">Log in to your account</h1>
 
-      <button type="button" className="login-google">
+      <button type="button" className="login-google" onClick={handleOAuth2Request}>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="login-google" />
         <h1>Log in with Google</h1>
       </button>

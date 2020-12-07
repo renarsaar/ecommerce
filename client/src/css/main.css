@@ -658,6 +658,10 @@ a {
       font-weight: 600;
       margin-top: 0.5rem;
       margin-bottom: 2rem; }
+    .account-container .headline-description {
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      line-height: 1.7; }
     .account-container button {
       cursor: pointer;
       position: relative;
@@ -722,7 +726,8 @@ a {
           cursor: pointer;
           margin-top: 3rem; }
           .account-container form input[type=submit]:hover {
-            background: #d3d3d3; }
+            background: rgba(255, 96, 10, 0.25);
+            border: 1px solid #ff600a; }
     .account-container h3 {
       margin: 1rem 0;
       font-size: 1rem;
