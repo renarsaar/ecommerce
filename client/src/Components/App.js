@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-
 import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../actions/authActions';
 
 import SplashScreen from './SplashScreen';
 import Header from './Header';
@@ -17,13 +16,15 @@ import Account from './account/Account';
 import Footer from './Footer';
 
 export default function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const url = queryString.parse(location.search);
 
+  // Get the user & log in if jwt token in URL after OAuth login
   useEffect(() => {
     if (!isLoggedIn && url.token) {
-      console.log("log in")
+      dispatch(getUser(url.token));
     }
   }, [isLoggedIn, url.token]);
 

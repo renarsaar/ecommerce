@@ -2,12 +2,15 @@ import {
   REGISTER_LOADING,
   VALIDATE_LOADING,
   LOG_IN_LOADING,
+  GET_USER_LOADING,
   LOG_IN,
+  GET_USER,
   VALIDATE_USER,
   LOG_OUT,
   REGISTER_ACCOUNT,
   VALIDATE_ERROR,
   LOG_IN_ERROR,
+  GET_USER_ERROR,
   REGISTER_ERROR,
 } from './types';
 import api from '../api';
@@ -79,6 +82,29 @@ export const validateOAuthUser = (values) => async (dispatch) => {
       history.push({ pathname: '/' });
     })
     .catch((error) => dispatch({ type: VALIDATE_ERROR, payload: error.response.data }));
+};
+
+// Get the user & log in if jwt token in URL after OAuth login
+export const getUser = (token) => async (dispatch) => {
+  dispatch({ type: GET_USER_LOADING });
+
+  api.get('/auth/user', {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => {
+      dispatch({
+        type: GET_USER,
+        token,
+        user: {
+          id: response.data._id,
+          name: response.data.name,
+          email: response.data.email,
+        },
+      });
+    })
+    .catch((error) => dispatch({ type: GET_USER_ERROR, payload: error.response.data }));
 };
 
 export const logOut = () => async (dispatch) => {
