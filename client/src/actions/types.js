@@ -6,7 +6,6 @@ export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
-export const AUTH_LOADING = 'AUTH_LOADING';
 export const REGISTER_LOADING = 'REGISTER_LOADING';
 export const VALIDATE_LOADING = 'VALIDATE_LOADING';
 export const LOG_IN_LOADING = 'LOG_IN_LOADING';
@@ -15,7 +14,6 @@ export const VALIDATE_USER = 'VALIDATE_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const REGISTER_ACCOUNT = 'REGISTER_ACCOUNT';
 export const VALIDATE_ERROR = 'VALIDATE_ERROR';
-export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOG_IN_ERROR = 'LOG_IN_ERROR';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 

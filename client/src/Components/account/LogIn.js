@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn, validateOAuthUser } from '../../actions/authActions';
+import { logIn } from '../../actions/authActions';
 import api from '../../api';
 
 export default function LogIn() {

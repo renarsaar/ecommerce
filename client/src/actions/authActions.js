@@ -1,7 +1,7 @@
 import {
-  LOG_IN_LOADING,
   REGISTER_LOADING,
   VALIDATE_LOADING,
+  LOG_IN_LOADING,
   LOG_IN,
   VALIDATE_USER,
   LOG_OUT,
@@ -13,6 +13,7 @@ import {
 import api from '../api';
 import history from '../history';
 
+// Register a new user
 export const registerUser = (values) => async (dispatch) => {
   dispatch({ type: REGISTER_LOADING });
 

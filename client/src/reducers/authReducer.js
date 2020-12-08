@@ -16,10 +16,8 @@ const INITIAL_STATE = {
   isLoggedIn: false,
   user: null,
   loading: false,
-  error: null,
   logInError: null,
   registerError: null,
-  authError: null,
   validateError: null,
 };
 
@@ -45,6 +43,7 @@ export default (state = INITIAL_STATE, action) => {
         user: action.user,
         loading: false,
         logInError: null,
+        registerError: null,
         validateError: null,
       };
 
@@ -62,6 +61,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
         registerError: null,
+        logInError: null,
       };
 
     case VALIDATE_ERROR:
@@ -80,7 +80,7 @@ export default (state = INITIAL_STATE, action) => {
         loading: false,
         user: null,
         logInError: action.payload,
-      }
+      };
 
     case REGISTER_ERROR:
       return {
@@ -89,7 +89,7 @@ export default (state = INITIAL_STATE, action) => {
         loading: false,
         user: null,
         registerError: action.payload,
-      }
+      };
 
     default:
       return state;
