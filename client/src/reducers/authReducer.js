@@ -1,13 +1,13 @@
 import {
-  AUTH_LOADING,
   REGISTER_LOADING,
   VALIDATE_LOADING,
+  LOG_IN_LOADING,
   LOG_IN,
   VALIDATE_USER,
   LOG_OUT,
   REGISTER_ACCOUNT,
   VALIDATE_ERROR,
-  AUTH_ERROR,
+  LOG_IN_ERROR,
   REGISTER_ERROR,
 } from '../actions/types';
 
@@ -17,24 +17,23 @@ const INITIAL_STATE = {
   user: null,
   loading: false,
   error: null,
+  logInError: null,
+  registerError: null,
+  authError: null,
+  validateError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case AUTH_LOADING:
     case REGISTER_LOADING:
     case VALIDATE_LOADING:
+    case LOG_IN_LOADING:
       return {
         ...state,
         loading: true,
-        error: null,
-      };
-
-    case REGISTER_ACCOUNT:
-      return {
-        ...state,
-        loading: false,
-        error: null,
+        logInError: null,
+        registerError: null,
+        validateError: null,
       };
 
     case LOG_IN:
@@ -45,7 +44,8 @@ export default (state = INITIAL_STATE, action) => {
         isLoggedIn: true,
         user: action.user,
         loading: false,
-        error: null,
+        logInError: null,
+        validateError: null,
       };
 
     case LOG_OUT:
@@ -55,19 +55,41 @@ export default (state = INITIAL_STATE, action) => {
         isLoggedIn: false,
         user: null,
         loading: false,
-        error: null,
       };
 
-    case AUTH_ERROR:
-    case REGISTER_ERROR:
+    case REGISTER_ACCOUNT:
+      return {
+        ...state,
+        loading: false,
+        registerError: null,
+      };
+
     case VALIDATE_ERROR:
       return {
         ...state,
         isLoggedIn: false,
         loading: false,
         user: null,
-        error: action.payload,
+        validateError: action.payload,
       };
+
+    case LOG_IN_ERROR:
+      return {
+        ...state,
+        isLoggedIn: false,
+        loading: false,
+        user: null,
+        logInError: action.payload,
+      }
+
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        isLoggedIn: false,
+        loading: false,
+        user: null,
+        registerError: action.payload,
+      }
 
     default:
       return state;

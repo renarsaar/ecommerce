@@ -6,7 +6,7 @@ import api from '../../api';
 
 export default function Register() {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading, registerError } = useSelector((state) => state.auth);
   const [nameErr, setNameErr] = useState('');
   const [emailErr, setEmailErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
@@ -120,7 +120,7 @@ export default function Register() {
           name="confirmPassword"
         />
 
-        <p className="err">{error}</p>
+        <p className="err">{registerError}</p>
 
         <input type="submit" value="Register" />
 

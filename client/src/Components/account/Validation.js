@@ -5,7 +5,7 @@ import { validateOAuthUser } from '../../actions/authActions';
 
 export default function Validation({ parsedUrlParams }) {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading, validateError } = useSelector((state) => state.auth);
 
   // Submit form & validate account
   async function handleValidation(e) {
@@ -43,7 +43,7 @@ export default function Validation({ parsedUrlParams }) {
           name="password"
         />
 
-        <p className="err">{error}</p>
+        <p className="err">{validateError}</p>
 
         <h3>
           <Link to="/account/login">Cancel, Return to Login</Link>

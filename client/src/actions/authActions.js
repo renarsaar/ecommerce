@@ -1,5 +1,5 @@
 import {
-  AUTH_LOADING,
+  LOG_IN_LOADING,
   REGISTER_LOADING,
   VALIDATE_LOADING,
   LOG_IN,
@@ -7,7 +7,7 @@ import {
   LOG_OUT,
   REGISTER_ACCOUNT,
   VALIDATE_ERROR,
-  AUTH_ERROR,
+  LOG_IN_ERROR,
   REGISTER_ERROR,
 } from './types';
 import api from '../api';
@@ -33,8 +33,9 @@ export const registerUser = (values) => async (dispatch) => {
     .catch((error) => dispatch({ type: REGISTER_ERROR, payload: error.response.data }));
 };
 
+// Authenticate user & log in
 export const logIn = (values) => async (dispatch) => {
-  dispatch({ type: AUTH_LOADING });
+  dispatch({ type: LOG_IN_LOADING });
 
   api.post('/auth/login', {
     email: values.email,
@@ -52,7 +53,7 @@ export const logIn = (values) => async (dispatch) => {
       });
       history.push({ pathname: '/' });
     })
-    .catch((error) => dispatch({ type: AUTH_ERROR, payload: error.response.data }));
+    .catch((error) => dispatch({ type: LOG_IN_ERROR, payload: error.response.data }));
 };
 
 // Validate user on OAuth request when user already exists

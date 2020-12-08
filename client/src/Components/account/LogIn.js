@@ -8,7 +8,7 @@ export default function LogIn() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [logInMessage, setLogInMessage] = useState('');
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading, logInError } = useSelector((state) => state.auth);
 
   // Log user in
   async function handleLogIn(e) {
@@ -58,7 +58,7 @@ export default function LogIn() {
         <label htmlFor="password">Password</label>
         <input className="mb-1" type="password" name="password" />
 
-        <p className="err">{logInMessage || error}</p>
+        <p className="err">{logInMessage || logInError}</p>
 
         <input type="submit" value="Login" />
 
