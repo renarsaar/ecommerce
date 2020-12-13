@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import queryString from 'query-string';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../actions/authActions';
 
@@ -43,8 +43,8 @@ export default function App() {
         <Route path="/products/edit/:id" exact component={ProductEdit} />
         <Route path="/products/delete/:id" exact component={ProductDelete} />
         <Route path="/products/:id" exact component={ProductShow} />
-        <Route path="/account/login" exact render={() => <Account login />} />
-        <Route path="/account/register" exact render={() => <Account register />} />
+        {isLoggedIn ? <Redirect to="/" /> : <Route path="/account/login" exact render={() => <Account login />} />}
+        {isLoggedIn ? <Redirect to="/" /> : <Route path="/account/register" exact render={() => <Account register />} />}
         <Route path="/account/validation/:id" exact render={(props) => <Account location={props.location} validation />} />
       </Switch>
       <Footer />
