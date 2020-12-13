@@ -18,7 +18,7 @@ export default function Header() {
     about,
   } = useSelector((state) => state.menu);
   const { products } = useSelector((state) => state.products);
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading } = useSelector((state) => state.auth);
   const [showCart, setShowCart] = useState(false);
   const [showWishList, setShowWishList] = useState(false);
   const location = useLocation();
@@ -89,10 +89,10 @@ export default function Header() {
       <div className="header-actions">
         <Link to="/account/login" style={{ color: 'inherit' }}>
           <span>
-            <h1>
-              {user
-                ? `Welcome, ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`
-                : 'Account'}
+            <h1 className={loading ? 'placeholder' : ''}>
+              {user && `Welcome, ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`}
+              {loading && ''}
+              {!user && !loading && 'Account'}
             </h1>
             <i className="lar la-user-circle" />
           </span>

@@ -50,8 +50,7 @@ a {
   transition: .4s ease; }
 
 .placeholder {
-  background-image: linear-gradient(90deg, #e4e4e4 0%, #f1f1f1 40%, #ededed 60%, #e4e4e4 100%);
-  animation: 5s infinite placeholder-animate ease-in-out; }
+  animation: 3s infinite placeholder-animate ease-in-out; }
 
 .product-show-item .gallery .share .tooltip, .product-show-item .details .container .quantity div .tooltip {
   cursor: default;
@@ -166,19 +165,9 @@ a {
       .header-actions span h1 {
         font-weight: 500;
         font-size: 1rem; }
-      .header-actions span .user-name-circle {
-        font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        background: #ff600a;
-        opacity: 0.75;
-        font-weight: 500;
-        border-radius: 50%;
-        width: 33px;
-        height: 33px;
-        margin-left: 0.3rem; }
+        .header-actions span h1.placeholder {
+          width: 150px;
+          height: 20px; }
       .header-actions span:hover h1, .header-actions span:hover i {
         color: #ff600a; }
     .header-actions i {
@@ -785,11 +774,11 @@ a {
 
 @keyframes placeholder-animate {
   0% {
-    background-position: 0 0; }
+    background-color: #e9e9e9; }
   50% {
-    background-position: 1000px 0; }
+    background-color: #f2f2f2; }
   100% {
-    background-position: 0 0; } }
+    background-color: #e9e9e9; } }
 
 .loading-container {
   position: absolute;

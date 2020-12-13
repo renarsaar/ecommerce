@@ -34,12 +34,11 @@ const upload = multer({
 // @desc    Get all products
 // @route   GET /products
 router.get('/', paginatedResults(Product), async (req, res) => {
-  res.status(200).json(res.paginatedResults);
-  // try {
-  // const products = await Product.find();
-  // } catch (err) {
-  //   res.status(500).json({ message: err.message });
-  // }
+  try {
+    res.status(200).json(res.paginatedResults);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // @desc    Get single product

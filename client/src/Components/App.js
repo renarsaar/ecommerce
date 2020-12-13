@@ -26,6 +26,11 @@ export default function App() {
     if (!isLoggedIn && url.token) {
       dispatch(getUser(url.token));
     }
+
+    // Log in again on page refresh
+    if (!isLoggedIn && sessionStorage.token) {
+      dispatch(getUser(sessionStorage.token));
+    }
   }, [isLoggedIn, url.token]);
 
   return (
