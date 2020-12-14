@@ -4,18 +4,30 @@ import {
   CLEAR_WISHLIST,
 } from '../actions/types';
 
-export default (state = [], action) => {
+const INITIAL_STATE = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_WISHLIST:
-      if (state.includes(action.productID)) return [...state]
+      if (state.includes(action.productID)) {
+        return [...state]
+      }
 
-      return [...state, action.productID];
+      state = [...state, action.productID];
+      localStorage.setItem('wishlist', JSON.stringify(state));
+
+      return JSON.parse(localStorage.getItem('wishlist'));
 
     case REMOVE_WISHLIST:
-      return [...state.filter((id) => id !== action.id)];
+      state = [...state.filter((id) => id !== action.id)];
+      localStorage.setItem('wishlist', JSON.stringify(state));
+
+      return JSON.parse(localStorage.getItem('wishlist'));
 
     case CLEAR_WISHLIST:
-      return [];
+      state = [];
+      localStorage.removeItem('wishlist');
+      return state;
 
     default:
       return state;

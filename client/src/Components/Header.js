@@ -104,7 +104,7 @@ export default function Header() {
           className={showWishList ? 'lar la-heart orange' : 'lar la-heart'}
           onClick={handleWishlist}
         />
-        <WishListModal products={products} showWishList={showWishList} />
+        {products && <WishListModal products={products} showWishList={showWishList} />}
 
         <i
           className={showCart ? 'las la-shopping-bag orange' : 'las la-shopping-bag'}

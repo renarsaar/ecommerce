@@ -33,7 +33,7 @@ export default function WishListModal({ showWishList, products }) {
             </div>
 
             <div>
-              <i className="las la-trash" onClick={() => dispatch(removeWishlist(index))} />
+              <i className="las la-trash" onClick={() => dispatch(removeWishlist(id))} />
             </div>
           </li>
         );
@@ -46,7 +46,7 @@ export default function WishListModal({ showWishList, products }) {
       <div className="modal-main">
         <h2>Wishlist</h2>
         <ul className="modal-items">
-          {wishListProducts.length >= 1 && renderWishListItems()}
+          {wishListProducts && renderWishListItems()}
         </ul>
       </div>
     </div>,
