@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeWishlist } from '../actions/wishListActions';
 
@@ -27,9 +28,9 @@ export default function WishListModal({ showWishList, products }) {
           <li key={id}>
             <div className="wishlist-product">
               <img src={`http://localhost:8080/${image}`} alt={name} />
-              <div className="info">
+              <Link to={`/products/${id}`} className="info">
                 <h1>{name}</h1>
-              </div>
+              </Link>
             </div>
 
             <div>

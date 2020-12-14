@@ -15,7 +15,7 @@ export default function ProductShow({ match, location }) {
   // Fetch single product
   useEffect(() => {
     dispatch(fetchProduct(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   // Set default size
   useEffect(() => {
