@@ -124,8 +124,6 @@ export default function ProductShow({ match, location }) {
       description, discountPrice, image, name, price, sizes, stock,
     } = selectedProduct;
 
-    // console.log(stock[sizes.indexOf(size)])
-    // console.log(sizes.indexOf(size))
     console.log(stock)
     return (
       <div className="product-show-item">
