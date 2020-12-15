@@ -57,7 +57,7 @@ function addProductValidation(data) {
     gender: Joi.string(),
     sizes: Joi.array(),
     description: Joi.array().required(),
-    stock: Joi.number().required(),
+    stock: Joi.array().required(),
     price: Joi.number().required(),
     discountPrice: Joi.number(),
     image: Joi.string(),
