@@ -41,6 +41,10 @@ a {
 .hide {display: none;}
 .hidden {visibility: hidden;}
 .visible {visibility: visible;}
+.disabled {
+  pointer-events:none;
+  opacity:0.6;
+}
 
 .input-err {
   color: red;
@@ -624,7 +628,9 @@ a {
               font-size: 0.7rem;
             }
           }
+        }
 
+        .product-actions {
           .increment, .decrement {
             @extend %btn-shared;
           }
@@ -846,19 +852,14 @@ a {
   .modal-main {
     padding: 1rem;
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      
-      h2 {
-        margin-bottom: 1rem;
-      }
+    h2 {
+      margin-bottom: 1rem;
+    }
 
-      h3 {
-        i {
-          padding-right: 0.5rem;
-          font-size: 1.5rem;
-        }
+    h3 {
+      i {
+        padding-right: 0.5rem;
+        font-size: 1.5rem;
       }
     }
     

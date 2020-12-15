@@ -36,6 +36,10 @@ a {
 .visible {
   visibility: visible; }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.6; }
+
 .input-err {
   color: red;
   border: 1px solid red !important; }
@@ -52,17 +56,17 @@ a {
 .placeholder {
   animation: 3s infinite placeholder-animate ease-in-out; }
 
-.product-show-item .gallery .share .tooltip, .product-show-item .details .container .quantity div .tooltip {
+.product-show-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip {
   cursor: default;
   position: relative;
   display: inline-block; }
-  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .quantity div .tooltip:hover .tooltiptext {
+  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext {
     visibility: visible;
     transition: .3s ease;
     animation-name: fadeIn;
     animation-duration: .5s;
     animation-iteration-count: 1; }
-  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .quantity div .tooltip .tooltiptext {
+  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext {
     visibility: hidden;
     background: #33333d;
     color: #f4f4f4;
@@ -76,7 +80,7 @@ a {
     z-index: 1;
     transition: .3s ease; }
 
-.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .quantity .increment, .product-show-item .details .container .quantity .decrement {
+.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement {
   cursor: pointer;
   background: #f4f4f4;
   color: #626166;
@@ -84,12 +88,12 @@ a {
   height: 50px;
   border: 1px solid #d3d3d3;
   transition: .3s ease; }
-  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .quantity .increment:hover, .product-show-item .details .container .quantity .decrement:hover {
+  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .product-actions .increment:hover, .product-show-item .details .container .product-actions .decrement:hover {
     background: #d3d3d3;
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
 
-.product-show-item .details .container .quantity .add-cart, .product-show-item .details .container .quantity div .add-wishlist, .footer .container .newsletter form button {
+.product-show-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist, .footer .container .newsletter form button {
   cursor: pointer;
   margin-left: 1.5rem;
   text-transform: uppercase;
@@ -101,10 +105,10 @@ a {
   height: 50px;
   border: 0;
   transition: .3s ease; }
-  .product-show-item .details .container .quantity .add-cart:focus, .product-show-item .details .container .quantity div .add-wishlist:focus, .footer .container .newsletter form button:focus {
+  .product-show-item .details .container .product-actions .add-cart:focus, .product-show-item .details .container .product-actions div .add-wishlist:focus, .footer .container .newsletter form button:focus {
     outline: none;
     transition: .3s ease; }
-  .product-show-item .details .container .quantity .add-cart:hover, .product-show-item .details .container .quantity div .add-wishlist:hover, .footer .container .newsletter form button:hover {
+  .product-show-item .details .container .product-actions .add-cart:hover, .product-show-item .details .container .product-actions div .add-wishlist:hover, .footer .container .newsletter form button:hover {
     opacity: .8;
     transition: .3s ease; }
 
@@ -432,29 +436,29 @@ a {
             margin-left: 1.5rem;
             display: inline;
             font-size: 0.7rem; }
-        .product-show-item .details .container .quantity span {
+        .product-show-item .details .container .product-actions span {
           margin: 0 1rem; }
-        .product-show-item .details .container .quantity .add-cart {
+        .product-show-item .details .container .product-actions .add-cart {
           background: #33333d;
           color: #fff; }
-        .product-show-item .details .container .quantity div {
+        .product-show-item .details .container .product-actions div {
           display: inline;
           position: relative; }
-          .product-show-item .details .container .quantity div i {
+          .product-show-item .details .container .product-actions div i {
             position: absolute;
             top: 4px;
             left: 55px;
             font-size: 1.5rem;
             color: #33333d;
             z-index: 1; }
-          .product-show-item .details .container .quantity div .tooltip .tooltiptext {
+          .product-show-item .details .container .product-actions div .tooltip .tooltiptext {
             bottom: 30px;
             left: 10px; }
-          .product-show-item .details .container .quantity div .add-wishlist {
+          .product-show-item .details .container .product-actions div .add-wishlist {
             padding-left: 1.5rem;
             background: transparent;
             border-bottom: 4px solid #33333d; }
-            .product-show-item .details .container .quantity div .add-wishlist:hover {
+            .product-show-item .details .container .product-actions div .add-wishlist:hover {
               background: #f4f4f4; }
 
 .footer {
@@ -567,14 +571,11 @@ a {
 
 .wishlist-modal .modal-main, .cart-modal .modal-main {
   padding: 1rem; }
-  .wishlist-modal .modal-main .modal-header, .cart-modal .modal-main .modal-header {
-    display: flex;
-    justify-content: space-between; }
-    .wishlist-modal .modal-main .modal-header h2, .cart-modal .modal-main .modal-header h2 {
-      margin-bottom: 1rem; }
-    .wishlist-modal .modal-main .modal-header h3 i, .cart-modal .modal-main .modal-header h3 i {
-      padding-right: 0.5rem;
-      font-size: 1.5rem; }
+  .wishlist-modal .modal-main h2, .cart-modal .modal-main h2 {
+    margin-bottom: 1rem; }
+  .wishlist-modal .modal-main h3 i, .cart-modal .modal-main h3 i {
+    padding-right: 0.5rem;
+    font-size: 1.5rem; }
   .wishlist-modal .modal-main .modal-items li, .cart-modal .modal-main .modal-items li {
     display: flex;
     justify-content: space-between;

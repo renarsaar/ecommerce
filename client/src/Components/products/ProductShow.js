@@ -124,6 +124,9 @@ export default function ProductShow({ match, location }) {
       description, discountPrice, image, name, price, sizes, stock,
     } = selectedProduct;
 
+    // console.log(stock[sizes.indexOf(size)])
+    // console.log(sizes.indexOf(size))
+    console.log(stock)
     return (
       <div className="product-show-item">
         <div className="gallery">
@@ -157,8 +160,11 @@ export default function ProductShow({ match, location }) {
             <div className="size">
               <h2>Size</h2>
               <ul>
-                {sizes.map((item) => (
-                  <li
+                {sizes.map((item, index) => {
+
+                  console.log(stock[index] === 0)
+
+                  return <li
                     className={size === item ? 'selected' : ''}
                     value={item}
                     onClick={() => setSize(item)}
@@ -166,7 +172,9 @@ export default function ProductShow({ match, location }) {
                   >
                     {item}
                   </li>
-                ))}
+                }
+
+                )}
               </ul>
             </div>
             <div className="quantity">
@@ -174,9 +182,12 @@ export default function ProductShow({ match, location }) {
                 Quantity
                 <p>
                   Stock:
-                  {stock}
+                  {stock[sizes.indexOf(size)] === 0 ? ' Out of Stock' : stock[sizes.indexOf(size)]}
                 </p>
               </h2>
+            </div>
+
+            <div className="product-actions" style={{ display: stock[sizes.indexOf(size)] == 0 ? 'none' : 'block' }}>
               <button type="button" value="decrement" className="increment" onClick={handleQuantity}>-</button>
               <span>{quantity}</span>
               <button type="button" value="increment" className="decrement" onClick={handleQuantity}>+</button>
@@ -188,6 +199,7 @@ export default function ProductShow({ match, location }) {
                 <button type="button" className="btn add-wishlist" onClick={handlewishList}>Add to wishlist</button>
               </div>
             </div>
+
           </div>
         </div>
       </div>
