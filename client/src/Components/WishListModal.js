@@ -46,9 +46,11 @@ export default function WishListModal({ showWishList, products }) {
     <div className={modalClassName}>
       <div className="modal-main">
         <h2>Wishlist</h2>
+
         <ul className="modal-items">
           {wishListProducts && renderWishListItems()}
         </ul>
+
       </div>
     </div>,
     document.getElementById('wishlist'),

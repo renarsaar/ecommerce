@@ -40,9 +40,7 @@ export default function CartModal({ showCart }) {
   return ReactDOM.createPortal(
     <div className={modalClassName}>
       <div className="modal-main">
-        <div className="modal-header">
-          <h2>Shopping Cart</h2>
-        </div>
+        <h2>Shopping Cart</h2>
 
         <ul className="modal-items">
           {cartProducts && renderCartItems()}
