@@ -124,7 +124,6 @@ export default function ProductShow({ match, location }) {
       description, discountPrice, image, name, price, sizes, stock,
     } = selectedProduct;
 
-    console.log(stock)
     return (
       <div className="product-show-item">
         <div className="gallery">
@@ -158,11 +157,8 @@ export default function ProductShow({ match, location }) {
             <div className="size">
               <h2>Size</h2>
               <ul>
-                {sizes.map((item, index) => {
-
-                  console.log(stock[index] === 0)
-
-                  return <li
+                {sizes.map((item) => (
+                  <li
                     className={size === item ? 'selected' : ''}
                     value={item}
                     onClick={() => setSize(item)}
@@ -170,9 +166,7 @@ export default function ProductShow({ match, location }) {
                   >
                     {item}
                   </li>
-                }
-
-                )}
+                ))}
               </ul>
             </div>
             <div className="quantity">
