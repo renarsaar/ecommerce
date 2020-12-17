@@ -16,6 +16,7 @@ app.use('/uploads', express.static('uploads'));
 
 // Route Middlewares
 app.use('/products', require('./routes/products'));
+app.use('/orders', require('./routes/orders'));
 app.use('/auth', require('./routes/auth'));
 
 const PORT = process.env.PORT || 8080;

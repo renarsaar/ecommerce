@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
     min: 8,
     max: 1024,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now,

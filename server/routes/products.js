@@ -81,7 +81,8 @@ router.post('/', upload.single('image'), async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 
-  product.save().then((item) => res.json(item));
+  // ? duplicate?
+  // product.save().then((item) => res.json(item));
 });
 
 // @desc    Edit a product
@@ -163,6 +164,7 @@ function paginatedResults(model) {
         limit,
       };
     }
+
     try {
       results.results = await model.find();
       results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();

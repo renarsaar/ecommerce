@@ -1,16 +1,12 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  userId: {
-    type: Number,
+  user: {
+    type: String,
     required: true,
   },
-  productId: {
-    type: Number,
-    required: true,
-  },
-  quantity: {
-    type: Number,
+  product: {
+    type: Array,
     required: true,
   },
   totalPrice: {
@@ -21,13 +17,8 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
-    type: String,
-    required: true,
-  },
   date: {
     type: Date,
-    required: true,
     default: Date.now(),
   },
 });
