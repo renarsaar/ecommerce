@@ -4,7 +4,9 @@ import {
   CLEAR_CART,
 } from '../actions/types';
 
-export default (state = [], action) => {
+const INITIAL_STATE = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_CART:
       // If the product already exists in cart
@@ -21,11 +23,12 @@ export default (state = [], action) => {
           state[index].quantity = action.product.stock;
           state[index].totalPrice = action.product.productPrice * action.product.stock;
         }
-
-        return [...state];
       }
 
-      return [...state, action.product];
+      state = [...state, action.product];
+      sessionStorage.setItem('cart', JSON.stringify(state));
+
+      return JSON.parse(sessionStorage.getItem('cart'));
 
     case REMOVE_CART:
       // Subtract quantity & price
@@ -33,13 +36,18 @@ export default (state = [], action) => {
       state[action.index].totalPrice -= action.productPrice;
 
       if (state[action.index].quantity === 0) {
-        return [...state.filter((product, index) => index !== action.index)];
+        state = [...state.filter((product, index) => index !== action.index)];
       }
 
-      return [...state];
+      sessionStorage.setItem('cart', JSON.stringify(state));
+
+      return JSON.parse(sessionStorage.getItem('cart'));
 
     case CLEAR_CART:
-      return [];
+      state = [];
+      localStorage.removeItem('cart');
+
+      return state;
 
     default:
       return state;
