@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const axios = require('axios');
 const Order = require('../model/Order');
 const { makeOrderValidation } = require('../validation');
 
@@ -10,10 +11,11 @@ router.post('/', async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const order = new Order({
-    userId: req.body.userId,
+    user: req.body.user,
+    email: req.body.email,
     product: req.body.product,
     totalPrice: req.body.totalPrice,
-    deliveryMethod: req.body.deliveryMethod,
+    delivery: req.body.delivery,
   });
 
   // Make a new order
@@ -23,6 +25,16 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
+});
+
+// @desc    Get Itella parcel terminal locations
+// @route   GET /orders/itella
+router.get('/omniva', async (req, res) => {
+  const BASE_URL = 'https://www.omniva.ee/locations.json';
+
+  axios.get(BASE_URL)
+    .then((response) => res.send(response.data))
+    .catch((error) => res.status(500).send({ message: error.message }));
 });
 
 module.exports = router;
