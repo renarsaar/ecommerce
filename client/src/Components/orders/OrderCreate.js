@@ -58,6 +58,14 @@ export default class OrderCreate extends React.Component {
       }
     }
 
+    if (name === 'expiryY') {
+      const currYear = new Date().getFullYear();
+
+      if (value.length === 4 && value < currYear) {
+        value = currYear;
+      }
+    }
+
     if (name === 'cardNumber' || name === 'expiryM' || name === 'expiryY' || name === 'cvv') {
       // Clear non digits
       if (typeof value !== 'number') {
@@ -76,7 +84,7 @@ export default class OrderCreate extends React.Component {
   // Handle form validation
   handleValidation = (e) => {
     const { name, value } = e.target;
-    const { deliveryMethod, deliveryOmniva, deliveryCourier, formErrors } = this.state;
+    const { formErrors } = this.state;
 
     const nameRegex = /^[a-zA-Z öäüõÖÄÜÕ]+$/;
     const emailRegex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
@@ -89,11 +97,11 @@ export default class OrderCreate extends React.Component {
       case 'name':
         formErrors.name = '';
 
-        if (value.length < 3) {
+        if (value.length > 0 && value.length < 3) {
           formErrors.name = 'Name must be atleast 3 characters.';
         }
 
-        if (!nameRegex.test(value)) {
+        if (value.length > 3 && !nameRegex.test(value)) {
           formErrors.name = 'Invalid name';
         }
 
@@ -102,35 +110,8 @@ export default class OrderCreate extends React.Component {
       case 'email':
         formErrors.email = '';
 
-        if (!emailRegex.test(value)) {
+        if (value.length > 0 && !emailRegex.test(value)) {
           formErrors.email = 'Invalid Email address';
-        }
-
-        break;
-
-      case 'deliveryMethod':
-        formErrors.deliveryMethod = '';
-
-        if (!deliveryMethod) {
-          formErrors.deliveryMethod = 'Please choose a delivery Method';
-        }
-
-        break;
-
-      case 'deliveryOmniva':
-        formErrors.deliveryOmniva = '';
-
-        if (!deliveryOmniva) {
-          formErrors.deliveryOmniva = 'Please choose a delivery Location';
-        }
-
-        break;
-
-      case 'deliveryCourier':
-        formErrors.deliveryCourier = '';
-
-        if (!deliveryCourier) {
-          formErrors.deliveryCourier = 'Please choose a delivery Address';
         }
 
         break;
@@ -138,11 +119,7 @@ export default class OrderCreate extends React.Component {
       case 'cardHolder':
         formErrors.cardHolder = '';
 
-        if (value === '') {
-          formErrors.cardHolder = 'Card holder name is required.';
-        }
-
-        if (!nameRegex.test(value)) {
+        if (value.length > 0 && !nameRegex.test(value)) {
           formErrors.cardHolder = 'Invalid name';
         }
 
@@ -151,11 +128,7 @@ export default class OrderCreate extends React.Component {
       case 'cardNumber':
         formErrors.cardNumber = '';
 
-        if (value === '') {
-          formErrors.cardNumber = 'Credit card number is required.';
-        }
-
-        if (!cardNumberRegex.test(value)) {
+        if (value.length > 0 && !cardNumberRegex.test(value)) {
           formErrors.cardNumber = 'Invalid Card number';
         }
 
@@ -164,11 +137,7 @@ export default class OrderCreate extends React.Component {
       case 'expiryM':
         formErrors.expiryM = '';
 
-        if (value === '') {
-          formErrors.expiryM = 'Expiration date is required.';
-        }
-
-        if (!expiryMRegex.test(value)) {
+        if (value.length > 0 && !expiryMRegex.test(value)) {
           formErrors.expiryM = 'Invalid expiry date';
         }
 
@@ -177,11 +146,7 @@ export default class OrderCreate extends React.Component {
       case 'expiryY':
         formErrors.expiryY = '';
 
-        if (value === '') {
-          formErrors.expiryY = 'Expiration date is required.';
-        }
-
-        if (!expiryYRegex.test(value)) {
+        if (value.lenght > 0 && !expiryYRegex.test(value)) {
           formErrors.expiryY = 'Invalid expiry date';
         }
 
@@ -190,11 +155,7 @@ export default class OrderCreate extends React.Component {
       case 'cvv':
         formErrors.cvv = '';
 
-        if (value === '') {
-          formErrors.cvv = 'Cvv code is required';
-        }
-
-        if (!cvvRegex.test(value)) {
+        if (value.length > 0 && !cvvRegex.test(value)) {
           formErrors.cvv = 'Invalid cvv code';
         }
 
