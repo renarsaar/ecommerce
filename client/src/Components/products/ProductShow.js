@@ -78,6 +78,7 @@ export default function ProductShow({ match, location }) {
 
   // Add product to shopping cart
   function handleCart() {
+    const { stock, sizes } = selectedProduct;
     const product = {
       id: selectedProduct._id,
       key: `${selectedProduct._id}-${size}`,
@@ -85,7 +86,7 @@ export default function ProductShow({ match, location }) {
       image: selectedProduct.image,
       productPrice: selectedProduct.discountPrice,
       totalPrice: selectedProduct.discountPrice * quantity,
-      stock: selectedProduct.stock,
+      stock: stock[sizes.indexOf(size)],
       quantity,
       size,
     };
@@ -174,7 +175,8 @@ export default function ProductShow({ match, location }) {
                 Quantity
                 <p>
                   Stock:
-                  {stock[sizes.indexOf(size)] === 0 ? ' Out of Stock' : stock[sizes.indexOf(size)]}
+                  {' '}
+                  {stock[sizes.indexOf(size)] === 0 ? 'Out of Stock' : stock[sizes.indexOf(size)]}
                 </p>
               </h2>
             </div>

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import productsReducer from './productsReducer';
 import menuReducer from './menuReducer';
+import ordersReducer from './orderReducer';
 import sortReducer from './sortReducer';
 import filterReducer from './filterReducer';
 import wishListReducer from './wishListReducer';
@@ -11,6 +12,7 @@ import authReducer from './authReducer';
 export default combineReducers({
   products: productsReducer,
   menu: menuReducer,
+  orders: ordersReducer,
   sort: sortReducer,
   filter: filterReducer,
   wishList: wishListReducer,

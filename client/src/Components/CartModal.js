@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { removeCart } from '../actions/cartActions';
 
 export default function CartModal({ showCart }) {
@@ -24,7 +25,7 @@ export default function CartModal({ showCart }) {
         </div>
 
         <div>
-          <i className="las la-trash" onClick={() => dispatch(removeCart(index, product.productPrice))} />
+          <i className="las la-trash" onClick={() => dispatch(removeCart(index))} />
         </div>
       </li>
     ));
@@ -49,6 +50,8 @@ export default function CartModal({ showCart }) {
         <h1 className="price-total">
           {cartProducts.length >= 1 && `Total Price: ${handleCartPrice()} €`}
         </h1>
+
+        {cartProducts.length >= 1 && <Link className="link" to="/cart/checkout">Proceed to Checkout</Link>}
       </div>
     </div>,
     document.getElementById('cart'),

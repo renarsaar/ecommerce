@@ -2,7 +2,7 @@ import {
   SHOW_SHOP,
   SHOW_FABRIC,
   SHOW_JOURNAL,
-  SHOW_ABOUT
+  SHOW_ABOUT,
 } from './types';
 
 export const showShop = () => ({ type: SHOW_SHOP });

@@ -16,7 +16,7 @@ export const fetchProducts = (page) => async (dispatch) => {
     params: {
       page,
       limit: 6,
-    }
+    },
   })
     .then((response) => dispatch({ type: FETCH_PRODUCTS, payload: response.data }))
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));

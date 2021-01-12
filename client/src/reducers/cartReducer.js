@@ -1,5 +1,6 @@
 import {
   ADD_CART,
+  ADD_CART_ONE,
   REMOVE_CART,
   CLEAR_CART,
 } from '../actions/types';
@@ -23,9 +24,24 @@ export default (state = INITIAL_STATE, action) => {
           state[index].quantity = action.product.stock;
           state[index].totalPrice = action.product.productPrice * action.product.stock;
         }
+      } else {
+        state = [...state, action.product];
       }
 
-      state = [...state, action.product];
+      sessionStorage.setItem('cart', JSON.stringify(state));
+
+      return JSON.parse(sessionStorage.getItem('cart'));
+
+    case ADD_CART_ONE:
+      // Add quantity & price
+      state[action.index].quantity += 1;
+      state[action.index].totalPrice += state[action.index].productPrice;
+
+      if (state[action.index].quantity >= state[action.index].stock) {
+        state[action.index].quantity = state[action.index].stock;
+        state[action.index].totalPrice = state[action.index].productPrice * state[action.index].stock;
+      }
+
       sessionStorage.setItem('cart', JSON.stringify(state));
 
       return JSON.parse(sessionStorage.getItem('cart'));
@@ -33,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
     case REMOVE_CART:
       // Subtract quantity & price
       state[action.index].quantity -= 1;
-      state[action.index].totalPrice -= action.productPrice;
+      state[action.index].totalPrice -= state[action.index].productPrice;
 
       if (state[action.index].quantity === 0) {
         state = [...state.filter((product, index) => index !== action.index)];

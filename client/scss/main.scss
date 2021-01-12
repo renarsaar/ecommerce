@@ -5,6 +5,7 @@ $dark-grey: #626166;
 $grey: #a3a3a3;
 $light-grey: #d3d3d3;
 $lighter: #f4f4f4;
+$btn-bg: #e4e3e3;
 $white: #fff;
 $orange: #ff600a;
 $dark-blue: #33333d;
@@ -44,6 +45,26 @@ a {
 .disabled {
   pointer-events:none;
   opacity:0.6;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.link {
+  color: $orange;
+  font-size: 1rem;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .input-err {
@@ -99,7 +120,7 @@ a {
 
 %btn-shared {
   cursor: pointer;
-  background: $lighter;
+  background: $btn-bg;
   color: $dark-grey;
   width: 50px;
   height: 50px;
@@ -132,7 +153,7 @@ a {
   }
 
   &:hover {
-    opacity: .8;
+    opacity: .5;
     transition: .3s ease;
   }
 }
@@ -684,6 +705,304 @@ a {
   }
 }
 
+.order-create {
+  width: $page-width;
+  margin: 2rem auto 1rem;
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      @extend %btn-shared-large;
+      margin: 1rem 0;
+    }
+  }
+
+  .show-cart {
+    display: flex;
+    margin: 4rem 0 3rem;
+    max-width: 85%;
+
+    img {
+      height: 190px;
+      width: 190px;
+      object-fit: cover;
+    }
+    
+    &-info {
+      margin: 0 2rem;
+      color: $black;
+      width: 100%;
+
+      h2 {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      h4 {
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+      
+      &:hover {
+        opacity: .6;
+      }
+    }
+
+    &-options {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 120px;
+
+      .quantity {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          margin: 0 0.5rem;
+        }
+
+        .las {
+          cursor: pointer;
+          border-radius: 50%;
+          padding: 0.2rem;
+          
+          &:hover {
+            background: $lighter;
+          }
+        }
+      }
+
+      .stock {
+        font-weight: 500;
+        margin-top: 1rem;
+      }
+    }
+
+    &-empty {
+      margin: 4rem 0;
+
+      h1 {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .personal-details {
+    .form-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .row {
+      margin: 2rem;
+      width: 50%;
+
+      input {
+        width: 100%;
+        margin-bottom: 0.7rem;
+        background: $lighter;
+        border: 2px solid $light-grey;
+        padding: 0.6rem 0.5rem;
+  
+        &:focus {
+          outline: 0;
+          border: 2px solid $dark-grey;
+        }
+      }
+  
+      label {
+        position: relative;
+        margin-bottom: 0.5rem;
+
+        .err {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+
+      h4 {
+        margin-top: 1rem;
+      }
+
+      .delivery-method {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        width: 50%;
+
+        
+        label {
+          cursor: pointer;
+          position: relative;
+          user-select: none;
+          padding-left: 2.5rem;
+
+          &:hover input ~ .checkmark {
+            background-color: $light-grey;
+          }
+
+          input {
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+
+            &:checked ~ .checkmark {
+              background-color: $orange;
+            }
+
+            &:checked ~ .checkmark:after {
+              display: block;
+            }
+          }
+
+          .checkmark {
+            position: absolute;
+            display: flex;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: $lighter;
+            border-radius: 50%;
+
+            &:after {
+              content: "";
+              position: absolute;
+              display: none;
+            }
+
+            &:after {
+              top: 8.5px;
+              left: 8.5px;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: $white;
+            }
+          }
+        }
+      }
+
+      .omniva {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+
+        select {
+          width: 50%;
+          background: $lighter;
+          border: 2px solid $white;
+          padding: 0.5rem;
+
+          &:focus {
+            outline: 0;
+            border: 2px solid $light-grey;
+          }
+        }
+      }
+
+      .courier {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+      }
+
+      .expiry {
+        input {
+          width: 50%;
+        }
+      }
+    }
+  }
+
+  .order-confirm {
+    ul {
+      box-shadow: 1px 1px 10px 4px $orange;
+      padding: 1rem;
+      margin: 4rem 0 1rem 0;
+
+      li {
+        margin: 1rem 0;
+        padding: 0.2rem 0;
+
+        .delivery-address {
+          margin-left: 0.6rem
+        }
+      }
+    }
+  }
+
+  .actions {
+    input {
+      @extend %btn-shared-large;
+      margin: 1rem 0;
+
+      &:last-child {
+        margin-left: 2rem;
+      }
+    }
+  } 
+}
+
+// PROGRESS BAR
+.progress-bar {
+  display: flex;
+  width: $page-width;
+  height: 40px;
+  margin: auto;
+
+  .bar {
+    position: relative;
+    margin-top: 1.5rem;
+    background: rgba($color: $orange, $alpha: 0.8);
+    height: 100%;
+    width: 25%;
+    transition: width .3s;
+    margin-right: 2rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-left: 25px solid $white;
+      border-bottom: 20px solid transparent;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      right: -25px;
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-left: 25px solid rgba($color: $orange, $alpha: 0.8);
+      border-bottom: 20px solid transparent;
+    }
+
+    .step-info {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-40%, -50%);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: $black;
+    }
+  }
+}
+
 // FOOTER
 .footer {
   width: 100%;
@@ -925,6 +1244,7 @@ a {
     .price-total {
       font-weight: 600;
       font-size: 1.2rem;
+      margin-bottom: 0.5rem;
     }
   }
 }

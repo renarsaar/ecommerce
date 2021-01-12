@@ -13,6 +13,8 @@ import ProductDelete from './products/ProductDelete';
 import ProductEdit from './products/ProductEdit';
 import ProductShow from './products/ProductShow';
 import Account from './account/Account';
+import OrderCreate from './orders/OrderCreate';
+import OrderShow from './orders/OrderShow';
 import Footer from './Footer';
 
 export default function App() {
@@ -43,9 +45,15 @@ export default function App() {
         <Route path="/products/edit/:id" exact component={ProductEdit} />
         <Route path="/products/delete/:id" exact component={ProductDelete} />
         <Route path="/products/:id" exact component={ProductShow} />
-        {isLoggedIn ? <Redirect to="/" /> : <Route path="/account/login" exact render={() => <Account login />} />}
-        {isLoggedIn ? <Redirect to="/" /> : <Route path="/account/register" exact render={() => <Account register />} />}
+        <Route path="/account/login" exact>
+          {isLoggedIn ? <Redirect to="/" /> : <Account login />}
+        </Route>
+        <Route path="/account/register" exact>
+          {isLoggedIn ? <Redirect to="/" /> : <Account register />}
+        </Route>
         <Route path="/account/validation/:id" exact render={(props) => <Account location={props.location} validation />} />
+        <Route path="/cart/checkout" exact component={OrderCreate} />
+        <Route path="/order/:id" exact component={OrderShow} />
       </Switch>
       <Footer />
       {/* <SplashScreen /> */}
