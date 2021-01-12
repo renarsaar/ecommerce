@@ -23,6 +23,13 @@ export default function Header() {
   const [showWishList, setShowWishList] = useState(false);
   const location = useLocation();
 
+  // Close cart modal if Link to checkout page
+  useEffect(() => {
+    if (location.pathname === '/cart/checkout') {
+      setShowCart(false);
+    }
+  }, [location.pathname])
+
   // Load products if link directly to ProductShow
   useEffect(() => {
     if (!products) {
