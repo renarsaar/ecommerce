@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <h1 className="copyright">&copy; Copyright Veebirakenduste Arendus 2020</h1>
+      <h1 className="copyright">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h1>
     </div>
   );
 }
