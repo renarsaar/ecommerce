@@ -611,19 +611,33 @@ a {
       margin-top: 1rem; }
     .order-create .personal-details .row .expiry input {
       width: 50%; }
-  .order-create .order-confirm ul {
-    box-shadow: 1px 1px 10px 4px #ff600a;
-    padding: 1rem;
+  .order-create .order-confirm-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid #ff600a;
+    box-shadow: 6px 6px 0px 1px #ff600a;
     margin: 4rem 0 1rem 0; }
-    .order-create .order-confirm ul li {
-      margin: 1rem 0;
-      padding: 0.2rem 0; }
-      .order-create .order-confirm ul li .delivery-address {
-        margin-left: 0.6rem; }
+    .order-create .order-confirm-container ul {
+      padding: 1rem; }
+      .order-create .order-confirm-container ul li {
+        margin: 1rem 0;
+        padding: 0.2rem 0; }
+        .order-create .order-confirm-container ul li .delivery-address {
+          margin-left: 0.6rem; }
+    .order-create .order-confirm-container .card-details {
+      padding: 1rem; }
+      .order-create .order-confirm-container .card-details p {
+        margin: 1rem 0;
+        padding: 0.2rem 0; }
   .order-create .actions input {
     margin: 1rem 0; }
     .order-create .actions input:last-child {
       margin-left: 2rem; }
+
+.order-success {
+  width: 1180px;
+  margin: 3rem auto 2rem; }
 
 .progress-bar {
   display: flex;

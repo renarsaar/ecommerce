@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import queryString from 'query-string';
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import {
+  Redirect, Route, Switch, useLocation,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../actions/authActions';
 
@@ -14,6 +16,7 @@ import ProductEdit from './products/ProductEdit';
 import ProductShow from './products/ProductShow';
 import Account from './account/Account';
 import OrderCreate from './orders/OrderCreate';
+import CartSuccess from './orders/OrderCreateForm/CartSuccess';
 import OrderShow from './orders/OrderShow';
 import Footer from './Footer';
 
@@ -53,6 +56,7 @@ export default function App() {
         </Route>
         <Route path="/account/validation/:id" exact render={(props) => <Account location={props.location} validation />} />
         <Route path="/cart/checkout" exact component={OrderCreate} />
+        <Route path="/cart/success" exact component={CartSuccess} />
         <Route path="/order/:id" exact component={OrderShow} />
       </Switch>
       <Footer />

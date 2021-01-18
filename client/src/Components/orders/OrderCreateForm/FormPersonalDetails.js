@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchParcelTerminals } from '../../../actions/orderActions';
 
+import handleCreditCardFormat from './handleCreditCardFormat';
+
 export default function FormPersonalDetails({
   values, formErrors, prevStep, nextStep, handleChange, handleValidation,
 }) {
@@ -62,19 +64,6 @@ export default function FormPersonalDetails({
     return false;
   }
 
-  // Return formatted credit card number
-  function handleCreditCardFormat(cardNumber) {
-    let formattedCardNumber = '';
-
-    // Add spaces between every 4th number
-    for (let i = 0; i < cardNumber.length; i++) {
-      if (i % 4 === 0 && i > 0) formattedCardNumber = formattedCardNumber.concat(' ');
-      formattedCardNumber = formattedCardNumber.concat(cardNumber[i]);
-    }
-
-    return formattedCardNumber;
-  }
-
   return (
     <div className="order-create">
       <form className="personal-details">
@@ -88,7 +77,7 @@ export default function FormPersonalDetails({
               type="text"
               name="name"
               className={formErrors.name ? 'input-err' : ''}
-              value={values.name}
+              value={values.name || ''}
               onChange={handleChange}
               onBlur={handleValidation}
               disabled={!!isLoggedIn}
@@ -104,7 +93,7 @@ export default function FormPersonalDetails({
               name="email"
               className={formErrors.email ? 'input-err' : ''}
               autoComplete="on"
-              value={values.email}
+              value={values.email || ''}
               onChange={handleChange}
               onBlur={handleValidation}
               disabled={!!isLoggedIn}
@@ -120,7 +109,7 @@ export default function FormPersonalDetails({
                   onChange={handleChange}
                   onBlur={handleValidation}
                   value="Omniva"
-                  checked={values.deliveryMethod === 'Omniva' ? true : false}
+                  checked={values.deliveryMethod === 'Omniva'}
                 />
                 Omniva parcel
                 <span className="checkmark" />
@@ -132,7 +121,7 @@ export default function FormPersonalDetails({
                   name="deliveryMethod"
                   onChange={handleChange}
                   onBlur={handleValidation}
-                  checked={values.deliveryMethod === 'Courier' ? true : false}
+                  checked={values.deliveryMethod === 'Courier'}
                   value="Courier"
                 />
                 Courier

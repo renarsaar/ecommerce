@@ -4,29 +4,24 @@ import ProgressBar from './OrderCreateForm/ProgressBar';
 import FormCartProducts from './OrderCreateForm/FormCartProducts';
 import FormPersonalDetails from './OrderCreateForm/FormPersonalDetails';
 import FormConfirm from './OrderCreateForm/FormConfirm';
-import FormSuccess from './OrderCreateForm/FormSuccess';
 
 export default class OrderCreate extends React.Component {
   state = {
     step: 1,
-    name: '',
-    email: '',
-    product: {},
     totalPrice: 0,
     deliveryMethod: '',
-    deliveryOmniva: '',
-    deliveryCourier: '',
+    deliveryOmniva: 'Abja Coop Konsumi pakiautomaat',
     cardHolder: '',
     cardNumber: '',
     expiryM: '',
     expiryY: '',
     cvv: '',
-    formErrors: { name: '', email: '', deliveryMethod: '', deliveryCourier: '', deliveryOmniva: '', cardHolder: '', cardNumber: '', expiryM: '', expiryY: '', cvv: '' },
+    formErrors: { name: '', email: '', deliveryMethod: '', deliveryCourier: '', cardHolder: '', cardNumber: '', expiryM: '', expiryY: '', cvv: '' },
   };
 
   // Clear Form Step
   componentWillUnmount() {
-    this.setState({ step: 1 })
+    this.setState({ step: 1 });
   };
 
   // Proceed to next Step
@@ -204,19 +199,10 @@ export default class OrderCreate extends React.Component {
           <>
             <ProgressBar stepNumber={3} stepInfo="Confirm" />
             <FormConfirm
-              nextStep={this.nextStep}
               prevStep={this.prevStep}
               values={values}
               formErrors={formErrors}
             />
-          </>
-        );
-
-      case 4:
-        return (
-          <>
-            <ProgressBar stepNumber={4} stepInfo="Success" />
-            <FormSuccess />
           </>
         );
 

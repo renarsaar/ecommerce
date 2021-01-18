@@ -9,7 +9,6 @@ import {
 
 const INITIAL_STATE = {
   loading: false,
-  makeOrder: null,
   terminals: null,
   error: false,
 };
@@ -20,15 +19,15 @@ export default (state = INITIAL_STATE, action) => {
     case GET_TERMINALS_LOADING:
       return {
         loading: true,
-        makeOrder: null,
         terminals: null,
         error: false,
       };
 
     case CREATE_ORDER:
+      sessionStorage.removeItem('cart');
+
       return {
         loading: false,
-        makeOrder: action.payload,
         error: false,
       };
 
@@ -43,7 +42,6 @@ export default (state = INITIAL_STATE, action) => {
     case GET_TERMINALS_ERROR:
       return {
         loading: false,
-        makeOrder: false,
         terminals: null,
         error: action.payload,
       };

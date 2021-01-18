@@ -922,17 +922,33 @@ a {
   }
 
   .order-confirm {
-    ul {
-      box-shadow: 1px 1px 10px 4px $orange;
-      padding: 1rem;
+    &-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border: 3px solid $orange;
+      box-shadow: 6px 6px 0px 1px $orange;
       margin: 4rem 0 1rem 0;
 
-      li {
-        margin: 1rem 0;
-        padding: 0.2rem 0;
+      ul {
+        padding: 1rem;
+  
+        li {
+          margin: 1rem 0;
+          padding: 0.2rem 0;
+  
+          .delivery-address {
+            margin-left: 0.6rem
+          }
+        }
+      }
 
-        .delivery-address {
-          margin-left: 0.6rem
+      .card-details {
+        padding: 1rem;
+
+        p {
+          margin: 1rem 0;
+          padding: 0.2rem 0;
         }
       }
     }
@@ -948,6 +964,12 @@ a {
       }
     }
   } 
+}
+
+// Order success
+.order-success {
+  width: $page-width;
+  margin: 3rem auto 2rem;
 }
 
 // PROGRESS BAR

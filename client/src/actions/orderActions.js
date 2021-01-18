@@ -7,15 +7,27 @@ import {
   GET_TERMINALS_ERROR,
 } from './types';
 import api from '../api';
+import history from '../history';
 
 // Create a new order
 export const createOrder = (values) => async (dispatch) => {
   dispatch({ type: CREATE_ORDER_LOADING });
 
   api.post('/orders', {
-
+    user: values.user,
+    email: values.email,
+    product: values.product,
+    totalPrice: values.totalPrice,
+    delivery: values.delivery,
   })
-    .then((response) => dispatch({ type: CREATE_ORDER, payload: response.data }))
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch({ type: CREATE_ORDER });
+
+        // Success, push to success page
+        history.push({ pathname: '/cart/success' });
+      }
+    })
     .catch((error) => dispatch({ type: CREATE_ORDER_ERROR, payload: { error } }));
 };
 

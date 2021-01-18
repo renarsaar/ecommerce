@@ -28,7 +28,7 @@ export default function Header() {
     if (location.pathname === '/cart/checkout') {
       setShowCart(false);
     }
-  }, [location.pathname])
+  }, [location.pathname]);
 
   // Load products if link directly to ProductShow
   useEffect(() => {

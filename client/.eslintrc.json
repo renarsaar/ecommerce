@@ -22,6 +22,7 @@
         "linebreak-style": "off",
         "react/jsx-filename-extension": "off",
         "react/jsx-one-expression-per-line": "off",
-        "jsx-a11y/label-has-associated-control": "off"
+        "jsx-a11y/label-has-associated-control": "off",
+        "react/prop-types": "off"
     }
 }
