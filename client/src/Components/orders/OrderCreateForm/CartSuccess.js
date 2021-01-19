@@ -8,7 +8,7 @@ export default function CartSuccess() {
     <>
       <ProgressBar stepNumber={4} stepInfo="Success" />
       <div className="order-success">
-        <h5>Order Created</h5>
+        <h3>Order Created</h3>
         <Link to="/" className="link">Back to Home</Link>
       </div>
     </>

@@ -6,7 +6,7 @@ import handleCreditCardFormat from './handleCreditCardFormat';
 
 export default function FormConfirm({ values, formErrors, prevStep }) {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.orders);
+  const { loading, error } = useSelector((state) => state.orders); //TODO LOADING && ERROR CASES
   const { user } = useSelector((state) => state.auth);
   const cartProducts = useSelector((state) => state.cart);
   const [valid, setValid] = useState(true);
@@ -85,6 +85,17 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
             </li>
           </ul>
 
+          {loading && (
+            <div className="loading-container">
+              <div className="loading">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+            </div>
+          )}
+
           <div className="card-details">
             <p>Card Holder: {values.cardHolder}</p>
             <p>Card Number: {handleCreditCardFormat(values.cardNumber)}</p>
@@ -93,7 +104,7 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
           </div>
         </div>
 
-        {error && <h3>Error</h3>}
+        {error && <h3>Error while making an order. Please try again later</h3>}
 
         <div className="actions">
           <input
