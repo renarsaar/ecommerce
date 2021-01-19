@@ -6,7 +6,7 @@ import handleCreditCardFormat from './handleCreditCardFormat';
 
 export default function FormConfirm({ values, formErrors, prevStep }) {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.orders); //TODO LOADING && ERROR CASES
+  const { loading, error } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const cartProducts = useSelector((state) => state.cart);
   const [valid, setValid] = useState(true);

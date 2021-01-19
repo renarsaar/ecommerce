@@ -24,7 +24,6 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case CREATE_ORDER:
-      sessionStorage.removeItem('cart');
 
       return {
         loading: false,
