@@ -61,7 +61,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case CLEAR_CART:
       state = [];
-      localStorage.removeItem('cart');
+      sessionStorage.removeItem('cart');
 
       return state;
 
