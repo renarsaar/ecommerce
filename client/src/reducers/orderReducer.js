@@ -24,7 +24,6 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case CREATE_ORDER:
-
       return {
         loading: false,
         error: false,

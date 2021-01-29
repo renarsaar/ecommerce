@@ -80,9 +80,6 @@ router.post('/', upload.single('image'), async (req, res) => {
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
-
-  // ? duplicate?
-  // product.save().then((item) => res.json(item));
 });
 
 // @desc    Edit a product

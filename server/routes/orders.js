@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios');
 const Order = require('../model/Order');
+const Product = require('../model/Product');
 const { makeOrderValidation } = require('../validation');
 
 // @desc    Make a new order
@@ -13,13 +14,28 @@ router.post('/', async (req, res) => {
   const order = new Order({
     user: req.body.user,
     email: req.body.email,
-    product: req.body.product,
+    products: req.body.products,
     totalPrice: req.body.totalPrice,
     delivery: req.body.delivery,
   });
 
-  // Make a new order
   try {
+    // Map all products and remove quantity from db
+    order.products.map(async (product) => {
+      const collectionProduct = await Product.findById(product.id);
+
+      // Find the index of the size in the stock array
+      const index = collectionProduct.sizes.findIndex((size) => size === product.size);
+
+      collectionProduct.stock[index] -= product.quantity;
+
+      // Rewrite the whole stock array
+      collectionProduct.updateOne({ stock: collectionProduct.stock }, (err) => {
+        if (err) res.status(400).send({ message: 'Failed to create an order. Please try again later' });
+      });
+    });
+
+    // Make a new order
     await order.save();
     res.status(201).send('Order created successfully');
   } catch (err) {

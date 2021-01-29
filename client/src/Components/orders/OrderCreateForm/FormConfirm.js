@@ -28,15 +28,16 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
   });
 
   // Create a new order
-  function handleCreateOrder(e) {
+  function handleCreateOrder() {
     const orderValues = {
-      product: cartProducts,
+      products: cartProducts,
       totalPrice: values.totalPrice,
       delivery: values.deliveryMethod === 'Omniva'
         ? `Omniva: ${values.deliveryOmniva}`
         : `Courier: ${values.deliveryCourier}`,
     };
 
+    // Set the name & email to typed or google values
     if ('name' in values) orderValues.user = values.name;
     if (user !== null) orderValues.user = user.name;
 

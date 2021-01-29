@@ -970,6 +970,10 @@ a {
 .order-success {
   width: $page-width;
   margin: 3rem auto 2rem;
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
 }
 
 // PROGRESS BAR

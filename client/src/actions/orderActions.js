@@ -16,7 +16,7 @@ export const createOrder = (values) => async (dispatch) => {
   api.post('/orders', {
     user: values.user,
     email: values.email,
-    product: values.product,
+    products: values.products,
     totalPrice: values.totalPrice,
     delivery: values.delivery,
   })
@@ -24,11 +24,13 @@ export const createOrder = (values) => async (dispatch) => {
       if (response.status === 201) {
         dispatch({ type: CREATE_ORDER });
 
-        // Success, push to success page
-        history.push({ pathname: '/cart/success' });
+        history.push('/cart/success');
       }
     })
-    .catch((error) => dispatch({ type: CREATE_ORDER_ERROR, payload: { error } }));
+    .catch((error) => dispatch({
+      type: CREATE_ORDER_ERROR,
+      payload: error.message,
+    }));
 };
 
 // Get Itella parcel terminal locations

@@ -66,11 +66,12 @@ function addProductValidation(data) {
   return schema.validate(data);
 }
 
+// Make a new order
 function makeOrderValidation(data) {
   const schema = Joi.object({
     user: Joi.string().required(),
     email: Joi.string().required(),
-    product: Joi.array().required(),
+    products: Joi.array().required(),
     totalPrice: Joi.number().required(),
     delivery: Joi.string().required(),
   });
