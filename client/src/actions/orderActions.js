@@ -33,7 +33,7 @@ export const createOrder = (values) => async (dispatch) => {
     }));
 };
 
-// Get Itella parcel terminal locations
+// Get Omniva parcel terminal locations
 export const fetchParcelTerminals = () => async (dispatch) => {
   dispatch({ type: GET_TERMINALS_LOADING });
 

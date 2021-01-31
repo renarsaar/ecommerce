@@ -190,13 +190,28 @@ a {
       .header-actions span:hover h1, .header-actions span:hover i {
         color: #ff600a; }
     .header-actions i {
+      position: relative;
       cursor: pointer;
       margin: 0 1.1rem;
-      font-size: 1.5rem; }
+      font-size: 1.65rem; }
       .header-actions i:hover {
         color: #ff600a; }
       .header-actions i:nth-child(4) {
         margin-right: 0; }
+      .header-actions i .cart-length-number {
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        background: #ff600a;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18px;
+        text-align: center;
+        max-width: 25px;
+        min-width: 20px;
+        height: 20px;
+        border-radius: 10px; }
 
 .subheader {
   display: flex;

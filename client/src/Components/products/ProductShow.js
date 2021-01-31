@@ -60,9 +60,12 @@ export default function ProductShow({ match, location }) {
   function handleQuantity(e) {
     const { value } = e.target;
 
+    // Find the index of the size in the stock array
+    const index = selectedProduct.sizes.findIndex((itemSize) => itemSize === size);
+
     if (value === 'increment') {
       setQuantity((currQuantity) => currQuantity + 1);
-      if (quantity >= selectedProduct.stock) setQuantity(selectedProduct.stock);
+      if (quantity >= selectedProduct.stock[index]) setQuantity(selectedProduct.stock[index]);
     }
 
     if (value === 'decrement') {

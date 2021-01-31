@@ -250,9 +250,10 @@ a {
     }
 
     i {
+      position: relative;
       cursor: pointer;
       margin: 0 1.1rem;
-      font-size: 1.5rem;
+      font-size: 1.65rem;
 
       &:hover {
         color: $orange;
@@ -260,6 +261,22 @@ a {
 
       &:nth-child(4) {
         margin-right: 0;
+      }
+
+      .cart-length-number {
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        background: $orange;
+        color: $white;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18px;
+        text-align: center;
+        max-width: 25px;
+        min-width: 20px;
+        height: 20px;
+        border-radius: 10px;
       }
     }
   }
