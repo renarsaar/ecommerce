@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Product({ product }) {
   const {
     image, name, date, price, discountPrice, _id,
   } = product;
+  const wishListProducts = useSelector((state) => state.wishList);
 
   // Return new product label
   function newProduct() {
@@ -36,11 +38,23 @@ export default function Product({ product }) {
     return null;
   }
 
+  // Return heart icon if product is wishlisted
+  function wishListedProduct() {
+    if (wishListProducts.includes(_id)) {
+      return (
+        <span className="wishlisted lar la-heart orange" />
+      );
+    }
+
+    return null;
+  }
+
   return (
     <div className="product-list-item">
       <img src={`http://localhost:8080/${image}`} alt={name} />
       {newProduct()}
       {discountAmount()}
+      {wishListedProduct()}
       <Link to={`/products/${_id}`}>
         <h1>{name}</h1>
         <p>
