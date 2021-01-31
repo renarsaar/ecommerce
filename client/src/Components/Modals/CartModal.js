@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeCart } from '../actions/cartActions';
+import { removeCart } from '../../actions/cartActions';
 
 export default function CartModal({ showCart }) {
   const dispatch = useDispatch();

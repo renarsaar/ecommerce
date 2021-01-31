@@ -6,7 +6,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../actions/authActions';
 
-import SplashScreen from './SplashScreen';
 import Header from './Header';
 import SubHeader from './SubHeader';
 import Catalog from './Catalog';
@@ -60,7 +59,6 @@ export default function App() {
         <Route path="/order/:id" exact component={OrderShow} />
       </Switch>
       <Footer />
-      {/* <SplashScreen /> */}
     </div>
   );
 }

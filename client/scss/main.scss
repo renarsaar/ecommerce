@@ -1183,50 +1183,8 @@ a {
   }
 }
 
-// SPLASHSCREEN
-.intro {
-  background: $lighter;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 99;
 
-  &-text {
-    .hide {
-      background: $lighter;
-      overflow: hidden;
-
-      .vra {
-        fill: transparent;
-        stroke: $orange;
-        width: 160px;
-        height: 80px;
-        stroke-width: 2.5;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        transform: translateY(150%);
-        display: inline-block;
-      }
-    }
-  }
-}
-
-.slider {
-  background: $orange;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateY(100%);
-  z-index: 99;
-}
-
+// MODALS
 %modal-shared {
   overflow-y: scroll;
   position: absolute;
@@ -1238,7 +1196,6 @@ a {
   right: 0;
 }
 
-// MODALS
 .wishlist-modal, .cart-modal {
   @extend %modal-shared;
 

@@ -6,8 +6,8 @@ import {
 } from '../actions/menuActions';
 import { fetchProducts } from '../actions/productsActions';
 
-import CartModal from './CartModal';
-import WishListModal from './WishListModal';
+import CartModal from './Modals/CartModal';
+import WishListModal from './Modals/WishListModal';
 
 export default function Header() {
   const dispatch = useDispatch();
