@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../../actions/productsActions';
 import { addWishlist } from '../../actions/wishListActions';
 import { addCart } from '../../actions/cartActions';
+import RippleButton from '../../Helpers/RippleButton';
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ export default function ProductShow({ match, location }) {
 
   // Handle product quantity
   function handleQuantity(e) {
+    RippleButton(e);
+
     const { value } = e.target;
 
     // Find the index of the size in the stock array
@@ -75,12 +78,14 @@ export default function ProductShow({ match, location }) {
   }
 
   // Add product to wishlist
-  function handlewishList() {
+  function handlewishList(e) {
+    RippleButton(e);
+
     dispatch(addWishlist(selectedProduct._id));
   }
 
   // Add product to shopping cart
-  function handleCart() {
+  function handleCart(e) {
     const { stock, sizes } = selectedProduct;
     const product = {
       id: selectedProduct._id,
@@ -93,6 +98,8 @@ export default function ProductShow({ match, location }) {
       quantity,
       size,
     };
+
+    RippleButton(e);
 
     dispatch(addCart(product));
   }
@@ -188,15 +195,17 @@ export default function ProductShow({ match, location }) {
               <button type="button" value="decrement" className="increment" onClick={handleQuantity}>-</button>
               <span>{quantity}</span>
               <button type="button" value="increment" className="decrement" onClick={handleQuantity}>+</button>
+
               <button type="button" className="btn add-cart" onClick={handleCart}>Add to cart</button>
+
               <div>
                 <i className="tooltip las la-question-circle">
                   <span className="tooltiptext">All the products in wishlist can be accessed via heart icon</span>
                 </i>
+
                 <button type="button" className="btn add-wishlist" onClick={handlewishList}>Add to wishlist</button>
               </div>
             </div>
-
           </div>
         </div>
       </div>

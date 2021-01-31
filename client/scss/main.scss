@@ -158,7 +158,29 @@ a {
   }
 }
 
+// Function = Set background color
+@function set-bg-color($color) {
+  @if (lightness($color) > 50) {
+    @return $grey;
+  } @else {
+    @return $white;
+  }
+}
 
+%btn-ripple {
+  position: relative;
+  overflow: hidden;
+
+  span {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: set-bg-color($white);
+    opacity: 0.5;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: animate 1s linear forwards;
+  }
+}
 
 // HEADER
 .header {
@@ -670,7 +692,7 @@ a {
 
         .product-actions {
           .increment, .decrement {
-            @extend %btn-shared;
+            @extend %btn-shared, %btn-ripple;
           }
 
           span {
@@ -678,7 +700,7 @@ a {
           }
 
           .add-cart {
-            @extend %btn-shared-large;
+            @extend %btn-shared-large, %btn-ripple;
             background: $dark-blue;
             color: $white;
           }
@@ -707,7 +729,7 @@ a {
 
             .add-wishlist {
               padding-left: 1.5rem;
-              @extend %btn-shared-large;
+              @extend %btn-shared-large, %btn-ripple;
               background: transparent;
               border-bottom: 4px solid $dark-blue;
 
@@ -1570,5 +1592,18 @@ a {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes animate {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+    opacity: 0;
   }
 }
