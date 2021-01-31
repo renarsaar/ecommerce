@@ -55,7 +55,6 @@ export default function Catalog() {
         )}
       </div>
     );
-
   }
 
   return (

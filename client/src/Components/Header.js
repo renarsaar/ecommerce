@@ -18,6 +18,7 @@ export default function Header() {
     about,
   } = useSelector((state) => state.menu);
   const { products } = useSelector((state) => state.products);
+  const wishListProducts = useSelector((state) => state.wishList);
   const cartProducts = useSelector((state) => state.cart);
   const { user, loading } = useSelector((state) => state.auth);
   const [showCart, setShowCart] = useState(false);
@@ -111,8 +112,14 @@ export default function Header() {
         <i
           className={showWishList ? 'lar la-heart orange' : 'lar la-heart'}
           onClick={handleWishlist}
-        />
-        {products && <WishListModal products={products} showWishList={showWishList} />}
+        >
+          {wishListProducts.length > 0 && (
+            <p className="wishlist-length-number">
+              {wishListProducts.length}
+            </p>
+          )}
+          {products && <WishListModal products={products} showWishList={showWishList} />}
+        </i>
 
         <i
           className={showCart ? 'cart-icon las la-shopping-bag orange' : 'cart-icon las la-shopping-bag'}

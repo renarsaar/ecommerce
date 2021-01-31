@@ -210,7 +210,7 @@ a {
         color: #ff600a; }
       .header-actions i:nth-child(4) {
         margin-right: 0; }
-      .header-actions i .cart-length-number {
+      .header-actions i .cart-length-number, .header-actions i .wishlist-length-number {
         position: absolute;
         bottom: -10px;
         right: -10px;

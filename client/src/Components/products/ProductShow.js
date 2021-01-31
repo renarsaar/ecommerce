@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../../actions/productsActions';
 import { addWishlist } from '../../actions/wishListActions';
 import { addCart } from '../../actions/cartActions';
-import RippleButton from '../../Helpers/RippleButton';
+import RippleButton from '../Helpers/RippleButton';
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
