@@ -65,11 +65,21 @@ export default function SubHeader() {
     return <></>;
   }
 
+  // Render select menu conditionally
+  function handleSortingMenu() {
+    if (selectedProduct) return 'hide';
+    if (location.pathname.includes('/account/dashboard')) return 'hide';
+    if (location.pathname.includes('/cart/checkout')) return 'hide';
+    if (location.pathname.includes('/cart/success')) return 'hide';
+
+    return 'sort show';
+  }
+
   return (
     <div className="subheader">
       <div className="container">
         {handleBreadcrumb()}
-        <div className={selectedProduct ? 'hide' : 'sort show'}>
+        <div className={handleSortingMenu()}>
           Sort by
           <select onChange={handleChange} defaultValue={sortValue}>
             <option value="SORT_OLDEST" />
