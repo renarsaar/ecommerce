@@ -194,6 +194,7 @@ router.patch('/validation/:id', async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
+      admin: user.isAdmin,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -223,6 +224,7 @@ router.post('/login', async (req, res) => {
     id: user._id,
     name: user.name,
     email: user.email,
+    admin: user.isAdmin,
   });
 });
 
