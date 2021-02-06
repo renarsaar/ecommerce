@@ -1,4 +1,10 @@
 import {
+  GET_ORDERS_LOADING,
+  GET_ORDERS,
+  GET_ORDERS_ERROR,
+  GET_USER_ORDERS_LOADING,
+  GET_USER_ORDERS,
+  GET_USER_ORDERS_ERROR,
   CREATE_ORDER_LOADING,
   CREATE_ORDER,
   CREATE_ORDER_ERROR,
@@ -8,6 +14,34 @@ import {
 } from './types';
 import api from '../api';
 import history from '../history';
+
+// Get all orders
+export const getOrders = (page) => async (dispatch) => {
+  dispatch({ type: GET_ORDERS_LOADING });
+
+  api.get('/orders', {
+    params: {
+      page,
+      limit: 10,
+    },
+  })
+    .then((response) => dispatch({ type: GET_ORDERS, payload: response.data }))
+    .catch((error) => dispatch({ type: GET_ORDERS_ERROR, payload: { error } }));
+};
+
+// Get all order made from one User
+export const getUserOrders = (userName, page) => async (dispatch) => {
+  dispatch({ type: GET_USER_ORDERS_LOADING });
+
+  api.get(`/orders/user/${userName}`, {
+    params: {
+      page,
+      limit: 6,
+    },
+  })
+    .then((response) => dispatch({ type: GET_USER_ORDERS, payload: response.data }))
+    .catch((error) => dispatch({ type: GET_USER_ORDERS_ERROR, payload: { error } }));
+};
 
 // Create a new order
 export const createOrder = (values) => async (dispatch) => {

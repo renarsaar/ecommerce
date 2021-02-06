@@ -294,6 +294,7 @@ a {
         font-size: 13px;
         font-weight: 500;
         line-height: 18px;
+        user-select: none;
         text-align: center;
         max-width: 25px;
         min-width: 20px;
@@ -309,6 +310,7 @@ a {
   display: flex;
   justify-content: center;
   box-shadow: 0 4px 40px rgba(0,0,0,.08);
+  min-height: 60px;
 
   .container {
     display: flex;
@@ -438,6 +440,7 @@ a {
           cursor: default;
           font-family: $H;
           font-weight: 300;
+          user-select: none;
           background: $orange;
           color: $white;
           text-transform: uppercase;
@@ -451,6 +454,7 @@ a {
           cursor: default;
           font-family: $H;
           font-weight: 300;
+          user-select: none;
           background: $orange;
           color: $white;
           text-transform: uppercase;
@@ -774,7 +778,8 @@ a {
 
     img {
       height: 190px;
-      width: 190px;
+      min-width: 190px;
+      max-width: 190px;
       object-fit: cover;
     }
     
@@ -1232,7 +1237,8 @@ a {
 
           img {
             margin-right: 1rem;
-            width: 70px;
+            min-width: 70px;
+            max-width: 70px;
             height: 70px;
             object-fit: cover;
           } 
@@ -1474,6 +1480,12 @@ a {
       }
     }
   }
+}
+
+// Dashboard
+.dashboard {
+  width: $page-width;
+  margin: 2rem auto;
 }
 
 // LOGO SVG

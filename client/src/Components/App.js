@@ -14,6 +14,8 @@ import ProductDelete from './products/ProductDelete';
 import ProductEdit from './products/ProductEdit';
 import ProductShow from './products/ProductShow';
 import Account from './account/Account';
+import User from './account/User';
+import Admin from './account/Admin';
 import OrderCreate from './orders/OrderCreate';
 import CartSuccess from './orders/OrderCreateForm/CartSuccess';
 import OrderShow from './orders/OrderShow';
@@ -22,7 +24,7 @@ import Footer from './Footer';
 export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { user, isLoggedIn } = useSelector((state) => state.auth);
   const url = queryString.parse(location.search);
 
   // Get the user & log in if jwt token in URL after OAuth login
@@ -53,6 +55,13 @@ export default function App() {
         <Route path="/account/register" exact>
           {isLoggedIn ? <Redirect to="/" /> : <Account register />}
         </Route>
+        <Route path="/account/dashboard/admin/:id" exact>
+          {isLoggedIn && user.admin ? <Admin /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/account/dashboard/user/:id" exact>
+          {isLoggedIn && !user.admin ? <User /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/account/dashboard/user/:id" exact component={User} />
         <Route path="/account/validation/:id" exact render={(props) => <Account location={props.location} validation />} />
         <Route path="/cart/checkout" exact component={OrderCreate} />
         <Route path="/cart/success" exact component={CartSuccess} />

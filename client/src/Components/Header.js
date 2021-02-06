@@ -20,7 +20,7 @@ export default function Header() {
   const { products } = useSelector((state) => state.products);
   const wishListProducts = useSelector((state) => state.wishList);
   const cartProducts = useSelector((state) => state.cart);
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user, loading, isLoggedIn } = useSelector((state) => state.auth);
   const [showCart, setShowCart] = useState(false);
   const [showWishList, setShowWishList] = useState(false);
   const location = useLocation();
@@ -63,6 +63,13 @@ export default function Header() {
     setShowWishList(!showWishList);
   }
 
+  // Handle Account btn href
+  function handleAccountLink() {
+    if (isLoggedIn && user.admin) return `/account/dashboard/admin/${user.id}`;
+    if (isLoggedIn && !user.admin) return `/account/dashboard/user/${user.id}`;
+    return '/account/login';
+  }
+
   // Do not render on login/register/validation page
   if (
     location.pathname.includes('/account/login')
@@ -96,7 +103,7 @@ export default function Header() {
       </ul>
 
       <div className="header-actions">
-        <Link to="/account/login" style={{ color: 'inherit' }}>
+        <Link to={handleAccountLink} style={{ color: 'inherit' }}>
           <span>
             <h1 className={loading ? 'placeholder' : ''}>
               {user && `Welcome, ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`}

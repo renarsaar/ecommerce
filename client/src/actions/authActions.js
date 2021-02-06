@@ -53,6 +53,7 @@ export const logIn = (values) => async (dispatch) => {
           id: response.data.id,
           name: response.data.name,
           email: response.data.email,
+          admin: response.data.isAdmin,
         },
       });
       history.push({ pathname: '/' });
@@ -77,6 +78,7 @@ export const validateOAuthUser = (values) => async (dispatch) => {
           id: response.data.id,
           name: response.data.name,
           email: response.data.email,
+          admin: response.data.isAdmin,
         },
       });
       history.push({ pathname: '/' });
@@ -101,6 +103,7 @@ export const getUser = (token) => async (dispatch) => {
           id: response.data._id,
           name: response.data.name,
           email: response.data.email,
+          admin: response.data.isAdmin,
         },
       });
     })

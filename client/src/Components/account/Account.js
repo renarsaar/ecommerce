@@ -6,7 +6,9 @@ import LogIn from './LogIn';
 import Register from './Register';
 import Validation from './Validation';
 
-export default function Account({ login, register, validation, location }) {
+export default function Account({
+  login, register, validation, location,
+}) {
   return (
     <div className="account">
       <div className="account-container">
