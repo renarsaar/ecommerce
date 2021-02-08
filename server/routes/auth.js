@@ -242,26 +242,37 @@ router.get('/user', auth, (req, res) => {
 // @access  private
 router.patch('/:id', auth, async (req, res) => {
   const user = await User.findById(req.params.id);
+  const { oldPassword, password, confirmPassword } = req.body;
 
   // Check for user input
-  if (req.body.password) {
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-    user.password = hashPassword;
+  if (oldPassword === '' || password === '' || confirmPassword === '') {
+    return res.status(400).send('Please fill in all fields');
   }
 
+  if (password !== confirmPassword) {
+    return res.status(400).send('Passwords do not match');
+  }
+
+  // Check if password is correct
+  const validPass = await bcrypt.compare(oldPassword, user.password);
+  if (!validPass) return res.status(400).send('Invalid Password!');
+
   // Validation
-  const { error } = editUserValidation(req.body);
+  const { error } = editUserValidation({ password });
   if (error) return res.status(400).send(error.details[0].message);
+
+  // Hash password and set new password
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+  user.password = hashPassword;
 
   // Update user password
   try {
     await user.save();
-    res.status(201).json(user);
+    res.status(201).send('Password changed');
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).send(err.message);
   }
 });
 
