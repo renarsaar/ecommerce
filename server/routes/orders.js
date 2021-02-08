@@ -5,7 +5,7 @@ const Product = require('../model/Product');
 const { makeOrderValidation } = require('../validation');
 
 // @desc    Get all orders
-// @route   GET /orders/
+// @route   GET /orders
 router.get('/', paginatedResults(Order), async (req, res) => {
   try {
     res.status(200).json(res.paginatedResults);
@@ -15,10 +15,10 @@ router.get('/', paginatedResults(Order), async (req, res) => {
 });
 
 // @desc    Get all orders made from 1 user
-// @route   GET /orders/
+// @route   GET /orders/:username
 router.get('/user/:userName', paginatedResults(Order), async (req, res) => {
   try {
-    res.status(200).json(res.paginatedResults);
+    res.status(200).json(res.paginatedResults.paginatedResults);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -63,8 +63,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// @desc    Get Itella parcel terminal locations
-// @route   GET /orders/itella
+// @desc    Get Omniva parcel terminal locations
+// @route   GET /orders/omniva
 router.get('/omniva', async (req, res) => {
   const BASE_URL = 'https://www.omniva.ee/locations.json';
 
@@ -109,7 +109,6 @@ function paginatedResults(model) {
       } else {
         results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
       }
-
       res.paginatedResults = results;
       next();
     } catch (err) {
