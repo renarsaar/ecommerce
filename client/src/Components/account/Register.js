@@ -6,7 +6,7 @@ import api from '../../api';
 
 export default function Register() {
   const dispatch = useDispatch();
-  const { loading, registerError } = useSelector((state) => state.auth);
+  const { authLoading, registerError } = useSelector((state) => state.auth);
   const [nameErr, setNameErr] = useState('');
   const [emailErr, setEmailErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
@@ -85,7 +85,7 @@ export default function Register() {
 
       <span>or</span>
 
-      <form style={{ opacity: loading ? '0.4' : '1' }} onSubmit={handleRegistration}>
+      <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleRegistration}>
         <label htmlFor="name">Name</label>
         <input
           className={nameErr ? 'input-err' : ''}
@@ -124,7 +124,7 @@ export default function Register() {
 
         <input type="submit" value="Register" />
 
-        {loading && (
+        {authLoading && (
           <div className="loading-container">
             <div className="loading">
               <div />

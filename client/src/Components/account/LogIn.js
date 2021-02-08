@@ -8,7 +8,7 @@ export default function LogIn() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [logInMessage, setLogInMessage] = useState('');
-  const { loading, logInError } = useSelector((state) => state.auth);
+  const { authLoading, logInError } = useSelector((state) => state.auth);
 
   // Log user in
   async function handleLogIn(e) {
@@ -51,7 +51,7 @@ export default function LogIn() {
         </div>
       )}
 
-      <form style={{ opacity: loading ? '0.4' : '1' }} onSubmit={handleLogIn}>
+      <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleLogIn}>
         <label htmlFor="email">Email Address</label>
         <input className="mb-1" type="text" name="email" />
 
@@ -62,7 +62,7 @@ export default function LogIn() {
 
         <input type="submit" value="Login" />
 
-        {loading && (
+        {authLoading && (
           <div className="loading-container">
             <div className="loading">
               <div />

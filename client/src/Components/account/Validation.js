@@ -5,7 +5,7 @@ import { validateOAuthUser } from '../../actions/authActions';
 
 export default function Validation({ parsedUrlParams }) {
   const dispatch = useDispatch();
-  const { loading, validateError } = useSelector((state) => state.auth);
+  const { authLoading, validateError } = useSelector((state) => state.auth);
 
   // Submit form & validate account
   async function handleValidation(e) {
@@ -26,7 +26,7 @@ export default function Validation({ parsedUrlParams }) {
       <h1 className="headline">Verify Google Account</h1>
       <p className="headline-description">By verifying your Google account, we will add Log in with Google to your authentication method for accessing your VRA Ecommerce account.</p>
 
-      <form style={{ opacity: loading ? '0.4' : '1' }} onSubmit={handleValidation}>
+      <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleValidation}>
         <label htmlFor="email">Email Address</label>
         <input
           className="mb-1"
@@ -51,7 +51,7 @@ export default function Validation({ parsedUrlParams }) {
 
         <input className="mb-1" type="submit" value="Link My Accounts" />
 
-        {loading && (
+        {authLoading && (
           <div className="loading-container">
             <div className="loading">
               <div />
