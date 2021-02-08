@@ -12,17 +12,22 @@ import {
   LOG_IN_ERROR,
   GET_USER_ERROR,
   REGISTER_ERROR,
+  CHANGE_PASSWORD_LOADING,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   token: sessionStorage.getItem('token'),
   isLoggedIn: false,
   user: null,
-  loading: false,
+  changePassword: null,
+  authLoading: false,
   logInError: null,
   getUserError: null,
   registerError: null,
   validateError: null,
+  changePasswordError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,13 +36,15 @@ export default (state = INITIAL_STATE, action) => {
     case VALIDATE_LOADING:
     case LOG_IN_LOADING:
     case GET_USER_LOADING:
+    case CHANGE_PASSWORD_LOADING:
       return {
         ...state,
-        loading: true,
+        authLoading: true,
         logInError: null,
         registerError: null,
         validateError: null,
         getUserError: null,
+        changePasswordError: null,
       };
 
     case LOG_IN:
@@ -48,7 +55,7 @@ export default (state = INITIAL_STATE, action) => {
         token: sessionStorage.setItem('token', action.token),
         isLoggedIn: true,
         user: action.user,
-        loading: false,
+        authLoading: false,
         logInError: null,
         registerError: null,
         validateError: null,
@@ -63,10 +70,18 @@ export default (state = INITIAL_STATE, action) => {
         user: null,
       };
 
+    case CHANGE_PASSWORD:
+      return {
+        ...state,
+        authLoading: false,
+        changePasswordError: null,
+        changePassword: action.payload,
+      };
+
     case REGISTER_ACCOUNT:
       return {
         ...state,
-        loading: false,
+        authLoading: false,
         registerError: null,
         logInError: null,
       };
@@ -74,7 +89,7 @@ export default (state = INITIAL_STATE, action) => {
     case VALIDATE_ERROR:
       return {
         ...state,
-        loading: false,
+        authLoading: false,
         user: null,
         validateError: action.payload,
       };
@@ -82,7 +97,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOG_IN_ERROR:
       return {
         ...state,
-        loading: false,
+        authLoading: false,
         user: null,
         logInError: action.payload,
       };
@@ -90,7 +105,7 @@ export default (state = INITIAL_STATE, action) => {
     case REGISTER_ERROR:
       return {
         ...state,
-        loading: false,
+        authLoading: false,
         user: null,
         registerError: action.payload,
       };
@@ -98,9 +113,17 @@ export default (state = INITIAL_STATE, action) => {
     case GET_USER_ERROR:
       return {
         ...state,
-        loading: false,
+        authLoading: false,
         user: null,
         getUserError: action.payload,
+      };
+
+    case CHANGE_PASSWORD_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        changePassword: null,
+        changePasswordError: action.payload,
       };
 
     default:

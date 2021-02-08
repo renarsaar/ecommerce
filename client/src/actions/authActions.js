@@ -12,6 +12,9 @@ import {
   LOG_IN_ERROR,
   GET_USER_ERROR,
   REGISTER_ERROR,
+  CHANGE_PASSWORD_LOADING,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_ERROR,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -53,7 +56,7 @@ export const logIn = (values) => async (dispatch) => {
           id: response.data.id,
           name: response.data.name,
           email: response.data.email,
-          admin: response.data.isAdmin,
+          admin: response.data.admin,
         },
       });
       history.push({ pathname: '/' });
@@ -108,6 +111,23 @@ export const getUser = (token) => async (dispatch) => {
       });
     })
     .catch((error) => dispatch({ type: GET_USER_ERROR, payload: error.response.data }));
+};
+
+// Change users password
+export const changeUserPassword = (id, token, values) => async (dispatch) => {
+  dispatch({ type: CHANGE_PASSWORD_LOADING });
+
+  api.patch(`/auth/${id}`, {
+    oldPassword: values.oldPassword,
+    password: values.password,
+    confirmPassword: values.confirmPassword,
+  }, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => dispatch({ type: CHANGE_PASSWORD, payload: response.data }))
+    .catch((error) => dispatch({ type: CHANGE_PASSWORD_ERROR, payload: error.response.data }));
 };
 
 export const logOut = () => async (dispatch) => {
