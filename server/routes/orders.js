@@ -18,9 +18,25 @@ router.get('/', paginatedResults(Order), async (req, res) => {
 // @route   GET /orders/:username
 router.get('/user/:userName', paginatedResults(Order), async (req, res) => {
   try {
-    res.status(200).json(res.paginatedResults.paginatedResults);
+    res.status(200).json(res.paginatedResults);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// @desc    Get single order
+// @route   GET /orders/:id
+router.get('/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    return res.status(200).send(order);
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' });
   }
 });
 
