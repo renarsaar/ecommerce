@@ -2,6 +2,9 @@ import {
   GET_ORDERS_LOADING,
   GET_ORDERS,
   GET_ORDERS_ERROR,
+  GET_ORDER_LOADING,
+  GET_ORDER,
+  GET_ORDER_ERROR,
   GET_USER_ORDERS_LOADING,
   GET_USER_ORDERS,
   GET_USER_ORDERS_ERROR,
@@ -14,19 +17,25 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  loading: false,
+  ordersLoading: false,
+  selectedOrder: null,
   terminals: null,
   error: false,
+  orders: null,
+  next: null,
+  previous: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_ORDERS_LOADING:
+    case GET_ORDER_LOADING:
     case GET_USER_ORDERS_LOADING:
     case CREATE_ORDER_LOADING:
     case GET_TERMINALS_LOADING:
       return {
-        loading: true,
+        ...state,
+        ordersLoading: true,
         terminals: null,
         error: false,
       };
@@ -34,30 +43,45 @@ export default (state = INITIAL_STATE, action) => {
     case GET_ORDERS:
     case GET_USER_ORDERS:
       return {
-        loading: false,
-        orders: action.payload,
+        ...state,
+        ordersLoading: false,
+        orders: action.payload.paginatedResults,
+        next: action.payload.next,
+        previous: action.payload.previous,
+        error: false,
+      };
+
+    case GET_ORDER:
+      return {
+        ...state,
+        ordersLoading: false,
+        selectedOrder: action.payload,
         error: false,
       };
 
     case CREATE_ORDER:
       return {
-        loading: false,
+        ...state,
+        ordersLoading: false,
         error: false,
       };
 
     case GET_TERMINALS:
       return {
-        loading: false,
+        ...state,
+        ordersLoading: false,
         terminals: action.payload,
         error: false,
       };
 
     case GET_ORDERS_ERROR:
+    case GET_ORDER_ERROR:
     case GET_USER_ORDERS_ERROR:
     case CREATE_ORDER_ERROR:
     case GET_TERMINALS_ERROR:
       return {
-        loading: false,
+        ...state,
+        ordersLoading: false,
         terminals: null,
         error: action.payload,
       };

@@ -2,6 +2,9 @@ import {
   GET_ORDERS_LOADING,
   GET_ORDERS,
   GET_ORDERS_ERROR,
+  GET_ORDER_LOADING,
+  GET_ORDER,
+  GET_ORDER_ERROR,
   GET_USER_ORDERS_LOADING,
   GET_USER_ORDERS,
   GET_USER_ORDERS_ERROR,
@@ -27,6 +30,15 @@ export const getOrders = (page) => async (dispatch) => {
   })
     .then((response) => dispatch({ type: GET_ORDERS, payload: response.data }))
     .catch((error) => dispatch({ type: GET_ORDERS_ERROR, payload: { error } }));
+};
+
+// Get single order
+export const getOrder = (id) => async (dispatch) => {
+  dispatch({ type: GET_ORDER_LOADING });
+
+  api.get(`/orders/${id}`)
+    .then((response) => dispatch({ type: GET_ORDER, payload: response.data }))
+    .catch((error) => dispatch({ type: GET_ORDER_ERROR, payload: { error } }));
 };
 
 // Get all order made from one User
