@@ -37,6 +37,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ordersLoading: true,
         terminals: null,
+        selectedOrder: null,
         error: false,
       };
 
@@ -83,6 +84,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ordersLoading: false,
         terminals: null,
+        selectedOrder: null,
         error: action.payload,
       };
 
