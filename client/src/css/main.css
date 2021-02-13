@@ -95,7 +95,7 @@ a {
     z-index: 1;
     transition: .3s ease; }
 
-.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement {
+.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement, .dashboard .user-orders .previous-page, .dashboard .user-orders .next-page, .dashboard .user-orders .current-page {
   cursor: pointer;
   background: #e4e3e3;
   color: #626166;
@@ -103,12 +103,12 @@ a {
   height: 50px;
   border: 1px solid #d3d3d3;
   transition: .3s ease; }
-  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .product-actions .increment:hover, .product-show-item .details .container .product-actions .decrement:hover {
+  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .product-actions .increment:hover, .product-show-item .details .container .product-actions .decrement:hover, .dashboard .user-orders .previous-page:hover, .dashboard .user-orders .next-page:hover, .dashboard .user-orders .current-page:hover {
     background: #d3d3d3;
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
 
-.product-show-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist, .order-create .actions button, .order-create .actions input, .footer .container .newsletter form button {
+.product-show-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist, .order-create .actions button, .order-create .actions input, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
   cursor: pointer;
   margin-left: 1.5rem;
   text-transform: uppercase;
@@ -120,17 +120,17 @@ a {
   height: 50px;
   border: 0;
   transition: .3s ease; }
-  .product-show-item .details .container .product-actions .add-cart:focus, .product-show-item .details .container .product-actions div .add-wishlist:focus, .order-create .actions button:focus, .order-create .actions input:focus, .footer .container .newsletter form button:focus {
+  .product-show-item .details .container .product-actions .add-cart:focus, .product-show-item .details .container .product-actions div .add-wishlist:focus, .order-create .actions button:focus, .order-create .actions input:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
     outline: none;
     transition: .3s ease; }
-  .product-show-item .details .container .product-actions .add-cart:hover, .product-show-item .details .container .product-actions div .add-wishlist:hover, .order-create .actions button:hover, .order-create .actions input:hover, .footer .container .newsletter form button:hover {
+  .product-show-item .details .container .product-actions .add-cart:hover, .product-show-item .details .container .product-actions div .add-wishlist:hover, .order-create .actions button:hover, .order-create .actions input:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
     opacity: .5;
     transition: .3s ease; }
 
-.product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement, .product-show-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist {
+.product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement, .product-show-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist, .dashboard .account-info .btn, .dashboard .btn {
   position: relative;
   overflow: hidden; }
-  .product-show-item .details .container .product-actions .increment span, .product-show-item .details .container .product-actions .decrement span, .product-show-item .details .container .product-actions .add-cart span, .product-show-item .details .container .product-actions div .add-wishlist span {
+  .product-show-item .details .container .product-actions .increment span, .product-show-item .details .container .product-actions .decrement span, .product-show-item .details .container .product-actions .add-cart span, .product-show-item .details .container .product-actions div .add-wishlist span, .dashboard .account-info .btn span, .dashboard .btn span {
     position: absolute;
     transform: translate(-50%, -50%);
     background: #a3a3a3;
@@ -989,6 +989,133 @@ a {
 .dashboard {
   width: 1180px;
   margin: 2rem auto; }
+  .dashboard h2 {
+    font-weight: 600;
+    margin-bottom: 1rem; }
+  .dashboard .account-info {
+    margin-bottom: 3rem; }
+    .dashboard .account-info p {
+      font-family: "Open Sans", Arial, sans-serif; }
+    .dashboard .account-info .btn {
+      margin-top: 1.5rem;
+      margin-left: 0; }
+    .dashboard .account-info .change-password-form {
+      position: relative;
+      width: 50%;
+      margin: 2rem 0;
+      padding-left: 1rem; }
+      .dashboard .account-info .change-password-form label {
+        display: block;
+        margin-bottom: 0.3rem; }
+      .dashboard .account-info .change-password-form input {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.7rem;
+        background: #f4f4f4;
+        border: 2px solid #d3d3d3;
+        padding: 0.6rem 0.5rem; }
+        .dashboard .account-info .change-password-form input:focus {
+          outline: 0;
+          border: 2px solid #626166; }
+  .dashboard .user-orders {
+    position: relative;
+    margin-bottom: 2rem;
+    min-height: 150px; }
+    .dashboard .user-orders .btn {
+      margin-right: 2rem;
+      margin-bottom: 2rem; }
+    .dashboard .user-orders .previous-page, .dashboard .user-orders .next-page, .dashboard .user-orders .current-page {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem; }
+      .dashboard .user-orders .previous-page.highlight, .dashboard .user-orders .next-page.highlight, .dashboard .user-orders .current-page.highlight {
+        border: 1px solid #ff600a;
+        background: rgba(255, 96, 10, 0.1); }
+        .dashboard .user-orders .previous-page.highlight:hover, .dashboard .user-orders .next-page.highlight:hover, .dashboard .user-orders .current-page.highlight:hover {
+          background: rgba(255, 96, 10, 0.3); }
+    .dashboard .user-orders .order {
+      display: block;
+      color: #0a0a0a;
+      padding: 1rem;
+      background: rgba(163, 163, 163, 0.2); }
+      .dashboard .user-orders .order p {
+        font-size: 1.1rem; }
+        .dashboard .user-orders .order p span {
+          font-weight: 600; }
+      .dashboard .user-orders .order:hover {
+        cursor: pointer;
+        color: #ff600a;
+        background: rgba(211, 211, 211, 0.2); }
+  .dashboard .btn {
+    margin-left: 0; }
+
+.order-container {
+  position: relative;
+  width: 1180px;
+  margin: 2rem auto; }
+  .order-container h3.placeholder {
+    margin-bottom: 1rem;
+    width: 100%;
+    height: 25px; }
+  .order-container .order-single {
+    display: flex;
+    justify-content: space-between; }
+    .order-container .order-single .order-info {
+      width: 45%;
+      margin-right: 2rem; }
+      .order-container .order-single .order-info h3 {
+        font-weight: 500;
+        margin-bottom: 1rem; }
+        .order-container .order-single .order-info h3.placeholder {
+          width: 100%;
+          height: 20px; }
+    .order-container .order-single .order-products {
+      width: 55%; }
+      .order-container .order-single .order-products .order-product {
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; }
+        .order-container .order-single .order-products .order-product h3 {
+          color: #0a0a0a;
+          font-weight: 500; }
+        .order-container .order-single .order-products .order-product img {
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+          margin-left: 1rem; }
+        .order-container .order-single .order-products .order-product:hover {
+          background: #f4f4f4;
+          cursor: pointer; }
+        .order-container .order-single .order-products .order-product:last-child {
+          margin-bottom: 0; }
+  .order-container .btn {
+    margin-left: 0;
+    margin-top: 2rem; }
+
+.placeholder-container {
+  position: relative;
+  width: 1180px;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between; }
+  .placeholder-container .placeholder-block {
+    width: 50%; }
+  .placeholder-container .placeholder-flex {
+    width: 50%;
+    display: flex;
+    justify-content: space-between; }
+    .placeholder-container .placeholder-flex div {
+      width: 100%; }
+  .placeholder-container .placeholder-heading {
+    width: 90%;
+    height: 25px;
+    margin-bottom: 1rem; }
+  .placeholder-container .placeholder-image-small {
+    width: 50%;
+    height: 140px;
+    margin-left: 2rem; }
 
 @keyframes drawSVG {
   from {
