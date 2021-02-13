@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const axios = require('axios');
+const auth = require('../middleware/auth');
 const Order = require('../model/Order');
+const User = require('../model/User');
 const Product = require('../model/Product');
 const { makeOrderValidation } = require('../validation');
 
@@ -26,17 +28,28 @@ router.get('/user/:userName', paginatedResults(Order), async (req, res) => {
 
 // @desc    Get single order
 // @route   GET /orders/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
+    const user = await User.findById(req.user._id);
 
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    return res.status(200).send(order);
+    // Validate if admin
+    if (user.isAdmin) {
+      return res.status(200).send(order);
+    }
+
+    // Validate if orderer & user are the same
+    if (user.name === order.user) {
+      return res.status(200).send(order);
+    }
+
+    return res.status(500).send('Something went wrong. Please try again later.');
   } catch (err) {
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
 });
 

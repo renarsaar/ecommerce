@@ -33,10 +33,14 @@ export const getOrders = (page) => async (dispatch) => {
 };
 
 // Get single order
-export const getOrder = (id) => async (dispatch) => {
+export const getOrder = (id, token) => async (dispatch) => {
   dispatch({ type: GET_ORDER_LOADING });
 
-  api.get(`/orders/${id}`)
+  api.get(`/orders/${id}`, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
     .then((response) => dispatch({ type: GET_ORDER, payload: response.data }))
     .catch((error) => dispatch({ type: GET_ORDER_ERROR, payload: { error } }));
 };

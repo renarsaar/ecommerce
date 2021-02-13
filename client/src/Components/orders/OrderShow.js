@@ -11,7 +11,7 @@ export default function OrderShow({ match }) {
 
   // Fetch single order
   useEffect(() => {
-    dispatch(getOrder(id));
+    dispatch(getOrder(id, sessionStorage.getItem('token')));
   }, [dispatch, id]);
 
   // Render order
@@ -82,7 +82,11 @@ export default function OrderShow({ match }) {
     <>
       {ordersLoading && <>{renderPlaceHolder()}</>}
       {selectedOrder && <>{renderOrder()}</>}
-      {error && <h3 className="error">error</h3>}
+      {error && (
+        <div className="order-container">
+          <h3 className="err">Order not found.</h3>
+        </div>
+      )}
     </>
   );
 }
