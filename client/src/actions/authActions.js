@@ -15,6 +15,8 @@ import {
   CHANGE_PASSWORD_LOADING,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_ERROR,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -128,6 +130,23 @@ export const changeUserPassword = (id, token, values) => async (dispatch) => {
   })
     .then((response) => dispatch({ type: CHANGE_PASSWORD, payload: response.data }))
     .catch((error) => dispatch({ type: CHANGE_PASSWORD_ERROR, payload: error.response.data }));
+};
+
+// Delete account
+export const deleteAccount = (id, token) => async (dispatch) => {
+  dispatch({ type: DELETE_ACCOUNT_LOADING });
+
+  api.delete(`/auth/${id}`, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => {
+      dispatch({ type: LOG_OUT });
+
+      history.push({ pathname: '/' });
+    })
+    .catch((error) => dispatch({ type: DELETE_ACCOUNT_ERROR, payload: error.response.data }));
 };
 
 export const logOut = () => async (dispatch) => {

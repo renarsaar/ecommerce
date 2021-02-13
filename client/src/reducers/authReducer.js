@@ -15,6 +15,8 @@ import {
   CHANGE_PASSWORD_LOADING,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
+  DELETE_ACCOUNT_LOADING,
+  DELETE_ACCOUNT_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -28,6 +30,7 @@ const INITIAL_STATE = {
   registerError: null,
   validateError: null,
   changePasswordError: null,
+  deleteAccountError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,6 +40,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOG_IN_LOADING:
     case GET_USER_LOADING:
     case CHANGE_PASSWORD_LOADING:
+    case DELETE_ACCOUNT_LOADING:
       return {
         ...state,
         authLoading: true,
@@ -45,6 +49,7 @@ export default (state = INITIAL_STATE, action) => {
         validateError: null,
         getUserError: null,
         changePasswordError: null,
+        deleteAccountError: null,
       };
 
     case LOG_IN:
@@ -67,6 +72,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         token: sessionStorage.removeItem('token'),
         isLoggedIn: false,
+        authLoading: false,
         user: null,
       };
 
@@ -124,6 +130,13 @@ export default (state = INITIAL_STATE, action) => {
         authLoading: false,
         changePassword: null,
         changePasswordError: action.payload,
+      };
+
+    case DELETE_ACCOUNT_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        deleteAccountError: action.payload,
       };
 
     default:

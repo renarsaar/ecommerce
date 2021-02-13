@@ -998,23 +998,23 @@ a {
       font-family: "Open Sans", Arial, sans-serif; }
     .dashboard .account-info .btn {
       margin-top: 1.5rem;
-      margin-left: 0; }
-    .dashboard .account-info .change-password-form {
+      margin-left: 1.5rem; }
+    .dashboard .account-info .change-password-form, .dashboard .account-info .delete-account-form {
       position: relative;
       width: 50%;
       margin: 2rem 0;
       padding-left: 1rem; }
-      .dashboard .account-info .change-password-form label {
+      .dashboard .account-info .change-password-form label, .dashboard .account-info .delete-account-form label {
         display: block;
         margin-bottom: 0.3rem; }
-      .dashboard .account-info .change-password-form input {
+      .dashboard .account-info .change-password-form input, .dashboard .account-info .delete-account-form input {
         display: block;
         width: 100%;
         margin-bottom: 0.7rem;
         background: #f4f4f4;
         border: 2px solid #d3d3d3;
         padding: 0.6rem 0.5rem; }
-        .dashboard .account-info .change-password-form input:focus {
+        .dashboard .account-info .change-password-form input:focus, .dashboard .account-info .delete-account-form input:focus {
           outline: 0;
           border: 2px solid #626166; }
   .dashboard .user-orders {

@@ -1502,10 +1502,10 @@ a {
     .btn {
       @extend %btn-shared-large, %btn-ripple;
       margin-top: 1.5rem;
-      margin-left: 0;
+      margin-left: 1.5rem;
     }
 
-    .change-password-form {
+    .change-password-form, .delete-account-form {
       position: relative;
       width: 50%;
       margin: 2rem 0;

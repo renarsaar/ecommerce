@@ -6,15 +6,14 @@ import { logOut } from '../../actions/authActions';
 import RippleButton from '../Helpers/RippleButton';
 
 import ChangePasswordForm from './ChangePasswordForm';
+import DeleteAccountForm from './DeleteAccountForm';
 
 export default function User() {
   const dispatch = useDispatch();
   const { ordersLoading, orders, error } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
-  // const dateOptions = {
-  //   year: 'numeric', month: 'long', day: 'numeric',
-  // };
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [showDeleteAccountForm, setShowDeleteAccountForm] = useState(false);
 
   useEffect(() => {
     dispatch(getUserOrders(user.name, 1));
@@ -62,11 +61,18 @@ export default function User() {
     }
   }
 
-  // Handle Change Password
+  // Handle Change Password Form
   function handleChangePassword(e) {
     RippleButton(e);
 
     setShowPasswordForm(!showPasswordForm);
+  }
+
+  // Handle Delete Account Form
+  function handleDeleteAccount(e) {
+    RippleButton(e);
+
+    setShowDeleteAccountForm(!showDeleteAccountForm);
   }
 
   // Handle Logging out
@@ -83,10 +89,19 @@ export default function User() {
           <h2>Account Information <i className="las la-user-circle" /></h2>
           <p>{user.name}</p>
           <p>{user.email}</p>
-          <button type="button" className="btn" onClick={handleChangePassword}>
-            Change password
-          </button>
+          {!showDeleteAccountForm && (
+            <button type="button" className="btn" onClick={handleChangePassword}>
+              Change password
+            </button>
+          )}
           {showPasswordForm && <ChangePasswordForm />}
+
+          {!showPasswordForm && (
+            <button type="button" className="btn" onClick={handleDeleteAccount}>
+              Delete account
+            </button>
+          )}
+          {showDeleteAccountForm && <DeleteAccountForm />}
         </div>
 
         <div className="user-orders">
