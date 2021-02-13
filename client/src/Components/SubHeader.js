@@ -71,6 +71,7 @@ export default function SubHeader() {
     if (location.pathname.includes('/account/dashboard')) return 'hide';
     if (location.pathname.includes('/cart/checkout')) return 'hide';
     if (location.pathname.includes('/cart/success')) return 'hide';
+    if (location.pathname.includes('/order')) return 'hide';
 
     return 'sort show';
   }
