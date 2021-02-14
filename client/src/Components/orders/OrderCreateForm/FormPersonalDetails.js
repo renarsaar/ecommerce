@@ -52,7 +52,7 @@ export default function FormPersonalDetails({
           <input
             type="text"
             name="deliveryCourier"
-            value={values.deliveryCourier}
+            value={values.deliveryCourier || ''}
             onChange={handleChange}
             onBlur={handleValidation}
             className={formErrors.deliveryCourier ? 'input-err' : ''}
