@@ -22,7 +22,7 @@ export default function Admin() {
   // Return user orders
   function handleOrders() {
     if (orders) {
-      return orders.map((order) => (
+      return orders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((order) => (
         <Link
           to={`/order/${order._id}`}
           className="order"
