@@ -1,4 +1,4 @@
-export default function RippleButton(e) {
+export default function useRippleButton(e) {
   const rect = e.target.getBoundingClientRect();
   const x = e.clientX - (rect.left + 15);
   const y = e.clientY - rect.top;

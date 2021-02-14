@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getOrders } from '../../actions/orderActions';
 import { logOut } from '../../actions/authActions';
-import RippleButton from '../Helpers/RippleButton';
+import useRippleButton from '../Hooks/useRippleButton';
 
 import ChangePasswordForm from './ChangePasswordForm';
 
@@ -32,13 +32,16 @@ export default function Admin() {
             background: order.isSeen ? 'rgba(163, 163, 163, 0.2)' : 'rgba(163, 163, 163, 0.05)',
           }}
         >
-          <p style={{ fontWeight: order.isSeen ? '400' : '700' }}>
+          <p className="order-info" style={{ fontWeight: order.isSeen ? '400' : '700' }}>
             {'Order '}
             <span>{order._id}</span>
             {' from '}
             <span>{order.user}</span>
             {' at '}
             <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
+          </p>
+          <p className="order-actions">
+
           </p>
         </Link>
       ));
@@ -64,14 +67,14 @@ export default function Admin() {
 
   // Show Change password form
   function togglePasswordForm(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     setShowPasswordForm(!showPasswordForm);
   }
 
   // Handle Logging out
   function handleLogOut(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     dispatch(logOut());
   }

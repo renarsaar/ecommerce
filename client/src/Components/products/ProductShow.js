@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../../actions/productsActions';
 import { addWishlist } from '../../actions/wishListActions';
 import { addCart } from '../../actions/cartActions';
-import RippleButton from '../Helpers/RippleButton';
+import useRippleButton from '../Hooks/useRippleButton';
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ export default function ProductShow({ match, location }) {
 
   // Handle product quantity
   function handleQuantity(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     const { value } = e.target;
 
@@ -79,7 +79,7 @@ export default function ProductShow({ match, location }) {
 
   // Add product to wishlist
   function handlewishList(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     dispatch(addWishlist(selectedProduct._id));
   }
@@ -99,7 +99,7 @@ export default function ProductShow({ match, location }) {
       size,
     };
 
-    RippleButton(e);
+    useRippleButton(e);
 
     dispatch(addCart(product));
   }

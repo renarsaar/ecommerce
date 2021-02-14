@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserPassword } from '../../actions/authActions';
-import RippleButton from '../Helpers/RippleButton';
+import useRippleButton from '../Hooks/useRippleButton';
 
 export default function ChangePasswordForm() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default function ChangePasswordForm() {
   function handleChangePassword(e) {
     e.preventDefault();
 
-    RippleButton(e);
+    useRippleButton(e);
 
     const values = {
       oldPassword,

@@ -1040,7 +1040,7 @@ a {
       padding: 1rem;
       background: rgba(163, 163, 163, 0.2);
       border-bottom: 1px solid #d3d3d3; }
-      .dashboard .user-orders .order p {
+      .dashboard .user-orders .order .order-info {
         font-size: 1.1rem; }
       .dashboard .user-orders .order:hover {
         cursor: pointer;

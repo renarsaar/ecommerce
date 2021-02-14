@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUserOrders } from '../../actions/orderActions';
 import { logOut } from '../../actions/authActions';
-import RippleButton from '../Helpers/RippleButton';
+import useRippleButton from '../Hooks/useRippleButton';
 
 import ChangePasswordForm from './ChangePasswordForm';
 import DeleteAccountForm from './DeleteAccountForm';
@@ -63,21 +63,21 @@ export default function User() {
 
   // Handle Change Password Form
   function handleChangePassword(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     setShowPasswordForm(!showPasswordForm);
   }
 
   // Handle Delete Account Form
   function handleDeleteAccount(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     setShowDeleteAccountForm(!showDeleteAccountForm);
   }
 
   // Handle Logging out
   function handleLogOut(e) {
-    RippleButton(e);
+    useRippleButton(e);
 
     dispatch(logOut());
   }

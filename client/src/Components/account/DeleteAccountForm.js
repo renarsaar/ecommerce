@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount } from '../../actions/authActions';
-import RippleButton from '../Helpers/RippleButton';
+import useRippleButton from '../Hooks/useRippleButton';
 
 export default function DeleteAccountForm() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function DeleteAccountForm() {
   function handleDeleteAccount(e) {
     e.preventDefault();
 
-    RippleButton(e);
+    useRippleButton(e);
 
     dispatch(deleteAccount(user.id, sessionStorage.token));
   }
