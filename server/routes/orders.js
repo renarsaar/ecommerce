@@ -97,7 +97,27 @@ router.post('/', async (req, res) => {
 router.patch('/isSeen/:id', async (req, res) => {
   const { id } = req.params;
 
-  await Order.findByIdAndUpdate(id, { isSeen: true });
+  try {
+    await Order.findByIdAndUpdate(id, { isSeen: true });
+
+    res.status(200).send('Status Changed');
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
+});
+
+// @desc    Change order status to unseen by admin
+// @route   PATCH /orders/unSeen/:id
+router.patch('/unSeen/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await Order.findByIdAndUpdate(id, { isSeen: false });
+
+    res.status(200).send('Status Changed');
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
 });
 
 // @desc    Get Omniva parcel terminal locations

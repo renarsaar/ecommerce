@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrders } from '../../actions/orderActions';
+import { getOrders, orderIsSeen, orderIsUnSeen } from '../../actions/orderActions';
 import { logOut } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 
@@ -10,21 +10,36 @@ import ChangePasswordForm from './ChangePasswordForm';
 export default function Admin() {
   const dispatch = useDispatch();
   const {
-    ordersLoading, orders, next, previous, getOrdersError,
+    // eslint-disable-next-line max-len
+    ordersLoading, orders, next, previous, getOrdersError, orderIsSeenActionLoading, orderIsSeenAction, orderIsSeenActionError,
   } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
 
   useEffect(() => {
     dispatch(getOrders(1));
-  }, []);
+  }, [dispatch]);
+
+  // Handle if order is seen or unseen event
+  function handleOrderSeenByAdmin(e, order) {
+    e.stopPropagation();
+
+    if (orderIsSeenActionLoading || orderIsSeenActionError) return false;
+
+    if (order.isSeen) {
+      dispatch(orderIsUnSeen(order._id));
+      dispatch(getOrders(1));
+    } else {
+      dispatch(orderIsSeen(order._id));
+      dispatch(getOrders(1));
+    }
+  }
 
   // Return user orders
   function handleOrders() {
     if (orders) {
       return orders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((order) => (
-        <Link
-          to={`/order/${order._id}`}
+        <div
           className="order"
           key={order._id}
           style={{
@@ -32,18 +47,25 @@ export default function Admin() {
             background: order.isSeen ? 'rgba(163, 163, 163, 0.2)' : 'rgba(163, 163, 163, 0.05)',
           }}
         >
-          <p className="order-info" style={{ fontWeight: order.isSeen ? '400' : '700' }}>
+          <Link
+            to={`/order/${order._id}`}
+            className="order-info"
+            style={{ fontWeight: order.isSeen ? '400' : '700' }}
+          >
             {'Order '}
             <span>{order._id}</span>
             {' from '}
             <span>{order.user}</span>
             {' at '}
             <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
+          </Link>
+          <p className="order-actions" style={{ opacity: orderIsSeenActionLoading || orderIsSeenActionError ? 0.5 : 1 }}>
+            <i role="button" className="las la-eye" onClick={(e) => handleOrderSeenByAdmin(e, order)} />
+            <i role="button" className="las la-check" />
+            <i role="button" className="las la-ellipsis-h" />
+            <i role="button" className="las la-times" />
           </p>
-          <p className="order-actions">
-
-          </p>
-        </Link>
+        </div>
       ));
     }
 

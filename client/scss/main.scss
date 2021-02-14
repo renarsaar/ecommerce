@@ -9,6 +9,9 @@ $btn-bg: #e4e3e3;
 $white: #fff;
 $orange: #ff600a;
 $dark-blue: #33333d;
+$green: #3db81e;
+$red: #d50d0d;
+$blue: #4285f4;
 $page-width: 1180px;
 $H: "Montserrat", "Trebuchet MS", Arial, sans-serif;
 $P: "Open Sans", Arial, sans-serif;
@@ -68,16 +71,16 @@ a {
 }
 
 .input-err {
-  color: red;
-  border: 1px solid red !important;
+  color: $red;
+  border: 1px solid $red !important;
 
   &:focus {
-    outline: 1px solid red;
+    outline: 1px solid $red;
   }
 }
 
 .err {
-  color: red;
+  color: $red;
 }
 
 .rotate {
@@ -1560,20 +1563,43 @@ a {
     }
 
     .order {
-      display: block;
-      color: $black;
+      display: flex;
+      justify-content: space-between;
       padding: 1rem;
       background: rgba($color: $grey, $alpha: 0.2);
       border-bottom: 1px solid $light-grey;
 
       .order-info {
+        color: $black;
         font-size: 1.1rem;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .order-actions {
+        i {
+          font-size: 1.5rem;
+          margin-right: 0.75rem;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .la-eye:hover {color: $grey;}
+        .la-check:hover {color: $green;}
+        .la-ellipsis-h:hover {color: $blue;}
+        .la-times:hover {color: $red;}
       }
 
       &:hover {
-        cursor: pointer;
-        color: $orange;
-        background: rgba($color: $light-grey, $alpha: 0.2);
+        background: rgba($color: $light-grey, $alpha: 0.3) !important;
+        
+        .order-info {
+          color: $orange;
+        }
       }
     }
   }

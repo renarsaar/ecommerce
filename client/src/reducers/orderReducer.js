@@ -14,13 +14,17 @@ import {
   GET_TERMINALS_LOADING,
   GET_TERMINALS,
   GET_TERMINALS_ERROR,
+  ORDER_IS_SEEN_ACTION_LOADING,
+  ORDER_IS_SEEN_ACTION,
+  ORDER_IS_SEEN_ACTION_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   ordersLoading: false,
+  orderIsSeenActionLoading: false,
   selectedOrder: null,
   terminals: null,
-  // error: false,
+  orderIsSeenAction: false,
   orders: null,
   next: null,
   previous: null,
@@ -29,6 +33,7 @@ const INITIAL_STATE = {
   getUserOrderError: null,
   createOrderError: null,
   getTerminalsError: null,
+  orderIsSeenActionError: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -48,6 +53,14 @@ export default (state = INITIAL_STATE, action) => {
         getUserOrderError: null,
         createOrderError: null,
         getTerminalsError: null,
+      };
+
+    case ORDER_IS_SEEN_ACTION_LOADING:
+      return {
+        ...state,
+        orderIsSeenActionLoading: true,
+        orderIsSeenAction: false,
+        orderIsSeenActionError: false,
       };
 
     case GET_ORDERS:
@@ -83,6 +96,14 @@ export default (state = INITIAL_STATE, action) => {
         ordersLoading: false,
         terminals: action.payload,
         getTerminalsError: false,
+      };
+
+    case ORDER_IS_SEEN_ACTION:
+      return {
+        ...state,
+        orderIsSeenActionLoading: false,
+        orderIsSeenAction: true,
+        orderIsSeenActionError: false,
       };
 
     case GET_ORDERS_ERROR:
@@ -126,6 +147,14 @@ export default (state = INITIAL_STATE, action) => {
         ordersLoading: false,
         terminals: null,
         getTerminalsError: action.payload,
+      };
+
+    case ORDER_IS_SEEN_ACTION_ERROR:
+      return {
+        ...state,
+        orderIsSeenActionLoading: false,
+        orderIsSeenAction: false,
+        orderIsSeenActionError: true,
       };
 
     default:
