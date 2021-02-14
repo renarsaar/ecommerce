@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchParcelTerminals } from '../../../actions/orderActions';
 
-import handleCreditCardFormat from './handleCreditCardFormat';
+import useFormattedCreditCardNumber from '../../Hooks/useFormattedCreditCardNumber';
 
 export default function FormPersonalDetails({
   values, formErrors, prevStep, nextStep, handleChange, handleValidation,
@@ -155,7 +155,7 @@ export default function FormPersonalDetails({
               type="text"
               name="cardNumber"
               className={formErrors.cardNumber ? 'input-err' : ''}
-              value={handleCreditCardFormat(values.cardNumber)}
+              value={useFormattedCreditCardNumber(values.cardNumber)}
               placeholder="xxxx-xxxx-xxxx-xxxx"
               maxLength="19"
               onChange={handleChange}

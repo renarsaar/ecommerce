@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../../actions/orderActions';
 
-import handleCreditCardFormat from './handleCreditCardFormat';
+import useFormattedCreditCardNumber from '../../Hooks/useFormattedCreditCardNumber';
 
 export default function FormConfirm({ values, formErrors, prevStep }) {
   const dispatch = useDispatch();
@@ -99,7 +99,7 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
 
           <div className="card-details">
             <p>Card Holder: {values.cardHolder}</p>
-            <p>Card Number: {handleCreditCardFormat(values.cardNumber)}</p>
+            <p>Card Number: {useFormattedCreditCardNumber(values.cardNumber)}</p>
             <p>CVV Code: {values.cvv}</p>
             <p>Expiry Date: {values.expiryM}/{values.expiryY}</p>
           </div>

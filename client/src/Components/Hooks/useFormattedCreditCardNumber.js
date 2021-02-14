@@ -1,5 +1,5 @@
 // Return formatted credit card number
-export default function handleCreditCardFormat(cardNumber) {
+export default function useFormattedCreditCardNumber(cardNumber) {
   let formattedCardNumber = '';
 
   // Add spaces between every 4th number
