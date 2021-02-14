@@ -92,6 +92,14 @@ router.post('/', async (req, res) => {
   }
 });
 
+// @desc    Change order status to seen by admin
+// @route   PATCH /orders/isSeen/:id
+router.patch('/isSeen/:id', async (req, res) => {
+  const { id } = req.params;
+
+  await Order.findByIdAndUpdate(id, { isSeen: true });
+});
+
 // @desc    Get Omniva parcel terminal locations
 // @route   GET /orders/omniva
 router.get('/omniva', async (req, res) => {

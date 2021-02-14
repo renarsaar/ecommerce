@@ -21,6 +21,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isSeen: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now(),

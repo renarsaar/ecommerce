@@ -1,18 +1,27 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrder } from '../../actions/orderActions';
+import { getOrder, orderIsSeen } from '../../actions/orderActions';
 
 export default function OrderShow({ match }) {
   const dispatch = useDispatch();
   const { id } = match.params;
   const { ordersLoading, selectedOrder, error } = useSelector((state) => state.orders);
-  const { user } = useSelector((state) => state.auth);
+  const { user, isLoggedIn } = useSelector((state) => state.auth);
 
   // Fetch single order
   useEffect(() => {
     dispatch(getOrder(id, sessionStorage.getItem('token')));
   }, [dispatch, id]);
+
+  // Change order status to seen by admin
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (user.admin && selectedOrder && selectedOrder.isSeen === false) {
+        dispatch(orderIsSeen(id));
+      }
+    }
+  }, [dispatch, selectedOrder]);
 
   // Render order
   function renderOrder() {

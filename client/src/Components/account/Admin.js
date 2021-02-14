@@ -27,9 +27,12 @@ export default function Admin() {
           to={`/order/${order._id}`}
           className="order"
           key={order._id}
-          style={{ borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}` }}
+          style={{
+            borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}`,
+            background: order.isSeen ? 'rgba(163, 163, 163, 0.2)' : 'rgba(163, 163, 163, 0.05)',
+          }}
         >
-          <p>
+          <p style={{ fontWeight: order.isSeen ? '400' : '700' }}>
             {'Order '}
             <span>{order._id}</span>
             {' from '}

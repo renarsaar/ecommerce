@@ -83,6 +83,11 @@ export const createOrder = (values) => async (dispatch) => {
     }));
 };
 
+// Change order status to seen by admin
+export const orderIsSeen = (id) => async () => {
+  api.patch(`/orders/isSeen/${id}`);
+};
+
 // Get Omniva parcel terminal locations
 export const fetchParcelTerminals = () => async (dispatch) => {
   dispatch({ type: GET_TERMINALS_LOADING });
