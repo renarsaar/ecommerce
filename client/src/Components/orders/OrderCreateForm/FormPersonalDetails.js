@@ -9,7 +9,7 @@ export default function FormPersonalDetails({
 }) {
   const dispatch = useDispatch();
   const { user, isLoggedIn } = useSelector((state) => state.auth);
-  const { terminals, error } = useSelector((state) => state.orders);
+  const { terminals, getTerminalsError } = useSelector((state) => state.orders);
 
   // Get Omniva parcel terminal locations
   useEffect(() => {
@@ -17,9 +17,9 @@ export default function FormPersonalDetails({
   }, []);
 
   function renderDeliveryMethod() {
-    if (values.deliveryMethod === 'Omniva' && error) {
+    if (values.deliveryMethod === 'Omniva' && getTerminalsError) {
       return (
-        <h3>Error, please try another delivery method</h3>
+        <h3>Error loading parcel terminals, please try another delivery method</h3>
       );
     }
 

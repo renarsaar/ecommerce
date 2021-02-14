@@ -10,7 +10,7 @@ import ChangePasswordForm from './ChangePasswordForm';
 export default function Admin() {
   const dispatch = useDispatch();
   const {
-    ordersLoading, orders, next, previous, error,
+    ordersLoading, orders, next, previous, getOrdersError,
   } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
@@ -57,7 +57,7 @@ export default function Admin() {
       );
     }
 
-    if (error) {
+    if (getOrdersError) {
       return <h5 className="err">Error loading your orders, please try again later</h5>;
     }
   }

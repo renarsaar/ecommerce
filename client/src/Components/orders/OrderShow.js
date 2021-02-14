@@ -6,7 +6,7 @@ import { getOrder, orderIsSeen } from '../../actions/orderActions';
 export default function OrderShow({ match }) {
   const dispatch = useDispatch();
   const { id } = match.params;
-  const { ordersLoading, selectedOrder, error } = useSelector((state) => state.orders);
+  const { ordersLoading, selectedOrder, getOrderError } = useSelector((state) => state.orders);
   const { user, isLoggedIn } = useSelector((state) => state.auth);
 
   // Fetch single order
@@ -91,7 +91,7 @@ export default function OrderShow({ match }) {
     <>
       {ordersLoading && <>{renderPlaceHolder()}</>}
       {selectedOrder && <>{renderOrder()}</>}
-      {error && (
+      {getOrderError && (
         <div className="order-container">
           <h3 className="err">Order not found.</h3>
         </div>

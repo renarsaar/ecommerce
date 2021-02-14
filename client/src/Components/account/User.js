@@ -10,7 +10,7 @@ import DeleteAccountForm from './DeleteAccountForm';
 
 export default function User() {
   const dispatch = useDispatch();
-  const { ordersLoading, orders, error } = useSelector((state) => state.orders);
+  const { ordersLoading, orders, getOrderError } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [showDeleteAccountForm, setShowDeleteAccountForm] = useState(false);
@@ -56,7 +56,7 @@ export default function User() {
       );
     }
 
-    if (error) {
+    if (getOrderError) {
       return <h5 className="err">Error loading your orders, please try again later</h5>;
     }
   }

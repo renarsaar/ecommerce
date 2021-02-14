@@ -20,10 +20,15 @@ const INITIAL_STATE = {
   ordersLoading: false,
   selectedOrder: null,
   terminals: null,
-  error: false,
+  // error: false,
   orders: null,
   next: null,
   previous: null,
+  getOrdersError: null,
+  getOrderError: null,
+  getUserOrderError: null,
+  createOrderError: null,
+  getTerminalsError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -38,7 +43,11 @@ export default (state = INITIAL_STATE, action) => {
         ordersLoading: true,
         terminals: null,
         selectedOrder: null,
-        error: false,
+        getOrdersError: null,
+        getOrderError: null,
+        getUserOrderError: null,
+        createOrderError: null,
+        getTerminalsError: null,
       };
 
     case GET_ORDERS:
@@ -49,7 +58,8 @@ export default (state = INITIAL_STATE, action) => {
         orders: action.payload.paginatedResults,
         next: action.payload.next,
         previous: action.payload.previous,
-        error: false,
+        getOrderError: false,
+        getUserOrderError: false,
       };
 
     case GET_ORDER:
@@ -57,14 +67,14 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ordersLoading: false,
         selectedOrder: action.payload,
-        error: false,
+        getOrderError: false,
       };
 
     case CREATE_ORDER:
       return {
         ...state,
         ordersLoading: false,
-        error: false,
+        createOrderError: false,
       };
 
     case GET_TERMINALS:
@@ -72,20 +82,50 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ordersLoading: false,
         terminals: action.payload,
-        error: false,
+        getTerminalsError: false,
       };
 
     case GET_ORDERS_ERROR:
-    case GET_ORDER_ERROR:
+      return {
+        ...state,
+        ordersLoading: false,
+        orders: null,
+        next: null,
+        previous: null,
+        getOrdersError: action.payload,
+      };
+
     case GET_USER_ORDERS_ERROR:
+      return {
+        ...state,
+        ordersLoading: false,
+        orders: null,
+        next: null,
+        previous: null,
+        getUserOrderError: action.payload,
+      };
+
+    case GET_ORDER_ERROR:
+      return {
+        ...state,
+        ordersLoading: false,
+        selectedOrder: null,
+        getOrderError: action.payload,
+      };
+
     case CREATE_ORDER_ERROR:
+      return {
+        ...state,
+        ordersLoading: false,
+        createOrderError: action.payload,
+      };
+
     case GET_TERMINALS_ERROR:
       return {
         ...state,
         ordersLoading: false,
         terminals: null,
-        selectedOrder: null,
-        error: action.payload,
+        getTerminalsError: action.payload,
       };
 
     default:
