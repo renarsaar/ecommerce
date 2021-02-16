@@ -1045,19 +1045,27 @@ a {
         font-size: 1.1rem; }
         .dashboard .user-orders .order .order-info:hover {
           cursor: pointer; }
-      .dashboard .user-orders .order .order-actions i {
-        font-size: 1.5rem;
-        margin-right: 0.75rem; }
-        .dashboard .user-orders .order .order-actions i:hover {
-          cursor: pointer; }
-      .dashboard .user-orders .order .order-actions .la-eye:hover {
-        color: #a3a3a3; }
-      .dashboard .user-orders .order .order-actions .la-check:hover {
-        color: #3db81e; }
-      .dashboard .user-orders .order .order-actions .la-ellipsis-h:hover {
-        color: #4285f4; }
-      .dashboard .user-orders .order .order-actions .la-times:hover {
-        color: #d50d0d; }
+      .dashboard .user-orders .order .order-actions {
+        display: flex;
+        align-items: center; }
+        .dashboard .user-orders .order .order-actions span {
+          font-size: 1.1rem;
+          margin-right: 1rem; }
+        .dashboard .user-orders .order .order-actions i {
+          font-size: 1.5rem;
+          margin-right: 0.75rem; }
+          .dashboard .user-orders .order .order-actions i:hover {
+            cursor: pointer; }
+        .dashboard .user-orders .order .order-actions .la-eye:hover {
+          color: #a3a3a3 !important; }
+        .dashboard .user-orders .order .order-actions .la-check:hover {
+          color: #3db81e !important; }
+        .dashboard .user-orders .order .order-actions .la-spinner:hover {
+          color: #c2bc12 !important; }
+        .dashboard .user-orders .order .order-actions .la-times:hover {
+          color: #d50d0d !important; }
+        .dashboard .user-orders .order .order-actions .la-trash-alt:hover {
+          color: #d50d0d !important; }
       .dashboard .user-orders .order:hover {
         background: rgba(211, 211, 211, 0.3) !important; }
         .dashboard .user-orders .order:hover .order-info {

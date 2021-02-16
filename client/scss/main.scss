@@ -11,7 +11,7 @@ $orange: #ff600a;
 $dark-blue: #33333d;
 $green: #3db81e;
 $red: #d50d0d;
-$blue: #4285f4;
+$yellow: #c2bc12;
 $page-width: 1180px;
 $H: "Montserrat", "Trebuchet MS", Arial, sans-serif;
 $P: "Open Sans", Arial, sans-serif;
@@ -1579,6 +1579,13 @@ a {
       }
 
       .order-actions {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: 1.1rem;
+          margin-right: 1rem;
+        }
         i {
           font-size: 1.5rem;
           margin-right: 0.75rem;
@@ -1588,10 +1595,11 @@ a {
           }
         }
 
-        .la-eye:hover {color: $grey;}
-        .la-check:hover {color: $green;}
-        .la-ellipsis-h:hover {color: $blue;}
-        .la-times:hover {color: $red;}
+        .la-eye:hover {color: $grey !important; }
+        .la-check:hover {color: $green !important;}
+        .la-spinner:hover {color: $yellow !important;}
+        .la-times:hover {color: $red !important;}
+        .la-trash-alt:hover {color: $red !important;}
       }
 
       &:hover {

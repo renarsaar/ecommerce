@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrders, orderIsSeen, orderIsUnSeen } from '../../actions/orderActions';
+import { getOrders, changeOrderStatus } from '../../actions/orderActions';
 import { logOut } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 
@@ -11,28 +11,38 @@ export default function Admin() {
   const dispatch = useDispatch();
   const {
     // eslint-disable-next-line max-len
-    ordersLoading, orders, next, previous, getOrdersError, orderIsSeenActionLoading, orderIsSeenAction, orderIsSeenActionError,
+    ordersLoading, orders, next, previous, getOrdersError, orderStatusLoading,
+    orderStatusError
   } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  let currentPage = 1;
 
+  // Fetch orders on page change || status change
   useEffect(() => {
-    dispatch(getOrders(1));
-  }, [dispatch]);
+    dispatch(getOrders(currentPage));
+  }, [currentPage, orderStatusLoading]);
 
-  // Handle if order is seen or unseen event
-  function handleOrderSeenByAdmin(e, order) {
-    e.stopPropagation();
+  // Change order completed status
+  function handleOrderStatus(currStatus, newStatus, orderId) {
+    if (orderStatusLoading || orderStatusError) return false;
 
-    if (orderIsSeenActionLoading || orderIsSeenActionError) return false;
-
-    if (order.isSeen) {
-      dispatch(orderIsUnSeen(order._id));
-      dispatch(getOrders(1));
-    } else {
-      dispatch(orderIsSeen(order._id));
-      dispatch(getOrders(1));
+    // If click on the same icon, set status to 'Recieved'
+    if (currStatus === newStatus) {
+      dispatch(changeOrderStatus('Recieved', orderId, sessionStorage.token));
     }
+
+    dispatch(changeOrderStatus(newStatus, orderId, sessionStorage.token));
+  }
+
+  // Handle order background color based on order status
+  function handleOrderBackground(status) {
+    if (status === 'Completed') return 'rgba(61, 184, 30, 0.2)';
+    if (status === 'Active') return 'rgba(194, 188, 18, 0.2)';
+    if (status === 'Cancelled') return 'rgba(213, 13, 13, 0.2)';
+    if (status === 'Seen By Admin') return 'rgba(163, 163, 163, 0.2)';
+    if (status === 'Recieved') return 'rgba(163, 163, 163, 0.05)';
+    console.log('change bg')
   }
 
   // Return user orders
@@ -44,13 +54,13 @@ export default function Admin() {
           key={order._id}
           style={{
             borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}`,
-            background: order.isSeen ? 'rgba(163, 163, 163, 0.2)' : 'rgba(163, 163, 163, 0.05)',
+            background: handleOrderBackground(order.status),
           }}
         >
           <Link
             to={`/order/${order._id}`}
             className="order-info"
-            style={{ fontWeight: order.isSeen ? '400' : '700' }}
+            style={{ fontWeight: order.status === 'Recieved' ? '700' : '400' }}
           >
             {'Order '}
             <span>{order._id}</span>
@@ -59,11 +69,28 @@ export default function Admin() {
             {' at '}
             <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
           </Link>
-          <p className="order-actions" style={{ opacity: orderIsSeenActionLoading || orderIsSeenActionError ? 0.5 : 1 }}>
-            <i role="button" className="las la-eye" onClick={(e) => handleOrderSeenByAdmin(e, order)} />
-            <i role="button" className="las la-check" />
-            <i role="button" className="las la-ellipsis-h" />
-            <i role="button" className="las la-times" />
+          <p className="order-actions" style={{ opacity: orderStatusLoading || orderStatusError ? 0.5 : 1 }}>
+            <span>Status: {order.status}</span>
+            <i
+              className="las la-eye"
+              onClick={() => handleOrderStatus(order.status, 'Seen By Admin', order._id)}
+            />
+            <i
+              className="las la-check"
+              onClick={() => handleOrderStatus(order.status, 'Completed', order._id)}
+              style={{ color: order.status === 'Completed' ? '#3db81e' : '#0a0a0a' }}
+            />
+            <i
+              className="las la-spinner"
+              onClick={() => handleOrderStatus(order.status, 'Active', order._id)}
+              style={{ color: order.status === 'Active' ? '#d3cd10' : '#0a0a0a' }}
+            />
+            <i
+              className="las la-times"
+              onClick={() => handleOrderStatus(order.status, 'Cancelled', order._id)}
+              style={{ color: order.status === 'Cancelled' ? '#d50d0d' : '#0a0a0a' }}
+            />
+            <i className="las la-trash-alt" />
           </p>
         </div>
       ));
@@ -113,8 +140,6 @@ export default function Admin() {
 
   // Render previous/next buttons
   function handlePreviousNextPage() {
-    let currentPage;
-
     if (next) currentPage = next.page - 1;
     if (previous) currentPage = previous.page + 1;
 

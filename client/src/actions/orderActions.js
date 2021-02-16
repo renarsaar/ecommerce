@@ -14,9 +14,9 @@ import {
   GET_TERMINALS_LOADING,
   GET_TERMINALS,
   GET_TERMINALS_ERROR,
-  ORDER_IS_SEEN_ACTION_LOADING,
-  ORDER_IS_SEEN_ACTION,
-  ORDER_IS_SEEN_ACTION_ERROR,
+  CHANGE_ORDER_STATUS_LOADING,
+  CHANGE_ORDER_STATUS,
+  CHANGE_ORDER_STATUS_ERROR,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -86,22 +86,19 @@ export const createOrder = (values) => async (dispatch) => {
     }));
 };
 
-// Change order status to seen by admin
-export const orderIsSeen = (id) => async (dispatch) => {
-  dispatch({ type: ORDER_IS_SEEN_ACTION_LOADING });
+// Change order status
+export const changeOrderStatus = (newStatus, orderId, token) => async (dispatch) => {
+  dispatch({ type: CHANGE_ORDER_STATUS_LOADING });
 
-  api.patch(`/orders/isSeen/${id}`)
-    .then((response) => dispatch({ type: ORDER_IS_SEEN_ACTION }))
-    .catch((error) => dispatch({ type: ORDER_IS_SEEN_ACTION_ERROR }));
-};
-
-// Change order status to unseen by admin
-export const orderIsUnSeen = (id) => async (dispatch) => {
-  dispatch({ type: ORDER_IS_SEEN_ACTION_LOADING });
-
-  api.patch(`/orders/unSeen/${id}`)
-    .then((response) => dispatch({ type: ORDER_IS_SEEN_ACTION }))
-    .catch((error) => dispatch({ type: ORDER_IS_SEEN_ACTION_ERROR }));
+  api.patch(`/orders/status/${orderId}`, {
+    newStatus,
+  }, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => dispatch({ type: CHANGE_ORDER_STATUS, payload: response.data }))
+    .catch((error) => dispatch({ type: CHANGE_ORDER_STATUS_ERROR, payload: error.data }));
 };
 
 // Get Omniva parcel terminal locations

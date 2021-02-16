@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrder, orderIsSeen } from '../../actions/orderActions';
+import { getOrder, changeOrderStatus } from '../../actions/orderActions';
 
 export default function OrderShow({ match }) {
   const dispatch = useDispatch();
@@ -17,8 +17,8 @@ export default function OrderShow({ match }) {
   // Change order status to seen by admin
   useEffect(() => {
     if (isLoggedIn) {
-      if (user.admin && selectedOrder && selectedOrder.isSeen === false) {
-        dispatch(orderIsSeen(id));
+      if (user.admin && selectedOrder && selectedOrder.status === 'Recieved') {
+        dispatch(changeOrderStatus('Seen By Admin', id, sessionStorage.token));
       }
     }
   }, [dispatch, selectedOrder]);

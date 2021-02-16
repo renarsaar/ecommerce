@@ -14,26 +14,26 @@ import {
   GET_TERMINALS_LOADING,
   GET_TERMINALS,
   GET_TERMINALS_ERROR,
-  ORDER_IS_SEEN_ACTION_LOADING,
-  ORDER_IS_SEEN_ACTION,
-  ORDER_IS_SEEN_ACTION_ERROR,
+  CHANGE_ORDER_STATUS_LOADING,
+  CHANGE_ORDER_STATUS,
+  CHANGE_ORDER_STATUS_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   ordersLoading: false,
-  orderIsSeenActionLoading: false,
+  orderStatusLoading: false,
   selectedOrder: null,
   terminals: null,
-  orderIsSeenAction: false,
   orders: null,
   next: null,
   previous: null,
+  orderStatus: null,
   getOrdersError: null,
   getOrderError: null,
   getUserOrderError: null,
   createOrderError: null,
   getTerminalsError: null,
-  orderIsSeenActionError: false,
+  orderStatusError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -55,12 +55,12 @@ export default (state = INITIAL_STATE, action) => {
         getTerminalsError: null,
       };
 
-    case ORDER_IS_SEEN_ACTION_LOADING:
+    case CHANGE_ORDER_STATUS_LOADING:
       return {
         ...state,
-        orderIsSeenActionLoading: true,
-        orderIsSeenAction: false,
-        orderIsSeenActionError: false,
+        orderStatusLoading: true,
+        orderStatus: null,
+        orderStatusError: null,
       };
 
     case GET_ORDERS:
@@ -98,12 +98,12 @@ export default (state = INITIAL_STATE, action) => {
         getTerminalsError: false,
       };
 
-    case ORDER_IS_SEEN_ACTION:
+    case CHANGE_ORDER_STATUS:
       return {
         ...state,
-        orderIsSeenActionLoading: false,
-        orderIsSeenAction: true,
-        orderIsSeenActionError: false,
+        orderStatusLoading: false,
+        orderStatus: action.payload,
+        orderStatusError: null,
       };
 
     case GET_ORDERS_ERROR:
@@ -149,12 +149,12 @@ export default (state = INITIAL_STATE, action) => {
         getTerminalsError: action.payload,
       };
 
-    case ORDER_IS_SEEN_ACTION_ERROR:
+    case CHANGE_ORDER_STATUS_ERROR:
       return {
         ...state,
-        orderIsSeenActionLoading: false,
-        orderIsSeenAction: false,
-        orderIsSeenActionError: true,
+        orderStatusLoading: false,
+        orderStatus: null,
+        orderStatusError: action.payload,
       };
 
     default:
