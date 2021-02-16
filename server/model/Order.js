@@ -21,9 +21,9 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isSeen: {
-    type: Boolean,
-    default: false,
+  status: {
+    type: String,
+    default: 'Recieved',
   },
   date: {
     type: Date,
