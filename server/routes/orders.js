@@ -92,31 +92,33 @@ router.post('/', async (req, res) => {
   }
 });
 
-// @desc    Change order status to seen by admin
-// @route   PATCH /orders/isSeen/:id
-router.patch('/isSeen/:id', async (req, res) => {
+// @desc    Change order completed status
+// @route   PATCH /orders/status/:id
+router.patch('/status/:id', auth, async (req, res) => {
   const { id } = req.params;
+  const { newStatus } = req.body;
+  const order = await Order.findById(id);
+  const user = await User.findById(req.user._id);
+  const allowedStatuses = ['Active', 'Cancelled', 'Completed', 'Seen By Admin', 'Recieved'];
 
-  try {
-    await Order.findByIdAndUpdate(id, { isSeen: true });
-
-    res.status(200).send('Status Changed');
-  } catch (error) {
-    res.status(500).send('Server Error');
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
   }
-});
 
-// @desc    Change order status to unseen by admin
-// @route   PATCH /orders/unSeen/:id
-router.patch('/unSeen/:id', async (req, res) => {
-  const { id } = req.params;
+  // Check if not unknown status
+  if (!allowedStatuses.includes(newStatus)) {
+    return res.status(400).send('Unknown status');
+  }
+
+  order.status = newStatus;
 
   try {
-    await Order.findByIdAndUpdate(id, { isSeen: false });
+    await order.save();
 
     res.status(200).send('Status Changed');
   } catch (error) {
-    res.status(500).send('Server Error');
+    res.status(500).send('Something went wrong. Please try again later.');
   }
 });
 
