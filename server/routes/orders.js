@@ -92,6 +92,25 @@ router.post('/', async (req, res) => {
   }
 });
 
+// @desc    Delete order
+// @route   POST /orders/delete/:id
+router.delete('/delete/:id', auth, async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  const user = await User.findById(req.user._id);
+
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  try {
+    await order.remove();
+    res.json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
 // @desc    Change order completed status
 // @route   PATCH /orders/status/:id
 router.patch('/status/:id', auth, async (req, res) => {
