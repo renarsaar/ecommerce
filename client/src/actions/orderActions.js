@@ -34,7 +34,22 @@ export const getOrders = (page) => async (dispatch) => {
       limit: 10,
     },
   })
-    .then((response) => dispatch({ type: GET_ORDERS, payload: response.data }))
+    .then((response) => dispatch({ type: GET_ORDERS, payload: response.data, orderType: 'All' }))
+    .catch((error) => dispatch({ type: GET_ORDERS_ERROR, payload: { error } }));
+};
+
+// Get all new orders
+export const getNewOrders = (page) => async (dispatch) => {
+  dispatch({ type: GET_ORDERS_LOADING });
+
+  api.get('/orders', {
+    params: {
+      page,
+      new: true,
+      limit: 10,
+    },
+  })
+    .then((response) => dispatch({ type: GET_ORDERS, payload: response.data, orderType: 'New' }))
     .catch((error) => dispatch({ type: GET_ORDERS_ERROR, payload: { error } }));
 };
 

@@ -184,6 +184,11 @@ function paginatedResults(model) {
           .limit(limit)
           .skip(startIndex)
           .exec();
+      } if (req.query.new) {
+        results.paginatedResults = await model.find({ status: 'Recieved' })
+          .limit(limit)
+          .skip(startIndex)
+          .exec();
       } else {
         results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
       }

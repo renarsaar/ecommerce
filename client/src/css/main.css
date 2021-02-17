@@ -1040,7 +1040,8 @@ a {
       justify-content: space-between;
       padding: 1rem;
       background: rgba(163, 163, 163, 0.2);
-      border-bottom: 1px solid #d3d3d3; }
+      border-bottom: 1px solid #d3d3d3;
+      transition: border-right .3s ease; }
       .dashboard .user-orders .order .order-info {
         color: #0a0a0a;
         font-size: 1.1rem; }

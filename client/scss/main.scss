@@ -1572,6 +1572,7 @@ a {
       padding: 1rem;
       background: rgba($color: $grey, $alpha: 0.2);
       border-bottom: 1px solid $light-grey;
+      transition: border-right .3s ease;
 
       .order-info {
         color: $black;

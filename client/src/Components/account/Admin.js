@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
+import { getOrders, getNewOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
 import { logOut } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 
@@ -12,7 +12,7 @@ export default function Admin() {
   const {
     // eslint-disable-next-line max-len
     ordersLoading, orders, next, previous, getOrdersError, orderStatusLoading,
-    deleteOrderLoading, deleteOrderMessage
+    deleteOrderLoading, deleteOrderMessage, orderType
   } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
@@ -20,7 +20,8 @@ export default function Admin() {
 
   // Fetch orders on page change || status change
   useEffect(() => {
-    dispatch(getOrders(currentPage));
+    if (orderType === 'All') dispatch(getOrders(currentPage));
+    if (orderType === 'New') dispatch(getNewOrders(currentPage));
   }, [currentPage, orderStatusLoading, deleteOrderMessage]);
 
   // Change order completed status
@@ -185,8 +186,22 @@ export default function Admin() {
         </div>
 
         <div className="user-orders">
-          <button type="button" className="btn">All Orders</button>
-          <button type="button" className="btn">New Orders</button>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => dispatch(getOrders(currentPage))}
+            style={{ background: orderType === 'All' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
+          >
+            All Orders
+          </button>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => dispatch(getNewOrders(currentPage))}
+            style={{ background: orderType === 'New' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
+          >
+            New Orders
+          </button>
           {handleOrders()}
           {handlePreviousNextPage()}
         </div>
