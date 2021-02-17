@@ -71,17 +71,17 @@ a {
 .placeholder {
   animation: 3s infinite placeholder-animate ease-in-out; }
 
-.product-show-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip {
+.product-show-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip, .dashboard .user-orders .order .order-actions .tooltip {
   cursor: default;
   position: relative;
   display: inline-block; }
-  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext {
+  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip:hover .tooltiptext {
     visibility: visible;
     transition: .3s ease;
     animation-name: fadeIn;
     animation-duration: .5s;
     animation-iteration-count: 1; }
-  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext {
+  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip .tooltiptext {
     visibility: hidden;
     background: #33333d;
     color: #f4f4f4;
@@ -94,6 +94,24 @@ a {
     border-radius: 3px;
     z-index: 1;
     transition: .3s ease; }
+
+.product-show-item .gallery .share .clipboard {
+  opacity: 0;
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  background: rgba(51, 51, 61, 0.95);
+  color: #fff;
+  padding: 0.7rem 1.7rem;
+  border-radius: 5px;
+  transition: .4s ease; }
+  .product-show-item .gallery .share .clipboard h4 {
+    font-weight: 500; }
+  .product-show-item .gallery .share .show.clipboard {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition: .4s ease; }
 
 .catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement, .dashboard .user-orders .previous-page, .dashboard .user-orders .next-page, .dashboard .user-orders .current-page {
   cursor: pointer;
@@ -407,23 +425,6 @@ a {
           transition: .3s; }
       .product-show-item .gallery .share .tooltip .tooltiptext {
         top: 20px; }
-      .product-show-item .gallery .share .clipboard {
-        opacity: 0;
-        position: fixed;
-        top: 5%;
-        left: 50%;
-        transform: translate(-50%, -20px);
-        background: rgba(51, 51, 61, 0.95);
-        color: #fff;
-        padding: 0.7rem 1.7rem;
-        border-radius: 5px;
-        transition: .4s ease; }
-        .product-show-item .gallery .share .clipboard h4 {
-          font-weight: 500; }
-        .product-show-item .gallery .share .clipboard.show {
-          opacity: 1;
-          transform: translate(-50%, 0);
-          transition: .4s ease; }
     .product-show-item .details {
       margin-left: 3rem; }
       .product-show-item .details .name {
@@ -1056,6 +1057,9 @@ a {
           margin-right: 0.75rem; }
           .dashboard .user-orders .order .order-actions i:hover {
             cursor: pointer; }
+        .dashboard .user-orders .order .order-actions .tooltip .tooltiptext {
+          bottom: 30px;
+          right: -80px; }
         .dashboard .user-orders .order .order-actions .la-eye:hover {
           color: #a3a3a3 !important; }
         .dashboard .user-orders .order .order-actions .la-check:hover {

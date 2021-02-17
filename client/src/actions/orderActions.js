@@ -17,6 +17,9 @@ import {
   CHANGE_ORDER_STATUS_LOADING,
   CHANGE_ORDER_STATUS,
   CHANGE_ORDER_STATUS_ERROR,
+  DELETE_ORDER_LOADING,
+  DELETE_ORDER,
+  DELETE_ORDER_ERROR,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -84,6 +87,19 @@ export const createOrder = (values) => async (dispatch) => {
       type: CREATE_ORDER_ERROR,
       payload: error.message,
     }));
+};
+
+// Delete order by Id
+export const deleteOrder = (orderId, token) => async (dispatch) => {
+  dispatch({ type: DELETE_ORDER_LOADING });
+
+  api.delete(`/orders/delete/${orderId}`, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => dispatch({ type: DELETE_ORDER, payload: response.data.messsage }))
+    .catch((error) => dispatch({ type: DELETE_ORDER_ERROR, payload: error.message }));
 };
 
 // Change order status

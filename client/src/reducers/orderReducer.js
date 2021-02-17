@@ -17,23 +17,29 @@ import {
   CHANGE_ORDER_STATUS_LOADING,
   CHANGE_ORDER_STATUS,
   CHANGE_ORDER_STATUS_ERROR,
+  DELETE_ORDER_LOADING,
+  DELETE_ORDER,
+  DELETE_ORDER_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   ordersLoading: false,
   orderStatusLoading: false,
+  deleteOrderLoading: false,
   selectedOrder: null,
   terminals: null,
   orders: null,
   next: null,
   previous: null,
   orderStatus: null,
+  deleteOrderMessage: null,
   getOrdersError: null,
   getOrderError: null,
   getUserOrderError: null,
   createOrderError: null,
   getTerminalsError: null,
   orderStatusError: null,
+  deleteOrderError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -61,6 +67,14 @@ export default (state = INITIAL_STATE, action) => {
         orderStatusLoading: true,
         orderStatus: null,
         orderStatusError: null,
+      };
+
+    case DELETE_ORDER_LOADING:
+      return {
+        ...state,
+        deleteOrderLoading: true,
+        deleteOrderMessage: null,
+        deleteOrderError: null,
       };
 
     case GET_ORDERS:
@@ -104,6 +118,14 @@ export default (state = INITIAL_STATE, action) => {
         orderStatusLoading: false,
         orderStatus: action.payload,
         orderStatusError: null,
+      };
+
+    case DELETE_ORDER:
+      return {
+        ...state,
+        deleteOrderLoading: false,
+        deleteOrderMessage: action.payload,
+        deleteOrderError: null,
       };
 
     case GET_ORDERS_ERROR:
@@ -156,6 +178,14 @@ export default (state = INITIAL_STATE, action) => {
         orderStatus: null,
         orderStatusError: action.payload,
       };
+
+    case DELETE_ORDER_ERROR:
+      return {
+        ...state,
+        deleteOrderLoading: false,
+        deleteOrderMessage: null,
+        deleteOrderError: action.payload,
+      }
 
     default:
       return state;

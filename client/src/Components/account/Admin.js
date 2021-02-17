@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrders, changeOrderStatus } from '../../actions/orderActions';
+import { getOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
 import { logOut } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 
@@ -12,7 +12,7 @@ export default function Admin() {
   const {
     // eslint-disable-next-line max-len
     ordersLoading, orders, next, previous, getOrdersError, orderStatusLoading,
-    orderStatusError
+    deleteOrderLoading, deleteOrderMessage
   } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
@@ -21,11 +21,11 @@ export default function Admin() {
   // Fetch orders on page change || status change
   useEffect(() => {
     dispatch(getOrders(currentPage));
-  }, [currentPage, orderStatusLoading]);
+  }, [currentPage, orderStatusLoading, deleteOrderMessage]);
 
   // Change order completed status
   function handleOrderStatus(currStatus, newStatus, orderId) {
-    if (orderStatusLoading || orderStatusError) return false;
+    if (orderStatusLoading || deleteOrderLoading) return false;
 
     // If click on the same icon, set status to 'Recieved'
     if (currStatus === newStatus) {
@@ -42,7 +42,6 @@ export default function Admin() {
     if (status === 'Cancelled') return 'rgba(213, 13, 13, 0.2)';
     if (status === 'Seen By Admin') return 'rgba(163, 163, 163, 0.2)';
     if (status === 'Recieved') return 'rgba(163, 163, 163, 0.05)';
-    console.log('change bg')
   }
 
   // Return user orders
@@ -69,28 +68,41 @@ export default function Admin() {
             {' at '}
             <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
           </Link>
-          <p className="order-actions" style={{ opacity: orderStatusLoading || orderStatusError ? 0.5 : 1 }}>
+          <p className="order-actions" style={{ opacity: orderStatusLoading || deleteOrderLoading ? 0.5 : 1 }}>
             <span>Status: {order.status}</span>
             <i
-              className="las la-eye"
+              className="las la-eye tooltip"
               onClick={() => handleOrderStatus(order.status, 'Seen By Admin', order._id)}
-            />
+            >
+              <span className="tooltiptext">Mark as Seen</span>
+            </i>
             <i
-              className="las la-check"
+              className="las la-check tooltip"
               onClick={() => handleOrderStatus(order.status, 'Completed', order._id)}
               style={{ color: order.status === 'Completed' ? '#3db81e' : '#0a0a0a' }}
-            />
+            >
+              <span className="tooltiptext">Mark as Completed</span>
+            </i>
             <i
-              className="las la-spinner"
+              className="las la-spinner tooltip"
               onClick={() => handleOrderStatus(order.status, 'Active', order._id)}
               style={{ color: order.status === 'Active' ? '#d3cd10' : '#0a0a0a' }}
-            />
+            >
+              <span className="tooltiptext">Mark as Active</span>
+            </i>
             <i
-              className="las la-times"
+              className="las la-times tooltip"
               onClick={() => handleOrderStatus(order.status, 'Cancelled', order._id)}
               style={{ color: order.status === 'Cancelled' ? '#d50d0d' : '#0a0a0a' }}
-            />
-            <i className="las la-trash-alt" />
+            >
+              <span className="tooltiptext">Mark as Cancelled</span>
+            </i>
+            <i
+              className="las la-trash-alt tooltip"
+              onClick={() => dispatch(deleteOrder(order._id, sessionStorage.token))}
+            >
+              <span className="tooltiptext">Delete this order</span>
+            </i>
           </p>
         </div>
       ));
@@ -110,7 +122,7 @@ export default function Admin() {
     }
 
     if (getOrdersError) {
-      return <h5 className="err">Error loading your orders, please try again later</h5>;
+      return <h5 className="err">Error loading orders, please try again later</h5>;
     }
   }
 
