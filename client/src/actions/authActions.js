@@ -12,6 +12,9 @@ import {
   LOG_IN_ERROR,
   GET_USER_ERROR,
   REGISTER_ERROR,
+  GET_USERS_LOADING,
+  GET_USERS,
+  GET_USERS_ERROR,
   CHANGE_PASSWORD_LOADING,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
@@ -89,6 +92,19 @@ export const validateOAuthUser = (values) => async (dispatch) => {
       history.push({ pathname: '/' });
     })
     .catch((error) => dispatch({ type: VALIDATE_ERROR, payload: error.response.data }));
+};
+
+// Get all users
+export const getUsers = (token) => async (dispatch) => {
+  dispatch({ type: GET_USERS_LOADING });
+
+  api.get('/auth/users', {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => dispatch({ type: GET_USERS, payload: response.data }))
+    .catch((error) => dispatch({ type: GET_USERS_ERROR, payload: error.response.data }));
 };
 
 // Get the user & log in if jwt token in URL after OAuth login

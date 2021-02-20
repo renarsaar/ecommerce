@@ -1627,6 +1627,60 @@ a {
     }
   }
 
+  .users {
+    position: relative;
+    margin-bottom: 2rem;
+
+    .previous-page, .next-page, .current-page {
+      @extend %btn-shared;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+
+      &.highlight {
+        border: 1px solid $orange;
+        background: rgba($color: $orange, $alpha: 0.1);
+      
+        &:hover {
+          background: rgba($color: $orange, $alpha: 0.3);
+        } 
+      }
+    }
+
+    .user {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $light-grey;
+      background: rgba($color: $grey, $alpha: 0.2);
+      padding: 1rem;
+
+      div {
+        display: flex;
+
+        p {
+          margin-left: 1rem;
+        }
+      }
+
+      .tooltip, i {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin-left: 1rem;
+        @extend %tooltip-shared;
+
+        &:hover {
+          color: $red;
+        }
+
+        .tooltiptext {
+          right: 20px;
+          bottom: 0px;
+        }
+      }
+    }
+  }
+
   .btn {
     @extend %btn-shared-large, %btn-ripple;
     margin-left: 0;

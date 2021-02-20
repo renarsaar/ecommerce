@@ -71,17 +71,17 @@ a {
 .placeholder {
   animation: 3s infinite placeholder-animate ease-in-out; }
 
-.product-show-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip, .dashboard .user-orders .order .order-actions .tooltip {
+.product-show-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip, .dashboard .user-orders .order .order-actions .tooltip, .dashboard .users .user .tooltip, .dashboard .users .user i {
   cursor: default;
   position: relative;
   display: inline-block; }
-  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip:hover .tooltiptext {
+  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip:hover .tooltiptext, .dashboard .users .user .tooltip:hover .tooltiptext, .dashboard .users .user i:hover .tooltiptext {
     visibility: visible;
     transition: .3s ease;
     animation-name: fadeIn;
     animation-duration: .5s;
     animation-iteration-count: 1; }
-  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip .tooltiptext {
+  .product-show-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip .tooltiptext, .dashboard .users .user .tooltip .tooltiptext, .dashboard .users .user i .tooltiptext {
     visibility: hidden;
     background: #33333d;
     color: #f4f4f4;
@@ -113,7 +113,7 @@ a {
     transform: translate(-50%, 0);
     transition: .4s ease; }
 
-.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement, .dashboard .user-orders .previous-page, .dashboard .user-orders .next-page, .dashboard .user-orders .current-page {
+.catalog .product-list-container .product-page-nav .btn, .product-show-item .details .container .size ul li, .product-show-item .details .container .product-actions .increment, .product-show-item .details .container .product-actions .decrement, .dashboard .user-orders .previous-page, .dashboard .user-orders .next-page, .dashboard .user-orders .current-page, .dashboard .users .previous-page, .dashboard .users .next-page, .dashboard .users .current-page {
   cursor: pointer;
   background: #e4e3e3;
   color: #626166;
@@ -121,7 +121,7 @@ a {
   height: 50px;
   border: 1px solid #d3d3d3;
   transition: .3s ease; }
-  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .product-actions .increment:hover, .product-show-item .details .container .product-actions .decrement:hover, .dashboard .user-orders .previous-page:hover, .dashboard .user-orders .next-page:hover, .dashboard .user-orders .current-page:hover {
+  .catalog .product-list-container .product-page-nav .btn:hover, .product-show-item .details .container .size ul li:hover, .product-show-item .details .container .product-actions .increment:hover, .product-show-item .details .container .product-actions .decrement:hover, .dashboard .user-orders .previous-page:hover, .dashboard .user-orders .next-page:hover, .dashboard .user-orders .current-page:hover, .dashboard .users .previous-page:hover, .dashboard .users .next-page:hover, .dashboard .users .current-page:hover {
     background: #d3d3d3;
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
@@ -1075,6 +1075,38 @@ a {
         background: rgba(211, 211, 211, 0.3) !important; }
         .dashboard .user-orders .order:hover .order-info {
           color: #ff600a; }
+  .dashboard .users {
+    position: relative;
+    margin-bottom: 2rem; }
+    .dashboard .users .previous-page, .dashboard .users .next-page, .dashboard .users .current-page {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem; }
+      .dashboard .users .previous-page.highlight, .dashboard .users .next-page.highlight, .dashboard .users .current-page.highlight {
+        border: 1px solid #ff600a;
+        background: rgba(255, 96, 10, 0.1); }
+        .dashboard .users .previous-page.highlight:hover, .dashboard .users .next-page.highlight:hover, .dashboard .users .current-page.highlight:hover {
+          background: rgba(255, 96, 10, 0.3); }
+    .dashboard .users .user {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #d3d3d3;
+      background: rgba(163, 163, 163, 0.2);
+      padding: 1rem; }
+      .dashboard .users .user div {
+        display: flex; }
+        .dashboard .users .user div p {
+          margin-left: 1rem; }
+      .dashboard .users .user .tooltip, .dashboard .users .user i {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin-left: 1rem; }
+        .dashboard .users .user .tooltip:hover, .dashboard .users .user i:hover {
+          color: #d50d0d; }
+        .dashboard .users .user .tooltip .tooltiptext, .dashboard .users .user i .tooltiptext {
+          right: 20px;
+          bottom: 0px; }
   .dashboard .btn {
     margin-left: 0; }
 

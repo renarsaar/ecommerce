@@ -12,6 +12,9 @@ import {
   LOG_IN_ERROR,
   GET_USER_ERROR,
   REGISTER_ERROR,
+  GET_USERS_LOADING,
+  GET_USERS,
+  GET_USERS_ERROR,
   CHANGE_PASSWORD_LOADING,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
@@ -23,6 +26,9 @@ const INITIAL_STATE = {
   token: sessionStorage.getItem('token'),
   isLoggedIn: false,
   user: null,
+  users: null,
+  nextUsers: null,
+  previousUsers: null,
   changePassword: null,
   authLoading: false,
   logInError: null,
@@ -31,6 +37,7 @@ const INITIAL_STATE = {
   validateError: null,
   changePasswordError: null,
   deleteAccountError: null,
+  getUsersError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,6 +48,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_USER_LOADING:
     case CHANGE_PASSWORD_LOADING:
     case DELETE_ACCOUNT_LOADING:
+    case GET_USERS_LOADING:
       return {
         ...state,
         authLoading: true,
@@ -50,6 +58,7 @@ export default (state = INITIAL_STATE, action) => {
         getUserError: null,
         changePasswordError: null,
         deleteAccountError: null,
+        getUsersError: null,
       };
 
     case LOG_IN:
@@ -65,6 +74,16 @@ export default (state = INITIAL_STATE, action) => {
         registerError: null,
         validateError: null,
         getUserError: null,
+      };
+
+    case GET_USERS:
+      return {
+        ...state,
+        authLoading: false,
+        users: action.payload.paginatedResults,
+        getUsersError: null,
+        nextUsers: action.payload.next,
+        previousUsers: action.payload.previous,
       };
 
     case LOG_OUT:
@@ -122,6 +141,16 @@ export default (state = INITIAL_STATE, action) => {
         authLoading: false,
         user: null,
         getUserError: action.payload,
+      };
+
+    case GET_USERS_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        users: null,
+        nextUsers: null,
+        previousUsers: null,
+        getUsersError: action.payload,
       };
 
     case CHANGE_PASSWORD_ERROR:

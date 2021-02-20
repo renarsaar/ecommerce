@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getOrders, getNewOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
-import { logOut } from '../../actions/authActions';
+import { logOut, getUsers } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 
 import ChangePasswordForm from './ChangePasswordForm';
@@ -11,18 +11,23 @@ export default function Admin() {
   const dispatch = useDispatch();
   const {
     // eslint-disable-next-line max-len
-    ordersLoading, orders, next, previous, getOrdersError, orderStatusLoading,
+    ordersLoading, orders, nextOrders, previousOrders, getOrdersError, orderStatusLoading,
     deleteOrderLoading, deleteOrderMessage, orderType
   } = useSelector((state) => state.orders);
-  const { user } = useSelector((state) => state.auth);
+  const { authLoading, user, users, nextUsers, previousUsers, getUsersError } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
-  let currentPage = 1;
+  let currentOrdersPage = 1;
+  let currentUsersPage = 1;
 
   // Fetch orders on page change || status change
   useEffect(() => {
-    if (orderType === 'All') dispatch(getOrders(currentPage));
-    if (orderType === 'New') dispatch(getNewOrders(currentPage));
-  }, [currentPage, orderStatusLoading, deleteOrderMessage]);
+    if (orderType === 'All') dispatch(getOrders(currentOrdersPage));
+    if (orderType === 'New') dispatch(getNewOrders(currentOrdersPage));
+  }, [currentOrdersPage, orderStatusLoading, deleteOrderMessage]);
+
+  useEffect(() => {
+    dispatch(getUsers(sessionStorage.token));
+  }, []);
 
   // Change order completed status
   function handleOrderStatus(currStatus, newStatus, orderId) {
@@ -127,6 +132,53 @@ export default function Admin() {
     }
   }
 
+  // Return User data
+  function handleUsers() {
+    console.log(users)
+    if (users) {
+      return users.map((user) => (
+        <div className="user" key={user._id}>
+          <div>
+            <p>{user.name},</p>
+            <p>{user.email},</p>
+            <p>User made at {new Date(user.date).toLocaleDateString('en-GB')}.</p>
+          </div>
+          <div>
+            <i
+              className="las la-user-cog tooltip"
+            // onClick={() => dispatch(makeAdmin(user._id, sessionStorage.token))}
+            >
+              <span className="tooltiptext">Make this user admin</span>
+            </i>
+            <i
+              className="las la-trash-alt tooltip"
+            // onClick={() => dispatch(deleteUser(user._id, sessionStorage.token))}
+            >
+              <span className="tooltiptext">Delete this user</span>
+            </i>
+          </div>
+        </div>
+      ))
+    }
+
+    if (authLoading) {
+      return (
+        <div className="loading-container">
+          <div className="loading">
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+      );
+    }
+
+    if (getUsersError) {
+      return <h5 className="err">Error loading users, please try again later</h5>;
+    }
+  }
+
   // Show Change password form
   function togglePasswordForm(e) {
     useRippleButton(e);
@@ -151,21 +203,41 @@ export default function Admin() {
     dispatch(getOrders(nextPage));
   }
 
-  // Render previous/next buttons
-  function handlePreviousNextPage() {
-    if (next) currentPage = next.page - 1;
-    if (previous) currentPage = previous.page + 1;
+  // Handle previous/next button for Orders
+  function handlePreviousNextOrdersPage() {
+    if (nextOrders) currentOrdersPage = nextOrders.page - 1;
+    if (previousOrders) currentOrdersPage = previousOrders.page + 1;
 
     return (
       <div>
-        {previous && (
-          <div className="btn next-page" onClick={() => handleClickPreviousPage(previous.page)}>{previous.page}</div>
+        {previousOrders && (
+          <div className="btn next-page" onClick={() => handleClickPreviousPage(previousOrders.page)}>{previousOrders.page}</div>
         )}
-        {currentPage && (
-          <div className="btn current-page highlight">{currentPage}</div>
+        {currentOrdersPage && (
+          <div className="btn current-page highlight">{currentOrdersPage}</div>
         )}
-        {next && (
-          <div className="btn previous-page" onClick={() => handleClickNextPage(next.page)}>{next.page}</div>
+        {nextOrders && (
+          <div className="btn previous-page" onClick={() => handleClickNextPage(nextOrders.page)}>{nextOrders.page}</div>
+        )}
+      </div>
+    );
+  }
+
+  // Handle previous/next button for Users
+  function handlePreviousNextUsersPage() {
+    if (nextUsers) currentUsersPage = nextUsers.page - 1;
+    if (previousUsers) currentUsersPage = previousUsers.page + 1;
+
+    return (
+      <div>
+        {previousUsers && (
+          <div className="btn next-page" onClick={() => handleClickPreviousPage(previousUsers.page)}>{previousUsers.page}</div>
+        )}
+        {currentUsersPage && (
+          <div className="btn current-page highlight">{currentUsersPage}</div>
+        )}
+        {nextUsers && (
+          <div className="btn previous-page" onClick={() => handleClickNextPage(nextUsers.page)}>{nextUsers.page}</div>
         )}
       </div>
     );
@@ -189,7 +261,7 @@ export default function Admin() {
           <button
             type="button"
             className="btn"
-            onClick={() => dispatch(getOrders(currentPage))}
+            onClick={() => dispatch(getOrders(currentOrdersPage))}
             style={{ background: orderType === 'All' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
           >
             All Orders
@@ -197,13 +269,19 @@ export default function Admin() {
           <button
             type="button"
             className="btn"
-            onClick={() => dispatch(getNewOrders(currentPage))}
+            onClick={() => dispatch(getNewOrders(currentOrdersPage))}
             style={{ background: orderType === 'New' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
           >
             New Orders
           </button>
           {handleOrders()}
-          {handlePreviousNextPage()}
+          {handlePreviousNextOrdersPage()}
+        </div>
+
+        <div className="users">
+          <h2>All Users</h2>
+          {handleUsers()}
+          {handlePreviousNextUsersPage()}
         </div>
       </div>
 
