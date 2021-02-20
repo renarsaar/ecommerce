@@ -19,6 +19,15 @@ export default function User() {
     dispatch(getUserOrders(user.name, 1));
   }, []);
 
+  // Handle order background color based on order status
+  function handleOrderBackground(status) {
+    if (status === 'Completed') return 'rgba(61, 184, 30, 0.2)';
+    if (status === 'Active') return 'rgba(194, 188, 18, 0.2)';
+    if (status === 'Cancelled') return 'rgba(213, 13, 13, 0.2)';
+    if (status === 'Seen By Admin') return 'rgba(163, 163, 163, 0.2)';
+    if (status === 'Recieved') return 'rgba(163, 163, 163, 0.05)';
+  }
+
   // Return user orders
   function handleOrders() {
     if (orders) {
@@ -27,7 +36,10 @@ export default function User() {
           to={`/order/${order._id}`}
           className="order"
           key={order._id}
-          style={{ borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}` }}
+          style={{
+            borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}`,
+            background: handleOrderBackground(order.status),
+          }}
         >
           <p>
             {'Order '}
@@ -39,6 +51,7 @@ export default function User() {
               {`${order.totalPrice}€`}
             </span>
           </p>
+          <span>Status: {order.status}</span>
         </Link>
       ));
     }
