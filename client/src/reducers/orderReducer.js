@@ -30,8 +30,8 @@ const INITIAL_STATE = {
   terminals: null,
   orders: null,
   orderType: 'All',
-  next: null,
-  previous: null,
+  nextOrders: null,
+  previousOrders: null,
   orderStatus: null,
   deleteOrderMessage: null,
   getOrdersError: null,
@@ -85,8 +85,8 @@ export default (state = INITIAL_STATE, action) => {
         ordersLoading: false,
         orders: action.payload.paginatedResults,
         orderType: action.orderType,
-        next: action.payload.next,
-        previous: action.payload.previous,
+        nextOrders: action.payload.next,
+        previousOrders: action.payload.previous,
         getOrderError: false,
         getUserOrderError: false,
       };
@@ -135,8 +135,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ordersLoading: false,
         orders: null,
-        next: null,
-        previous: null,
+        nextOrders: null,
+        previousOrders: null,
         getOrdersError: action.payload,
       };
 
@@ -145,8 +145,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ordersLoading: false,
         orders: null,
-        next: null,
-        previous: null,
+        nextOrders: null,
+        previousOrders: null,
         getUserOrderError: action.payload,
       };
 
