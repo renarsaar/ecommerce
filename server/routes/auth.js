@@ -12,6 +12,24 @@ const {
   editUserValidation,
 } = require('../validation');
 
+// @desc    Get All Users
+// @route   GET /auth/users
+// @access  admin
+router.get('/users', auth, paginatedResults(User), async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  try {
+    res.status(200).json(res.paginatedResults);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // @desc    Register a new user
 // @route   POST /auth/register
 // @access  public
@@ -290,5 +308,42 @@ router.delete('/:id', auth, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+function paginatedResults(model) {
+  return async (req, res, next) => {
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const results = {};
+
+    if (endIndex < await model.countDocuments().exec()) {
+      results.next = {
+        page: page + 1,
+        limit,
+      };
+    }
+
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit,
+      };
+    }
+
+    try {
+      results.results = await model.find();
+      results.paginatedResults = await model.find().select('-password').limit(limit).skip(startIndex)
+        .exec();
+
+      res.paginatedResults = results;
+      next();
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+}
 
 module.exports = router;
