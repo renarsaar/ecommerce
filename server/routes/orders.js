@@ -29,25 +29,25 @@ router.get('/user/:userName', paginatedResults(Order), async (req, res) => {
 // @desc    Get single order
 // @route   GET /orders/:id
 router.get('/:id', auth, async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  const user = await User.findById(req.user._id);
+
+  if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
+  }
+
+  // Validate if admin
+  if (user.isAdmin) {
+    return res.status(200).send(order);
+  }
+
+  // orderer & user are the same
+  if (user.name !== order.user) {
+    return res.status(400).send('Unauthorized');
+  }
+
   try {
-    const order = await Order.findById(req.params.id);
-    const user = await User.findById(req.user._id);
-
-    if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
-    }
-
-    // Validate if admin
-    if (user.isAdmin) {
-      return res.status(200).send(order);
-    }
-
-    // Validate if orderer & user are the same
-    if (user.name === order.user) {
-      return res.status(200).send(order);
-    }
-
-    return res.status(500).send('Something went wrong. Please try again later.');
+    return res.status(200).send(order);
   } catch (err) {
     return res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
@@ -177,6 +177,7 @@ function paginatedResults(model) {
 
     try {
       results.results = await model.find();
+      results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
 
       // Filter orders by username if username in params
       if (req.params.userName) {
@@ -184,14 +185,16 @@ function paginatedResults(model) {
           .limit(limit)
           .skip(startIndex)
           .exec();
-      } if (req.query.new) {
+      }
+
+      // Filter orders by 'Recieved' status if new in params
+      if (req.query.new) {
         results.paginatedResults = await model.find({ status: 'Recieved' })
           .limit(limit)
           .skip(startIndex)
           .exec();
-      } else {
-        results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
       }
+
       res.paginatedResults = results;
       next();
     } catch (err) {
