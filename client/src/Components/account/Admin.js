@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getOrders, getNewOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
 import { logOut, getUsers } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
+import useHandleOrderBackground from '../Hooks/useHandleOrderBackground';
 
 import ChangePasswordForm from './ChangePasswordForm';
 
@@ -41,15 +42,6 @@ export default function Admin() {
     dispatch(changeOrderStatus(newStatus, orderId, sessionStorage.token));
   }
 
-  // Handle order background color based on order status
-  function handleOrderBackground(status) {
-    if (status === 'Completed') return 'rgba(61, 184, 30, 0.2)';
-    if (status === 'Active') return 'rgba(194, 188, 18, 0.2)';
-    if (status === 'Cancelled') return 'rgba(213, 13, 13, 0.2)';
-    if (status === 'Seen By Admin') return 'rgba(163, 163, 163, 0.2)';
-    if (status === 'Recieved') return 'rgba(163, 163, 163, 0.05)';
-  }
-
   // Return user orders
   function handleOrders() {
     if (orders) {
@@ -59,7 +51,7 @@ export default function Admin() {
           key={order._id}
           style={{
             borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}`,
-            background: handleOrderBackground(order.status),
+            background: useHandleOrderBackground(order.status),
           }}
         >
           <Link
