@@ -134,7 +134,6 @@ export default function Admin() {
 
   // Return User data
   function handleUsers() {
-    console.log(users)
     if (users) {
       return users.map((user) => (
         <div className="user" key={user._id}>
