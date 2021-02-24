@@ -93,7 +93,7 @@ router.post('/', async (req, res) => {
 });
 
 // @desc    Delete order
-// @route   POST /orders/delete/:id
+// @route   DELETE /orders/delete/:id
 router.delete('/delete/:id', auth, async (req, res) => {
   const order = await Order.findById(req.params.id);
   const user = await User.findById(req.user._id);
@@ -131,6 +131,10 @@ router.patch('/status/:id', auth, async (req, res) => {
   }
 
   order.status = newStatus;
+
+  if (req.body.statusComment) {
+    order.statusComment = req.body.statusComment;
+  }
 
   try {
     await order.save();
