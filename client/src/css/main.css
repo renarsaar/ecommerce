@@ -1075,6 +1075,19 @@ a {
         background: rgba(211, 211, 211, 0.3) !important; }
         .dashboard .user-orders .order:hover .order-info {
           color: #ff600a; }
+    .dashboard .user-orders .order-cancelled {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem auto;
+      background: rgba(211, 211, 211, 0.15); }
+      .dashboard .user-orders .order-cancelled label {
+        margin-left: 1rem; }
+      .dashboard .user-orders .order-cancelled select {
+        margin-left: 2rem;
+        padding: 0.5rem; }
+      .dashboard .user-orders .order-cancelled .btn {
+        margin: 1rem; }
   .dashboard .users {
     position: relative;
     margin-bottom: 2rem; }

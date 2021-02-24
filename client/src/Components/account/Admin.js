@@ -17,6 +17,8 @@ export default function Admin() {
   } = useSelector((state) => state.orders);
   const { authLoading, user, users, nextUsers, previousUsers, getUsersError } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [cancelledOrderId, setCancelledOrderId] = useState('');
+  const [statusComment, setStatusComment] = useState('');
   let currentOrdersPage = 1;
   let currentUsersPage = 1;
 
@@ -31,77 +33,103 @@ export default function Admin() {
   }, []);
 
   // Change order completed status
-  function handleOrderStatus(currStatus, newStatus, orderId) {
+  function handleOrderStatus(currStatus, newStatus, orderId, statusComment) {
     if (orderStatusLoading || deleteOrderLoading) return false;
 
     // If click on the same icon, set status to 'Recieved'
-    if (currStatus === newStatus) {
+    if (!statusComment && currStatus === newStatus) {
       dispatch(changeOrderStatus('Recieved', orderId, sessionStorage.token));
     }
 
-    dispatch(changeOrderStatus(newStatus, orderId, sessionStorage.token));
+    dispatch(changeOrderStatus(newStatus, orderId, sessionStorage.token, statusComment));
+
+    // Reset id && status comment
+    setCancelledOrderId('')
+    setStatusComment('');
   }
 
   // Return user orders
   function handleOrders() {
     if (orders) {
       return orders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((order) => (
-        <div
-          className="order"
-          key={order._id}
-          style={{
-            borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}`,
-            background: useHandleOrderBackground(order.status),
-          }}
-        >
-          <Link
-            to={`/order/${order._id}`}
-            className="order-info"
-            style={{ fontWeight: order.status === 'Recieved' ? '700' : '400' }}
+        <div key={order._id}>
+          <div
+            className="order"
+            style={{
+              borderRight: `5px solid #${Math.floor(Math.random() * 16777215).toString(16)}`,
+              background: useHandleOrderBackground(order.status),
+            }}
           >
-            {'Order '}
-            <span>{order._id}</span>
-            {' from '}
-            <span>{order.user}</span>
-            {' at '}
-            <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
-          </Link>
-          <p className="order-actions" style={{ opacity: orderStatusLoading || deleteOrderLoading ? 0.5 : 1 }}>
-            <span>Status: {order.status}</span>
-            <i
-              className="las la-eye tooltip"
-              onClick={() => handleOrderStatus(order.status, 'Seen By Admin', order._id)}
+            <Link
+              to={`/order/${order._id}`}
+              className="order-info"
+              style={{ fontWeight: order.status === 'Recieved' ? '700' : '400' }}
             >
-              <span className="tooltiptext">Mark as Seen</span>
-            </i>
-            <i
-              className="las la-check tooltip"
-              onClick={() => handleOrderStatus(order.status, 'Completed', order._id)}
-              style={{ color: order.status === 'Completed' ? '#3db81e' : '#0a0a0a' }}
-            >
-              <span className="tooltiptext">Mark as Completed</span>
-            </i>
-            <i
-              className="las la-spinner tooltip"
-              onClick={() => handleOrderStatus(order.status, 'Active', order._id)}
-              style={{ color: order.status === 'Active' ? '#d3cd10' : '#0a0a0a' }}
-            >
-              <span className="tooltiptext">Mark as Active</span>
-            </i>
-            <i
-              className="las la-times tooltip"
-              onClick={() => handleOrderStatus(order.status, 'Cancelled', order._id)}
-              style={{ color: order.status === 'Cancelled' ? '#d50d0d' : '#0a0a0a' }}
-            >
-              <span className="tooltiptext">Mark as Cancelled</span>
-            </i>
-            <i
-              className="las la-trash-alt tooltip"
-              onClick={() => dispatch(deleteOrder(order._id, sessionStorage.token))}
-            >
-              <span className="tooltiptext">Delete this order</span>
-            </i>
-          </p>
+              {'Order '}
+              <span>{order._id}</span>
+              {' from '}
+              <span>{order.user}</span>
+              {' at '}
+              <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
+            </Link>
+            <p className="order-actions" style={{ opacity: orderStatusLoading || deleteOrderLoading ? 0.5 : 1 }}>
+              <span>Status: {order.status}</span>
+              <i
+                className="las la-eye tooltip"
+                onClick={() => handleOrderStatus(order.status, 'Seen By Admin', order._id)}
+              >
+                <span className="tooltiptext">Mark as Seen</span>
+              </i>
+              <i
+                className="las la-check tooltip"
+                onClick={() => handleOrderStatus(order.status, 'Completed', order._id)}
+                style={{ color: order.status === 'Completed' ? '#3db81e' : '#0a0a0a' }}
+              >
+                <span className="tooltiptext">Mark as Completed</span>
+              </i>
+              <i
+                className="las la-spinner tooltip"
+                onClick={() => handleOrderStatus(order.status, 'Active', order._id)}
+                style={{ color: order.status === 'Active' ? '#d3cd10' : '#0a0a0a' }}
+              >
+                <span className="tooltiptext">Mark as Active</span>
+              </i>
+              <i
+                className="las la-times tooltip"
+                style={{ color: order.status === 'Cancelled' ? '#d50d0d' : '#0a0a0a' }}
+                onClick={() => setCancelledOrderId(cancelledOrderId === order._id ? '' : order._id)}
+              >
+                <span className="tooltiptext">Mark as Cancelled</span>
+              </i>
+              <i
+                className="las la-trash-alt tooltip"
+                onClick={() => dispatch(deleteOrder(order._id, sessionStorage.token))}
+              >
+                <span className="tooltiptext">Delete this order</span>
+              </i>
+            </p>
+          </div>
+          {cancelledOrderId === order._id && (
+            <div className="order-cancelled">
+              <div>
+                <label>Please specify the reason</label>
+                <select onChange={(e) => setStatusComment(e.target.value)} name="statusComment">
+                  <option value="" />
+                  <option value="One of the products has run out of Stock">One of the products has run out of Stock</option>
+                  <option value="Transaction failed">Transaction failed</option>
+                  <option value="Invalid Delivery Address">Invalid Delivery Address</option>
+                  <option value="Technical problems proccesing order">Technical problems proccesing order</option>
+                </select>
+              </div>
+              <button
+                className="btn"
+                type="button"
+                onClick={() => handleOrderStatus(order.status, 'Cancelled', order._id, statusComment)}
+              >
+                Cancel this order
+              </button>
+            </div>
+          )}
         </div>
       ));
     }

@@ -118,11 +118,12 @@ export const deleteOrder = (orderId, token) => async (dispatch) => {
 };
 
 // Change order status
-export const changeOrderStatus = (newStatus, orderId, token) => async (dispatch) => {
+export const changeOrderStatus = (newStatus, orderId, token, statusComment) => async (dispatch) => {
   dispatch({ type: CHANGE_ORDER_STATUS_LOADING });
 
   api.patch(`/orders/status/${orderId}`, {
     newStatus,
+    statusComment,
   }, {
     headers: {
       'x-auth-token': token,

@@ -50,6 +50,10 @@ export default function OrderShow({ match }) {
                 <img src={`http://localhost:8080/${product.image}`} alt={product.name} />
               </Link>
             ))}
+            <h3>Status: {selectedOrder.status}</h3>
+            {selectedOrder.statusComment && (
+              <h4>{selectedOrder.statusComment}</h4>
+            )}
           </div>
 
         </div>

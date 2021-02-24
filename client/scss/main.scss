@@ -1625,6 +1625,27 @@ a {
         }
       }
     }
+
+    .order-cancelled {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem auto;
+      background: rgba($color: $light-grey, $alpha: 0.15);
+
+      label {
+        margin-left: 1rem;
+      }
+
+      select {
+        margin-left: 2rem;
+        padding: 0.5rem;
+      }
+
+      .btn {
+        margin: 1rem;
+      }
+    }
   }
 
   .users {
