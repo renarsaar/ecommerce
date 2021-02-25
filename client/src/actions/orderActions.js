@@ -25,10 +25,14 @@ import api from '../api';
 import history from '../history';
 
 // Get all orders
-export const getOrders = (page) => async (dispatch) => {
+export const getOrders = (page, token) => async (dispatch) => {
   dispatch({ type: GET_ORDERS_LOADING });
 
   api.get('/orders', {
+    headers: {
+      'x-auth-token': token,
+    }
+  }, {
     params: {
       page,
       limit: 10,
@@ -39,10 +43,13 @@ export const getOrders = (page) => async (dispatch) => {
 };
 
 // Get all new orders
-export const getNewOrders = (page) => async (dispatch) => {
+export const getNewOrders = (page, token) => async (dispatch) => {
   dispatch({ type: GET_ORDERS_LOADING });
 
   api.get('/orders', {
+    headers: {
+      'x-auth-token': token,
+    },
     params: {
       page,
       new: true,

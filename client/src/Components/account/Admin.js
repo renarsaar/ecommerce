@@ -24,8 +24,8 @@ export default function Admin() {
 
   // Fetch orders on page change || status change
   useEffect(() => {
-    if (orderType === 'All') dispatch(getOrders(currentOrdersPage));
-    if (orderType === 'New') dispatch(getNewOrders(currentOrdersPage));
+    if (orderType === 'All') dispatch(getOrders(currentOrdersPage, sessionStorage.token));
+    if (orderType === 'New') dispatch(getNewOrders(currentOrdersPage, sessionStorage.token));
   }, [currentOrdersPage, orderStatusLoading, deleteOrderMessage]);
 
   useEffect(() => {
@@ -214,12 +214,12 @@ export default function Admin() {
 
   // Get previous page of orders
   function handleClickPreviousPage(previousPage) {
-    dispatch(getOrders(previousPage));
+    dispatch(getOrders(previousPage, sessionStorage.token));
   }
 
   // Get next page of orders
   function handleClickNextPage(nextPage) {
-    dispatch(getOrders(nextPage));
+    dispatch(getOrders(nextPage, sessionStorage.token));
   }
 
   // Handle previous/next button for Orders
@@ -280,7 +280,7 @@ export default function Admin() {
           <button
             type="button"
             className="btn"
-            onClick={() => dispatch(getOrders(currentOrdersPage))}
+            onClick={() => dispatch(getOrders(currentOrdersPage, sessionStorage.token))}
             style={{ background: orderType === 'All' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
           >
             All Orders
@@ -288,7 +288,7 @@ export default function Admin() {
           <button
             type="button"
             className="btn"
-            onClick={() => dispatch(getNewOrders(currentOrdersPage))}
+            onClick={() => dispatch(getNewOrders(currentOrdersPage, sessionStorage.token))}
             style={{ background: orderType === 'New' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
           >
             New Orders
