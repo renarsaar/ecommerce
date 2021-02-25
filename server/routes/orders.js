@@ -8,7 +8,15 @@ const { makeOrderValidation } = require('../validation');
 
 // @desc    Get all orders
 // @route   GET /orders
-router.get('/', paginatedResults(Order), async (req, res) => {
+// @access  admin
+router.get('/', auth, paginatedResults(Order), async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
+  }
+
   try {
     res.status(200).json(res.paginatedResults);
   } catch (err) {
@@ -18,7 +26,8 @@ router.get('/', paginatedResults(Order), async (req, res) => {
 
 // @desc    Get all orders made from 1 user
 // @route   GET /orders/:username
-router.get('/user/:userName', paginatedResults(Order), async (req, res) => {
+// @access  private
+router.get('/user/:userName', auth, paginatedResults(Order), async (req, res) => {
   try {
     res.status(200).json(res.paginatedResults);
   } catch (err) {
@@ -28,6 +37,7 @@ router.get('/user/:userName', paginatedResults(Order), async (req, res) => {
 
 // @desc    Get single order
 // @route   GET /orders/:id
+// @access  private
 router.get('/:id', auth, async (req, res) => {
   const order = await Order.findById(req.params.id);
   const user = await User.findById(req.user._id);
@@ -47,14 +57,15 @@ router.get('/:id', auth, async (req, res) => {
   }
 
   try {
-    return res.status(200).send(order);
+    res.status(200).send(order);
   } catch (err) {
-    return res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
 });
 
 // @desc    Make a new order
 // @route   POST /orders
+// @access  public
 router.post('/', async (req, res) => {
   // Validation
   const { error } = makeOrderValidation(req.body);
@@ -94,6 +105,7 @@ router.post('/', async (req, res) => {
 
 // @desc    Delete order
 // @route   DELETE /orders/delete/:id
+// @access  admin
 router.delete('/delete/:id', auth, async (req, res) => {
   const order = await Order.findById(req.params.id);
   const user = await User.findById(req.user._id);
@@ -113,6 +125,7 @@ router.delete('/delete/:id', auth, async (req, res) => {
 
 // @desc    Change order completed status
 // @route   PATCH /orders/status/:id
+// @access  admin
 router.patch('/status/:id', auth, async (req, res) => {
   const { id } = req.params;
   const { newStatus } = req.body;
@@ -136,6 +149,11 @@ router.patch('/status/:id', auth, async (req, res) => {
     order.statusComment = req.body.statusComment;
   }
 
+  // Reset cancelled status comment if new status not cancelled
+  if (newStatus !== 'Cancelled' && order.statusComment) {
+    order.statusComment = '';
+  }
+
   try {
     await order.save();
 
@@ -147,6 +165,7 @@ router.patch('/status/:id', auth, async (req, res) => {
 
 // @desc    Get Omniva parcel terminal locations
 // @route   GET /orders/omniva
+// @access  public
 router.get('/omniva', async (req, res) => {
   const BASE_URL = 'https://www.omniva.ee/locations.json';
 
@@ -180,7 +199,7 @@ function paginatedResults(model) {
     }
 
     try {
-      results.results = await model.find();
+      // results.results = await model.find();
       results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
 
       // Filter orders by username if username in params
