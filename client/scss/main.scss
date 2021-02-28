@@ -1396,9 +1396,16 @@ a {
       &::before { right: 0; }
     }
 
-    .registration-success {
+    .success-container {
       background: #d8f8d0;
       border: 1px solid #3db81e;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .error-container {
+      background: #f8d0d0;
+      border: 1px solid #b81e1e;
       padding: 1rem;
       margin-bottom: 1rem;
     }

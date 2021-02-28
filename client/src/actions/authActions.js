@@ -20,6 +20,12 @@ import {
   CHANGE_PASSWORD_ERROR,
   DELETE_ACCOUNT_LOADING,
   DELETE_ACCOUNT_ERROR,
+  MAKE_ADMIN_LOADING,
+  MAKE_ADMIN,
+  MAKE_ADMIN_ERROR,
+  BAN_USER_LOADING,
+  BAN_USER,
+  BAN_USER_ERROR,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -146,6 +152,30 @@ export const changeUserPassword = (id, token, values) => async (dispatch) => {
   })
     .then((response) => dispatch({ type: CHANGE_PASSWORD, payload: response.data }))
     .catch((error) => dispatch({ type: CHANGE_PASSWORD_ERROR, payload: error.response.data }));
+};
+
+export const makeAdminAction = (id, token) => async (dispatch) => {
+  dispatch({ type: MAKE_ADMIN_LOADING });
+
+  api.patch(`/auth/admin/${id}`, {}, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => dispatch({ type: MAKE_ADMIN, payload: response.data }))
+    .catch((error) => dispatch({ type: MAKE_ADMIN_ERROR, payload: error.data }));
+};
+
+export const banUserAction = (id, token) => async (dispatch) => {
+  dispatch({ type: BAN_USER_LOADING });
+
+  api.patch(`/auth/ban/${id}`, {}, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => dispatch({ type: BAN_USER, payload: response.data }))
+    .catch((error) => dispatch({ type: BAN_USER_ERROR, payload: error.data }));
 };
 
 // Delete account

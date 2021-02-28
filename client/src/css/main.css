@@ -922,9 +922,14 @@ a {
         left: 0; }
       .account-container span::before {
         right: 0; }
-    .account-container .registration-success {
+    .account-container .success-container {
       background: #d8f8d0;
       border: 1px solid #3db81e;
+      padding: 1rem;
+      margin-bottom: 1rem; }
+    .account-container .error-container {
+      background: #f8d0d0;
+      border: 1px solid #b81e1e;
       padding: 1rem;
       margin-bottom: 1rem; }
     .account-container form {

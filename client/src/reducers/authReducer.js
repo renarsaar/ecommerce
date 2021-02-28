@@ -20,6 +20,12 @@ import {
   CHANGE_PASSWORD_ERROR,
   DELETE_ACCOUNT_LOADING,
   DELETE_ACCOUNT_ERROR,
+  MAKE_ADMIN_LOADING,
+  MAKE_ADMIN,
+  MAKE_ADMIN_ERROR,
+  BAN_USER_LOADING,
+  BAN_USER,
+  BAN_USER_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -31,6 +37,8 @@ const INITIAL_STATE = {
   previousUsers: null,
   changePassword: null,
   authLoading: false,
+  makeAdmin: null,
+  banUser: null,
   logInError: null,
   getUserError: null,
   registerError: null,
@@ -38,6 +46,8 @@ const INITIAL_STATE = {
   changePasswordError: null,
   deleteAccountError: null,
   getUsersError: null,
+  makeAdminError: null,
+  banUserError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -49,6 +59,8 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_PASSWORD_LOADING:
     case DELETE_ACCOUNT_LOADING:
     case GET_USERS_LOADING:
+    case MAKE_ADMIN_LOADING:
+    case BAN_USER_LOADING:
       return {
         ...state,
         authLoading: true,
@@ -59,6 +71,8 @@ export default (state = INITIAL_STATE, action) => {
         changePasswordError: null,
         deleteAccountError: null,
         getUsersError: null,
+        makeAdminError: null,
+        banUserError: null,
       };
 
     case LOG_IN:
@@ -110,6 +124,26 @@ export default (state = INITIAL_STATE, action) => {
         registerError: null,
         logInError: null,
       };
+
+    case MAKE_ADMIN:
+      return {
+        ...state,
+        authLoading: false,
+        makeAdmin: action.payload,
+        banUser: null,
+        makeAdminError: null,
+        banUserError: null,
+      };
+
+    case BAN_USER:
+      return {
+        ...state,
+        authLoading: false,
+        banUser: action.payload,
+        makeAdmin: null,
+        banUserError: null,
+        makeAdminError: null,
+      }
 
     case VALIDATE_ERROR:
       return {
@@ -166,6 +200,22 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         authLoading: false,
         deleteAccountError: action.payload,
+      };
+
+    case MAKE_ADMIN_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        makeAdmin: null,
+        makeAdminError: action.payload,
+      }
+
+    case BAN_USER_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        banUser: null,
+        banUserError: action.payload,
       };
 
     default:

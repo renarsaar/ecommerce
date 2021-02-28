@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
 import { getOrders, getNewOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
-import { logOut, getUsers } from '../../actions/authActions';
+import { logOut, getUsers, makeAdminAction, banUserAction } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 import useHandleOrderBackground from '../Hooks/useHandleOrderBackground';
 
 import ChangePasswordForm from './ChangePasswordForm';
+
+const customModalStyles = {
+  content: {
+    top: '10%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -10%)',
+  }
+};
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -15,12 +27,18 @@ export default function Admin() {
     ordersLoading, orders, nextOrders, previousOrders, getOrdersError, orderStatusLoading,
     deleteOrderLoading, deleteOrderMessage, orderType
   } = useSelector((state) => state.orders);
-  const { authLoading, user, users, nextUsers, previousUsers, getUsersError } = useSelector((state) => state.auth);
+  const {
+    authLoading, user, users, nextUsers, previousUsers, getUsersError, makeAdmin, banUser
+  } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [cancelledOrderId, setCancelledOrderId] = useState('');
   const [statusComment, setStatusComment] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const closeModal = () => setModalIsOpen(false);
   let currentOrdersPage = 1;
   let currentUsersPage = 1;
+
+  Modal.setAppElement('#modal');
 
   // Fetch orders on page change || status change
   useEffect(() => {
@@ -31,6 +49,12 @@ export default function Admin() {
   useEffect(() => {
     dispatch(getUsers(sessionStorage.token));
   }, []);
+
+  // Open modal on makeAdminAction
+  useEffect(() => {
+    setModalIsOpen(true);
+    dispatch(getUsers(sessionStorage.token));
+  }, [makeAdmin, banUser]);
 
   // Change order completed status
   function handleOrderStatus(currStatus, newStatus, orderId, statusComment) {
@@ -151,6 +175,7 @@ export default function Admin() {
       return <h5 className="err">Error loading orders, please try again later</h5>;
     }
   }
+  console.log(users)
 
   // Return User data
   function handleUsers() {
@@ -160,21 +185,38 @@ export default function Admin() {
           <div>
             <p>{user.name},</p>
             <p>{user.email},</p>
-            <p>User made at {new Date(user.date).toLocaleDateString('en-GB')}.</p>
+            <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
           </div>
           <div>
-            <i
-              className="las la-user-cog tooltip"
-            // onClick={() => dispatch(makeAdmin(user._id, sessionStorage.token))}
-            >
-              <span className="tooltiptext">Make this user admin</span>
-            </i>
-            <i
-              className="las la-trash-alt tooltip"
-            // onClick={() => dispatch(deleteUser(user._id, sessionStorage.token))}
-            >
-              <span className="tooltiptext">Delete this user</span>
-            </i>
+            {!user.isAdmin && !user.isBanned && (<>
+              <i
+                className="las la-user-cog tooltip"
+                onClick={() => dispatch(makeAdminAction(user._id, sessionStorage.token))}
+              >
+                <span className="tooltiptext">Make this user Admin</span>
+              </i>
+              <i
+                className="las la-user-lock tooltip"
+                onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
+              >
+                <span className="tooltiptext">Ban this user</span>
+              </i>
+            </>
+            )}
+            {!user.isAdmin && user.isBanned && (<>
+              <i
+                className="las la-unlock tooltip"
+                onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
+              >
+                <span className="tooltiptext">Unban this user</span>
+              </i>
+            </>)}
+            {user.isAdmin && (
+              <p>Admin</p>
+            )}
+            {user.isBanned && (
+              <p className="err">Banned</p>
+            )}
           </div>
         </div>
       ))
@@ -308,6 +350,26 @@ export default function Admin() {
         Log out
         <i className="las la-sign-out-alt" />
       </button>
+
+      {makeAdmin && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customModalStyles}
+        >
+          <h2>{makeAdmin}</h2>
+        </Modal>
+      )}
+
+      {banUser && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customModalStyles}
+        >
+          <h2>{banUser}</h2>
+        </Modal>
+      )}
     </div>
   );
 }
