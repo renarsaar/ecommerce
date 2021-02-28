@@ -28,9 +28,7 @@ function loginValidation(data) {
     email: Joi.string()
       .required()
       .email(),
-    password: Joi.string()
-      .min(8)
-      .required(),
+    password: Joi.string().required(),
   });
 
   return schema.validate(data);
