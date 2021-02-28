@@ -46,7 +46,7 @@ export default function LogIn() {
       <span>or</span>
 
       {location.state && (
-        <div className="registration-success">
+        <div className="success-container">
           Account created, you may log in now with your Email Address
         </div>
       )}
@@ -58,7 +58,7 @@ export default function LogIn() {
         <label htmlFor="password">Password</label>
         <input className="mb-1" type="password" name="password" />
 
-        <p className="err">{logInMessage || logInError}</p>
+        {logInMessage || logInError ? <p className="error-container">{logInMessage || logInError}</p> : ''}
 
         <input type="submit" value="Login" />
 

@@ -120,7 +120,9 @@ export default function Register() {
           name="confirmPassword"
         />
 
-        <p className="err">{registerError}</p>
+        {registerError && (
+          <p className="error-container">{registerError}</p>
+        )}
 
         <input type="submit" value="Register" />
 
