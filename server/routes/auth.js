@@ -235,6 +235,8 @@ router.post('/login', async (req, res) => {
   const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) return res.status(400).send('Invalid Password!');
 
+  if (user.isBanned) return res.status(401).send('Your account has been banned. Please contact the staff for more information');
+
   // Create and assign jwt token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
   res.header('x-auth-token', token).send({
@@ -255,6 +257,7 @@ router.get('/user', auth, (req, res) => {
     .then((user) => res.json(user));
 });
 
+//! change routen/auth/password/:id
 // @desc    Edit user password
 // @route   PATCH /auth/:id
 // @access  private
@@ -289,6 +292,56 @@ router.patch('/:id', auth, async (req, res) => {
   try {
     await user.save();
     res.status(201).send('Password changed');
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+// @desc    Make user admin
+// @route   PATCH /auth/admin/:id
+// @access  admin
+router.patch('/admin/:id', auth, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const dbUser = await User.findById(req.params.id);
+
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  dbUser.isAdmin = true;
+
+  // Update user admin status
+  try {
+    await dbUser.save();
+    res.status(201).send(`${dbUser.name} is now admin`);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+// @desc    Ban user
+// @route   PATCH /auth/ban/:id
+// @access  admin
+router.patch('/ban/:id', auth, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const dbUser = await User.findById(req.params.id);
+
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  if (dbUser.isBanned) {
+    dbUser.isBanned = false;
+  } else {
+    dbUser.isBanned = true;
+  }
+
+  // Save ban status to db
+  try {
+    await dbUser.save();
+    res.status(201).send(`${dbUser.name} account is now ${dbUser.isBanned ? 'banned' : 'unbanned'}`);
   } catch (err) {
     res.status(400).send(err.message);
   }
