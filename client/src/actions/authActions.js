@@ -166,10 +166,12 @@ export const makeAdminAction = (id, token) => async (dispatch) => {
     .catch((error) => dispatch({ type: MAKE_ADMIN_ERROR, payload: error.data }));
 };
 
-export const banUserAction = (id, token) => async (dispatch) => {
+export const banUserAction = (id, token, banComment) => async (dispatch) => {
   dispatch({ type: BAN_USER_LOADING });
 
-  api.patch(`/auth/ban/${id}`, {}, {
+  api.patch(`/auth/ban/${id}`, {
+    banComment,
+  }, {
     headers: {
       'x-auth-token': token,
     },

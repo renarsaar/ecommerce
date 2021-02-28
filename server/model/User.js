@@ -31,6 +31,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  banComment: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

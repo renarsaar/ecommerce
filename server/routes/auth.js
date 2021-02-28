@@ -11,6 +11,7 @@ const {
   registerValidation,
   editUserValidation,
 } = require('../validation');
+const { db } = require('../model/User');
 
 // @desc    Get All Users
 // @route   GET /auth/users
@@ -334,7 +335,11 @@ router.patch('/ban/:id', auth, async (req, res) => {
 
   if (dbUser.isBanned) {
     dbUser.isBanned = false;
+    dbUser.banComment = '';
   } else {
+    if (req.body.banComment) {
+      dbUser.banComment = req.body.banComment;
+    }
     dbUser.isBanned = true;
   }
 

@@ -1125,6 +1125,17 @@ a {
         .dashboard .users .user .tooltip .tooltiptext, .dashboard .users .user i .tooltiptext {
           right: 20px;
           bottom: 0px; }
+  .dashboard .ban-user {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0; }
+    .dashboard .ban-user div {
+      display: flex;
+      align-items: center; }
+      .dashboard .ban-user div label {
+        margin-right: 1rem; }
+      .dashboard .ban-user div textarea {
+        padding: 0.5rem; }
   .dashboard .btn {
     margin-left: 0; }
 

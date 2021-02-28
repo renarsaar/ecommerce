@@ -32,6 +32,8 @@ export default function Admin() {
   } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [cancelledOrderId, setCancelledOrderId] = useState('');
+  const [banUserId, setBanUserId] = useState('');
+  const [banComment, setBanComment] = useState('');
   const [statusComment, setStatusComment] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const closeModal = () => setModalIsOpen(false);
@@ -175,49 +177,69 @@ export default function Admin() {
       return <h5 className="err">Error loading orders, please try again later</h5>;
     }
   }
-  console.log(users)
 
   // Return User data
   function handleUsers() {
     if (users) {
       return users.map((user) => (
-        <div className="user" key={user._id}>
-          <div>
-            <p>{user.name},</p>
-            <p>{user.email},</p>
-            <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
+        <div key={user._id}>
+          <div className="user">
+            <div>
+              <p>{user.name},</p>
+              <p>{user.email},</p>
+              <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
+            </div>
+            <div>
+              {!user.isAdmin && !user.isBanned && (<>
+                <i
+                  className="las la-user-cog tooltip"
+                  onClick={() => dispatch(makeAdminAction(user._id, sessionStorage.token))}
+                >
+                  <span className="tooltiptext">Make this user Admin</span>
+                </i>
+                <i
+                  className="las la-user-lock tooltip"
+                  onClick={() => setBanUserId(banUserId === user._id ? '' : user._id)}
+                >
+                  <span className="tooltiptext">Ban this user</span>
+                </i>
+              </>
+              )}
+              {!user.isAdmin && user.isBanned && (<>
+                <i
+                  className="las la-unlock tooltip"
+                  onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
+                >
+                  <span className="tooltiptext">Unban this user</span>
+                </i>
+              </>)}
+              {user.isAdmin && (
+                <p>Admin</p>
+              )}
+              {user.isBanned && (
+                <p className="err">Banned. {user.banComment}</p>
+              )}
+            </div>
           </div>
-          <div>
-            {!user.isAdmin && !user.isBanned && (<>
-              <i
-                className="las la-user-cog tooltip"
-                onClick={() => dispatch(makeAdminAction(user._id, sessionStorage.token))}
+          {banUserId === user._id && (
+            <div className="ban-user">
+              <div>
+                <label>Please specify the reason</label>
+                <textarea onChange={(e) => setBanComment(e.target.value)} name="banComment" rows="3" cols="50" />
+              </div>
+              <button
+                className="btn"
+                type="button"
+                onClick={() => {
+                  dispatch(banUserAction(user._id, sessionStorage.token, banComment));
+                  setBanUserId('');
+                  setBanComment('');
+                }}
               >
-                <span className="tooltiptext">Make this user Admin</span>
-              </i>
-              <i
-                className="las la-user-lock tooltip"
-                onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
-              >
-                <span className="tooltiptext">Ban this user</span>
-              </i>
-            </>
-            )}
-            {!user.isAdmin && user.isBanned && (<>
-              <i
-                className="las la-unlock tooltip"
-                onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
-              >
-                <span className="tooltiptext">Unban this user</span>
-              </i>
-            </>)}
-            {user.isAdmin && (
-              <p>Admin</p>
-            )}
-            {user.isBanned && (
-              <p className="err">Banned</p>
-            )}
-          </div>
+                Ban this User
+              </button>
+            </div>
+          )}
         </div>
       ))
     }
