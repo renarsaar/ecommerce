@@ -107,6 +107,9 @@ export default (state = INITIAL_STATE, action) => {
         isLoggedIn: false,
         authLoading: false,
         user: null,
+        users: null,
+        nextUsers: null,
+        previousUsers: null,
       };
 
     case CHANGE_PASSWORD:
