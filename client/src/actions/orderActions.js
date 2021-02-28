@@ -74,10 +74,14 @@ export const getOrder = (id, token) => async (dispatch) => {
 };
 
 // Get all order made from one User
-export const getUserOrders = (userName, page) => async (dispatch) => {
+export const getUserOrders = (userName, page, token) => async (dispatch) => {
   dispatch({ type: GET_USER_ORDERS_LOADING });
 
   api.get(`/orders/user/${userName}`, {
+    headers: {
+      'x-auth-token': token,
+    },
+  }, {
     params: {
       page,
       limit: 6,

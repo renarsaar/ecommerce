@@ -17,7 +17,7 @@ export default function User() {
   const [showDeleteAccountForm, setShowDeleteAccountForm] = useState(false);
 
   useEffect(() => {
-    dispatch(getUserOrders(user.name, 1));
+    dispatch(getUserOrders(user.name, 1, sessionStorage.token));
   }, []);
 
   // Return user orders
