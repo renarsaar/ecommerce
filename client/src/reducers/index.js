@@ -8,6 +8,7 @@ import filterReducer from './filterReducer';
 import wishListReducer from './wishListReducer';
 import cartReducer from './cartReducer';
 import authReducer from './authReducer';
+import reviewReducer from './reviewReducer';
 
 export default combineReducers({
   products: productsReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   wishList: wishListReducer,
   cart: cartReducer,
   auth: authReducer,
+  reviews: reviewReducer,
 });

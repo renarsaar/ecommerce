@@ -1,22 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from 'react-modal';
 import { fetchProduct } from '../../actions/productsActions';
 import { addWishlist } from '../../actions/wishListActions';
 import { addCart } from '../../actions/cartActions';
+import { getReviewsAction, postReviewAction, clearPostReview } from '../../actions/reviewActions';
 import useRippleButton from '../Hooks/useRippleButton';
+
+const customModalStyles = {
+  content: {
+    top: '10%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -10%)',
+  }
+};
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
   const { id } = match.params;
   const { loading, selectedProduct, error } = useSelector((state) => state.products);
+  const { reviewsLoading, reviews, reviewsError, postReviewLoading, postReview, postReviewError } = useSelector((state) => state.reviews);
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [copyLink, setCopyLink] = useState(false);
+  const [reviewerName, setReviewerName] = useState('');
+  const [review, setReview] = useState('');
+  const [rating, setRating] = useState(0);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const closeModal = () => setModalIsOpen(false);
+
+  Modal.setAppElement('#modal');
 
   // Fetch single product
   useEffect(() => {
     dispatch(fetchProduct(id));
+
+    return () => {
+      dispatch(clearPostReview());
+    }
   }, [dispatch, id]);
+
+  // Fetch product reviews
+  useEffect(() => {
+    selectedProduct && dispatch(getReviewsAction(selectedProduct._id));
+  }, [dispatch, selectedProduct]);
 
   // Set default size
   useEffect(() => {
@@ -24,6 +54,20 @@ export default function ProductShow({ match, location }) {
       setSize(selectedProduct.sizes[0]);
     }
   }, [selectedProduct]);
+
+
+  //! all done, log in to db and add review numbers to reviews
+
+
+
+  // Open modal when posting a review
+  useEffect(() => {
+    setModalIsOpen(true);
+    if (selectedProduct) {
+      dispatch(getReviewsAction(selectedProduct._id));
+    }
+  }, [postReview, postReviewError]);
+  // }, [postReview]);
 
   // Clear clipboard link timeout
   useEffect(() => {
@@ -130,6 +174,7 @@ export default function ProductShow({ match, location }) {
     );
   }
 
+  // Return all product information
   function renderProduct() {
     const {
       description, discountPrice, image, name, price, sizes, stock,
@@ -212,11 +257,138 @@ export default function ProductShow({ match, location }) {
     );
   }
 
+  // Call post review action
+  function handlePostReviewAction(e) {
+    e.preventDefault();
+    dispatch(postReviewAction(selectedProduct._id, reviewerName, review, rating));
+  }
+
+  // Return form for posting reviews
+  function renderPostReviewForm() {
+    return (
+      <form className="review-form" style={{ opacity: postReviewLoading ? '0.5' : '1' }}>
+        <h3>Write a review</h3>
+
+        <label>Rating</label>
+        <div className="rating">
+          <span
+            style={{ color: rating >= 5 ? '#ff600a' : '' }}
+            onClick={() => setRating(5)}
+            className="las la-star star s1"
+          />
+          <span
+            style={{ color: rating >= 4 ? '#ff600a' : '' }}
+            onClick={() => setRating(4)}
+            className="las la-star star s2"
+          />
+          <span
+            style={{ color: rating >= 3 ? '#ff600a' : '' }}
+            onClick={() => setRating(3)}
+            className="las la-star star s3"
+          />
+          <span
+            style={{ color: rating >= 2 ? '#ff600a' : '' }}
+            onClick={() => setRating(2)}
+            className="las la-star star s4"
+          />
+          <span
+            style={{ color: rating >= 1 ? '#ff600a' : '' }}
+            onClick={() => setRating(1)}
+            className="las la-star star s5"
+          />
+        </div>
+
+        <label htmlFor="review">Name</label>
+        <input type="text" name="review" onChange={(e) => setReviewerName(e.target.value)} />
+
+        <label>Review</label>
+        <textarea cols="40" rows="4" onChange={(e) => setReview(e.target.value)}></textarea>
+
+        <input type="submit" className="btn" value="Submit review" onClick={(e) => handlePostReviewAction(e)} />
+        {postReviewLoading && (
+          <div className="loading-container">
+            <div className="loading">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        )}
+      </form>
+    )
+  }
+
+  // Return product reviews
+  function renderReviews() {
+    if (reviews.length === 0) {
+      return <h4 className="no-reviews" > No reviews yet. Be the first one to write a review</h4>
+    }
+
+    if (reviewsLoading) {
+      return (
+        <div className="reviews-placeholder">
+          <div className="loading-container">
+            <div className="loading">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    if (reviewsError) {
+      return <h3 className="no-reviews">Error loading reviews. Please try to refresh the page</h3>
+    }
+
+    return reviews.map((review) => (
+      <div className="product-show-review" key={review._id}>
+        <div>
+          <h3>
+            {review.reviewerName} at {new Date(review.date).toLocaleDateString()}
+          </h3>
+          <span style={{ color: review.rating >= 1 ? '#ff600a' : '' }} className="las la-star star" />
+          <span style={{ color: review.rating >= 2 ? '#ff600a' : '' }} className="las la-star" />
+          <span style={{ color: review.rating >= 3 ? '#ff600a' : '' }} className="las la-star" />
+          <span style={{ color: review.rating >= 4 ? '#ff600a' : '' }} className="las la-star" />
+          <span style={{ color: review.rating >= 5 ? '#ff600a' : '' }} className="las la-star" />
+        </div>
+        <p className="review">{review.review}</p>
+      </div>
+    ))
+  }
+
   return (
     <div className="product-show">
       {loading && <div>{renderPlaceHolder()}</div>}
       {selectedProduct && <>{renderProduct()}</>}
       {error && <div>error</div>}
+      {reviews && <>
+        {renderPostReviewForm()}
+        {renderReviews()}
+      </>}
+      {postReview && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customModalStyles}
+        >
+          <h2>{postReview}</h2>
+        </Modal>
+      )}
+
+      {postReviewError && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customModalStyles}
+        >
+          <h2>{postReviewError}</h2>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -18,6 +18,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/products', require('./routes/products'));
 app.use('/orders', require('./routes/orders'));
 app.use('/auth', require('./routes/auth'));
+app.use('/reviews', require('./routes/reviews'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
