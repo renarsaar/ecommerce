@@ -55,11 +55,6 @@ export default function ProductShow({ match, location }) {
     }
   }, [selectedProduct]);
 
-
-  //! all done, log in to db and add review numbers to reviews
-
-
-
   // Open modal when posting a review
   useEffect(() => {
     setModalIsOpen(true);
