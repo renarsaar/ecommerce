@@ -26,6 +26,7 @@ import {
   BAN_USER_LOADING,
   BAN_USER,
   BAN_USER_ERROR,
+  RESET_USER_ACTIONS,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -179,6 +180,8 @@ export const banUserAction = (id, token, banComment) => async (dispatch) => {
     .then((response) => dispatch({ type: BAN_USER, payload: response.data }))
     .catch((error) => dispatch({ type: BAN_USER_ERROR, payload: error.data }));
 };
+
+export const resetUserActions = () => (dispatch) => { dispatch({ type: RESET_USER_ACTIONS }); }
 
 // Delete account
 export const deleteAccount = (id, token) => async (dispatch) => {

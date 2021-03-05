@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { getOrders, getNewOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
-import { logOut, getUsers, makeAdminAction, banUserAction } from '../../actions/authActions';
+import { logOut, getUsers, makeAdminAction, banUserAction, resetUserActions } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 import useHandleOrderBackground from '../Hooks/useHandleOrderBackground';
 
@@ -50,6 +50,10 @@ export default function Admin() {
 
   useEffect(() => {
     dispatch(getUsers(sessionStorage.token));
+
+    return () => {
+      dispatch(resetUserActions());
+    }
   }, []);
 
   // Open modal on makeAdminAction

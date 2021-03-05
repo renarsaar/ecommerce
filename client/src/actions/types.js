@@ -58,6 +58,7 @@ export const MAKE_ADMIN_ERROR = 'MAKE_ADMIN_ERROR';
 export const BAN_USER_LOADING = 'BAN_USER_LOADING';
 export const BAN_USER = 'BAN_USER';
 export const BAN_USER_ERROR = 'BAN_USER_ERROR';
+export const RESET_USER_ACTIONS = 'RESET_USER_ACTIONS';
 
 // Wishlist actions
 export const ADD_WISHLIST = 'ADD_WISHLIST';

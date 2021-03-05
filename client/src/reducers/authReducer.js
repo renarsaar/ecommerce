@@ -26,6 +26,7 @@ import {
   BAN_USER_LOADING,
   BAN_USER,
   BAN_USER_ERROR,
+  RESET_USER_ACTIONS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -147,6 +148,16 @@ export default (state = INITIAL_STATE, action) => {
         banUserError: null,
         makeAdminError: null,
       }
+
+    case RESET_USER_ACTIONS:
+      return {
+        ...state,
+        authLoading: false,
+        banUser: null,
+        makeAdmin: null,
+        banUserError: null,
+        makeAdminError: null,
+      };
 
     case VALIDATE_ERROR:
       return {
