@@ -27,7 +27,8 @@ const customModalStyles = {
 export default function Admin() {
   const dispatch = useDispatch();
   const {
-    ordersLoading, orders, nextOrders, previousOrders, getOrdersError, orderStatusLoading, deleteOrderLoading, deleteOrderMessage, orderType,
+    ordersLoading, orders, nextOrders, previousOrders, getOrdersError,
+    orderStatusLoading, deleteOrderLoading, deleteOrderMessage, orderType,
   } = useSelector((state) => state.orders);
   const {
     authLoading, user, users, nextUsers, previousUsers,
