@@ -31,7 +31,7 @@ export const getOrders = (page, token) => async (dispatch) => {
   api.get('/orders', {
     headers: {
       'x-auth-token': token,
-    }
+    },
   }, {
     params: {
       page,

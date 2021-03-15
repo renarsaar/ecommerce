@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import { getOrders, getNewOrders, changeOrderStatus, deleteOrder } from '../../actions/orderActions';
-import { logOut, getUsers, makeAdminAction, banUserAction, resetUserActions } from '../../actions/authActions';
+import {
+  getOrders, getNewOrders, changeOrderStatus, deleteOrder,
+} from '../../actions/orderActions';
+import {
+  logOut, getUsers, makeAdminAction, banUserAction, resetUserActions,
+} from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 import useHandleOrderBackground from '../Hooks/useHandleOrderBackground';
 
@@ -17,18 +21,17 @@ const customModalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -10%)',
-  }
+  },
 };
 
 export default function Admin() {
   const dispatch = useDispatch();
   const {
-    // eslint-disable-next-line max-len
-    ordersLoading, orders, nextOrders, previousOrders, getOrdersError, orderStatusLoading,
-    deleteOrderLoading, deleteOrderMessage, orderType
+    ordersLoading, orders, nextOrders, previousOrders, getOrdersError, orderStatusLoading, deleteOrderLoading, deleteOrderMessage, orderType,
   } = useSelector((state) => state.orders);
   const {
-    authLoading, user, users, nextUsers, previousUsers, getUsersError, makeAdmin, banUser
+    authLoading, user, users, nextUsers, previousUsers,
+    getUsersError, makeAdmin, banUser,
   } = useSelector((state) => state.auth);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [cancelledOrderId, setCancelledOrderId] = useState('');
@@ -53,7 +56,7 @@ export default function Admin() {
 
     return () => {
       dispatch(resetUserActions());
-    }
+    };
   }, []);
 
   // Open modal on makeAdminAction
@@ -74,7 +77,7 @@ export default function Admin() {
     dispatch(changeOrderStatus(newStatus, orderId, sessionStorage.token, statusComment));
 
     // Reset id && status comment
-    setCancelledOrderId('')
+    setCancelledOrderId('');
     setStatusComment('');
   }
 
@@ -194,29 +197,32 @@ export default function Admin() {
               <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
             </div>
             <div>
-              {!user.isAdmin && !user.isBanned && (<>
-                <i
-                  className="las la-user-cog tooltip"
-                  onClick={() => dispatch(makeAdminAction(user._id, sessionStorage.token))}
-                >
-                  <span className="tooltiptext">Make this user Admin</span>
-                </i>
-                <i
-                  className="las la-user-lock tooltip"
-                  onClick={() => setBanUserId(banUserId === user._id ? '' : user._id)}
-                >
-                  <span className="tooltiptext">Ban this user</span>
-                </i>
-              </>
+              {!user.isAdmin && !user.isBanned && (
+                <>
+                  <i
+                    className="las la-user-cog tooltip"
+                    onClick={() => dispatch(makeAdminAction(user._id, sessionStorage.token))}
+                  >
+                    <span className="tooltiptext">Make this user Admin</span>
+                  </i>
+                  <i
+                    className="las la-user-lock tooltip"
+                    onClick={() => setBanUserId(banUserId === user._id ? '' : user._id)}
+                  >
+                    <span className="tooltiptext">Ban this user</span>
+                  </i>
+                </>
               )}
-              {!user.isAdmin && user.isBanned && (<>
-                <i
-                  className="las la-unlock tooltip"
-                  onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
-                >
-                  <span className="tooltiptext">Unban this user</span>
-                </i>
-              </>)}
+              {!user.isAdmin && user.isBanned && (
+                <>
+                  <i
+                    className="las la-unlock tooltip"
+                    onClick={() => dispatch(banUserAction(user._id, sessionStorage.token))}
+                  >
+                    <span className="tooltiptext">Unban this user</span>
+                  </i>
+                </>
+              )}
               {user.isAdmin && (
                 <p>Admin</p>
               )}
@@ -245,7 +251,7 @@ export default function Admin() {
             </div>
           )}
         </div>
-      ))
+      ));
     }
 
     if (authLoading) {

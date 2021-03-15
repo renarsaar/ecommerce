@@ -181,7 +181,7 @@ export const banUserAction = (id, token, banComment) => async (dispatch) => {
     .catch((error) => dispatch({ type: BAN_USER_ERROR, payload: error.data }));
 };
 
-export const resetUserActions = () => (dispatch) => { dispatch({ type: RESET_USER_ACTIONS }); }
+export const resetUserActions = () => (dispatch) => { dispatch({ type: RESET_USER_ACTIONS }); };
 
 // Delete account
 export const deleteAccount = (id, token) => async (dispatch) => {
