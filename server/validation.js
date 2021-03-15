@@ -53,12 +53,11 @@ function addProductValidation(data) {
     category: Joi.string().required(),
     subCategory: Joi.string().required(),
     gender: Joi.string(),
-    sizes: Joi.array(),
-    description: Joi.array().required(),
-    stock: Joi.array().required(),
+    sizes: Joi.array().items(Joi.string()),
+    description: Joi.array().items(Joi.string()).required(),
+    stock: Joi.array().items(Joi.number()).required(),
     price: Joi.number().required(),
     discountPrice: Joi.number(),
-    image: Joi.string(),
   });
 
   return schema.validate(data);
