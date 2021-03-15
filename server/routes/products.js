@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const multer = require('multer');
+const fs = require('fs');
 const Product = require('../model/Product');
+const User = require('../model/User');
 const { addProductValidation } = require('../validation');
+const auth = require('../middleware/auth');
 
 // Store files to /uploads
 const storage = multer.diskStorage({
@@ -33,6 +36,7 @@ const upload = multer({
 
 // @desc    Get all products
 // @route   GET /products
+// @access  Public
 router.get('/', paginatedResults(Product), async (req, res) => {
   try {
     res.status(200).json(res.paginatedResults);
@@ -43,6 +47,7 @@ router.get('/', paginatedResults(Product), async (req, res) => {
 
 // @desc    Get single product
 // @route   GET /products/:id
+// @access  Public
 router.get('/:id', getProduct, async (req, res) => {
   try {
     const product = await res.product;
@@ -54,7 +59,8 @@ router.get('/:id', getProduct, async (req, res) => {
 
 // @desc    Add a product
 // @route   POST /products
-router.post('/', upload.single('image'), async (req, res) => {
+// @access  Admin
+router.post('/', async (req, res) => {
   // Validation
   const { error } = addProductValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -84,34 +90,87 @@ router.post('/', upload.single('image'), async (req, res) => {
 
 // @desc    Edit a product
 // @route   PATCH /products/:id
-router.patch('/:id', getProduct, async (req, res) => {
-  // Check for user input
-  if (req.body.name) res.product.name = req.body.name;
-  if (req.body.brand) res.product.brand = req.body.brand;
-  if (req.body.category) res.product.category = req.body.category;
-  if (req.body.subCategory) res.product.subCategory = req.body.subCategory;
-  if (req.body.gender) res.product.gender = req.body.gender;
-  if (req.body.sizes) res.product.sizes = req.body.sizes;
-  if (req.body.description) res.product.description = req.body.description;
-  if (req.body.stock) res.product.stock = req.body.stock;
-  if (req.body.price) res.product.price = req.body.price;
-  if (req.body.discountPrice) res.product.discountPrice = req.body.discountPrice;
+// @access  Admin
+router.patch('/:id', auth, getProduct, async (req, res) => {
+  upload.single('image')(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).send(err.message);
+    }
 
-  // Validation
-  const { error } = addProductValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+    if (err) {
+      return res.status(400).send(err.message);
+    }
 
-  // Update product
-  try {
-    const updatedProduct = await res.product.save();
-    res.status(201).json(updatedProduct);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
+    const user = await User.findById(req.user._id);
+
+    // Validate if admin
+    if (!user.isAdmin) {
+      return res.status(401).send('Unauthorized');
+    }
+
+    const {
+      name, brand, category, subCategory, gender,
+      sizes, description, stock, price, discountPrice,
+    } = req.body;
+
+    const validationValues = {
+      name,
+      brand,
+      category,
+      subCategory,
+      gender,
+      sizes: JSON.parse(sizes),
+      description: JSON.parse(description),
+      stock: JSON.parse(stock),
+      price,
+      discountPrice,
+    };
+
+    // Validation
+    const { error } = addProductValidation(validationValues);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // Check for user input
+    if (name) res.product.name = name;
+    if (brand) res.product.brand = brand;
+    if (category) res.product.category = category;
+    if (subCategory) res.product.subCategory = subCategory;
+    if (gender) res.product.gender = gender;
+    if (sizes) res.product.sizes = JSON.parse(sizes);
+    if (description) res.product.description = JSON.parse(description);
+    if (stock) res.product.stock = JSON.parse(stock);
+    if (price) res.product.price = +price;
+    if (discountPrice) res.product.discountPrice = +discountPrice;
+
+    // Set original price if discount price is set as 0
+    if (+discountPrice === 0) res.product.discountPrice = res.product.price;
+    if (+discountPrice > res.product.price) res.product.discountPrice = res.product.price;
+
+    if (req.file) {
+      // Delete old image
+      fs.unlink((res.product.image), (deleteFileErr) => {
+        if (deleteFileErr) {
+          return res.status(500).send('Something went wrong uploading image');
+        }
+      });
+
+      // Set new image path
+      res.product.image = req.file.path;
+    }
+
+    // Update product
+    try {
+      await res.product.save();
+      res.status(201).send('Product updated');
+    } catch (saveProductErr) {
+      res.status(400).send(saveProductErr.message);
+    }
+  });
 });
 
 // @desc    Delete a product
 // @route   POST /products/:id
+// @access  Admin
 router.delete('/:id', getProduct, async (req, res) => {
   try {
     await res.product.remove();
@@ -131,7 +190,7 @@ async function getProduct(req, res, next) {
       return res.status(404).json({ message: 'Product not found' });
     }
   } catch (err) {
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Unexpected error, please try again later' });
   }
 
   res.product = product;
