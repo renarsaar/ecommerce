@@ -79,9 +79,8 @@ a {
   }
 }
 
-.err {
-  color: $red;
-}
+.err, .red { color: $red; }
+.green { color: $green; }
 
 .rotate {
   transform: rotate(180deg);
@@ -90,6 +89,13 @@ a {
 
 .placeholder {
   animation: 3s infinite placeholder-animate ease-in-out;
+}
+
+.success-container {
+  background: #d8f8d0;
+  border: 1px solid #3db81e;
+  padding: 1rem;
+  margin: 1rem 0;
 }
 
 %tooltip-shared {
@@ -281,7 +287,7 @@ a {
       cursor: pointer;
       display: flex;
       align-items: center;
-      
+
       h1 {
         font-weight: 500;
         font-size: 1rem;
@@ -446,14 +452,14 @@ a {
       margin: 1rem 0 1rem 1rem;
       width: 100%;
       min-height: 400px;
-  
+
       // PRODUCT
       &-item {
         position: relative;
         width: 250px;
         height: 400px;
         margin: 0 auto;
-  
+
         img, .img {
           width: 100%;
           height: 250px;
@@ -461,7 +467,7 @@ a {
           margin-bottom: 0.5rem;
           position: relative;
         }
-  
+
         .new {
           cursor: default;
           font-family: $H;
@@ -475,7 +481,7 @@ a {
           left: 15px;
           padding: 0.25rem 0.55rem;
         }
-  
+
         .discount {
           cursor: default;
           font-family: $H;
@@ -497,7 +503,7 @@ a {
           bottom: 160px;
           right: 15px;
         }
-  
+
         h1, .heading {
           cursor: pointer;
           color: $black;
@@ -506,32 +512,32 @@ a {
           line-height: 1.7;
           margin-bottom: 0.5rem;
           transition: .3s ease;
-  
+
           &.placeholder {
             width: 100%;
             height: 30px;
           }
         }
-  
+
           p {
             color: $black;
             cursor: pointer;
             transition: .3s ease;
           }
-  
+
         a:hover h1, a:hover p {
           opacity: .5;
           transition: .3s ease;
         }
       }
     }
-  
+
     // PRODUCTS PAGE NAV
     .product-page-nav {
       display: flex;
       justify-content: center;
       margin-bottom: 2rem;
-  
+
       .btn {
         display: inline-flex;
         justify-content: center;
@@ -542,10 +548,10 @@ a {
         &.highlight {
           border: 1px solid $orange;
           background: rgba($color: $orange, $alpha: 0.1);
-        
+
           &:hover {
             background: rgba($color: $orange, $alpha: 0.3);
-          } 
+          }
         }
       }
     }
@@ -553,12 +559,13 @@ a {
 }
 
 // PRODUCTSHOW
-.product-show {
+.product-show, .product-preview {
   width: $page-width;
   margin: auto;
   position: relative;
 
   &-item {
+    // width: $page-width;
     display: flex;
     margin: 3rem 0;
 
@@ -575,6 +582,7 @@ a {
         align-items: center;
         color: $grey;
         margin-top: 0.4rem;
+        margin-bottom: 2rem;
 
         h3 {
           font-size: 1rem;
@@ -606,7 +614,16 @@ a {
           @extend %clipboard-shared;
         }
       }
-    }
+
+      .btn {
+        color: $black;
+        margin: 1.5rem 0 0 0;
+        background: $btn-bg;
+        padding: 1rem;
+        @extend %btn-shared-large;
+      }
+  }
+  
 
     // Details
     .details {
@@ -802,7 +819,7 @@ a {
       margin: 0.3rem 0 0.5rem;
       width: 100%;
       direction: rtl;
-      
+
       .star {
         cursor: pointer;
         font-size: 1.4rem;
@@ -813,7 +830,7 @@ a {
           transform: scale(1.2);
           transition: .4s ease;
         }
-        
+
 
       }
       .s1:hover ~ .star { color: $orange; }
@@ -836,6 +853,94 @@ a {
       @extend %btn-shared-large;
       margin-bottom: 2rem;
     }
+  }
+}
+
+.product-edit {
+  width: $page-width;
+  margin: 1.5rem auto;
+
+  h1, h2 {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  &-form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    
+    label {
+      margin-top: 1rem;
+    }
+
+    input {
+      background: $lighter;
+      border: 2px solid $light-grey;
+      padding: 0.6rem 0.5rem;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+
+    .tooltip {
+      cursor: pointer;
+      @extend %tooltip-shared;
+
+      .tooltiptext {
+        bottom: 30px;
+        right: -80px;
+      }
+    }
+
+    .description-item {
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 90%;
+        margin-right: 1rem;
+      }
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+        &:last-child {
+          margin-left: 1rem;
+        }
+
+        .stock-item {
+          display: inline;
+    
+          input {
+            margin-right: 1rem;
+          }
+
+          &:last-child {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .btn {
+    margin-top: 1rem;
+    margin-left: 0;
+    @extend %btn-shared-large;
   }
 }
 
@@ -864,7 +969,7 @@ a {
       max-width: 190px;
       object-fit: cover;
     }
-    
+
     &-info {
       margin: 0 2rem;
       color: $black;
@@ -879,7 +984,7 @@ a {
         font-weight: 500;
         margin-bottom: 0.2rem;
       }
-      
+
       &:hover {
         opacity: .6;
       }
@@ -904,7 +1009,7 @@ a {
           cursor: pointer;
           border-radius: 50%;
           padding: 0.2rem;
-          
+
           &:hover {
             background: $lighter;
           }
@@ -942,13 +1047,13 @@ a {
         background: $lighter;
         border: 2px solid $light-grey;
         padding: 0.6rem 0.5rem;
-  
+
         &:focus {
           outline: 0;
           border: 2px solid $dark-grey;
         }
       }
-  
+
       label {
         position: relative;
         margin-bottom: 0.5rem;
@@ -970,7 +1075,7 @@ a {
         margin-top: 1rem;
         width: 50%;
 
-        
+
         label {
           cursor: pointer;
           position: relative;
@@ -1067,11 +1172,11 @@ a {
 
       ul {
         padding: 1rem;
-  
+
         li {
           margin: 1rem 0;
           padding: 0.2rem 0;
-  
+
           .delivery-address {
             margin-left: 0.6rem
           }
@@ -1098,7 +1203,7 @@ a {
         margin-left: 2rem;
       }
     }
-  } 
+  }
 }
 
 // Order success
@@ -1299,7 +1404,7 @@ a {
         font-size: 1.5rem;
       }
     }
-    
+
     .modal-items {
       li {
         display: flex;
@@ -1323,8 +1428,8 @@ a {
             max-width: 70px;
             height: 70px;
             object-fit: cover;
-          } 
-          
+          }
+
           .info {
             display: block;
 
@@ -1333,7 +1438,7 @@ a {
               margin-bottom: 0.75rem;
               font-weight: 600;
             }
-    
+
             div {
               display: flex;
               justify-content: space-between;
@@ -1471,12 +1576,12 @@ a {
       &::before { right: 0; }
     }
 
-    .success-container {
-      background: #d8f8d0;
-      border: 1px solid #3db81e;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
+    // .success-container {
+    //   background: #d8f8d0;
+    //   border: 1px solid #3db81e;
+    //   padding: 1rem;
+    //   margin-bottom: 1rem;
+    // }
 
     .error-container {
       background: #f8d0d0;
@@ -1500,7 +1605,7 @@ a {
         padding-left: 0.8rem;
         height: 40px;
         border-radius: 3px;
-        
+
         &[type=submit] {
           font-size: 1rem;
           cursor: pointer;
@@ -1546,7 +1651,7 @@ a {
     h2 {
       background: rgba($color: $dark-blue, $alpha: 0.75);
       padding: 1rem;
-      position: absolute; 
+      position: absolute;
       color: $white;
       content: "";
       bottom: 40px;
@@ -1575,7 +1680,7 @@ a {
 .dashboard {
   width: $page-width;
   margin: 2rem auto;
-  
+
   h2 {
     font-weight: 600;
     margin-bottom: 1rem;
@@ -1612,7 +1717,7 @@ a {
         background: $lighter;
         border: 2px solid $light-grey;
         padding: 0.6rem 0.5rem;
-  
+
         &:focus {
           outline: 0;
           border: 2px solid $dark-grey;
@@ -1641,10 +1746,10 @@ a {
       &.highlight {
         border: 1px solid $orange;
         background: rgba($color: $orange, $alpha: 0.1);
-      
+
         &:hover {
           background: rgba($color: $orange, $alpha: 0.3);
-        } 
+        }
       }
     }
 
@@ -1701,7 +1806,7 @@ a {
 
       &:hover {
         background: rgba($color: $light-grey, $alpha: 0.3) !important;
-        
+
         .order-info {
           color: $orange;
         }
@@ -1744,10 +1849,10 @@ a {
       &.highlight {
         border: 1px solid $orange;
         background: rgba($color: $orange, $alpha: 0.1);
-      
+
         &:hover {
           background: rgba($color: $orange, $alpha: 0.3);
-        } 
+        }
       }
     }
 
@@ -1814,7 +1919,7 @@ a {
   position: relative;
   width: $page-width;
   margin: 2rem auto;
-  
+
   h3.placeholder {
     margin-bottom: 1rem;
     width: 100%;
@@ -1824,49 +1929,49 @@ a {
   .order-single {
     display: flex;
     justify-content: space-between;
-  
+
     .order-info {
       width: 45%;
       margin-right: 2rem;
-  
+
       h3 {
         font-weight: 500;
         margin-bottom: 1rem;
-  
+
         &.placeholder {
           width: 100%;
           height: 20px;
         }
       }
     }
-  
+
     .order-products {
       width: 55%;
-  
+
       .order-product {
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
-        
+
+
         h3 {
           color: $black;
           font-weight: 500;
         }
-  
+
         img {
           width: 70px;
           height: 70px;
           object-fit: cover;
           margin-left: 1rem;
         }
-  
+
         &:hover {
           background: $lighter;
           cursor: pointer;
         }
-  
+
         &:last-child {
           margin-bottom: 0;
         }

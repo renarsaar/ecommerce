@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { fetchProduct } from '../../actions/productsActions';
 import { addWishlist } from '../../actions/wishListActions';
@@ -15,14 +16,17 @@ const customModalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -10%)',
-  }
+  },
 };
 
 export default function ProductShow({ match, location }) {
   const dispatch = useDispatch();
   const { id } = match.params;
   const { loading, selectedProduct, error } = useSelector((state) => state.products);
-  const { reviewsLoading, reviews, reviewsError, postReviewLoading, postReview, postReviewError } = useSelector((state) => state.reviews);
+  const {
+    reviewsLoading, reviews, reviewsError, postReviewLoading, postReview, postReviewError,
+  } = useSelector((state) => state.reviews);
+  const { user, isLoggedIn } = useSelector((state) => state.auth);
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [copyLink, setCopyLink] = useState(false);
@@ -40,7 +44,7 @@ export default function ProductShow({ match, location }) {
 
     return () => {
       dispatch(clearPostReview());
-    }
+    };
   }, [dispatch, id]);
 
   // Fetch product reviews
@@ -62,7 +66,6 @@ export default function ProductShow({ match, location }) {
       dispatch(getReviewsAction(selectedProduct._id));
     }
   }, [postReview, postReviewError]);
-  // }, [postReview]);
 
   // Clear clipboard link timeout
   useEffect(() => {
@@ -172,7 +175,7 @@ export default function ProductShow({ match, location }) {
   // Return all product information
   function renderProduct() {
     const {
-      description, discountPrice, image, name, price, sizes, stock,
+      _id, description, discountPrice, image, name, price, sizes, stock,
     } = selectedProduct;
 
     return (
@@ -190,6 +193,9 @@ export default function ProductShow({ match, location }) {
               <h4>Link copied to clipboard</h4>
             </div>
           </div>
+          {isLoggedIn && user.admin && (
+            <Link to={`/products/edit/${_id}`} className="btn">Edit this product</Link>
+          )}
         </div>
 
         <div className="details">
@@ -297,7 +303,7 @@ export default function ProductShow({ match, location }) {
         <input type="text" name="review" onChange={(e) => setReviewerName(e.target.value)} />
 
         <label>Review</label>
-        <textarea cols="40" rows="4" onChange={(e) => setReview(e.target.value)}></textarea>
+        <textarea cols="40" rows="4" onChange={(e) => setReview(e.target.value)} />
 
         <input type="submit" className="btn" value="Submit review" onClick={(e) => handlePostReviewAction(e)} />
         {postReviewLoading && (
@@ -311,13 +317,13 @@ export default function ProductShow({ match, location }) {
           </div>
         )}
       </form>
-    )
+    );
   }
 
   // Return product reviews
   function renderReviews() {
     if (reviews.length === 0) {
-      return <h4 className="no-reviews" > No reviews yet. Be the first one to write a review</h4>
+      return <h4 className="no-reviews"> No reviews yet. Be the first one to write a review</h4>;
     }
 
     if (reviewsLoading) {
@@ -332,11 +338,11 @@ export default function ProductShow({ match, location }) {
             </div>
           </div>
         </div>
-      )
+      );
     }
 
     if (reviewsError) {
-      return <h3 className="no-reviews">Error loading reviews. Please try to refresh the page</h3>
+      return <h3 className="no-reviews">Error loading reviews. Please try to refresh the page</h3>;
     }
 
     return reviews.map((review) => (
@@ -353,18 +359,26 @@ export default function ProductShow({ match, location }) {
         </div>
         <p className="review">{review.review}</p>
       </div>
-    ))
+    ));
   }
 
   return (
     <div className="product-show">
+      {location.state && location.state.editProduct && (
+        <div className="success-container">
+          Product changes has been made
+        </div>
+      )}
+
       {loading && <div>{renderPlaceHolder()}</div>}
       {selectedProduct && <>{renderProduct()}</>}
       {error && <div>error</div>}
-      {reviews && <>
-        {renderPostReviewForm()}
-        {renderReviews()}
-      </>}
+      {reviews && (
+        <>
+          {renderPostReviewForm()}
+          {renderReviews()}
+        </>
+      )}
       {postReview && (
         <Modal
           isOpen={modalIsOpen}

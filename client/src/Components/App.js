@@ -25,6 +25,7 @@ export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const { selectedProduct } = useSelector((state) => state.products);
   const url = queryString.parse(location.search);
 
   // Get the user & log in if jwt token in URL after OAuth login
@@ -46,7 +47,9 @@ export default function App() {
       <Switch>
         <Route path="/" exact component={Catalog} />
         <Route path="/products/new" exact component={ProductCreate} />
-        <Route path="/products/edit/:id" exact component={ProductEdit} />
+        <Route path="/products/edit/:id" exact>
+          {isLoggedIn && user.admin ? <ProductEdit /> : <Redirect to="/" />}
+        </Route>
         <Route path="/products/delete/:id" exact component={ProductDelete} />
         <Route path="/products/:id" exact component={ProductShow} />
         <Route path="/account/login" exact>

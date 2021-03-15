@@ -3,12 +3,28 @@ import {
   ERROR,
   FETCH_PRODUCTS,
   FETCH_PRODUCT,
+  EDIT_PRODUCT_LOADING,
   EDIT_PRODUCT,
+  EDIT_PRODUCT_ERROR,
+  CLEAR_EDIT_PRODUCT,
   DELETE_PRODUCT,
   CREATE_PRODUCT,
 } from '../actions/types';
 
-export default (state = [], action) => {
+const INITIAL_STATE = {
+  loading: false,
+  editProductLoading: false,
+  editProduct: null,
+  selectedProduct: null,
+  paginatedProducts: [],
+  products: [],
+  next: null,
+  previous: null,
+  editProductError: null,
+  error: null,
+};
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOADING:
       return {
@@ -18,15 +34,12 @@ export default (state = [], action) => {
         paginatedProducts: [],
       };
 
-    case ERROR:
+    case EDIT_PRODUCT_LOADING:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
-        products: [],
-        paginatedProducts: [],
-        next: null,
-        previous: null,
+        editProductLoading: true,
+        editProduct: null,
+        editProductError: null,
       };
 
     case FETCH_PRODUCTS:
@@ -45,17 +58,43 @@ export default (state = [], action) => {
         ...state,
         loading: false,
         error: false,
-        selectedProduct: action.payload
+        selectedProduct: action.payload,
       };
 
-    // case EDIT_PRODUCT:
-    //   return { ...state, [action.payload.id]: action.payload };
+    case EDIT_PRODUCT:
+      return {
+        ...state,
+        editProductLoading: false,
+        editProduct: action.payload,
+        editProductError: null,
+      };
 
-    // case DELETE_PRODUCT:
-    //   return _.omit(state, action.payload);
+    case EDIT_PRODUCT_ERROR:
+      return {
+        ...state,
+        editProductLoading: false,
+        editProduct: null,
+        editProductError: action.payload,
+      };
 
-    // case CREATE_PRODUCT:
-    //   return { ...state, [action.payload.id]: action.payload };
+    case ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        products: [],
+        paginatedProducts: [],
+        next: null,
+        previous: null,
+      };
+
+    case CLEAR_EDIT_PRODUCT:
+      return {
+        ...state,
+        editProductLoading: false,
+        editProduct: null,
+        editProductError: null,
+      };
 
     default:
       return state;

@@ -1,11 +1,15 @@
 import {
   FETCH_PRODUCTS,
   FETCH_PRODUCT,
+  EDIT_PRODUCT_LOADING,
   EDIT_PRODUCT,
+  EDIT_PRODUCT_ERROR,
+  CLEAR_EDIT_PRODUCT,
   DELETE_PRODUCT,
   LOADING,
   ERROR,
 } from './types';
+import history from '../history';
 import api from '../api';
 
 // Fetch all products
@@ -32,8 +36,26 @@ export const fetchProduct = (id) => async (dispatch) => {
 };
 
 // Edit a product
-export const editProduct = (id) => async (dispatch) => {
+export const editProductAction = (id, token, formData) => async (dispatch) => {
+  dispatch({ type: EDIT_PRODUCT_LOADING });
 
+  api.patch(`/products/${id}`, formData, {
+    headers: {
+      'x-auth-token': token,
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then((response) => {
+      dispatch({ type: EDIT_PRODUCT, payload: response.data });
+
+      history.push({ pathname: `/products/${id}`, state: { editProduct: true } });
+    })
+    .catch((error) => dispatch({ type: EDIT_PRODUCT_ERROR, payload: error.response.data }));
+};
+
+// Clear postReview reducer
+export const clearEditProduct = () => (dispatch) => {
+  dispatch({ type: CLEAR_EDIT_PRODUCT });
 };
 
 // Delete a product
