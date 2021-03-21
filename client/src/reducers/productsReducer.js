@@ -6,7 +6,10 @@ import {
   EDIT_PRODUCT_LOADING,
   EDIT_PRODUCT,
   EDIT_PRODUCT_ERROR,
-  CLEAR_EDIT_PRODUCT,
+  ADD_PRODUCT_LOADING,
+  ADD_PRODUCT,
+  ADD_PRODUCT_ERROR,
+  CLEAR_PRODUCT_REDUCER,
   DELETE_PRODUCT,
   CREATE_PRODUCT,
 } from '../actions/types';
@@ -14,13 +17,16 @@ import {
 const INITIAL_STATE = {
   loading: false,
   editProductLoading: false,
+  addProductLoading: false,
   editProduct: null,
+  addProduct: null,
   selectedProduct: null,
   paginatedProducts: [],
   products: [],
   next: null,
   previous: null,
   editProductError: null,
+  addProductError: null,
   error: null,
 };
 
@@ -40,6 +46,14 @@ export default (state = INITIAL_STATE, action) => {
         editProductLoading: true,
         editProduct: null,
         editProductError: null,
+      };
+
+    case ADD_PRODUCT_LOADING:
+      return {
+        ...state,
+        addProductLoading: true,
+        addProduct: null,
+        addProductError: null,
       };
 
     case FETCH_PRODUCTS:
@@ -69,12 +83,28 @@ export default (state = INITIAL_STATE, action) => {
         editProductError: null,
       };
 
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        addProductLoading: false,
+        addProduct: action.payload,
+        addProductError: null,
+      };
+
     case EDIT_PRODUCT_ERROR:
       return {
         ...state,
         editProductLoading: false,
         editProduct: null,
         editProductError: action.payload,
+      };
+
+    case ADD_PRODUCT_ERROR:
+      return {
+        ...state,
+        addProductLoading: false,
+        addProduct: null,
+        addProductError: action.payload,
       };
 
     case ERROR:
@@ -88,12 +118,15 @@ export default (state = INITIAL_STATE, action) => {
         previous: null,
       };
 
-    case CLEAR_EDIT_PRODUCT:
+    case CLEAR_PRODUCT_REDUCER:
       return {
         ...state,
         editProductLoading: false,
         editProduct: null,
         editProductError: null,
+        addProductLoading: false,
+        addProduct: null,
+        addProductError: null,
       };
 
     default:

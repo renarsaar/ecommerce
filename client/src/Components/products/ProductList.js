@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { fetchProducts } from '../../actions/productsActions';
 
 import Product from './Product';
 
 export default function Catalog() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const {
     loading, next, previous, paginatedProducts, error,
   } = useSelector((state) => state.products);
@@ -59,6 +61,12 @@ export default function Catalog() {
 
   return (
     <div className="product-list-container">
+      {location.state && (
+        <div className="success-container">
+          New product added.
+        </div>
+      )}
+
       <div className="product-list">
         {loading
           && (

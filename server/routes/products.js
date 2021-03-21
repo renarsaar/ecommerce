@@ -5,6 +5,7 @@ const Product = require('../model/Product');
 const User = require('../model/User');
 const { addProductValidation } = require('../validation');
 const auth = require('../middleware/auth');
+const { file_v1 } = require('googleapis');
 
 // Store files to /uploads
 const storage = multer.diskStorage({
@@ -60,32 +61,71 @@ router.get('/:id', getProduct, async (req, res) => {
 // @desc    Add a product
 // @route   POST /products
 // @access  Admin
-router.post('/', async (req, res) => {
-  // Validation
-  const { error } = addProductValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/', auth, async (req, res) => {
+  upload.single('image')(req, res, async (err) => {
+    if (!req.file) {
+      return res.status(400).send('Please upload an image');
+    }
 
-  const product = new Product({
-    name: req.body.name,
-    brand: req.body.brand,
-    category: req.body.category,
-    subCategory: req.body.subCategory,
-    gender: req.body.gender,
-    sizes: req.body.sizes,
-    description: req.body.description,
-    stock: req.body.stock,
-    price: req.body.price,
-    discountPrice: req.body.discountPrice,
-    image: req.file.path,
+    if (err instanceof multer.MulterError) {
+      return res.status(400).send(err.message);
+    }
+
+    if (err) {
+      return res.status(400).send(err.message);
+    }
+
+    const user = await User.findById(req.user._id);
+
+    // Validate if admin
+    if (!user.isAdmin) {
+      return res.status(401).send('Unauthorized');
+    }
+
+    const {
+      name, brand, category, subCategory, gender,
+      sizes, description, stock, price, discountPrice,
+    } = req.body;
+
+    const validationValues = {
+      name,
+      brand,
+      category,
+      subCategory,
+      gender,
+      sizes: JSON.parse(sizes),
+      description: JSON.parse(description),
+      stock: JSON.parse(stock),
+      price,
+      discountPrice,
+    };
+
+    // Validation
+    const { error } = addProductValidation(validationValues);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const product = new Product({
+      name,
+      brand,
+      category,
+      subCategory,
+      gender,
+      sizes: JSON.parse(sizes),
+      description: JSON.parse(description),
+      stock: JSON.parse(stock),
+      price: +price,
+      discountPrice: !+discountPrice || +discountPrice === 0 ? +price : +discountPrice,
+      image: req.file.path,
+    });
+
+    // Add a product
+    try {
+      await product.save();
+      res.status(201).send('Product added');
+    } catch (addProductErr) {
+      res.status(400).send(addProductErr.message);
+    }
   });
-
-  // Add a product
-  try {
-    await product.save();
-    res.status(201).send({ product });
-  } catch (err) {
-    res.status(400).send({ message: err.message });
-  }
 });
 
 // @desc    Edit a product

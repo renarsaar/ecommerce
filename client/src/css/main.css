@@ -80,17 +80,17 @@ a {
   padding: 1rem;
   margin: 1rem 0; }
 
-.product-show-item .gallery .share .tooltip, .product-preview-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip, .product-preview-item .details .container .product-actions div .tooltip, .product-edit-form .tooltip, .dashboard .user-orders .order .order-actions .tooltip, .dashboard .users .user .tooltip, .dashboard .users .user i {
+.product-show-item .gallery .share .tooltip, .product-preview-item .gallery .share .tooltip, .product-show-item .details .container .product-actions div .tooltip, .product-preview-item .details .container .product-actions div .tooltip, .product-edit-form .tooltip, .product-create-form .tooltip, .dashboard .user-orders .order .order-actions .tooltip, .dashboard .users .user .tooltip, .dashboard .users .user i {
   cursor: default;
   position: relative;
   display: inline-block; }
-  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-preview-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext, .product-preview-item .details .container .product-actions div .tooltip:hover .tooltiptext, .product-edit-form .tooltip:hover .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip:hover .tooltiptext, .dashboard .users .user .tooltip:hover .tooltiptext, .dashboard .users .user i:hover .tooltiptext {
+  .product-show-item .gallery .share .tooltip:hover .tooltiptext, .product-preview-item .gallery .share .tooltip:hover .tooltiptext, .product-show-item .details .container .product-actions div .tooltip:hover .tooltiptext, .product-preview-item .details .container .product-actions div .tooltip:hover .tooltiptext, .product-edit-form .tooltip:hover .tooltiptext, .product-create-form .tooltip:hover .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip:hover .tooltiptext, .dashboard .users .user .tooltip:hover .tooltiptext, .dashboard .users .user i:hover .tooltiptext {
     visibility: visible;
     transition: .3s ease;
     animation-name: fadeIn;
     animation-duration: .5s;
     animation-iteration-count: 1; }
-  .product-show-item .gallery .share .tooltip .tooltiptext, .product-preview-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext, .product-preview-item .details .container .product-actions div .tooltip .tooltiptext, .product-edit-form .tooltip .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip .tooltiptext, .dashboard .users .user .tooltip .tooltiptext, .dashboard .users .user i .tooltiptext {
+  .product-show-item .gallery .share .tooltip .tooltiptext, .product-preview-item .gallery .share .tooltip .tooltiptext, .product-show-item .details .container .product-actions div .tooltip .tooltiptext, .product-preview-item .details .container .product-actions div .tooltip .tooltiptext, .product-edit-form .tooltip .tooltiptext, .product-create-form .tooltip .tooltiptext, .dashboard .user-orders .order .order-actions .tooltip .tooltiptext, .dashboard .users .user .tooltip .tooltiptext, .dashboard .users .user i .tooltiptext {
     visibility: hidden;
     background: #33333d;
     color: #f4f4f4;
@@ -135,10 +135,11 @@ a {
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
 
-.product-show-item .gallery .btn, .product-preview-item .gallery .btn, .product-show-item .details .container .product-actions .add-cart, .product-preview-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist, .product-preview-item .details .container .product-actions div .add-wishlist, .product-show .review-form .btn, .product-preview .review-form .btn, .product-edit .btn, .order-create .actions button, .order-create .actions input, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
+.product-show-item .gallery .btn, .product-preview-item .gallery .btn, .product-show-item .details .container .product-actions .add-cart, .product-preview-item .details .container .product-actions .add-cart, .product-show-item .details .container .product-actions div .add-wishlist, .product-preview-item .details .container .product-actions div .add-wishlist, .product-show .review-form .btn, .product-preview .review-form .btn, .product-edit .btn, .product-create .btn, .order-create .actions button, .order-create .actions input, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
   cursor: pointer;
   margin-left: 1.5rem;
   text-transform: uppercase;
+  color: #0a0a0a;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -147,10 +148,10 @@ a {
   height: 50px;
   border: 0;
   transition: .3s ease; }
-  .product-show-item .gallery .btn:focus, .product-preview-item .gallery .btn:focus, .product-show-item .details .container .product-actions .add-cart:focus, .product-preview-item .details .container .product-actions .add-cart:focus, .product-show-item .details .container .product-actions div .add-wishlist:focus, .product-preview-item .details .container .product-actions div .add-wishlist:focus, .product-show .review-form .btn:focus, .product-preview .review-form .btn:focus, .product-edit .btn:focus, .order-create .actions button:focus, .order-create .actions input:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
+  .product-show-item .gallery .btn:focus, .product-preview-item .gallery .btn:focus, .product-show-item .details .container .product-actions .add-cart:focus, .product-preview-item .details .container .product-actions .add-cart:focus, .product-show-item .details .container .product-actions div .add-wishlist:focus, .product-preview-item .details .container .product-actions div .add-wishlist:focus, .product-show .review-form .btn:focus, .product-preview .review-form .btn:focus, .product-edit .btn:focus, .product-create .btn:focus, .order-create .actions button:focus, .order-create .actions input:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
     outline: none;
     transition: .3s ease; }
-  .product-show-item .gallery .btn:hover, .product-preview-item .gallery .btn:hover, .product-show-item .details .container .product-actions .add-cart:hover, .product-preview-item .details .container .product-actions .add-cart:hover, .product-show-item .details .container .product-actions div .add-wishlist:hover, .product-preview-item .details .container .product-actions div .add-wishlist:hover, .product-show .review-form .btn:hover, .product-preview .review-form .btn:hover, .product-edit .btn:hover, .order-create .actions button:hover, .order-create .actions input:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
+  .product-show-item .gallery .btn:hover, .product-preview-item .gallery .btn:hover, .product-show-item .details .container .product-actions .add-cart:hover, .product-preview-item .details .container .product-actions .add-cart:hover, .product-show-item .details .container .product-actions div .add-wishlist:hover, .product-preview-item .details .container .product-actions div .add-wishlist:hover, .product-show .review-form .btn:hover, .product-preview .review-form .btn:hover, .product-edit .btn:hover, .product-create .btn:hover, .order-create .actions button:hover, .order-create .actions input:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
     opacity: .5;
     transition: .3s ease; }
 
@@ -583,56 +584,63 @@ a {
     .product-show .review-form .btn, .product-preview .review-form .btn {
       margin-bottom: 2rem; }
 
-.product-edit {
+.product-edit, .product-create {
   width: 1180px;
   margin: 1.5rem auto; }
-  .product-edit h1, .product-edit h2 {
+  .product-edit h1, .product-edit h2, .product-create h1, .product-create h2 {
     font-weight: 500;
     margin-bottom: 0.5rem; }
-  .product-edit-form {
+  .product-edit-form, .product-create-form {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     width: 50%; }
-    .product-edit-form label {
+    .product-edit-form label, .product-create-form label {
       margin-top: 1rem; }
-    .product-edit-form input {
+    .product-edit-form h4, .product-create-form h4 {
+      margin-top: 0.5rem; }
+    .product-edit-form input, .product-create-form input {
       background: #f4f4f4;
       border: 2px solid #d3d3d3;
       padding: 0.6rem 0.5rem;
       margin: 0.5rem 0;
       padding: 0.5rem; }
-    .product-edit-form i {
+    .product-edit-form select, .product-create-form select {
+      background: #f4f4f4;
+      border: 2px solid #d3d3d3;
+      margin-top: 0.5rem;
+      height: 37px; }
+    .product-edit-form i, .product-create-form i {
       font-size: 1.2rem; }
-    .product-edit-form .tooltip {
+    .product-edit-form .tooltip, .product-create-form .tooltip {
       cursor: pointer; }
-      .product-edit-form .tooltip .tooltiptext {
+      .product-edit-form .tooltip .tooltiptext, .product-create-form .tooltip .tooltiptext {
         bottom: 30px;
         right: -80px; }
-    .product-edit-form .description-item {
+    .product-edit-form .description-item, .product-create-form .description-item {
       display: flex;
       align-items: center; }
-      .product-edit-form .description-item input {
+      .product-edit-form .description-item input, .product-create-form .description-item input {
         width: 90%;
         margin-right: 1rem; }
-    .product-edit-form .flex-between {
+    .product-edit-form .flex-between, .product-create-form .flex-between {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-top: 0.5rem; }
-      .product-edit-form .flex-between div {
+      .product-edit-form .flex-between div, .product-create-form .flex-between div {
         display: flex;
         flex-direction: column;
         width: 100%; }
-        .product-edit-form .flex-between div:last-child {
+        .product-edit-form .flex-between div:last-child, .product-create-form .flex-between div:last-child {
           margin-left: 1rem; }
-        .product-edit-form .flex-between div .stock-item {
+        .product-edit-form .flex-between div .stock-item, .product-create-form .flex-between div .stock-item {
           display: inline; }
-          .product-edit-form .flex-between div .stock-item input {
+          .product-edit-form .flex-between div .stock-item input, .product-create-form .flex-between div .stock-item input {
             margin-right: 1rem; }
-          .product-edit-form .flex-between div .stock-item:last-child {
+          .product-edit-form .flex-between div .stock-item:last-child, .product-create-form .flex-between div .stock-item:last-child {
             margin-left: 0; }
-  .product-edit .btn {
+  .product-edit .btn, .product-create .btn {
     margin-top: 1rem;
     margin-left: 0; }
 
@@ -1114,6 +1122,11 @@ a {
   .dashboard h2 {
     font-weight: 600;
     margin-bottom: 1rem; }
+  .dashboard .add-product {
+    margin-bottom: 2rem; }
+    .dashboard .add-product .btn {
+      background: #e4e3e3;
+      padding: 1rem; }
   .dashboard .account-info {
     margin-bottom: 3rem; }
     .dashboard .account-info p {

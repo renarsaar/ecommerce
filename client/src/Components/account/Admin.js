@@ -351,6 +351,10 @@ export default function Admin() {
           {showPasswordForm && <ChangePasswordForm />}
         </div>
 
+        <div className="add-product">
+          <Link to="/products/new" className="btn">Add a new Product</Link>
+        </div>
+
         <div className="user-orders">
           <button
             type="button"

@@ -4,7 +4,10 @@ import {
   EDIT_PRODUCT_LOADING,
   EDIT_PRODUCT,
   EDIT_PRODUCT_ERROR,
-  CLEAR_EDIT_PRODUCT,
+  ADD_PRODUCT_LOADING,
+  ADD_PRODUCT,
+  ADD_PRODUCT_ERROR,
+  CLEAR_PRODUCT_REDUCER,
   DELETE_PRODUCT,
   LOADING,
   ERROR,
@@ -19,7 +22,7 @@ export const fetchProducts = (page) => async (dispatch) => {
   api.get('/products', {
     params: {
       page,
-      limit: 6,
+      limit: 9,
     },
   })
     .then((response) => dispatch({ type: FETCH_PRODUCTS, payload: response.data }))
@@ -53,9 +56,27 @@ export const editProductAction = (id, token, formData) => async (dispatch) => {
     .catch((error) => dispatch({ type: EDIT_PRODUCT_ERROR, payload: error.response.data }));
 };
 
-// Clear postReview reducer
-export const clearEditProduct = () => (dispatch) => {
-  dispatch({ type: CLEAR_EDIT_PRODUCT });
+// Add a new product
+export const addProductAction = (token, formData) => (dispatch) => {
+  dispatch({ type: ADD_PRODUCT_LOADING });
+
+  api.post('/products', formData, {
+    headers: {
+      'x-auth-token': token,
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then((response) => {
+      dispatch({ type: ADD_PRODUCT, payload: response.data });
+
+      history.push({ pathname: '/', state: { addProduct: true } });
+    })
+    .catch((error) => dispatch({ type: ADD_PRODUCT_ERROR, payload: error.response.data }));
+};
+
+// Clear product reducer
+export const clearProductReducer = () => (dispatch) => {
+  dispatch({ type: CLEAR_PRODUCT_REDUCER });
 };
 
 // Delete a product
