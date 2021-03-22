@@ -1,32 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { sortProducts } from '../actions/sortActions';
 
 export default function SubHeader() {
   const dispatch = useDispatch();
-  const { paginatedProducts, selectedProduct } = useSelector((state) => state.products);
+  const { selectedProduct } = useSelector((state) => state.products);
   const { sortValue } = useSelector((state) => state.sort);
-  const { filteredProducts } = useSelector((state) => state.filter);
   const location = useLocation();
-
-  // Sort products again on next/previous page click
-  useEffect(() => {
-    if (sortValue && !selectedProduct) {
-      if (filteredProducts) {
-        dispatch(sortProducts(sortValue, filteredProducts));
-      } else {
-        dispatch(sortProducts(sortValue, paginatedProducts));
-      }
-    }
-  }, [paginatedProducts]);
-
-  // Sort filtered products again on render
-  useEffect(() => {
-    if (filteredProducts && sortValue) {
-      dispatch(sortProducts(sortValue, filteredProducts));
-    }
-  }, [sortValue, filteredProducts]);
 
   // Display breadcrumb menu items
   function handleBreadcrumb() {
@@ -49,11 +30,7 @@ export default function SubHeader() {
   function handleChange(e) {
     const { value } = e.target;
 
-    if (filteredProducts) {
-      dispatch(sortProducts(value, filteredProducts));
-    } else {
-      dispatch(sortProducts(value, paginatedProducts));
-    }
+    dispatch(sortProducts(value));
   }
 
   // Do not render on login/register/validation page

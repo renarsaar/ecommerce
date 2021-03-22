@@ -16,13 +16,14 @@ import history from '../history';
 import api from '../api';
 
 // Fetch all products
-export const fetchProducts = (page) => async (dispatch) => {
+export const fetchProducts = (page, sortValue) => async (dispatch) => {
   dispatch({ type: LOADING });
 
   api.get('/products', {
     params: {
       page,
       limit: 9,
+      sortValue,
     },
   })
     .then((response) => dispatch({ type: FETCH_PRODUCTS, payload: response.data }))

@@ -11,12 +11,16 @@ export default function Catalog() {
   const {
     loading, next, previous, paginatedProducts, error,
   } = useSelector((state) => state.products);
-  const { sortedProducts } = useSelector((state) => state.sort);
+  const { sortValue } = useSelector((state) => state.sort);
   const { filteredProducts } = useSelector((state) => state.filter);
 
   useEffect(() => {
-    dispatch(fetchProducts(1));
-  }, [dispatch]);
+    if (sortValue) {
+      dispatch(fetchProducts(1, sortValue));
+    } else {
+      dispatch(fetchProducts(1));
+    }
+  }, [dispatch, sortValue]);
 
   // Handle products rendering
   function renderProducts() {
@@ -24,18 +28,25 @@ export default function Catalog() {
       return filteredProducts.map((product) => <Product product={product} key={product._id} />);
     }
 
-    if (sortedProducts) {
-      return sortedProducts.map((product) => <Product product={product} key={product._id} />);
-    }
-
     return paginatedProducts.map((product) => <Product product={product} key={product._id} />);
   }
 
+  // Fetch previous page products
   function handleClickPreviousPage(previousPage) {
-    dispatch(fetchProducts(previousPage));
+    if (sortValue) {
+      dispatch(fetchProducts(previousPage, sortValue));
+    } else {
+      dispatch(fetchProducts(previousPage));
+    }
   }
+
+  // Fetch next page products
   function handleClickNextPage(nextPage) {
-    dispatch(fetchProducts(nextPage));
+    if (sortValue) {
+      dispatch(fetchProducts(nextPage, sortValue));
+    } else {
+      dispatch(fetchProducts(nextPage));
+    }
   }
 
   function handlePreviousNextPage() {

@@ -264,6 +264,59 @@ function paginatedResults(model) {
     try {
       results.results = await model.find();
       results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
+
+      // Sort paginated products if sortValue in query
+      if (req.query.sortValue === 'SORT_OLDEST') {
+        results.paginatedResults = results.results
+          .sort(
+            (previous, current) => new Date(previous.date) - new Date(current.date),
+          )
+          .slice((page - 1) * limit, page * limit);
+      }
+
+      if (req.query.sortValue === 'SORT_NEWEST') {
+        results.paginatedResults = results.results
+          .sort(
+            (previous, current) => new Date(current.date) - new Date(previous.date),
+          )
+          .slice((page - 1) * limit, page * limit);
+      }
+
+      if (req.query.sortValue === 'SORT_CHEAPEST') {
+        results.paginatedResults = results.results
+          .sort(
+            (previous, current) => previous.discountPrice - current.discountPrice,
+          )
+          .slice((page - 1) * limit, page * limit);
+      }
+
+      if (req.query.sortValue === 'SORT_EXPENSIVEST') {
+        results.paginatedResults = results.results
+          .sort(
+            (previous, current) => current.discountPrice - previous.discountPrice,
+          )
+          .slice((page - 1) * limit, page * limit);
+      }
+
+      if (req.query.sortValue === 'SORT_NAME') {
+        results.paginatedResults = results.results
+          .sort(
+            (previous, current) => previous.name.localeCompare(current.name),
+          )
+          .slice((page - 1) * limit, page * limit);
+      }
+
+      if (req.query.sortValue === 'SORT_DISCOUNT') {
+        results.paginatedResults = results.results
+          .sort((previous, current) => {
+            const currentDiscount = current.price - current.discountPrice;
+            const previousDiscount = previous.price - previous.discountPrice;
+
+            return currentDiscount - previousDiscount;
+          })
+          .slice((page - 1) * limit, page * limit);
+      }
+
       res.paginatedResults = results;
       next();
     } catch (err) {

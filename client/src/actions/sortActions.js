@@ -1,1 +1,1 @@
-export const sortProducts = (value, products) => ({ type: value, products });
+export const sortProducts = (value) => ({ type: value });
