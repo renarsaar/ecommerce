@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUserOrders } from '../../actions/orderActions';
+import { clearWishlistLS } from '../../actions/wishListActions';
 import { logOut } from '../../actions/authActions';
 import useRippleButton from '../Hooks/useRippleButton';
 import useHandleOrderBackground from '../Hooks/useHandleOrderBackground';
@@ -84,6 +85,7 @@ export default function User() {
   function handleLogOut(e) {
     useRippleButton(e);
 
+    dispatch(clearWishlistLS());
     dispatch(logOut());
   }
 

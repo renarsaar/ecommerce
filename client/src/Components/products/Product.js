@@ -6,7 +6,7 @@ export default function Product({ product }) {
   const {
     image, name, date, price, discountPrice, _id,
   } = product;
-  const wishListProducts = useSelector((state) => state.wishList);
+  const { wishListProducts } = useSelector((state) => state.wishList);
 
   // Return new product label
   function newProduct() {

@@ -16,7 +16,7 @@ export default function CartModal({ showCart }) {
         <div className="cart-product">
           <img src={`http://localhost:8080/${product.image}`} alt={product.name} />
           <div className="info">
-            <h1>{product.name} x {product.quantity}</h1>
+            <Link to={`/products/${product.id}`}>{product.name} x {product.quantity}</Link>
             <div>
               <p>Size: {product.size}</p>
               <p>{product.totalPrice.toFixed(2)} €</p>

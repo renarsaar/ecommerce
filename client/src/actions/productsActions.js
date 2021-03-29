@@ -58,7 +58,7 @@ export const editProductAction = (id, token, formData) => async (dispatch) => {
 };
 
 // Add a new product
-export const addProductAction = (token, formData) => (dispatch) => {
+export const addProductAction = (token, formData) => async (dispatch) => {
   dispatch({ type: ADD_PRODUCT_LOADING });
 
   api.post('/products', formData, {

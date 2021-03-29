@@ -1,35 +1,84 @@
 import {
-  ADD_WISHLIST,
-  REMOVE_WISHLIST,
-  CLEAR_WISHLIST,
+  ADD_WISHLIST_LS,
+  REMOVE_WISHLIST_LS,
+  CLEAR_WISHLIST_LS,
+  SET_WISHLIST_LS,
+  SET_WISHLIST_DB,
+  CHANGE_WISHLIST_DB,
+  CHANGE_WISHLIST_DB_ERROR,
 } from '../actions/types';
 
-const INITIAL_STATE = JSON.parse(localStorage.getItem('wishlist')) || [];
+const INITIAL_STATE = {
+  wishListProducts: JSON.parse(localStorage.getItem('wishlist')) || [],
+  WishListError: null,
+};
+let newWishList = [];
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ADD_WISHLIST:
-      if (state.includes(action.productID)) {
-        return [...state]
+    case ADD_WISHLIST_LS:
+      if (state.wishListProducts.includes(action.productID)) {
+        return {
+          ...state,
+          wishListProducts: [...state.wishListProducts],
+        };
       }
 
-      state = [...state, action.productID];
-      localStorage.setItem('wishlist', JSON.stringify(state));
+      newWishList = [...state.wishListProducts, action.productID];
 
-      return JSON.parse(localStorage.getItem('wishlist'));
+      localStorage.setItem('wishlist', JSON.stringify(newWishList));
 
-    case REMOVE_WISHLIST:
-      state = [...state.filter((id) => id !== action.id)];
-      localStorage.setItem('wishlist', JSON.stringify(state));
+      return {
+        ...state,
+        wishListProducts: JSON.parse(localStorage.getItem('wishlist')),
+      };
 
-      return JSON.parse(localStorage.getItem('wishlist'));
+    case REMOVE_WISHLIST_LS:
+      newWishList = [...state.wishListProducts.filter((id) => id !== action.id)];
+      localStorage.setItem('wishlist', JSON.stringify(newWishList));
 
-    case CLEAR_WISHLIST:
-      state = [];
+      return {
+        ...state,
+        wishListProducts: JSON.parse(localStorage.getItem('wishlist')),
+      };
+
+    case SET_WISHLIST_LS:
+      return {
+        ...state,
+        wishListProducts: action.wishListArr,
+      };
+
+    case SET_WISHLIST_DB:
       localStorage.removeItem('wishlist');
-      return state;
+
+      return {
+        ...state,
+        wishListProducts: action.payload,
+      };
+
+    case CHANGE_WISHLIST_DB:
+      localStorage.removeItem('wishlist');
+
+      return {
+        ...state,
+        wishListProducts: action.payload,
+      };
+
+    case CHANGE_WISHLIST_DB_ERROR:
+      return {
+        ...state,
+        wishListError: action.payload,
+      };
+
+    case CLEAR_WISHLIST_LS:
+      localStorage.removeItem('wishlist');
+
+      return {
+        ...state,
+        wishListProducts: [],
+      };
 
     default:
       return state;
   }
-}
+};

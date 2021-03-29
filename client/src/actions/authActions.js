@@ -69,6 +69,7 @@ export const logIn = (values) => async (dispatch) => {
           name: response.data.name,
           email: response.data.email,
           admin: response.data.admin,
+          wishList: response.data.wishList,
         },
       });
       history.push({ pathname: '/' });
@@ -131,6 +132,7 @@ export const getUser = (token) => async (dispatch) => {
           id: response.data._id,
           name: response.data.name,
           email: response.data.email,
+          wishList: response.data.wishList,
           admin: response.data.isAdmin,
         },
       });
@@ -142,7 +144,7 @@ export const getUser = (token) => async (dispatch) => {
 export const changeUserPassword = (id, token, values) => async (dispatch) => {
   dispatch({ type: CHANGE_PASSWORD_LOADING });
 
-  api.patch(`/auth/${id}`, {
+  api.patch(`/auth/password/${id}`, {
     oldPassword: values.oldPassword,
     password: values.password,
     confirmPassword: values.confirmPassword,

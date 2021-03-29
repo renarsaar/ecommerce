@@ -8,6 +8,7 @@ import {
 import {
   logOut, getUsers, makeAdminAction, banUserAction, resetUserActions,
 } from '../../actions/authActions';
+import { clearWishlistLS } from '../../actions/wishListActions';
 import useRippleButton from '../Hooks/useRippleButton';
 import useHandleOrderBackground from '../Hooks/useHandleOrderBackground';
 
@@ -284,6 +285,7 @@ export default function Admin() {
   function handleLogOut(e) {
     useRippleButton(e);
 
+    dispatch(clearWishlistLS());
     dispatch(logOut());
   }
 

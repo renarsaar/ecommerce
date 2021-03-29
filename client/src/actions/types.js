@@ -67,9 +67,13 @@ export const BAN_USER_ERROR = 'BAN_USER_ERROR';
 export const RESET_USER_ACTIONS = 'RESET_USER_ACTIONS';
 
 // Wishlist actions
-export const ADD_WISHLIST = 'ADD_WISHLIST';
-export const REMOVE_WISHLIST = 'REMOVE_WISHLIST';
-export const CLEAR_WISHLIST = 'CLEAR_WISHLIST';
+export const ADD_WISHLIST_LS = 'ADD_WISHLIST_LS';
+export const REMOVE_WISHLIST_LS = 'REMOVE_WISHLIST';
+export const CLEAR_WISHLIST_LS = 'CLEAR_WISHLIST';
+export const SET_WISHLIST_LS = 'SET_WISHLIST_LS';
+export const SET_WISHLIST_DB = 'SET_WISHLIST_DB';
+export const CHANGE_WISHLIST_DB = 'CHANGE_WISHLIST_DB';
+export const CHANGE_WISHLIST_DB_ERROR = 'CHANGE_WISHLIST_DB_ERROR';
 
 // Cart actions
 export const ADD_CART = 'ADD_CART';

@@ -18,7 +18,7 @@ export default function Header() {
     about,
   } = useSelector((state) => state.menu);
   const { products } = useSelector((state) => state.products);
-  const wishListProducts = useSelector((state) => state.wishList);
+  const { wishListProducts } = useSelector((state) => state.wishList);
   const cartProducts = useSelector((state) => state.cart);
   const { user, loading, isLoggedIn } = useSelector((state) => state.auth);
   const [showCart, setShowCart] = useState(false);
@@ -34,8 +34,8 @@ export default function Header() {
 
   // Load products if link directly to ProductShow
   useEffect(() => {
-    if (!products) {
-      dispatch(fetchProducts());
+    if (products.length === 0) {
+      dispatch(fetchProducts(1));
     }
   }, [products]);
 
@@ -120,7 +120,7 @@ export default function Header() {
           className={showWishList ? 'lar la-heart orange' : 'lar la-heart'}
           onClick={handleWishlist}
         >
-          {wishListProducts.length > 0 && (
+          {wishListProducts.length !== 0 && (
             <p className="wishlist-length-number">
               {wishListProducts.length}
             </p>

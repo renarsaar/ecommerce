@@ -2,16 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeWishlist } from '../../actions/wishListActions';
+import { removeWishlistLS, changeWishListDB } from '../../actions/wishListActions';
 
 export default function WishListModal({ showWishList, products }) {
   const dispatch = useDispatch();
-  const wishListProducts = useSelector((state) => state.wishList);
+  const { wishListProducts } = useSelector((state) => state.wishList);
+  const { user, isLoggedIn } = useSelector((state) => state.auth);
   const modalClassName = showWishList === true ? 'wishlist-modal visible' : 'wishlist-modal hidden';
+
+  // Remove item from wishlist
+  function handleRemoveWishList(id) {
+    if (isLoggedIn) {
+      dispatch(changeWishListDB(id, sessionStorage.token, user.id));
+      return;
+    }
+
+    dispatch(removeWishlistLS(id));
+  }
 
   // Return wishlist items
   function renderWishListItems() {
-    return wishListProducts.map((id, index) => {
+    return wishListProducts.map((id) => {
       let name;
       let image;
 
@@ -34,7 +45,7 @@ export default function WishListModal({ showWishList, products }) {
             </div>
 
             <div>
-              <i className="las la-trash" onClick={() => dispatch(removeWishlist(id))} />
+              <i className="las la-trash" onClick={() => handleRemoveWishList(id)} />
             </div>
           </li>
         );
@@ -43,7 +54,7 @@ export default function WishListModal({ showWishList, products }) {
   }
 
   return ReactDOM.createPortal(
-    <div className={modalClassName}>
+    <div className={modalClassName} onClick={(e) => e.stopPropagation()}>
       <div className="modal-main">
         <h2>Wishlist</h2>
 

@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../actions/authActions';
+import { setWishListLS, setWishListDB } from '../actions/wishListActions';
 
 import Header from './Header';
 import SubHeader from './SubHeader';
@@ -25,11 +26,11 @@ export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { user, isLoggedIn } = useSelector((state) => state.auth);
-  const { selectedProduct } = useSelector((state) => state.products);
+  const { wishListProducts } = useSelector((state) => state.wishList);
   const url = queryString.parse(location.search);
 
-  // Get the user & log in if jwt token in URL after OAuth login
   useEffect(() => {
+    // Get the user & log in if jwt token in URL after OAuth login
     if (!isLoggedIn && url.token) {
       dispatch(getUser(url.token));
     }
@@ -37,6 +38,17 @@ export default function App() {
     // Log in again on page refresh
     if (!isLoggedIn && sessionStorage.token) {
       dispatch(getUser(sessionStorage.token));
+    }
+
+    // Save user wishlist in LS if user logged in
+    if (isLoggedIn && user.wishList.length !== 0) {
+      dispatch(setWishListLS(user.wishList));
+    }
+
+    // Set user wishlist if it is empty and products in LS
+    if (isLoggedIn && user.wishList.length === 0 && wishListProducts.length !== 0) {
+      console.log('Add LS wishList to user.wishList');
+      dispatch(setWishListDB(user.id, wishListProducts, sessionStorage.token));
     }
   }, [isLoggedIn, url.token]);
 

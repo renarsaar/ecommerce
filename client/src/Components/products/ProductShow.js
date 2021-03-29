@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { fetchProduct } from '../../actions/productsActions';
-import { addWishlist } from '../../actions/wishListActions';
+import { addWishlistLS, changeWishListDB } from '../../actions/wishListActions';
 import { addCart } from '../../actions/cartActions';
 import { getReviewsAction, postReviewAction, clearPostReview } from '../../actions/reviewActions';
 import useRippleButton from '../Hooks/useRippleButton';
@@ -123,7 +123,12 @@ export default function ProductShow({ match, location }) {
   function handlewishList(e) {
     useRippleButton(e);
 
-    dispatch(addWishlist(selectedProduct._id));
+    if (isLoggedIn) {
+      dispatch(changeWishListDB(selectedProduct._id, sessionStorage.token, user.id));
+      return;
+    }
+
+    dispatch(addWishlistLS(selectedProduct._id));
   }
 
   // Add product to shopping cart
