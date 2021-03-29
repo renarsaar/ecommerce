@@ -11,7 +11,7 @@ const {
   registerValidation,
   editUserValidation,
 } = require('../validation');
-const { db } = require('../model/User');
+//! const { db } = require('../model/User');
 
 // @desc    Get All Users
 // @route   GET /auth/users
@@ -119,6 +119,8 @@ router.get('/google/callback', async (req, res) => {
   let user = await User.findOne({ email: userEmail });
 
   // If user without googleId exists in database, verify
+
+  // ! Format deprecated
   if (user && !user.googleId) {
     return res.redirect(url.format({
       pathname: `http://localhost:3000/account/validation/${user._id}`,
@@ -127,6 +129,7 @@ router.get('/google/callback', async (req, res) => {
         googleId: userId,
         email: userEmail,
         name: userName,
+        // ! wishList
       },
     }));
   }
@@ -213,6 +216,7 @@ router.patch('/validation/:id', async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
+      //! wishList
       admin: user.isAdmin,
     });
   } catch (err) {
@@ -245,6 +249,8 @@ router.post('/login', async (req, res) => {
     id: user._id,
     name: user.name,
     email: user.email,
+    // ! wishList
+    wishList: user.wishList,
     admin: user.isAdmin,
   });
 });
@@ -258,11 +264,10 @@ router.get('/user', auth, (req, res) => {
     .then((user) => res.json(user));
 });
 
-//! change routen/auth/password/:id
 // @desc    Edit user password
-// @route   PATCH /auth/:id
+// @route   PATCH /auth/password:id
 // @access  private
-router.patch('/:id', auth, async (req, res) => {
+router.patch('/password/:id', auth, async (req, res) => {
   const user = await User.findById(req.params.id);
   const { oldPassword, password, confirmPassword } = req.body;
 
@@ -293,6 +298,46 @@ router.patch('/:id', auth, async (req, res) => {
   try {
     await user.save();
     res.status(201).send('Password changed');
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+// @desc    Change user wishlist
+// @route   PATCH /auth/wishlist/:id
+// @access  private
+router.patch('/wishlist/:id', auth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  const { productID } = req.body;
+
+  if (user.wishList.includes(productID)) {
+    user.wishList = user.wishList.filter((product) => product !== productID);
+  } else {
+    user.wishList.push(productID);
+  }
+
+  // Update user wishList
+  try {
+    await user.save();
+    res.status(201).send(user.wishList);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+// @desc    Rewrite users wishlist
+// @route   PATCH /auth/wishlist/rewrite/:id
+// @access  private
+router.patch('/wishlist/rewrite/:id', auth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  const { newWishListArray } = req.body;
+
+  user.wishList = newWishListArray;
+
+  // Update user wishList
+  try {
+    await user.save();
+    res.status(201).send(user.wishList);
   } catch (err) {
     res.status(400).send(err.message);
   }

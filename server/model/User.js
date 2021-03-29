@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
   banComment: {
     type: String,
   },
+  wishList: {
+    type: Array,
+    default: [],
+  },
   date: {
     type: Date,
     default: Date.now,
