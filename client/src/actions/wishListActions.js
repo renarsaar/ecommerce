@@ -6,6 +6,7 @@ import {
   SET_WISHLIST_DB,
   CHANGE_WISHLIST_DB,
   CHANGE_WISHLIST_DB_ERROR,
+  CLEAR_WISHLIST_REDUCER,
 } from './types';
 import api from '../api';
 
@@ -51,4 +52,8 @@ export const setWishListDB = (userId, newWishListArray, token) => async (dispatc
   })
     .then((response) => dispatch({ type: SET_WISHLIST_DB, payload: response.data }))
     .catch((error) => console.log(error));
+};
+
+export const clearWishListReducer = () => (dispatch) => {
+  dispatch({ type: CLEAR_WISHLIST_REDUCER });
 };

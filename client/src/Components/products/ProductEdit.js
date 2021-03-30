@@ -227,8 +227,6 @@ class ProductEdit extends React.Component {
       discountPrice,
     };
 
-    console.log(this.state.subCategory);
-
     return (
       <>
         <div className="product-edit">

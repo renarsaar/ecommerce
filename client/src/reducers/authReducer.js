@@ -26,7 +26,7 @@ import {
   BAN_USER_LOADING,
   BAN_USER,
   BAN_USER_ERROR,
-  RESET_USER_ACTIONS,
+  CLEAR_AUTH_REDUCER,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -149,7 +149,7 @@ export default (state = INITIAL_STATE, action) => {
         makeAdminError: null,
       }
 
-    case RESET_USER_ACTIONS:
+    case CLEAR_AUTH_REDUCER:
       return {
         ...state,
         authLoading: false,

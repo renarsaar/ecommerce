@@ -6,11 +6,12 @@ import {
   SET_WISHLIST_DB,
   CHANGE_WISHLIST_DB,
   CHANGE_WISHLIST_DB_ERROR,
+  CLEAR_WISHLIST_REDUCER,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   wishListProducts: JSON.parse(localStorage.getItem('wishlist')) || [],
-  WishListError: null,
+  wishListError: null,
 };
 let newWishList = [];
 
@@ -62,6 +63,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         wishListProducts: action.payload,
+        wishListError: null,
       };
 
     case CHANGE_WISHLIST_DB_ERROR:
@@ -76,6 +78,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         wishListProducts: [],
+        wishListError: null,
+      };
+
+    case CLEAR_WISHLIST_REDUCER:
+      return {
+        ...state,
+        wishListError: null,
       };
 
     default:

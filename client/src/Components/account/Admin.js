@@ -6,7 +6,7 @@ import {
   getOrders, getNewOrders, changeOrderStatus, deleteOrder,
 } from '../../actions/orderActions';
 import {
-  logOut, getUsers, makeAdminAction, banUserAction, resetUserActions,
+  logOut, getUsers, makeAdminAction, banUserAction, clearAuthReducer,
 } from '../../actions/authActions';
 import { clearWishlistLS } from '../../actions/wishListActions';
 import useRippleButton from '../Hooks/useRippleButton';
@@ -57,7 +57,7 @@ export default function Admin() {
     dispatch(getUsers(sessionStorage.token));
 
     return () => {
-      dispatch(resetUserActions());
+      dispatch(clearAuthReducer());
     };
   }, []);
 

@@ -5,7 +5,7 @@ import {
   POST_REVIEW_LOADING,
   POST_REVIEW,
   POST_REVIEW_ERROR,
-  CLEAR_POST_REVIEW,
+  CLEAR_REVIEW_REDUCER,
 } from './types';
 import api from '../api';
 
@@ -35,6 +35,6 @@ export const postReviewAction = (productId, reviewerName, review, rating) => asy
 };
 
 // Clear postReview reducer
-export const clearPostReview = () => (dispatch) => {
-  dispatch({ type: CLEAR_POST_REVIEW });
+export const clearReviewReducer = () => (dispatch) => {
+  dispatch({ type: CLEAR_REVIEW_REDUCER });
 };

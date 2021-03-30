@@ -26,7 +26,7 @@ import {
   BAN_USER_LOADING,
   BAN_USER,
   BAN_USER_ERROR,
-  RESET_USER_ACTIONS,
+  CLEAR_AUTH_REDUCER,
 } from './types';
 import api from '../api';
 import history from '../history';
@@ -183,7 +183,9 @@ export const banUserAction = (id, token, banComment) => async (dispatch) => {
     .catch((error) => dispatch({ type: BAN_USER_ERROR, payload: error.data }));
 };
 
-export const resetUserActions = () => (dispatch) => { dispatch({ type: RESET_USER_ACTIONS }); };
+export const clearAuthReducer = () => (dispatch) => {
+  dispatch({ type: CLEAR_AUTH_REDUCER });
+};
 
 // Delete account
 export const deleteAccount = (id, token) => async (dispatch) => {

@@ -5,7 +5,7 @@ import {
   POST_REVIEW_LOADING,
   POST_REVIEW,
   POST_REVIEW_ERROR,
-  CLEAR_POST_REVIEW,
+  CLEAR_REVIEW_REDUCER,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -67,7 +67,7 @@ export default (state = INITIAL_STATE, action) => {
         postReviewError: action.payload,
       }
 
-    case CLEAR_POST_REVIEW:
+    case CLEAR_REVIEW_REDUCER:
       return {
         ...state,
         postReviewLoading: false,

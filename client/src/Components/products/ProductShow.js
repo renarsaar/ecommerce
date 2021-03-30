@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { fetchProduct } from '../../actions/productsActions';
-import { addWishlistLS, changeWishListDB } from '../../actions/wishListActions';
+import { addWishlistLS, changeWishListDB, clearWishListReducer } from '../../actions/wishListActions';
 import { addCart } from '../../actions/cartActions';
-import { getReviewsAction, postReviewAction, clearPostReview } from '../../actions/reviewActions';
+import { getReviewsAction, postReviewAction, clearReviewReducer } from '../../actions/reviewActions';
 import useRippleButton from '../Hooks/useRippleButton';
 
 const customModalStyles = {
@@ -27,6 +27,7 @@ export default function ProductShow({ match, location }) {
     reviewsLoading, reviews, reviewsError, postReviewLoading, postReview, postReviewError,
   } = useSelector((state) => state.reviews);
   const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const { wishListError } = useSelector((state) => state.wishList);
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [copyLink, setCopyLink] = useState(false);
@@ -34,17 +35,20 @@ export default function ProductShow({ match, location }) {
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const closeModal = () => setModalIsOpen(false);
+
+  // Close modal and clear reducer messages
+  const closeModal = () => {
+    if (wishListError) dispatch(clearWishListReducer());
+    if (postReviewError || postReview) dispatch(clearReviewReducer());
+
+    setModalIsOpen(false);
+  };
 
   Modal.setAppElement('#modal');
 
   // Fetch single product
   useEffect(() => {
     dispatch(fetchProduct(id));
-
-    return () => {
-      dispatch(clearPostReview());
-    };
   }, [dispatch, id]);
 
   // Fetch product reviews
@@ -62,6 +66,7 @@ export default function ProductShow({ match, location }) {
   // Open modal when posting a review
   useEffect(() => {
     setModalIsOpen(true);
+
     if (selectedProduct) {
       dispatch(getReviewsAction(selectedProduct._id));
     }
@@ -122,6 +127,8 @@ export default function ProductShow({ match, location }) {
   // Add product to wishlist
   function handlewishList(e) {
     useRippleButton(e);
+
+    setModalIsOpen(true);
 
     if (isLoggedIn) {
       dispatch(changeWishListDB(selectedProduct._id, sessionStorage.token, user.id));
@@ -401,6 +408,16 @@ export default function ProductShow({ match, location }) {
           style={customModalStyles}
         >
           <h2>{postReviewError}</h2>
+        </Modal>
+      )}
+
+      {wishListError && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customModalStyles}
+        >
+          <h2>{wishListError}</h2>
         </Modal>
       )}
     </div>
