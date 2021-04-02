@@ -11,7 +11,6 @@ const {
   registerValidation,
   editUserValidation,
 } = require('../validation');
-//! const { db } = require('../model/User');
 
 // @desc    Get All Users
 // @route   GET /auth/users
@@ -113,25 +112,17 @@ router.get('/google/callback', async (req, res) => {
   // User data
   const userEmail = tokenInfo.email;
   const userName = peopleAPIResponse.data.names[0].displayName;
-  const userId = peopleAPIResponse.data.names[0].metadata.source.id;
+  const userGoogleId = peopleAPIResponse.data.names[0].metadata.source.id;
 
   // Find the user with the same Email as OAuth Email
   let user = await User.findOne({ email: userEmail });
 
   // If user without googleId exists in database, verify
-
-  // ! Format deprecated
   if (user && !user.googleId) {
-    return res.redirect(url.format({
-      pathname: `http://localhost:3000/account/validation/${user._id}`,
-      query: {
-        id: `${user._id}`,
-        googleId: userId,
-        email: userEmail,
-        name: userName,
-        // ! wishList
-      },
-    }));
+    const pathName = 'http://localhost:3000/account/validation';
+    const query = `?userId=${user._id}&googleId=${userGoogleId}&email=${userEmail}&name=${userName}`;
+
+    return res.redirect(302, `${pathName}/${query}`);
   }
 
   // If user with googleId exists in database
@@ -139,13 +130,11 @@ router.get('/google/callback', async (req, res) => {
     // Create and assign jwt token
     const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
 
+    const pathName = 'http://localhost:3000';
+    const query = `?token=${token}`;
+
     // Log user in, redirect to /
-    return res.redirect(url.format({
-      pathname: 'http://localhost:3000/',
-      query: {
-        token,
-      },
-    }));
+    return res.redirect(302, `${pathName}/${query}`);
   }
 
   // If OAuth user does not exists in database
@@ -163,7 +152,7 @@ router.get('/google/callback', async (req, res) => {
 
     // Make a new user, add to database
     const newUser = new User({
-      googleId: userId,
+      googleId: userGoogleId,
       name: userName,
       email: userEmail,
       password: hashPassword,
@@ -178,13 +167,11 @@ router.get('/google/callback', async (req, res) => {
       // Create and assign jwt token
       const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
 
+      const pathName = 'http://localhost:3000';
+      const query = `?token=${token}`;
+
       // Log user in, redirect to /
-      return res.redirect(url.format({
-        pathname: 'http://localhost:3000/',
-        query: {
-          token,
-        },
-      }));
+      return res.redirect(302, `${pathName}/${query}`);
     } catch (err) {
       res.status(400).send(err.message);
     }
@@ -194,9 +181,9 @@ router.get('/google/callback', async (req, res) => {
 // @desc    Validate user & add google sign in method
 // @route   PATCH /auth/validation
 // @access  public
-router.patch('/validation/:id', async (req, res) => {
+router.patch('/validation', async (req, res) => {
   // Check if the email exists
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.body.userId);
   if (!user) return res.status(500).send('Validation error, please try again later');
 
   // Check if password is correct
@@ -216,7 +203,7 @@ router.patch('/validation/:id', async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
-      //! wishList
+      wishList: user.wishList,
       admin: user.isAdmin,
     });
   } catch (err) {
@@ -249,7 +236,6 @@ router.post('/login', async (req, res) => {
     id: user._id,
     name: user.name,
     email: user.email,
-    // ! wishList
     wishList: user.wishList,
     admin: user.isAdmin,
   });
@@ -261,7 +247,8 @@ router.post('/login', async (req, res) => {
 router.get('/user', auth, (req, res) => {
   User.findById(req.user._id)
     .select('-password')
-    .then((user) => res.json(user));
+    .then((user) => res.json(user))
+    .catch((err) => res.json(err));
 });
 
 // @desc    Edit user password
