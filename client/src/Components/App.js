@@ -77,7 +77,7 @@ export default function App() {
           {isLoggedIn && !user.admin ? <User /> : <Redirect to="/" />}
         </Route>
         <Route path="/account/dashboard/user/:id" exact component={User} />
-        <Route path="/account/validation/:id" exact render={(props) => <Account location={props.location} validation />} />
+        <Route path="/account/validation" exact render={(props) => <Account location={props.location} validation />} />
         <Route path="/cart/checkout" exact component={OrderCreate} />
         <Route path="/cart/success" exact component={CartSuccess} />
         <Route path="/order/:id" exact component={OrderShow} />

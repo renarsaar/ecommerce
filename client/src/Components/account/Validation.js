@@ -12,7 +12,7 @@ export default function Validation({ parsedUrlParams }) {
     e.preventDefault();
 
     const values = {
-      id: parsedUrlParams.id,
+      userId: parsedUrlParams.userId,
       googleId: parsedUrlParams.googleId,
       email: parsedUrlParams.email,
       password: e.target.password.value,

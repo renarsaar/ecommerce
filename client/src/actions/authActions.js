@@ -81,7 +81,8 @@ export const logIn = (values) => async (dispatch) => {
 export const validateOAuthUser = (values) => async (dispatch) => {
   dispatch({ type: VALIDATE_LOADING });
 
-  api.patch(`/auth/validation/${values.id}`, {
+  api.patch('/auth/validation', {
+    userId: values.userId,
     googleId: values.googleId,
     email: values.email,
     password: values.password,
@@ -94,7 +95,8 @@ export const validateOAuthUser = (values) => async (dispatch) => {
           id: response.data.id,
           name: response.data.name,
           email: response.data.email,
-          admin: response.data.isAdmin,
+          admin: response.data.admin,
+          wishList: response.data.wishList,
         },
       });
       history.push({ pathname: '/' });
