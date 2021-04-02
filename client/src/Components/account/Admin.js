@@ -95,6 +95,7 @@ export default function Admin() {
               background: useHandleOrderBackground(order.status),
             }}
           >
+
             <Link
               to={`/order/${order._id}`}
               className="order-info"
@@ -107,6 +108,7 @@ export default function Admin() {
               {' at '}
               <span>{new Date(order.date).toLocaleDateString('en-GB')}.</span>
             </Link>
+
             <p className="order-actions" style={{ opacity: orderStatusLoading || deleteOrderLoading ? 0.5 : 1 }}>
               <span>Status: {order.status}</span>
               <i
@@ -144,6 +146,7 @@ export default function Admin() {
               </i>
             </p>
           </div>
+
           {cancelledOrderId === order._id && (
             <div className="order-cancelled">
               <div>
