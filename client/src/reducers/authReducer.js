@@ -94,7 +94,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_USERS:
       return {
         ...state,
-        authLoading: falsze,
+        authLoading: false,
         users: action.payload.paginatedResults,
         getUsersError: null,
         nextUsers: action.payload.next,
