@@ -9,9 +9,8 @@ import {
   ADD_PRODUCT_LOADING,
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
+  DELETE_PRODUCT_ERROR,
   CLEAR_PRODUCT_REDUCER,
-  DELETE_PRODUCT,
-  CREATE_PRODUCT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -27,6 +26,7 @@ const INITIAL_STATE = {
   previous: null,
   editProductError: null,
   addProductError: null,
+  deleteProductError: null,
   error: null,
 };
 
@@ -118,6 +118,12 @@ export default (state = INITIAL_STATE, action) => {
         previous: null,
       };
 
+    case DELETE_PRODUCT_ERROR:
+      return {
+        ...state,
+        deleteProductError: action.payload,
+      };
+
     case CLEAR_PRODUCT_REDUCER:
       return {
         ...state,
@@ -127,6 +133,7 @@ export default (state = INITIAL_STATE, action) => {
         addProductLoading: false,
         addProduct: null,
         addProductError: null,
+        deleteProductError: null,
       };
 
     default:

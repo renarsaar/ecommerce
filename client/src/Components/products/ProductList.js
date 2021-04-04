@@ -72,9 +72,15 @@ export default function Catalog() {
 
   return (
     <div className="product-list-container">
-      {location.state && (
+      {location.state && location.state.addProduct && (
         <div className="success-container">
           New product added.
+        </div>
+      )}
+
+      {location.state && location.state.deleteProduct && (
+        <div className="success-container">
+          Product deleted successfully.
         </div>
       )}
 

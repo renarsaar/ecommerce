@@ -205,9 +205,19 @@ export default function ProductShow({ match, location }) {
               <h4>Link copied to clipboard</h4>
             </div>
           </div>
+
+
           {isLoggedIn && user.admin && (
-            <Link to={`/products/edit/${_id}`} className="btn">Edit this product</Link>
+            <div>
+              <Link to={`/products/edit/${_id}`} className="btn">Edit this product</Link>
+            </div>
           )}
+          {isLoggedIn && user.admin && (
+            <div>
+              <Link to={`/products/delete/${_id}`} className="btn err">Delete this product</Link>
+            </div>
+          )}
+
         </div>
 
         <div className="details">

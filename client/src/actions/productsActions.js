@@ -8,7 +8,7 @@ import {
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
   CLEAR_PRODUCT_REDUCER,
-  DELETE_PRODUCT,
+  DELETE_PRODUCT_ERROR,
   LOADING,
   ERROR,
 } from './types';
@@ -81,11 +81,12 @@ export const clearProductReducer = () => (dispatch) => {
 };
 
 // Delete a product
-export const deleteProduct = (id) => async (dispatch) => {
-
-};
-
-// Create a product
-export const createProduct = (id) => async (dispatch) => {
-
+export const deleteProduct = (id, token) => async (dispatch) => {
+  api.delete(`/products/${id}`, {
+    headers: {
+      'x-auth-token': token,
+    },
+  })
+    .then((response) => history.push({ pathname: "/", state: { deleteProduct: true } }))
+    .catch((error) => dispatch({ type: DELETE_PRODUCT_ERROR, payload: error.response.data }));
 };

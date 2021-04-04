@@ -209,14 +209,28 @@ router.patch('/:id', auth, getProduct, async (req, res) => {
 });
 
 // @desc    Delete a product
-// @route   POST /products/:id
+// @route   DELETE /products/:id
 // @access  Admin
-router.delete('/:id', getProduct, async (req, res) => {
+router.delete('/:id', auth, getProduct, async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  // Validate if admin
+  if (!user.isAdmin) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  // Delete image
+  fs.unlink((res.product.image), (deleteFileErr) => {
+    if (deleteFileErr) {
+      return res.status(500).send('Something went wrong deleting image');
+    }
+  });
+
   try {
     await res.product.remove();
-    res.status(200).json({ message: 'Product removed successfully' });
+    res.status(200).send('Product removed successfully');
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).send(err.message);
   }
 });
 

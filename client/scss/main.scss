@@ -39,6 +39,7 @@ a {
 }
 
 .mb-1 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 1rem; }
 
 .orange {color: $orange;}
 .show {display: block;}
@@ -79,7 +80,7 @@ a {
   }
 }
 
-.err, .red { color: $red; }
+.err, .red { color: $red !important; }
 .green { color: $green; }
 
 .rotate {
@@ -617,6 +618,9 @@ a {
       }
 
       .btn {
+        display: block;
+        width: max-content;
+        text-align: center;
         color: $black;
         margin: 1.5rem 0 0 0;
         background: $btn-bg;
@@ -857,13 +861,20 @@ a {
   }
 }
 
-.product-edit, .product-create {
+.product-edit, .product-create, .product-delete {
   width: $page-width;
   margin: 1.5rem auto;
 
   h1, h2 {
     font-weight: 500;
     margin-bottom: 0.5rem;
+  }
+
+  .delete-actions {
+    .btn {
+      margin-right: 2rem;
+      @extend %btn-shared-large;
+    }
   }
 
   &-form {

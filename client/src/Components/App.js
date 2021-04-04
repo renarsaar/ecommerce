@@ -62,7 +62,9 @@ export default function App() {
         <Route path="/products/edit/:id" exact>
           {isLoggedIn && user.admin ? <ProductEdit /> : <Redirect to="/" />}
         </Route>
-        <Route path="/products/delete/:id" exact component={ProductDelete} />
+        <Route path="/products/delete/:id" exact>
+          {isLoggedIn && user.admin ? <ProductDelete /> : <Redirect to="/" />}
+        </Route>
         <Route path="/products/:id" exact component={ProductShow} />
         <Route path="/account/login" exact>
           {isLoggedIn ? <Redirect to="/" /> : <Account login />}
