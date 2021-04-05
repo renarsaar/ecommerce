@@ -118,6 +118,21 @@ export default function Catalog() {
                 <div className="heading placeholder" />
                 <div className="heading placeholder" />
               </div>
+              <div className="product-list-item">
+                <div className="img placeholder" />
+                <div className="heading placeholder" />
+                <div className="heading placeholder" />
+              </div>
+              <div className="product-list-item">
+                <div className="img placeholder" />
+                <div className="heading placeholder" />
+                <div className="heading placeholder" />
+              </div>
+              <div className="product-list-item">
+                <div className="img placeholder" />
+                <div className="heading placeholder" />
+                <div className="heading placeholder" />
+              </div>
             </>
           )}
         {paginatedProducts && renderProducts()}
