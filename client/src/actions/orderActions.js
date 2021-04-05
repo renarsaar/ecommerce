@@ -148,7 +148,7 @@ export const changeOrderStatus = (newStatus, orderId, token, statusComment) => a
 export const fetchParcelTerminals = () => async (dispatch) => {
   dispatch({ type: GET_TERMINALS_LOADING });
 
-  api.get('/orders/omniva')
+  api.get('/parcels')
     .then((response) => dispatch({ type: GET_TERMINALS, payload: response.data }))
     .catch((error) => dispatch({ type: GET_TERMINALS_ERROR, payload: error.message }));
 };
