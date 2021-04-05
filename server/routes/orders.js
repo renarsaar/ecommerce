@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const axios = require('axios');
 const auth = require('../middleware/auth');
 const Order = require('../model/Order');
 const User = require('../model/User');
@@ -25,7 +24,7 @@ router.get('/', auth, paginatedResults(Order), async (req, res) => {
 });
 
 // @desc    Get all orders made from 1 user
-// @route   GET /orders/:username
+// @route   GET /orders/user/:username
 // @access  private
 router.get('/user/:userName', auth, paginatedResults(Order), async (req, res) => {
   try {
@@ -161,17 +160,6 @@ router.patch('/status/:id', auth, async (req, res) => {
   } catch (error) {
     res.status(500).send('Something went wrong. Please try again later.');
   }
-});
-
-// @desc    Get Omniva parcel terminal locations
-// @route   GET /orders/omniva
-// @access  public
-router.get('/omniva', async (req, res) => {
-  const BASE_URL = 'https://www.omniva.ee/locations.json';
-
-  axios.get(BASE_URL)
-    .then((response) => res.send(response.data))
-    .catch((error) => res.status(500).send({ message: error.message }));
 });
 
 function paginatedResults(model) {
