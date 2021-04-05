@@ -385,7 +385,7 @@ router.patch('/ban/:id', auth, async (req, res) => {
 });
 
 // @desc    Delete user
-// @route   POST /auth/:id
+// @route   DELETE /auth/:id
 // @access  private
 router.delete('/:id', auth, async (req, res) => {
   const user = await User.findById(req.params.id);
