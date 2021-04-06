@@ -6,7 +6,7 @@ import useFormattedCreditCardNumber from '../../Hooks/useFormattedCreditCardNumb
 
 export default function FormConfirm({ values, formErrors, prevStep }) {
   const dispatch = useDispatch();
-  const { loading, createOrderError } = useSelector((state) => state.orders);
+  const { ordersLoading, createOrderError } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.auth);
   const cartProducts = useSelector((state) => state.cart);
   const [valid, setValid] = useState(true);
@@ -86,7 +86,7 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
             </li>
           </ul>
 
-          {loading && (
+          {ordersLoading && (
             <div className="loading-container">
               <div className="loading">
                 <div />
