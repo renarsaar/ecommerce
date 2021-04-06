@@ -1,8 +1,5 @@
 import {
-  REGISTER_LOADING,
-  VALIDATE_LOADING,
-  LOG_IN_LOADING,
-  GET_USER_LOADING,
+  AUTH_LOADING,
   LOG_IN,
   GET_USER,
   VALIDATE_USER,
@@ -12,18 +9,13 @@ import {
   LOG_IN_ERROR,
   GET_USER_ERROR,
   REGISTER_ERROR,
-  GET_USERS_LOADING,
   GET_USERS,
   GET_USERS_ERROR,
-  CHANGE_PASSWORD_LOADING,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
-  DELETE_ACCOUNT_LOADING,
   DELETE_ACCOUNT_ERROR,
-  MAKE_ADMIN_LOADING,
   MAKE_ADMIN,
   MAKE_ADMIN_ERROR,
-  BAN_USER_LOADING,
   BAN_USER,
   BAN_USER_ERROR,
   CLEAR_AUTH_REDUCER,
@@ -33,7 +25,7 @@ import history from '../history';
 
 // Register a new user
 export const registerUser = (values) => async (dispatch) => {
-  dispatch({ type: REGISTER_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.post('/auth/register', {
     name: values.name,
@@ -54,7 +46,7 @@ export const registerUser = (values) => async (dispatch) => {
 
 // Authenticate user & log in
 export const logIn = (values) => async (dispatch) => {
-  dispatch({ type: LOG_IN_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.post('/auth/login', {
     email: values.email,
@@ -79,7 +71,7 @@ export const logIn = (values) => async (dispatch) => {
 
 // Validate user on OAuth request when user already exists
 export const validateOAuthUser = (values) => async (dispatch) => {
-  dispatch({ type: VALIDATE_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.patch('/auth/validation', {
     userId: values.userId,
@@ -106,7 +98,7 @@ export const validateOAuthUser = (values) => async (dispatch) => {
 
 // Get all users
 export const getUsers = (token) => async (dispatch) => {
-  dispatch({ type: GET_USERS_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.get('/auth/users', {
     headers: {
@@ -119,7 +111,7 @@ export const getUsers = (token) => async (dispatch) => {
 
 // Get the user & log in if jwt token in URL after OAuth login
 export const getUser = (token) => async (dispatch) => {
-  dispatch({ type: GET_USER_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.get('/auth/user', {
     headers: {
@@ -144,7 +136,7 @@ export const getUser = (token) => async (dispatch) => {
 
 // Change users password
 export const changeUserPassword = (id, token, values) => async (dispatch) => {
-  dispatch({ type: CHANGE_PASSWORD_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.patch(`/auth/password/${id}`, {
     oldPassword: values.oldPassword,
@@ -159,8 +151,9 @@ export const changeUserPassword = (id, token, values) => async (dispatch) => {
     .catch((error) => dispatch({ type: CHANGE_PASSWORD_ERROR, payload: error.response.data }));
 };
 
+// Give user admin status
 export const makeAdminAction = (id, token) => async (dispatch) => {
-  dispatch({ type: MAKE_ADMIN_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.patch(`/auth/admin/${id}`, {}, {
     headers: {
@@ -171,8 +164,9 @@ export const makeAdminAction = (id, token) => async (dispatch) => {
     .catch((error) => dispatch({ type: MAKE_ADMIN_ERROR, payload: error.data }));
 };
 
+// Ban user
 export const banUserAction = (id, token, banComment) => async (dispatch) => {
-  dispatch({ type: BAN_USER_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.patch(`/auth/ban/${id}`, {
     banComment,
@@ -185,13 +179,9 @@ export const banUserAction = (id, token, banComment) => async (dispatch) => {
     .catch((error) => dispatch({ type: BAN_USER_ERROR, payload: error.data }));
 };
 
-export const clearAuthReducer = () => (dispatch) => {
-  dispatch({ type: CLEAR_AUTH_REDUCER });
-};
-
 // Delete account
 export const deleteAccount = (id, token) => async (dispatch) => {
-  dispatch({ type: DELETE_ACCOUNT_LOADING });
+  dispatch({ type: AUTH_LOADING });
 
   api.delete(`/auth/${id}`, {
     headers: {
@@ -206,6 +196,12 @@ export const deleteAccount = (id, token) => async (dispatch) => {
     .catch((error) => dispatch({ type: DELETE_ACCOUNT_ERROR, payload: error.response.data }));
 };
 
+// Clear reducer back to initial state
+export const clearAuthReducer = () => (dispatch) => {
+  dispatch({ type: CLEAR_AUTH_REDUCER });
+};
+
+// Log user out & push to /
 export const logOut = () => async (dispatch) => {
   dispatch({ type: LOG_OUT });
 

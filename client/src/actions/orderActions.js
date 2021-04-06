@@ -1,17 +1,13 @@
 import {
-  GET_ORDERS_LOADING,
+  ORDERS_LOADING,
   GET_ORDERS,
   GET_ORDERS_ERROR,
-  GET_ORDER_LOADING,
   GET_ORDER,
   GET_ORDER_ERROR,
-  GET_USER_ORDERS_LOADING,
   GET_USER_ORDERS,
   GET_USER_ORDERS_ERROR,
-  CREATE_ORDER_LOADING,
   CREATE_ORDER,
   CREATE_ORDER_ERROR,
-  GET_TERMINALS_LOADING,
   GET_TERMINALS,
   GET_TERMINALS_ERROR,
   CHANGE_ORDER_STATUS_LOADING,
@@ -26,7 +22,7 @@ import history from '../history';
 
 // Get all orders
 export const getOrders = (page, token) => async (dispatch) => {
-  dispatch({ type: GET_ORDERS_LOADING });
+  dispatch({ type: ORDERS_LOADING });
 
   api.get('/orders', {
     headers: {
@@ -44,7 +40,7 @@ export const getOrders = (page, token) => async (dispatch) => {
 
 // Get all new orders
 export const getNewOrders = (page, token) => async (dispatch) => {
-  dispatch({ type: GET_ORDERS_LOADING });
+  dispatch({ type: ORDERS_LOADING });
 
   api.get('/orders', {
     headers: {
@@ -62,7 +58,7 @@ export const getNewOrders = (page, token) => async (dispatch) => {
 
 // Get single order
 export const getOrder = (id, token) => async (dispatch) => {
-  dispatch({ type: GET_ORDER_LOADING });
+  dispatch({ type: ORDERS_LOADING });
 
   api.get(`/orders/${id}`, {
     headers: {
@@ -75,7 +71,7 @@ export const getOrder = (id, token) => async (dispatch) => {
 
 // Get all order made from one User
 export const getUserOrders = (userName, page, token) => async (dispatch) => {
-  dispatch({ type: GET_USER_ORDERS_LOADING });
+  dispatch({ type: ORDERS_LOADING });
 
   api.get(`/orders/user/${userName}`, {
     headers: {
@@ -93,7 +89,7 @@ export const getUserOrders = (userName, page, token) => async (dispatch) => {
 
 // Create a new order
 export const createOrder = (values) => async (dispatch) => {
-  dispatch({ type: CREATE_ORDER_LOADING });
+  dispatch({ type: ORDERS_LOADING });
 
   api.post('/orders', {
     user: values.user,
@@ -146,7 +142,7 @@ export const changeOrderStatus = (newStatus, orderId, token, statusComment) => a
 
 // Get Omniva parcel terminal locations
 export const fetchParcelTerminals = () => async (dispatch) => {
-  dispatch({ type: GET_TERMINALS_LOADING });
+  dispatch({ type: ORDERS_LOADING });
 
   api.get('/parcels')
     .then((response) => dispatch({ type: GET_TERMINALS, payload: response.data }))
