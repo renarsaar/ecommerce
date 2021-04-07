@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
         reviewsLoading: true,
         reviews: null,
         reviewsError: null,
-      }
+      };
 
     case GET_REVIEWS:
       return {
@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
         reviewsLoading: false,
         reviews: action.payload,
         reviewsError: null,
-      }
+      };
 
     case GET_REVIEWS_ERROR:
       return {
@@ -41,7 +41,7 @@ export default (state = INITIAL_STATE, action) => {
         reviewsLoading: false,
         reviews: null,
         reviewsError: action.payload,
-      }
+      };
 
     case POST_REVIEW_LOADING:
       return {
@@ -49,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
         postReviewLoading: true,
         postReview: null,
         postReviewError: null,
-      }
+      };
 
     case POST_REVIEW:
       return {
@@ -57,7 +57,7 @@ export default (state = INITIAL_STATE, action) => {
         postReviewLoading: false,
         postReview: action.payload,
         postReviewError: null,
-      }
+      };
 
     case POST_REVIEW_ERROR:
       return {
@@ -65,7 +65,7 @@ export default (state = INITIAL_STATE, action) => {
         postReviewLoading: false,
         postReview: null,
         postReviewError: action.payload,
-      }
+      };
 
     case CLEAR_REVIEW_REDUCER:
       return {
@@ -73,7 +73,7 @@ export default (state = INITIAL_STATE, action) => {
         postReviewLoading: false,
         postReview: null,
         postReviewError: null,
-      }
+      };
 
     default:
       return state;

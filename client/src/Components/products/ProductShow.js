@@ -194,6 +194,7 @@ export default function ProductShow({ match, location }) {
       <div className="product-show-item">
         <div className="gallery">
           <img src={`http://localhost:8080/${image}`} alt={name} />
+
           <div className="share">
             <h3>Share this product</h3>
             <i className="tooltip las la-question-circle">
@@ -206,7 +207,6 @@ export default function ProductShow({ match, location }) {
             </div>
           </div>
 
-
           {isLoggedIn && user.admin && (
             <div>
               <Link to={`/products/edit/${_id}`} className="btn">Edit this product</Link>
@@ -217,7 +217,6 @@ export default function ProductShow({ match, location }) {
               <Link to={`/products/delete/${_id}`} className="btn err">Delete this product</Link>
             </div>
           )}
-
         </div>
 
         <div className="details">
@@ -226,6 +225,7 @@ export default function ProductShow({ match, location }) {
             {discountPrice === price ? price : discountPrice}
             €
           </h2>
+
           <div className="container">
             <div className="description">
               <h2>Description</h2>
@@ -233,6 +233,7 @@ export default function ProductShow({ match, location }) {
                 {description.map((item) => <li key={item}>{item}</li>)}
               </ul>
             </div>
+
             <div className="size">
               <h2>Size</h2>
               <ul>
@@ -248,6 +249,7 @@ export default function ProductShow({ match, location }) {
                 ))}
               </ul>
             </div>
+
             <div className="quantity">
               <h2>
                 Quantity
@@ -260,9 +262,23 @@ export default function ProductShow({ match, location }) {
             </div>
 
             <div className="product-actions" style={{ display: stock[sizes.indexOf(size)] == 0 ? 'none' : 'block' }}>
-              <button type="button" value="decrement" className="increment" onClick={handleQuantity}>-</button>
+              <button
+                type="button"
+                value="decrement"
+                className="increment"
+                onClick={handleQuantity}
+              >
+                -
+              </button>
               <span>{quantity}</span>
-              <button type="button" value="increment" className="decrement" onClick={handleQuantity}>+</button>
+              <button
+                type="button"
+                value="increment"
+                className="decrement"
+                onClick={handleQuantity}
+              >
+                +
+              </button>
 
               <button type="button" className="btn add-cart" onClick={handleCart}>Add to cart</button>
 
@@ -328,6 +344,7 @@ export default function ProductShow({ match, location }) {
         <textarea cols="40" rows="4" onChange={(e) => setReview(e.target.value)} />
 
         <input type="submit" className="btn" value="Submit review" onClick={(e) => handlePostReviewAction(e)} />
+
         {postReviewLoading && (
           <div className="loading-container">
             <div className="loading">
@@ -395,12 +412,14 @@ export default function ProductShow({ match, location }) {
       {loading && <div>{renderPlaceHolder()}</div>}
       {selectedProduct && <>{renderProduct()}</>}
       {error && <div>error</div>}
+
       {reviews && (
         <>
           {renderPostReviewForm()}
           {renderReviews()}
         </>
       )}
+
       {postReview && (
         <Modal
           isOpen={modalIsOpen}

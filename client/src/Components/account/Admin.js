@@ -117,6 +117,7 @@ export default function Admin() {
               >
                 <span className="tooltiptext">Mark as Seen</span>
               </i>
+
               <i
                 className="las la-check tooltip"
                 onClick={() => handleOrderStatus(order.status, 'Completed', order._id)}
@@ -124,6 +125,7 @@ export default function Admin() {
               >
                 <span className="tooltiptext">Mark as Completed</span>
               </i>
+
               <i
                 className="las la-spinner tooltip"
                 onClick={() => handleOrderStatus(order.status, 'Active', order._id)}
@@ -131,6 +133,7 @@ export default function Admin() {
               >
                 <span className="tooltiptext">Mark as Active</span>
               </i>
+
               <i
                 className="las la-times tooltip"
                 style={{ color: order.status === 'Cancelled' ? '#d50d0d' : '#0a0a0a' }}
@@ -138,6 +141,7 @@ export default function Admin() {
               >
                 <span className="tooltiptext">Mark as Cancelled</span>
               </i>
+
               <i
                 className="las la-trash-alt tooltip"
                 onClick={() => dispatch(deleteOrder(order._id, sessionStorage.token))}
@@ -159,6 +163,7 @@ export default function Admin() {
                   <option value="Technical problems proccesing order">Technical problems proccesing order</option>
                 </select>
               </div>
+
               <button
                 className="btn"
                 type="button"
@@ -201,6 +206,7 @@ export default function Admin() {
               <p>{user.email},</p>
               <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
             </div>
+
             <div>
               {!user.isAdmin && !user.isBanned && (
                 <>
@@ -210,6 +216,7 @@ export default function Admin() {
                   >
                     <span className="tooltiptext">Make this user Admin</span>
                   </i>
+
                   <i
                     className="las la-user-lock tooltip"
                     onClick={() => setBanUserId(banUserId === user._id ? '' : user._id)}
@@ -218,6 +225,7 @@ export default function Admin() {
                   </i>
                 </>
               )}
+
               {!user.isAdmin && user.isBanned && (
                 <>
                   <i
@@ -228,20 +236,29 @@ export default function Admin() {
                   </i>
                 </>
               )}
+
               {user.isAdmin && (
                 <p>Admin</p>
               )}
+
               {user.isBanned && (
                 <p className="err">Banned. {user.banComment}</p>
               )}
             </div>
           </div>
+
           {banUserId === user._id && (
             <div className="ban-user">
               <div>
                 <label>Please specify the reason</label>
-                <textarea onChange={(e) => setBanComment(e.target.value)} name="banComment" rows="3" cols="50" />
+                <textarea
+                  onChange={(e) => setBanComment(e.target.value)}
+                  name="banComment"
+                  rows="3"
+                  cols="50"
+                />
               </div>
+
               <button
                 className="btn"
                 type="button"
@@ -310,13 +327,25 @@ export default function Admin() {
     return (
       <div>
         {previousOrders && (
-          <div className="btn next-page" onClick={() => handleClickPreviousPage(previousOrders.page)}>{previousOrders.page}</div>
+          <div
+            className="btn next-page"
+            onClick={() => handleClickPreviousPage(previousOrders.page)}
+          >
+            {previousOrders.page}
+          </div>
         )}
+
         {currentOrdersPage && (
           <div className="btn current-page highlight">{currentOrdersPage}</div>
         )}
+
         {nextOrders && (
-          <div className="btn previous-page" onClick={() => handleClickNextPage(nextOrders.page)}>{nextOrders.page}</div>
+          <div
+            className="btn previous-page"
+            onClick={() => handleClickNextPage(nextOrders.page)}
+          >
+            {nextOrders.page}
+          </div>
         )}
       </div>
     );
@@ -330,13 +359,25 @@ export default function Admin() {
     return (
       <div>
         {previousUsers && (
-          <div className="btn next-page" onClick={() => handleClickPreviousPage(previousUsers.page)}>{previousUsers.page}</div>
+          <div
+            className="btn next-page"
+            onClick={() => handleClickPreviousPage(previousUsers.page)}
+          >
+            {previousUsers.page}
+          </div>
         )}
+
         {currentUsersPage && (
           <div className="btn current-page highlight">{currentUsersPage}</div>
         )}
+
         {nextUsers && (
-          <div className="btn previous-page" onClick={() => handleClickNextPage(nextUsers.page)}>{nextUsers.page}</div>
+          <div
+            className="btn previous-page"
+            onClick={() => handleClickNextPage(nextUsers.page)}
+          >
+            {nextUsers.page}
+          </div>
         )}
       </div>
     );
@@ -350,9 +391,15 @@ export default function Admin() {
           <p>{user.name}</p>
           <p>{user.email}</p>
           <p>Status: Admin</p>
-          <button type="button" className="btn" onClick={togglePasswordForm}>
+
+          <button
+            type="button"
+            className="btn"
+            onClick={togglePasswordForm}
+          >
             Change password
           </button>
+
           {showPasswordForm && <ChangePasswordForm />}
         </div>
 
@@ -369,6 +416,7 @@ export default function Admin() {
           >
             All Orders
           </button>
+
           <button
             type="button"
             className="btn"
@@ -388,7 +436,11 @@ export default function Admin() {
         </div>
       </div>
 
-      <button type="button" className="btn log-out" onClick={handleLogOut}>
+      <button
+        type="button"
+        className="btn log-out"
+        onClick={handleLogOut}
+      >
         Log out
         <i className="las la-sign-out-alt" />
       </button>

@@ -54,6 +54,10 @@ class ProductCreate extends React.Component {
     const newStockArray = [...stock];
     const newDesctiptionArray = [...description];
 
+    const optionValues = [
+      'Shirts', 'Suits', 'Sweatshirts', 'Jackets', 'Shoes', 'Jeans', 'Hats', 'Socks', '',
+    ];
+
     switch (name) {
       case 'sizes':
         newSizesArray[index] = value;
@@ -84,10 +88,6 @@ class ProductCreate extends React.Component {
         break;
 
       case 'subCategory':
-        const optionValues = [
-          'Shirts', 'Suits', 'Sweatshirts', 'Jackets', 'Shoes', 'Jeans', 'Hats', 'Socks', '',
-        ];
-
         if (optionValues.includes(value)) {
           this.setState({ [name]: value, otherCategory: false });
         }

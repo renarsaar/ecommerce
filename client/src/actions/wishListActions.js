@@ -48,7 +48,7 @@ export const setWishListDB = (userId, newWishListArray, token) => async (dispatc
   }, {
     headers: {
       'x-auth-token': token,
-    }
+    },
   })
     .then((response) => dispatch({ type: SET_WISHLIST_DB, payload: response.data }))
     .catch((error) => console.log(error));

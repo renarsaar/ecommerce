@@ -41,11 +41,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // case GET_ORDERS_LOADING:
-    // case GET_ORDER_LOADING:
-    // case GET_USER_ORDERS_LOADING:
-    // case CREATE_ORDER_LOADING:
-    // case GET_TERMINALS_LOADING:
     case ORDERS_LOADING:
       return {
         ...state,
@@ -184,7 +179,7 @@ export default (state = INITIAL_STATE, action) => {
         deleteOrderLoading: false,
         deleteOrderMessage: null,
         deleteOrderError: action.payload,
-      }
+      };
 
     default:
       return state;

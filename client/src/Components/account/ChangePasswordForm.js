@@ -35,7 +35,11 @@ export default function ChangePasswordForm() {
   }
 
   return (
-    <form className="change-password-form" onChange={handleFormChange} style={{ opacity: authLoading ? '0.4' : '1' }}>
+    <form
+      className="change-password-form"
+      onChange={handleFormChange}
+      style={{ opacity: authLoading ? '0.4' : '1' }}
+    >
       {authLoading && (
         <div className="loading-container">
           <div className="loading">

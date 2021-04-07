@@ -5,7 +5,6 @@ const Product = require('../model/Product');
 const User = require('../model/User');
 const { addProductValidation } = require('../validation');
 const auth = require('../middleware/auth');
-const { file_v1 } = require('googleapis');
 
 // Store files to /uploads
 const storage = multer.diskStorage({

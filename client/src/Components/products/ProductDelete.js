@@ -18,7 +18,13 @@ export default function ProductDelete() {
       Are you sure you want to delete this product?
 
       <div className="delete-actions">
-        <button className="btn" onClick={() => dispatch(deleteProduct(selectedProduct._id, sessionStorage.token))}>Yes, delete</button>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => dispatch(deleteProduct(selectedProduct._id, sessionStorage.token))}
+        >
+          Yes, delete
+        </button>
         <Link to={`/products/${selectedProduct._id}`} className="btn">No, return</Link>
       </div>
 

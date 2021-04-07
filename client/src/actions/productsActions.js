@@ -87,6 +87,6 @@ export const deleteProduct = (id, token) => async (dispatch) => {
       'x-auth-token': token,
     },
   })
-    .then((response) => history.push({ pathname: "/", state: { deleteProduct: true } }))
+    .then((response) => history.push({ pathname: '/', state: { deleteProduct: true } }))
     .catch((error) => dispatch({ type: DELETE_PRODUCT_ERROR, payload: error.response.data }));
 };

@@ -30,7 +30,7 @@ export const postReviewAction = (productId, reviewerName, review, rating) => asy
   })
     .then((response) => dispatch({ type: POST_REVIEW, payload: response.data }))
     .catch((error) => {
-      dispatch({ type: POST_REVIEW_ERROR, payload: error.response.data })
+      dispatch({ type: POST_REVIEW_ERROR, payload: error.response.data });
     });
 };
 

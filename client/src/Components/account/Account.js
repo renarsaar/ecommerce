@@ -30,7 +30,14 @@ export default function Account({
       <div className="showcase">
         <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="vra-ecommerce" />
         <div />
-        <h2>Photo by <a href="https://unsplash.com/photos/c9FQyqIECds">Unsplash</a></h2>
+
+        <h2>
+          Photo by
+          {' '}
+          <a href="https://unsplash.com/photos/c9FQyqIECds">
+            Unsplash
+          </a>
+        </h2>
       </div>
     </div>
   );

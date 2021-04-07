@@ -131,7 +131,7 @@ export default (state = INITIAL_STATE, action) => {
         makeAdmin: null,
         banUserError: null,
         makeAdminError: null,
-      }
+      };
 
     case CLEAR_AUTH_REDUCER:
       return {
@@ -206,7 +206,7 @@ export default (state = INITIAL_STATE, action) => {
         authLoading: false,
         makeAdmin: null,
         makeAdminError: action.payload,
-      }
+      };
 
     case BAN_USER_ERROR:
       return {
