@@ -213,35 +213,37 @@ class ProductCreate extends React.Component {
     };
 
     return (
-      <div className="product-create">
-        <div className="product-edit">
-          <h1>Add a new Product product</h1>
+      <>
+        <div className="product-create container-high">
+          <div>
+            <h1>Add a new Product product</h1>
 
-          <ProductChangeForm
-            product={product}
-            products={products}
-            otherCategory={otherCategory}
-            handleChange={this.handleChange}
-            addDescription={this.addDescription}
-            removeDescription={this.removeDescription}
-            addStockColumn={this.addStockColumn}
-            removeStockColumn={this.removeStockColumn}
-            handleSubmit={this.onSubmit}
-          />
+            <ProductChangeForm
+              product={product}
+              products={products}
+              otherCategory={otherCategory}
+              handleChange={this.handleChange}
+              addDescription={this.addDescription}
+              removeDescription={this.removeDescription}
+              addStockColumn={this.addStockColumn}
+              removeStockColumn={this.removeStockColumn}
+              handleSubmit={this.onSubmit}
+            />
+          </div>
+
+          {addProductError && (
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={this.closeModal}
+              style={customModalStyles}
+            >
+              <h2>{addProductError}</h2>
+            </Modal>
+          )}
+
         </div>
-
-        {addProductError && (
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={this.closeModal}
-            style={customModalStyles}
-          >
-            <h2>{addProductError}</h2>
-          </Modal>
-        )}
-
         <ProductPreview product={product} />
-      </div>
+      </>
     );
   }
 }

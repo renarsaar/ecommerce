@@ -80,36 +80,41 @@ export default function Header() {
   }
 
   return (
-    <div className="header">
-      <ul className="header-navbar">
+    <div className="header container">
+      <div className="header-navbar flex">
         <Link to="/">
           <svg viewBox="0 0 40 80">
             <path d="M38.9811 65.6179L0.972576 79.0502L0.981143 67.4909L38.9896 54.0625M38.9811 65.6179L38.9896 54.0625M38.9811 65.6179L0.989563 52.1291L0.99813 40.5792L19.9939 47.3208L38.9896 54.0625" />
             <path d="M1.01001 26.0827C15.8466 31.3683 24.1649 34.3317 39.0015 39.6173L39.01 28.063C24.1734 22.777 15.8552 19.8133 1.01858 14.5273M1.01001 26.0827L1.01858 14.5273M1.01001 26.0827C15.8533 20.822 24.1753 17.8725 39.0185 12.6117C39.0219 8.08807 39.0238 5.55183 39.0271 1.02817C24.1838 6.29992 15.8618 9.25558 1.01858 14.5273" />
           </svg>
         </Link>
-        <li className={shop ? 'item active' : 'item'} onClick={handleShop}>
+
+        <h4 className={shop ? 'item active' : 'item'} onClick={handleShop}>
           Shop
-        </li>
-        <li className={fabric ? 'item active' : 'item'} onClick={handleFabric}>
+        </h4>
+
+        <h4 className={fabric ? 'item active' : 'item'} onClick={handleFabric}>
           Fabric
-        </li>
-        <li className={journal ? 'item active' : 'item'} onClick={handleJournal}>
+        </h4>
+
+        <h4 className={journal ? 'item active' : 'item'} onClick={handleJournal}>
           Journal
-        </li>
-        <li className={about ? 'item active' : 'item'} onClick={handleAbout}>
+        </h4>
+
+        <h4 className={about ? 'item active' : 'item'} onClick={handleAbout}>
           About
-        </li>
-      </ul>
+        </h4>
+      </div>
 
       <div className="header-actions">
-        <Link to={handleAccountLink} style={{ color: 'inherit' }}>
+        <Link to={handleAccountLink} className="link">
           <span>
-            <h1 className={loading ? 'placeholder' : ''}>
+            <h4 className={loading ? 'placeholder' : ''}>
               {user && `Welcome, ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`}
               {loading && ''}
               {!user && !loading && 'Account'}
-            </h1>
+            </h4>
+
             <i className="lar la-user-circle" />
           </span>
         </Link>
@@ -129,11 +134,20 @@ export default function Header() {
         </i>
 
         <i
-          className={showCart ? 'cart-icon las la-shopping-bag orange' : 'cart-icon las la-shopping-bag'}
+          className={
+            showCart
+              ? 'cart-icon las la-shopping-bag orange'
+              : 'cart-icon las la-shopping-bag'
+          }
           onClick={handleCart}
         >
-          {cartProducts.length > 0 && <p className="cart-length-number">{cartProducts.length}</p>}
+          {cartProducts.length > 0 && (
+            <p className="cart-length-number">
+              {cartProducts.length}
+            </p>
+          )}
         </i>
+
         <CartModal showCart={showCart} />
       </div>
     </div>

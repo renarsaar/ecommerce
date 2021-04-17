@@ -15,8 +15,12 @@ export default function CartModal({ showCart }) {
       <li key={product.key}>
         <div className="cart-product">
           <img src={`http://localhost:8080/${product.image}`} alt={product.name} />
-          <div className="info">
-            <Link to={`/products/${product.id}`}>{product.name} x {product.quantity}</Link>
+
+          <div className="info block">
+            <Link to={`/products/${product.id}`}>
+              {product.name} x {product.quantity}
+            </Link>
+
             <div>
               <p>Size: {product.size}</p>
               <p>{product.totalPrice.toFixed(2)} €</p>
@@ -41,15 +45,15 @@ export default function CartModal({ showCart }) {
   return ReactDOM.createPortal(
     <div className={modalClassName}>
       <div className="modal-main">
-        <h2>Shopping Cart</h2>
+        <h2 className="mb-1 txt-bold">Shopping Cart</h2>
 
         <ul className="modal-items">
           {cartProducts && renderCartItems()}
         </ul>
 
-        <h1 className="price-total">
+        <h3 className="price-total txt-bold mb-1">
           {cartProducts.length >= 1 && `Total Price: ${handleCartPrice()} €`}
-        </h1>
+        </h3>
 
         {cartProducts.length >= 1 && <Link className="link" to="/cart/checkout">Proceed to Checkout</Link>}
       </div>

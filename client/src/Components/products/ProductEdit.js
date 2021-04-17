@@ -229,7 +229,7 @@ class ProductEdit extends React.Component {
 
     return (
       <>
-        <div className="product-edit">
+        <div className="container-high">
           <h1>Edit product</h1>
 
           <ProductChangeForm

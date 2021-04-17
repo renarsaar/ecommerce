@@ -79,7 +79,12 @@ export default function Filter() {
   function renderApparels(apparels) {
     return apparels.map((category) => (
       <li
-        style={{ color: apparelTerm === category ? '#ff600a' : '#0a0a0a' }}
+        className="txt-uppercase"
+        style={{
+          color: apparelTerm === category
+            ? '#ff600a'
+            : '#0a0a0a'
+        }}
         key={category}
         value={category}
         onClick={() => handleClickApparel(category, products)}
@@ -93,7 +98,12 @@ export default function Filter() {
   function renderBrands(brands) {
     return brands.map((brand) => (
       <li
-        style={{ color: brandTerm === brand ? '#ff600a' : '#0a0a0a' }}
+        className="txt-uppercase"
+        style={{
+          color: brandTerm === brand
+            ? '#ff600a'
+            : '#0a0a0a'
+        }}
         key={brand}
         value={brand}
         onClick={() => handleCLickBrand(brand, products)}
@@ -106,26 +116,58 @@ export default function Filter() {
   return (
     <div className="filter">
       <div className="heading">
-        <h4>Filters</h4>
-        <h4 onClick={handleResetFilters}>Reset</h4>
+        <h4 className="txt-uppercase">Filters</h4>
+        <h4 className="txt-uppercase link-orange" onClick={handleResetFilters}>
+          Reset
+        </h4>
       </div>
 
       <div className="apparels">
-        <h2 onClick={() => setShowApparelsMenu(!showApparelsMenu)}>
+        <h2
+          className="mb-1"
+          onClick={() => setShowApparelsMenu(!showApparelsMenu)}
+        >
           Apparels
-          <i className={showApparelsMenu ? 'las la-angle-down rotate' : 'las la-angle-down'} />
+
+          <i className={
+            showApparelsMenu
+              ? 'las la-angle-down rotate'
+              : 'las la-angle-down'
+          }
+          />
         </h2>
-        <ul className={showApparelsMenu ? 'show' : 'hide'}>
+
+        <ul className={
+          showApparelsMenu
+            ? 'show ml-1 mb-2'
+            : 'hide ml-1 mb-2'
+        }
+        >
           {products && renderApparels(apparelsList)}
         </ul>
       </div>
 
       <div className="brands">
-        <h2 onClick={() => setShowBrandsMenu(!showBrandsMenu)}>
+        <h2
+          className="mb-1"
+          onClick={() => setShowBrandsMenu(!showBrandsMenu)}
+        >
           Brands
-          <i className={showBrandsMenu ? 'las la-angle-down rotate' : 'las la-angle-down'} />
+
+          <i className={
+            showBrandsMenu
+              ? 'las la-angle-down rotate'
+              : 'las la-angle-down'
+          }
+          />
         </h2>
-        <ul className={showBrandsMenu ? 'show' : 'hide'}>
+
+        <ul className={
+          showBrandsMenu
+            ? 'ml-1 mb-2 show'
+            : 'ml-1 mb-2 hide'
+        }
+        >
           {products && renderBrands(brandsList)}
         </ul>
       </div>

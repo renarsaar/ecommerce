@@ -44,7 +44,7 @@ export default function ProductChangeForm({
   }
 
   return (
-    <form className="product-edit-form" onSubmit={handleSubmit}>
+    <form className="product-edit-form mt-1" onSubmit={handleSubmit}>
       <label>Name</label>
       <input
         type="text"
@@ -71,7 +71,7 @@ export default function ProductChangeForm({
             onBlur={(e) => handleChange(e, index)}
           />
 
-          <div>
+          <div className="ml-1">
             <i className="tooltip las red la-minus-circle" onClick={() => removeDescription(index)} >
               <span className="tooltiptext">Delete this row</span>
             </i>
@@ -83,7 +83,7 @@ export default function ProductChangeForm({
         </div>
       ))}
 
-      <div className="flex-between">
+      <div className="flex-inputs">
         <div>
           <label>Sizes</label>
           {sizes.map((item, index) => (
@@ -123,9 +123,8 @@ export default function ProductChangeForm({
         </div>
       </div>
 
-      <div className="flex-between">
+      <div className="flex-inputs">
         <div>
-          {/* {subCategory && handleSubCategories()} */}
           {handleSubCategories()}
 
           {otherCategory === true && (
@@ -152,7 +151,7 @@ export default function ProductChangeForm({
         </div>
       </div>
 
-      <div className="flex-between">
+      <div className="flex-inputs">
         <div>
           <label>Price</label>
           <input
@@ -178,7 +177,7 @@ export default function ProductChangeForm({
         </div>
       </div>
 
-      <div className="flex-between">
+      <div className="flex-inputs mb-2">
         <div>
           <label>Gender</label>
           <select
@@ -202,7 +201,7 @@ export default function ProductChangeForm({
         </div>
       </div>
 
-      <input className="btn" type="submit" value="Confirm Changes" />
+      <input type="submit" className="btn" value="Confirm Changes" />
     </form>
   );
 }

@@ -52,13 +52,18 @@ export default function Product({ product }) {
   return (
     <div className="product-list-item">
       <img src={`http://localhost:8080/${image}`} alt={name} />
+
       {newProduct()}
       {discountAmount()}
       {wishListedProduct()}
-      <Link to={`/products/${_id}`}>
-        <h1>{name}</h1>
-        <p>
-          {discountPrice === price ? price : discountPrice}
+
+      <Link className="link" to={`/products/${_id}`}>
+        <p className="heading">{name}</p>
+
+        <p className="price">
+          {discountPrice === price
+            ? price
+            : discountPrice}
           €
         </p>
       </Link>

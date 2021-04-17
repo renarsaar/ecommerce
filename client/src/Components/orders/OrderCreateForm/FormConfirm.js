@@ -64,7 +64,7 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
   }
 
   return (
-    <div className="order-create">
+    <div className="order-create container">
       <div className="order-confirm">
         <div className="order-confirm-container">
           <ul>
@@ -73,7 +73,9 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
             <li>
               Delivery:
               <span className="delivery-address">
-                {'deliveryMethod' in values && values.deliveryMethod === 'Omniva' ? values.deliveryOmniva : values.deliveryCourier}
+                {'deliveryMethod' in values && values.deliveryMethod === 'Omniva'
+                  ? values.deliveryOmniva
+                  : values.deliveryCourier}
               </span>
             </li>
             <li>
@@ -97,12 +99,12 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
             </div>
           )}
 
-          <div className="card-details">
-            <p>Card Holder: {values.cardHolder}</p>
-            <p>Card Number: {useFormattedCreditCardNumber(values.cardNumber)}</p>
-            <p>CVV Code: {values.cvv}</p>
-            <p>Expiry Date: {values.expiryM}/{values.expiryY}</p>
-          </div>
+          <ul>
+            <li>Card Holder: {values.cardHolder}</li>
+            <li>Card Number: {useFormattedCreditCardNumber(values.cardNumber)}</li>
+            <li>CVV Code: {values.cvv}</li>
+            <li>Expiry Date: {values.expiryM}/{values.expiryY}</li>
+          </ul>
         </div>
 
         {createOrderError && <h3>Error while making an order. Please try again later</h3>}
@@ -113,6 +115,7 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
             onClick={prevStep}
             value="Go Back"
           />
+
           <input
             type="submit"
             onClick={handleCreateOrder}

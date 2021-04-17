@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchProducts } from '../../actions/productsActions';
 
+import ProductGridPlaceholder from './ProductGridPlaceholder';
 import Product from './Product';
 
 export default function Catalog() {
@@ -56,13 +57,20 @@ export default function Catalog() {
     if (previous) currentPage = previous.page + 1;
 
     return (
-      <div className={filteredProducts ? 'hide' : 'product-page-nav'}>
+      <div className={
+        filteredProducts
+          ? 'hide'
+          : 'product-prev-next mb-2'
+      }
+      >
         {previous && (
           <div className="btn" onClick={() => handleClickPreviousPage(previous.page)}>{previous.page}</div>
         )}
+
         {currentPage && (
           <div className="btn highlight">{currentPage}</div>
         )}
+
         {next && (
           <div className="btn" onClick={() => handleClickNextPage(next.page)}>{next.page}</div>
         )}
@@ -71,7 +79,7 @@ export default function Catalog() {
   }
 
   return (
-    <div className="product-list-container">
+    <div className="container">
       {location.state && location.state.addProduct && (
         <div className="success-container">
           New product added.
@@ -85,59 +93,11 @@ export default function Catalog() {
       )}
 
       <div className="product-list">
-        {loading
-          && (
-            <>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-              <div className="product-list-item">
-                <div className="img placeholder" />
-                <div className="heading placeholder" />
-                <div className="heading placeholder" />
-              </div>
-            </>
-          )}
+        {loading && <ProductGridPlaceholder />}
         {paginatedProducts && renderProducts()}
         {error && <div>error</div>}
       </div>
+
       {paginatedProducts && handlePreviousNextPage()}
     </div>
   );

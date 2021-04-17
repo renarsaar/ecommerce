@@ -72,15 +72,15 @@ export default function Register() {
 
   return (
     <>
-      <h1 className="headline">Register a new Account</h1>
+      <h1 className="headline mb-2">Register a new Account</h1>
 
       <button
         type="button"
-        className="login-google"
+        className="google-btn"
         onClick={handleOAuth2Request}
       >
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="signin-google" />
-        <h1>Sign up with Google</h1>
+        <h3>Sign up with Google</h3>
       </button>
 
       <span>or</span>
@@ -138,11 +138,11 @@ export default function Register() {
         )}
       </form>
 
-      <h3>
+      <h4>
         Have an account?
         {' '}
         <Link to="/account/login">Log in now</Link>
-      </h3>
+      </h4>
     </>
   );
 }

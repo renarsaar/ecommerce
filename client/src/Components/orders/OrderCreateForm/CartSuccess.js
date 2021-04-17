@@ -14,8 +14,8 @@ export default function CartSuccess() {
   return (
     <>
       <ProgressBar stepNumber={4} stepInfo="Success" />
-      <div className="order-success">
-        <h3>Order Created</h3>
+      <div className="order-success container-high">
+        <h3 className="mb-1">Order Created</h3>
         <Link to="/" className="link">Back to Home</Link>
       </div>
     </>

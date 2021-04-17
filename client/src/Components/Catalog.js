@@ -13,7 +13,7 @@ export default function Catalog() {
   } = useSelector((state) => state.menu);
 
   return (
-    <div className="catalog">
+    <div className="catalog container-high flex">
       {shop && (
         <>
           <Filter />

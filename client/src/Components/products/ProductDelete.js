@@ -13,14 +13,18 @@ export default function ProductDelete() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   if (deleteProductError) dispatch(clearProductReducer());
+  // }, []);
+
   return (
-    <div className="product-delete">
+    <div className="product-delete container-high">
       Are you sure you want to delete this product?
 
       <div className="delete-actions">
         <button
           type="button"
-          className="btn"
+          className="btn mr-2"
           onClick={() => dispatch(deleteProduct(selectedProduct._id, sessionStorage.token))}
         >
           Yes, delete

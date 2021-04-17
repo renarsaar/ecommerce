@@ -25,8 +25,9 @@ export default function FormPersonalDetails({
 
     if (values.deliveryMethod === 'Omniva') {
       return (
-        <div className="omniva">
+        <div className="omniva mt-1">
           <label htmlFor="deliveryOmniva">Choose Omniva parcel location</label>
+
           <select value={values.deliveryOmniva} name="deliveryOmniva" onChange={handleChange}>
             {terminals && terminals
               .filter((terminal) => terminal.TYPE === '0' && terminal.A0_NAME === 'EE')
@@ -44,7 +45,7 @@ export default function FormPersonalDetails({
 
     if (values.deliveryMethod === 'Courier') {
       return (
-        <div className="courier">
+        <div className="courier mt-1">
           <label htmlFor="deliveryAddress">
             Delivery Address
             <p className="err">{formErrors.deliveryCourier}</p>
@@ -65,10 +66,10 @@ export default function FormPersonalDetails({
   }
 
   return (
-    <div className="order-create">
-      <form className="personal-details">
-        <div className="form-container">
-          <div className="row">
+    <div className="order-create container-high">
+      <form className="personal-details-form">
+        <div className="personal-details-container">
+          <div className="form-row">
             <label htmlFor="name">
               Name
               <p className="err">{formErrors.name}</p>
@@ -100,8 +101,8 @@ export default function FormPersonalDetails({
               placeholder={user ? user.email : ''}
             />
 
-            <h4>Choose a delivery method</h4>
-            <div className="delivery-method">
+            <h4 className="mt-1">Choose a delivery method</h4>
+            <div className="delivery-method mt-1">
               <label htmlFor="Omniva">
                 <input
                   type="radio"
@@ -132,7 +133,7 @@ export default function FormPersonalDetails({
             {renderDeliveryMethod()}
           </div>
 
-          <div className="row">
+          <div className="form-row">
             <label htmlFor="cardHolder">
               Cardholder Name
               <p className="err">{formErrors.cardHolder}</p>

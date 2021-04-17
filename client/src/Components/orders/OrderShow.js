@@ -26,15 +26,16 @@ export default function OrderShow({ match }) {
   // Render order
   function renderOrder() {
     return (
-      <div className="order-container">
+      <div className="order-container container-high">
         <div className="order-single">
-          <div className="order-info">
+          <div className="order-info mr-2">
             <h3>Order made at {new Date(selectedOrder.date).toLocaleDateString('en-GB')}</h3>
             <h3>Orderer: {selectedOrder.user}</h3>
             <h3>Email: {selectedOrder.email}</h3>
             <h3>Delivery: {selectedOrder.delivery}</h3>
             <h3>Total Price: {selectedOrder.totalPrice}€</h3>
           </div>
+
           <div className="order-products">
             {selectedOrder.products.map((product) => (
               <Link
@@ -47,10 +48,13 @@ export default function OrderShow({ match }) {
                   <h3>Size: {product.size}</h3>
                   <h3>{product.totalPrice} €</h3>
                 </div>
+
                 <img src={`http://localhost:8080/${product.image}`} alt={product.name} />
               </Link>
             ))}
+
             <h3>Status: {selectedOrder.status}</h3>
+
             {selectedOrder.statusComment && (
               <h4>{selectedOrder.statusComment}</h4>
             )}

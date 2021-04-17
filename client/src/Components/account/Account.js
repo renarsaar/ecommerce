@@ -10,7 +10,7 @@ export default function Account({
   login, register, validation, location,
 }) {
   return (
-    <div className="account">
+    <div className="account flex">
       <div className="account-container">
         <div className="logo">
           <Link to="/">
@@ -19,7 +19,7 @@ export default function Account({
               <path d="M1.01001 26.0827C15.8466 31.3683 24.1649 34.3317 39.0015 39.6173L39.01 28.063C24.1734 22.777 15.8552 19.8133 1.01858 14.5273M1.01001 26.0827L1.01858 14.5273M1.01001 26.0827C15.8533 20.822 24.1753 17.8725 39.0185 12.6117C39.0219 8.08807 39.0238 5.55183 39.0271 1.02817C24.1838 6.29992 15.8618 9.25558 1.01858 14.5273" />
             </svg>
           </Link>
-          <h1>Veebirakenduste Arendus</h1>
+          <h2 className="ml-3">Veebirakenduste Arendus</h2>
         </div>
 
         {login && <LogIn />}
@@ -29,12 +29,11 @@ export default function Account({
 
       <div className="showcase">
         <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="vra-ecommerce" />
-        <div />
 
         <h2>
           Photo by
           {' '}
-          <a href="https://unsplash.com/photos/c9FQyqIECds">
+          <a className="orange" href="https://unsplash.com/photos/c9FQyqIECds">
             Unsplash
           </a>
         </h2>

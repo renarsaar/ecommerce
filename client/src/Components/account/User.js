@@ -90,10 +90,10 @@ export default function User() {
   }
 
   return (
-    <div className="dashboard">
+    <div className="dashboard container-high">
       <div>
-        <div className="account-info">
-          <h2>Account Information <i className="las la-user-circle" /></h2>
+        <div className="account-info mb-3">
+          <h2 className="txt-bold mb-1">Account Information <i className="las la-user-circle" /></h2>
           <p>{user.name}</p>
           <p>{user.email}</p>
           {!showDeleteAccountForm && (
@@ -111,8 +111,8 @@ export default function User() {
           {showDeleteAccountForm && <DeleteAccountForm />}
         </div>
 
-        <div className="user-orders">
-          <h2>Your orders</h2>
+        <div className="user-orders mb-2">
+          <h2 className="txt-bold mb-1">Your orders</h2>
           {handleOrders()}
         </div>
       </div>

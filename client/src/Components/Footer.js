@@ -17,7 +17,7 @@ export default function Footer() {
     <div className="footer">
       <div className="container">
         <ul>
-          <h1>Categories</h1>
+          <h2>Categories</h2>
           <li>About us</li>
           <li>Testimonials</li>
           <li>Contact</li>
@@ -25,25 +25,27 @@ export default function Footer() {
           <li>Privacy Policy</li>
         </ul>
         <ul>
-          <h1>Partners</h1>
+          <h2>Partners</h2>
           <li>Support</li>
           <li>Shipping &amp; Returns</li>
           <li>Size Guide</li>
           <li>Product Care</li>
         </ul>
         <ul>
-          <h1>Contact us</h1>
+          <h2>Contact us</h2>
           <li>Narva Maantee 5</li>
           <li>10117 Tallinn</li>
           <li>+372 12345678</li>
         </ul>
+
         <div className="newsletter">
-          <h1>Subscribe to newsletter</h1>
+          <h2>Subscribe to newsletter</h2>
           <form>
             <input type="text" placeholder="ENTER YOUR EMAIL" />
             <button type="submit">Subscribe</button>
           </form>
-          <div className="socials">
+
+          <div className="socials mt-1">
             <a href="https://facebook.com">
               <i className="lab la-facebook-f" />
             </a>
@@ -59,7 +61,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <h1 className="copyright">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h1>
+
+      <h4 className="copyright txt-center">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h4>
     </div>
   );
 }

@@ -7,9 +7,9 @@ export default function ProgressBar({ stepNumber, stepInfo }) {
     if (i === stepNumber) {
       arr.push(
         <div key={i} className="bar">
-          <div className="step-info">
+          <h2 className="step-info">
             {stepInfo}
-          </div>
+          </h2>
         </div>,
       );
     } else {
@@ -18,7 +18,7 @@ export default function ProgressBar({ stepNumber, stepInfo }) {
   }
 
   return (
-    <div className="progress-bar">
+    <div className="progress-bar flex container">
       {arr.map((item) => item)}
     </div>
   );

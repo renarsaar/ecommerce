@@ -40,7 +40,7 @@ export default function WishListModal({ showWishList, products }) {
             <div className="wishlist-product">
               <img src={`http://localhost:8080/${image}`} alt={name} />
               <Link to={`/products/${id}`} className="info">
-                <h1>{name}</h1>
+                <h3>{name}</h3>
               </Link>
             </div>
 
@@ -56,7 +56,7 @@ export default function WishListModal({ showWishList, products }) {
   return ReactDOM.createPortal(
     <div className={modalClassName} onClick={(e) => e.stopPropagation()}>
       <div className="modal-main">
-        <h2>Wishlist</h2>
+        <h2 className="mb-1 txt-bold">Wishlist</h2>
 
         <ul className="modal-items">
           {wishListProducts && renderWishListItems()}

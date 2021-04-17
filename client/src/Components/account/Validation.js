@@ -23,8 +23,8 @@ export default function Validation({ parsedUrlParams }) {
 
   return (
     <>
-      <h1 className="headline">Verify Google Account</h1>
-      <p className="headline-description">By verifying your Google account, we will add Log in with Google to your authentication method for accessing your VRA Ecommerce account.</p>
+      <h1 className="headline mb-1">Verify Google Account</h1>
+      <p className="headline-description mb-2">By verifying your Google account, we will add Log in with Google to your authentication method for accessing your VRA Ecommerce account.</p>
 
       <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleValidation}>
         <label htmlFor="email">Email Address</label>
@@ -45,11 +45,11 @@ export default function Validation({ parsedUrlParams }) {
 
         <p className="err">{validateError}</p>
 
-        <h3>
+        <h4>
           <Link to="/account/login">Cancel, Return to Login</Link>
-        </h3>
+        </h4>
 
-        <input className="mb-1" type="submit" value="Link My Accounts" />
+        <input className="mb-2" type="submit" value="Link My Accounts" />
 
         {authLoading && (
           <div className="loading-container">

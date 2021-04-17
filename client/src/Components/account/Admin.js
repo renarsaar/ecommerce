@@ -110,7 +110,7 @@ export default function Admin() {
             </Link>
 
             <p className="order-actions" style={{ opacity: orderStatusLoading || deleteOrderLoading ? 0.5 : 1 }}>
-              <span>Status: {order.status}</span>
+              <span className="mr-2">Status: {order.status}</span>
               <i
                 className="las la-eye tooltip"
                 onClick={() => handleOrderStatus(order.status, 'Seen By Admin', order._id)}
@@ -154,8 +154,12 @@ export default function Admin() {
           {cancelledOrderId === order._id && (
             <div className="order-cancelled">
               <div>
-                <label>Please specify the reason</label>
-                <select onChange={(e) => setStatusComment(e.target.value)} name="statusComment">
+                <label className="ml-1">Please specify the reason</label>
+                <select
+                  onChange={(e) => setStatusComment(e.target.value)}
+                  name="statusComment"
+                  className="ml-2"
+                >
                   <option value="" />
                   <option value="One of the products has run out of Stock">One of the products has run out of Stock</option>
                   <option value="Transaction failed">Transaction failed</option>
@@ -201,13 +205,13 @@ export default function Admin() {
       return users.map((user) => (
         <div key={user._id}>
           <div className="user">
-            <div>
+            <div className="flex">
               <p>{user.name},</p>
               <p>{user.email},</p>
               <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
             </div>
 
-            <div>
+            <div className="flex">
               {!user.isAdmin && !user.isBanned && (
                 <>
                   <i
@@ -250,7 +254,7 @@ export default function Admin() {
           {banUserId === user._id && (
             <div className="ban-user">
               <div>
-                <label>Please specify the reason</label>
+                <label className="mr-1">Please specify the reason</label>
                 <textarea
                   onChange={(e) => setBanComment(e.target.value)}
                   name="banComment"
@@ -384,10 +388,10 @@ export default function Admin() {
   }
 
   return (
-    <div className="dashboard">
+    <div className="dashboard container-high">
       <div>
-        <div className="account-info">
-          <h2>Account Information <i className="las la-user-circle" /></h2>
+        <div className="account-info mb-3">
+          <h2 className="txt-bold mb-1">Account Information <i className="las la-user-circle" /></h2>
           <p>{user.name}</p>
           <p>{user.email}</p>
           <p>Status: Admin</p>
@@ -403,11 +407,11 @@ export default function Admin() {
           {showPasswordForm && <ChangePasswordForm />}
         </div>
 
-        <div className="add-product">
+        <div className="add-product mb-2">
           <Link to="/products/new" className="btn">Add a new Product</Link>
         </div>
 
-        <div className="user-orders">
+        <div className="user-orders mb-2">
           <button
             type="button"
             className="btn"
@@ -429,8 +433,8 @@ export default function Admin() {
           {handlePreviousNextOrdersPage()}
         </div>
 
-        <div className="users">
-          <h2>All Users</h2>
+        <div className="users mb-2">
+          <h2 className="txt-bold mb-1">All Users</h2>
           {handleUsers()}
           {handlePreviousNextUsersPage()}
         </div>

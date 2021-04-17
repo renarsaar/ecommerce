@@ -45,9 +45,8 @@ export default function App() {
       dispatch(setWishListLS(user.wishList));
     }
 
-    // Set user wishlist if it is empty and products in LS
+    // Set user wishlist if it is empty and LS wishlist is not empty
     if (isLoggedIn && user.wishList.length === 0 && wishListProducts.length !== 0) {
-      console.log('Add LS wishList to user.wishList');
       dispatch(setWishListDB(user.id, wishListProducts, sessionStorage.token));
     }
   }, [isLoggedIn, url.token]);

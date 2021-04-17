@@ -17,8 +17,8 @@ export default function FormCartProducts({ values, nextStep, handleCartTotalPric
   function handleCartProducts() {
     if (cartProducts.length === 0) {
       return (
-        <div className="show-cart-empty">
-          <h1>Shopping cart is empty...</h1>
+        <div className="cart-products-empty">
+          <h1 className="mb-1">Shopping cart is empty...</h1>
           <Link className="link" to="/">Back to Home</Link>
         </div>
       );
@@ -30,23 +30,23 @@ export default function FormCartProducts({ values, nextStep, handleCartTotalPric
       } = item;
 
       return (
-        <div key={key} className="show-cart">
+        <div key={key} className="cart-products flex">
           <img src={`http://localhost:8080/${image}`} alt={key} />
 
-          <Link to={`/products/${id}`} className="show-cart-info">
+          <Link to={`/products/${id}`} className="cart-products-info">
             <h2>{name}</h2>
             <h4>Size: {size}</h4>
             <h4>Price: {productPrice} €</h4>
           </Link>
 
-          <div className="show-cart-options">
+          <div className="cart-products-options">
             <div className="quantity">
               <i className="las la-plus" onClick={() => dispatch(addCartOne(index))} />
               <p>{quantity}</p>
               <i className="las la-minus" onClick={() => dispatch(removeCart(index, productPrice))} />
             </div>
 
-            <h4 className="stock">Stock: {stock}</h4>
+            <h4 className="stock mt-1">Stock: {stock}</h4>
           </div>
         </div>
       );
@@ -54,7 +54,7 @@ export default function FormCartProducts({ values, nextStep, handleCartTotalPric
   }
 
   return (
-    <div className="order-create">
+    <div className="order-create container">
       {handleCartProducts()}
       {cartProducts.length >= 1 && (
         <>

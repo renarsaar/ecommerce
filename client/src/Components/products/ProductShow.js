@@ -161,22 +161,22 @@ export default function ProductShow({ match, location }) {
   // Placeholder for product
   function renderPlaceHolder() {
     return (
-      <div className="product-show-item">
+      <div className="product-show flex">
         <div className="gallery">
           <div className="img placeholder" />
         </div>
 
-        <div className="details">
+        <div className="details ml-3">
           <h1 className="name placeholder" />
           <h2 className="price placeholder" />
 
-          <div className="container">
+          <div className="details-container">
             <div className="size">
-              <h2 className="placeholder" />
-              <h2 className="placeholder" />
-              <h2 className="placeholder" />
-              <h2 className="placeholder" />
-              <h2 className="placeholder" />
+              <h3 className="placeholder" />
+              <h3 className="placeholder" />
+              <h3 className="placeholder" />
+              <h3 className="placeholder" />
+              <h3 className="placeholder" />
             </div>
           </div>
         </div>
@@ -191,17 +191,19 @@ export default function ProductShow({ match, location }) {
     } = selectedProduct;
 
     return (
-      <div className="product-show-item">
+      <div className="product-show flex">
         <div className="gallery">
           <img src={`http://localhost:8080/${image}`} alt={name} />
 
-          <div className="share">
-            <h3>Share this product</h3>
+          <div className="share mb-2">
+            <h4 className="mr-1 grey">Share this product</h4>
+
             <i className="tooltip las la-question-circle">
               <span className="tooltiptext">Share this product via shareable link</span>
             </i>
             <i className="mobile las la-share-alt-square" onClick={() => handleWebShare(name)} />
             <i className="desktop las la-link" onClick={handleShareLink} />
+
             <div className={copyLink ? 'clipboard show' : 'clipboard'}>
               <h4>Link copied to clipboard</h4>
             </div>
@@ -219,14 +221,14 @@ export default function ProductShow({ match, location }) {
           )}
         </div>
 
-        <div className="details">
+        <div className="details ml-3">
           <h1 className="name">{name}</h1>
-          <h2 className="price">
+          <h2 className="price orange">
             {discountPrice === price ? price : discountPrice}
             €
           </h2>
 
-          <div className="container">
+          <div className="details-container">
             <div className="description">
               <h2>Description</h2>
               <ul>
@@ -235,11 +237,12 @@ export default function ProductShow({ match, location }) {
             </div>
 
             <div className="size">
-              <h2>Size</h2>
-              <ul>
+              <h3 className="txt-uppercase mt-2 mb-1">Size</h3>
+
+              <ul className="mb-2">
                 {sizes.map((item) => (
                   <li
-                    className={size === item ? 'selected' : ''}
+                    className={size === item ? 'selected txt-center' : 'txt-center'}
                     value={item}
                     onClick={() => setSize(item)}
                     key={item}
@@ -251,14 +254,15 @@ export default function ProductShow({ match, location }) {
             </div>
 
             <div className="quantity">
-              <h2>
+              <h3 className="mt-2 mb-1 txt-uppercase">
                 Quantity
-                <p>
+
+                <p className="inline">
                   Stock:
                   {' '}
                   {stock[sizes.indexOf(size)] === 0 ? 'Out of Stock' : stock[sizes.indexOf(size)]}
                 </p>
-              </h2>
+              </h3>
             </div>
 
             <div className="product-actions" style={{ display: stock[sizes.indexOf(size)] == 0 ? 'none' : 'block' }}>
@@ -282,12 +286,18 @@ export default function ProductShow({ match, location }) {
 
               <button type="button" className="btn add-cart" onClick={handleCart}>Add to cart</button>
 
-              <div>
+              <div className="add-wishlist-container inline">
                 <i className="tooltip las la-question-circle">
                   <span className="tooltiptext">All the products in wishlist can be accessed via heart icon</span>
                 </i>
 
-                <button type="button" className="btn add-wishlist" onClick={handlewishList}>Add to wishlist</button>
+                <button
+                  type="button"
+                  className="btn add-wishlist"
+                  onClick={handlewishList}
+                >
+                  Add to wishlist
+                </button>
               </div>
             </div>
           </div>
@@ -306,7 +316,7 @@ export default function ProductShow({ match, location }) {
   function renderPostReviewForm() {
     return (
       <form className="review-form" style={{ opacity: postReviewLoading ? '0.5' : '1' }}>
-        <h3>Write a review</h3>
+        <h3 className="txt-bold mb-1">Write a review</h3>
 
         <label>Rating</label>
         <div className="rating">
@@ -338,12 +348,25 @@ export default function ProductShow({ match, location }) {
         </div>
 
         <label htmlFor="review">Name</label>
-        <input type="text" name="review" onChange={(e) => setReviewerName(e.target.value)} />
+        <input
+          type="text"
+          name="review"
+          onChange={(e) => setReviewerName(e.target.value)}
+        />
 
         <label>Review</label>
-        <textarea cols="40" rows="4" onChange={(e) => setReview(e.target.value)} />
+        <textarea
+          cols="40"
+          rows="4"
+          onChange={(e) => setReview(e.target.value)}
+        />
 
-        <input type="submit" className="btn" value="Submit review" onClick={(e) => handlePostReviewAction(e)} />
+        <input
+          type="submit"
+          className="btn"
+          value="Submit review"
+          onClick={(e) => handlePostReviewAction(e)}
+        />
 
         {postReviewLoading && (
           <div className="loading-container">
@@ -362,7 +385,7 @@ export default function ProductShow({ match, location }) {
   // Return product reviews
   function renderReviews() {
     if (reviews.length === 0) {
-      return <h4 className="no-reviews"> No reviews yet. Be the first one to write a review</h4>;
+      return <h3 className="no-reviews txt-bold"> No reviews yet. Be the first one to write a review</h3>;
     }
 
     if (reviewsLoading) {
@@ -387,7 +410,7 @@ export default function ProductShow({ match, location }) {
     return reviews.map((review) => (
       <div className="product-show-review" key={review._id}>
         <div>
-          <h3>
+          <h3 className="txt-bold">
             {review.reviewerName} at {new Date(review.date).toLocaleDateString()}
           </h3>
           <span style={{ color: review.rating >= 1 ? '#ff600a' : '' }} className="las la-star star" />
@@ -396,13 +419,14 @@ export default function ProductShow({ match, location }) {
           <span style={{ color: review.rating >= 4 ? '#ff600a' : '' }} className="las la-star" />
           <span style={{ color: review.rating >= 5 ? '#ff600a' : '' }} className="las la-star" />
         </div>
-        <p className="review">{review.review}</p>
+
+        <p className="review ml-2">{review.review}</p>
       </div>
     ));
   }
 
   return (
-    <div className="product-show">
+    <div className="container">
       {location.state && location.state.editProduct && (
         <div className="success-container">
           Product changes has been made
