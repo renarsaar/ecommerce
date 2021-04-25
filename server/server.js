@@ -20,6 +20,7 @@ app.use('/orders', require('./routes/orders'));
 app.use('/parcels', require('./routes/parcels'));
 app.use('/auth', require('./routes/auth'));
 app.use('/reviews', require('./routes/reviews'));
+app.use('/contact', require('./routes/contact'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
