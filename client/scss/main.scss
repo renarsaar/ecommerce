@@ -1124,28 +1124,65 @@ h4 {
   }
 }
 
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//!d
-// FOOTER
+// About
+.about {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+
+    .about-introduction {
+      position: relative;
+      width: 400px;
+      margin-top: 2rem;
+      margin-left: 100px;
+
+      p {
+        line-height: 1.65;
+        letter-spacing: 0.5px;
+      }
+
+      .line {
+        position: absolute;
+        content: "";
+        top: 200px;
+        left: -50px;
+        height: 400px;
+        width: 6px;
+        background-color: $orange;
+        border-radius: 6px;
+      }
+    }
+
+    .about-illustration {
+      margin-top: 125px;
+
+      img {
+        object-fit: contain;
+        width: 100%;
+        height: 400px;
+      }
+    }
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 150px auto 3rem auto;
+
+    label { margin-bottom: 0.95rem; }
+    input { margin-bottom: 0.5rem; }
+    input, textarea { @extend %input-shared; }
+    textarea { height: 100px; }
+
+    .btn {
+      margin-left: 0;
+      @extend %btn-shared-large;
+    }
+  }
+}
+
+// Footer
 .footer {
   width: 100%;
   background: $dark-blue;
@@ -1229,14 +1266,6 @@ h4 {
 
   .modal-main {
     padding: 1rem;
-
-    // ???? Where
-    // h3 {
-    //   i {
-    //     padding-right: 0.5rem;
-    //     font-size: 1.5rem;
-    //   }
-    // }
 
     .modal-items {
       li {

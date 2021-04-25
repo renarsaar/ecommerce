@@ -223,11 +223,11 @@ h4 {
   position: absolute;
   padding: 0.25rem 0.55rem; }
 
-.product-edit-form input, .product-create-form input, .product-delete-form input, .order-create .personal-details-form .form-row input, .footer .container .newsletter form input, .account-container form input {
+.product-edit-form input, .product-create-form input, .product-delete-form input, .order-create .personal-details-form .form-row input, .about-form input, .about-form textarea, .footer .container .newsletter form input, .account-container form input {
   background: #f4f4f4;
   border: 2px solid #d3d3d3;
   padding: 0.6rem 0.5rem; }
-  .product-edit-form input:focus, .product-create-form input:focus, .product-delete-form input:focus, .order-create .personal-details-form .form-row input:focus, .footer .container .newsletter form input:focus, .account-container form input:focus {
+  .product-edit-form input:focus, .product-create-form input:focus, .product-delete-form input:focus, .order-create .personal-details-form .form-row input:focus, .about-form input:focus, .about-form textarea:focus, .footer .container .newsletter form input:focus, .account-container form input:focus {
     outline: 0;
     border: 2px solid #626166; }
 
@@ -254,7 +254,7 @@ h4 {
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
 
-.product-show .gallery .btn, .product-show .details-container .product-actions .add-cart, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist, .review-form .btn, .product-edit .delete-actions .btn, .product-create .delete-actions .btn, .product-delete .delete-actions .btn, .product-edit-form input[type=submit], .product-create-form input[type=submit], .product-delete-form input[type=submit], .order-create .actions button, .order-create .actions input, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
+.product-show .gallery .btn, .product-show .details-container .product-actions .add-cart, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist, .review-form .btn, .product-edit .delete-actions .btn, .product-create .delete-actions .btn, .product-delete .delete-actions .btn, .product-edit-form input[type=submit], .product-create-form input[type=submit], .product-delete-form input[type=submit], .order-create .actions button, .order-create .actions input, .about-form .btn, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
   cursor: pointer;
   background: #e4e3e3;
   color: #0a0a0a;
@@ -268,10 +268,10 @@ h4 {
   font-weight: 600;
   letter-spacing: 2px;
   font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif; }
-  .product-show .gallery .btn:focus, .product-show .details-container .product-actions .add-cart:focus, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:focus, .review-form .btn:focus, .product-edit .delete-actions .btn:focus, .product-create .delete-actions .btn:focus, .product-delete .delete-actions .btn:focus, .product-edit-form input:focus[type=submit], .product-create-form input:focus[type=submit], .product-delete-form input:focus[type=submit], .order-create .actions button:focus, .order-create .actions input:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
+  .product-show .gallery .btn:focus, .product-show .details-container .product-actions .add-cart:focus, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:focus, .review-form .btn:focus, .product-edit .delete-actions .btn:focus, .product-create .delete-actions .btn:focus, .product-delete .delete-actions .btn:focus, .product-edit-form input:focus[type=submit], .product-create-form input:focus[type=submit], .product-delete-form input:focus[type=submit], .order-create .actions button:focus, .order-create .actions input:focus, .about-form .btn:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
     outline: none;
     transition: .3s ease; }
-  .product-show .gallery .btn:hover, .product-show .details-container .product-actions .add-cart:hover, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:hover, .review-form .btn:hover, .product-edit .delete-actions .btn:hover, .product-create .delete-actions .btn:hover, .product-delete .delete-actions .btn:hover, .product-edit-form input:hover[type=submit], .product-create-form input:hover[type=submit], .product-delete-form input:hover[type=submit], .order-create .actions button:hover, .order-create .actions input:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
+  .product-show .gallery .btn:hover, .product-show .details-container .product-actions .add-cart:hover, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:hover, .review-form .btn:hover, .product-edit .delete-actions .btn:hover, .product-create .delete-actions .btn:hover, .product-delete .delete-actions .btn:hover, .product-edit-form input:hover[type=submit], .product-create-form input:hover[type=submit], .product-delete-form input:hover[type=submit], .order-create .actions button:hover, .order-create .actions input:hover, .about-form .btn:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
     opacity: .5;
     transition: .3s ease; }
 
@@ -828,6 +828,47 @@ h4 {
       top: 50%;
       left: 50%;
       transform: translate(-40%, -50%); }
+
+.about-container {
+  display: flex;
+  justify-content: space-between; }
+  .about-container .about-introduction {
+    position: relative;
+    width: 400px;
+    margin-top: 2rem;
+    margin-left: 100px; }
+    .about-container .about-introduction p {
+      line-height: 1.65;
+      letter-spacing: 0.5px; }
+    .about-container .about-introduction .line {
+      position: absolute;
+      content: "";
+      top: 200px;
+      left: -50px;
+      height: 400px;
+      width: 6px;
+      background-color: #ff600a;
+      border-radius: 6px; }
+  .about-container .about-illustration {
+    margin-top: 125px; }
+    .about-container .about-illustration img {
+      object-fit: contain;
+      width: 100%;
+      height: 400px; }
+
+.about-form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 150px auto 3rem auto; }
+  .about-form label {
+    margin-bottom: 0.95rem; }
+  .about-form input {
+    margin-bottom: 0.5rem; }
+  .about-form textarea {
+    height: 100px; }
+  .about-form .btn {
+    margin-left: 0; }
 
 .footer {
   width: 100%;

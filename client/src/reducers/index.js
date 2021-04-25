@@ -9,6 +9,7 @@ import wishListReducer from './wishListReducer';
 import cartReducer from './cartReducer';
 import authReducer from './authReducer';
 import reviewReducer from './reviewReducer';
+import contactReducer from './contactReducer';
 
 export default combineReducers({
   products: productsReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
   cart: cartReducer,
   auth: authReducer,
   reviews: reviewReducer,
+  contact: contactReducer,
 });
