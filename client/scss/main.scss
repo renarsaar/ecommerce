@@ -1182,6 +1182,59 @@ h4 {
   }
 }
 
+// Journal
+.journal {
+  &-article {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 2rem 0 100px;
+
+    &:last-child { margin-bottom: 2rem; }
+
+    img {
+      width: 50%;
+      object-fit: cover;
+      height: auto;
+    }
+
+    .journal-title {
+      padding: 0 2rem;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+      h1 {
+        text-align: center;
+        width: 70%;
+        font-size: 2.2rem;
+        font-weight: normal;
+      }
+      
+      .line-container {
+        position: relative;
+        width: 100%;
+        
+        .line {
+          position: absolute;
+          content: "";
+          top: -25px;
+          width: 100%;
+          height: 1px;
+          background: $light-grey;
+        }
+      }
+
+      .btn {
+        @extend %btn-shared-large;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 // Footer
 .footer {
   width: 100%;

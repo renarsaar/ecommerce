@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Filter from './Filter';
 import ProductList from './products/ProductList';
 import About from './About';
+import Journal from './Journal';
 
 export default function Catalog() {
   const {
@@ -30,7 +31,7 @@ export default function Catalog() {
 
       {journal && (
         <>
-          Journal
+          <Journal />
         </>
       )}
 

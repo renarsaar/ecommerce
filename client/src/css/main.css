@@ -254,7 +254,7 @@ h4 {
     border: 1px solid #a3a3a3;
     transition: .3s ease; }
 
-.product-show .gallery .btn, .product-show .details-container .product-actions .add-cart, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist, .review-form .btn, .product-edit .delete-actions .btn, .product-create .delete-actions .btn, .product-delete .delete-actions .btn, .product-edit-form input[type=submit], .product-create-form input[type=submit], .product-delete-form input[type=submit], .order-create .actions button, .order-create .actions input, .about-form .btn, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
+.product-show .gallery .btn, .product-show .details-container .product-actions .add-cart, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist, .review-form .btn, .product-edit .delete-actions .btn, .product-create .delete-actions .btn, .product-delete .delete-actions .btn, .product-edit-form input[type=submit], .product-create-form input[type=submit], .product-delete-form input[type=submit], .order-create .actions button, .order-create .actions input, .about-form .btn, .journal-article .journal-title .btn, .footer .container .newsletter form button, .dashboard .account-info .btn, .dashboard .btn, .order-container .btn {
   cursor: pointer;
   background: #e4e3e3;
   color: #0a0a0a;
@@ -268,10 +268,10 @@ h4 {
   font-weight: 600;
   letter-spacing: 2px;
   font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif; }
-  .product-show .gallery .btn:focus, .product-show .details-container .product-actions .add-cart:focus, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:focus, .review-form .btn:focus, .product-edit .delete-actions .btn:focus, .product-create .delete-actions .btn:focus, .product-delete .delete-actions .btn:focus, .product-edit-form input:focus[type=submit], .product-create-form input:focus[type=submit], .product-delete-form input:focus[type=submit], .order-create .actions button:focus, .order-create .actions input:focus, .about-form .btn:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
+  .product-show .gallery .btn:focus, .product-show .details-container .product-actions .add-cart:focus, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:focus, .review-form .btn:focus, .product-edit .delete-actions .btn:focus, .product-create .delete-actions .btn:focus, .product-delete .delete-actions .btn:focus, .product-edit-form input:focus[type=submit], .product-create-form input:focus[type=submit], .product-delete-form input:focus[type=submit], .order-create .actions button:focus, .order-create .actions input:focus, .about-form .btn:focus, .journal-article .journal-title .btn:focus, .footer .container .newsletter form button:focus, .dashboard .btn:focus, .order-container .btn:focus {
     outline: none;
     transition: .3s ease; }
-  .product-show .gallery .btn:hover, .product-show .details-container .product-actions .add-cart:hover, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:hover, .review-form .btn:hover, .product-edit .delete-actions .btn:hover, .product-create .delete-actions .btn:hover, .product-delete .delete-actions .btn:hover, .product-edit-form input:hover[type=submit], .product-create-form input:hover[type=submit], .product-delete-form input:hover[type=submit], .order-create .actions button:hover, .order-create .actions input:hover, .about-form .btn:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
+  .product-show .gallery .btn:hover, .product-show .details-container .product-actions .add-cart:hover, .product-show .details-container .product-actions .add-wishlist-container .add-wishlist:hover, .review-form .btn:hover, .product-edit .delete-actions .btn:hover, .product-create .delete-actions .btn:hover, .product-delete .delete-actions .btn:hover, .product-edit-form input:hover[type=submit], .product-create-form input:hover[type=submit], .product-delete-form input:hover[type=submit], .order-create .actions button:hover, .order-create .actions input:hover, .about-form .btn:hover, .journal-article .journal-title .btn:hover, .footer .container .newsletter form button:hover, .dashboard .btn:hover, .order-container .btn:hover {
     opacity: .5;
     transition: .3s ease; }
 
@@ -869,6 +869,42 @@ h4 {
     height: 100px; }
   .about-form .btn {
     margin-left: 0; }
+
+.journal-article {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 2rem 0 100px; }
+  .journal-article:last-child {
+    margin-bottom: 2rem; }
+  .journal-article img {
+    width: 50%;
+    object-fit: cover;
+    height: auto; }
+  .journal-article .journal-title {
+    padding: 0 2rem;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    .journal-article .journal-title h1 {
+      text-align: center;
+      width: 70%;
+      font-size: 2.2rem;
+      font-weight: normal; }
+    .journal-article .journal-title .line-container {
+      position: relative;
+      width: 100%; }
+      .journal-article .journal-title .line-container .line {
+        position: absolute;
+        content: "";
+        top: -25px;
+        width: 100%;
+        height: 1px;
+        background: #d3d3d3; }
+    .journal-article .journal-title .btn {
+      margin-left: 0; }
 
 .footer {
   width: 100%;

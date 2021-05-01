@@ -116,7 +116,7 @@ export default function About() {
 
   return (
     <div className="about">
-      <div className="about-container mt-3">
+      <div className="about-container mt-1">
         <div className="about-introduction">
           <h1 className="mb-1 txt-bold">VRA E-commerce</h1>
           <p>VRA E-commerce is a small shop that sells different appareals. Our goal is to offer our customers unforgettable fashion experiences and excellent customer service. Whole page is built and managed by Renar, who is trying his best to make the whole purchasing process as easy as possible. Feel free to register our club and start shopping. All questions, suggestions are welcomed via form down below.</p>

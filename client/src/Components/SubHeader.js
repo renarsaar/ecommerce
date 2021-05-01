@@ -7,6 +7,7 @@ export default function SubHeader() {
   const dispatch = useDispatch();
   const { selectedProduct } = useSelector((state) => state.products);
   const { sortValue } = useSelector((state) => state.sort);
+  const { fabric, journal, about } = useSelector((state) => state.menu);
   const location = useLocation();
 
   // Display breadcrumb menu items
@@ -40,6 +41,7 @@ export default function SubHeader() {
     if (location.pathname.includes('/cart/checkout')) return 'hide';
     if (location.pathname.includes('/cart/success')) return 'hide';
     if (location.pathname.includes('/order')) return 'hide';
+    if (fabric || journal || about) return 'hide';
 
     return 'sort show';
   }
