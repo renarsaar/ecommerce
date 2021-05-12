@@ -1124,6 +1124,42 @@ h4 {
   }
 }
 
+// Fabric
+.fabric {
+  &-img {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-article {
+    img {
+      height: 300px;
+      width: 300px;
+      object-fit: cover;
+      margin: 2rem;
+    }
+
+    .fabric-image-container {
+      position: relative;
+
+      .img-back {}
+
+      .img-front {
+        position: absolute;
+        content: "";
+        top: -25px;
+        left: 25px;
+      }
+    }
+  }
+
+  p {
+    line-height: 1.8; 
+    // letter-spacing: 0.5px;
+  }
+}
+
 // About
 .about {
   &-container {

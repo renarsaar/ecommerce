@@ -5,6 +5,7 @@ import Filter from './Filter';
 import ProductList from './products/ProductList';
 import About from './About';
 import Journal from './Journal';
+import Fabric from './Fabric';
 
 export default function Catalog() {
   const {
@@ -25,7 +26,7 @@ export default function Catalog() {
 
       {fabric && (
         <>
-          Fabric
+          <Fabric />
         </>
       )}
 

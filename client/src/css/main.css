@@ -829,6 +829,28 @@ h4 {
       left: 50%;
       transform: translate(-40%, -50%); }
 
+.fabric-img {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.fabric-article img {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  margin: 2rem; }
+
+.fabric-article .fabric-image-container {
+  position: relative; }
+  .fabric-article .fabric-image-container .img-front {
+    position: absolute;
+    content: "";
+    top: -25px;
+    left: 25px; }
+
+.fabric p {
+  line-height: 1.8; }
+
 .about-container {
   display: flex;
   justify-content: space-between; }
