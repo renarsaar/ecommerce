@@ -21,6 +21,7 @@ import OrderCreate from './orders/OrderCreate';
 import CartSuccess from './orders/OrderCreateForm/CartSuccess';
 import OrderShow from './orders/OrderShow';
 import Footer from './Footer';
+import UserShow from './account/UserShow';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -76,6 +77,9 @@ export default function App() {
         </Route>
         <Route path="/account/dashboard/user/:id" exact>
           {isLoggedIn && !user.admin ? <User /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/account/user/:id" exact>
+          {isLoggedIn && user.admin ? <UserShow /> : <Redirect to="/" />}
         </Route>
         <Route path="/account/dashboard/user/:id" exact component={User} />
         <Route path="/account/validation" exact render={(props) => <Account location={props.location} validation />} />

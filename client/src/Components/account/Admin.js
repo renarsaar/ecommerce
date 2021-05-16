@@ -206,9 +206,17 @@ export default function Admin() {
         <div key={user._id}>
           <div className="user">
             <div className="flex">
-              <p>{user.name},</p>
-              <p>{user.email},</p>
-              <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
+              <Link
+                to={{
+                  pathname: `/account/user/${user._id}`,
+                  state: { user },
+                }}
+                className="user-link"
+              >
+                <p>{user.name},</p>
+                <p>{user.email},</p>
+                <p>User since {new Date(user.date).toLocaleDateString('en-GB')}.</p>
+              </Link>
             </div>
 
             <div className="flex">

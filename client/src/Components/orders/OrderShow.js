@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getOrder, changeOrderStatus } from '../../actions/orderActions';
 
 export default function OrderShow({ match }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { id } = match.params;
   const { ordersLoading, selectedOrder, getOrderError } = useSelector((state) => state.orders);
@@ -61,11 +62,14 @@ export default function OrderShow({ match }) {
           </div>
 
         </div>
-        {user && (
-          <Link to={user.admin ? `/account/dashboard/admin/${user.id}` : `/account/dashboard/user/${user.id}`}>
-            <button type="button" className="btn">Back</button>
-          </Link>
-        )}
+
+        <button
+          type="button"
+          className="btn"
+          onClick={() => history.goBack()}
+        >
+          Back
+        </button>
       </div>
     );
   }
@@ -100,7 +104,7 @@ export default function OrderShow({ match }) {
       {ordersLoading && <>{renderPlaceHolder()}</>}
       {selectedOrder && <>{renderOrder()}</>}
       {getOrderError && (
-        <div className="order-container">
+        <div className="order-container container-high">
           <h3 className="err">Order not found.</h3>
         </div>
       )}
