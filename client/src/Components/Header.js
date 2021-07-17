@@ -75,6 +75,8 @@ export default function Header() {
     location.pathname.includes('/account/login')
     || location.pathname.includes('/account/register')
     || location.pathname.includes('/account/validation')
+    || location.pathname.includes('/account/resetpassword')
+    || location.pathname.includes('/account/reset_password_confirm')
   ) {
     return <></>;
   }

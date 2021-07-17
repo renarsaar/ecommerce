@@ -1,11 +1,15 @@
+const mongoose = require('mongoose');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const url = require('url');
 const generator = require('generate-password');
 const { google } = require('googleapis');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const auth = require('../middleware/auth');
 const User = require('../model/User');
+const Token = require('../model/Token');
 const {
   loginValidation,
   registerValidation,
@@ -395,6 +399,126 @@ router.delete('/:id', auth, async (req, res) => {
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// @desc    Send reset user password link to Email
+// @route   POST /auth/reset/password
+// @access  public
+router.post('/reset/password', async (req, res) => {
+  const { email } = req.body;
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  if (!re.test(email)) return res.status(400).send('Please enter a valid Email address');
+
+  const user = await User.findOne({ email }).select('-password');
+  if (!user) return res.status(400).send('User with that Email does not exist');
+
+  // Reset token
+  const token = await Token.findOne({ userId: user._id });
+  if (token) await token.deleteOne();
+
+  // Hash Token
+  const salt = await bcrypt.genSalt(10);
+  const hashToken = await bcrypt.hash(resetToken, salt);
+
+  // token.token = hashToken;
+  const newToken = new Token({
+    userId: user._id,
+    token: hashToken,
+    createdAt: Date.now(),
+  });
+
+  // Send email to user
+  const link = `http://localhost:3000/account/reset_password_confirm?token=${resetToken}&id=${user._id}`;
+  const output = `
+    <div style="padding:1.5rem 1rem; background: rgba(255, 96, 10, 0.2); color: black;">
+      <h3 style="font-size: 1.5rem;">Password Reset</h3>
+      <p>You're receiving this E-mail because you requested a password reset for your user account at VRA-Ecommerce.</p>
+      <p>If you didn't request this change, you can disregard this email - we have not yet reset your password.</p>
+      
+      <a href="${link}">
+        <button style="padding:0.5rem 1rem;">
+          Change my Password
+        </button>
+      </a>
+    </div>
+  `;
+
+  const transporter = nodemailer.createTransport({
+    host: 'mail.veebimajutus.ee',
+    port: 2525,
+    secure: false,
+    auth: {
+      user: 'info@vra.ee',
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    to: email,
+    from: 'vra@info.ee',
+    subject: 'Password reset on VRA E-commerce',
+    html: output,
+  };
+
+  try {
+    await newToken.save();
+  } catch (error) {
+    res.status(500).send('Something went wrong. Please try again later');
+  }
+
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      res.status(500).send('Something went wrong, please try again later');
+    } else {
+      res.status(200).send('Recovery Email sent. Please check your Email');
+    }
+  });
+});
+
+// @desc    Reset user password
+// @route   PATCH /auth/resetpassword/:token
+// @access  private
+router.patch('/resetpassword/:token', async (req, res) => {
+  const { userId, password, confirmPassword } = req.body;
+  const token = await Token.findOne({ userId });
+
+  // Check if token is not expired
+  if (!token) return res.status(400).send('Reset password link is expired. Please request a new reset password link to email.');
+
+  // Check if token is valid
+  const isValid = await bcrypt.compare(req.params.token, token.token);
+  if (!isValid) return res.status(400).send('Invalid reset password link. Please request a new reset password link to email.');
+
+  const user = await User.findById(token.userId);
+
+  // Check for user input
+  if (password === '' || confirmPassword === '') {
+    return res.status(400).send('Please fill in all fields');
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).send('Passwords do not match');
+  }
+
+  // Password validation
+  const { error } = editUserValidation({ password });
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // Hash password and set new password
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  user.password = hashPassword;
+
+  // Update user password
+  try {
+    await user.save();
+    res.status(201).send('Password changed');
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 });
 

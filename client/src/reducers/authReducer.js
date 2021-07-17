@@ -18,6 +18,10 @@ import {
   MAKE_ADMIN_ERROR,
   BAN_USER,
   BAN_USER_ERROR,
+  RECIEVE_PASSWORD_RESET_LINK,
+  RECIEVE_PASSWORD_RESET_LINK_ERROR,
+  RESET_PASSWORD,
+  RESET_PASSWORD_ERROR,
   CLEAR_AUTH_REDUCER,
 } from '../actions/types';
 
@@ -32,6 +36,8 @@ const INITIAL_STATE = {
   authLoading: false,
   makeAdmin: null,
   banUser: null,
+  resetPassword: null,
+  recievePasswordResetLink: null,
   logInError: null,
   getUserError: null,
   registerError: null,
@@ -41,6 +47,8 @@ const INITIAL_STATE = {
   getUsersError: null,
   makeAdminError: null,
   banUserError: null,
+  resetPasswordError: null,
+  recievePasswordResetLinkError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -58,6 +66,8 @@ export default (state = INITIAL_STATE, action) => {
         getUsersError: null,
         makeAdminError: null,
         banUserError: null,
+        resetPasswordError: null,
+        recievePasswordResetLinkError: null,
       };
 
     case LOG_IN:
@@ -133,6 +143,22 @@ export default (state = INITIAL_STATE, action) => {
         makeAdminError: null,
       };
 
+    case RECIEVE_PASSWORD_RESET_LINK:
+      return {
+        ...state,
+        authLoading: false,
+        recievePasswordResetLink: action.payload,
+        recievePasswordResetLinkError: null,
+      }
+
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        authLoading: false,
+        resetPassword: action.payload,
+        resetPasswordError: null,
+      }
+
     case CLEAR_AUTH_REDUCER:
       return {
         ...state,
@@ -141,6 +167,8 @@ export default (state = INITIAL_STATE, action) => {
         makeAdmin: null,
         banUserError: null,
         makeAdminError: null,
+        resetPasswordError: null,
+        recievePasswordResetLinkError: null,
       };
 
     case VALIDATE_ERROR:
@@ -215,6 +243,22 @@ export default (state = INITIAL_STATE, action) => {
         banUser: null,
         banUserError: action.payload,
       };
+
+    case RECIEVE_PASSWORD_RESET_LINK_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        recievePasswordResetLink: null,
+        recievePasswordResetLinkError: action.payload,
+      };
+
+    case RESET_PASSWORD_ERROR:
+      return {
+        ...state,
+        authLoading: false,
+        resetPassword: null,
+        resetPasswordError: action.payload,
+      }
 
     default:
       return state;

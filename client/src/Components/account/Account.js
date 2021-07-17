@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import LogIn from './LogIn';
 import Register from './Register';
 import Validation from './Validation';
+import ResetPassword from './ResetPassword';
+import ResetPasswordConfirm from './ResetPasswordConfirm';
 
 export default function Account({
-  login, register, validation, location,
+  login, register, validation, resetPassword, resetPasswordConfirm, location,
 }) {
   return (
     <div className="account flex">
@@ -25,6 +27,8 @@ export default function Account({
         {login && <LogIn />}
         {register && <Register />}
         {validation && <Validation parsedUrlParams={queryString.parse(location.search)} />}
+        {resetPassword && <ResetPassword />}
+        {resetPasswordConfirm && <ResetPasswordConfirm parsedUrlParams={queryString.parse(location.search)} />}
       </div>
 
       <div className="showcase">

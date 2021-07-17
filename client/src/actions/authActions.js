@@ -18,6 +18,10 @@ import {
   MAKE_ADMIN_ERROR,
   BAN_USER,
   BAN_USER_ERROR,
+  RECIEVE_PASSWORD_RESET_LINK,
+  RECIEVE_PASSWORD_RESET_LINK_ERROR,
+  RESET_PASSWORD,
+  RESET_PASSWORD_ERROR,
   CLEAR_AUTH_REDUCER,
 } from './types';
 import api from '../api';
@@ -133,6 +137,30 @@ export const getUser = (token) => async (dispatch) => {
     })
     .catch((error) => dispatch({ type: GET_USER_ERROR, payload: error.response.data }));
 };
+
+// Receive reset password link
+export const passwordResetLink = (email) => async (dispatch) => {
+  dispatch({ type: AUTH_LOADING });
+
+  api.post('/auth/reset/password', {
+    email,
+  })
+    .then((response) => dispatch({ type: RECIEVE_PASSWORD_RESET_LINK, payload: response.data }))
+    .catch((error) => dispatch({ type: RECIEVE_PASSWORD_RESET_LINK_ERROR, payload: error.response.data }));
+}
+
+// Reset user password
+export const resetUserPassword = (token, userId, password, confirmPassword) => async (dispatch) => {
+  dispatch({ type: AUTH_LOADING });
+
+  api.patch(`/auth/resetpassword/${token}`, {
+    userId,
+    password,
+    confirmPassword,
+  })
+    .then((response) => dispatch({ type: RESET_PASSWORD, payload: response.data }))
+    .catch((error) => dispatch({ type: RESET_PASSWORD_ERROR, payload: error.response.data }));
+}
 
 // Change users password
 export const changeUserPassword = (id, token, values) => async (dispatch) => {

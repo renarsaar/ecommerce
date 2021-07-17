@@ -72,6 +72,14 @@ export default function App() {
         <Route path="/account/register" exact>
           {isLoggedIn ? <Redirect to="/" /> : <Account register />}
         </Route>
+        <Route path="/account/resetpassword" exact>
+          {isLoggedIn ? <Redirect to="/" /> : <Account resetPassword />}
+        </Route>
+        <Route
+          path="/account/reset_password_confirm"
+          exact
+          render={(props) => isLoggedIn ? <Redirect to="/" /> : <Account resetPasswordConfirm location={props.location} />}
+        />
         <Route path="/account/dashboard/admin/:id" exact>
           {isLoggedIn && user.admin ? <Admin /> : <Redirect to="/" />}
         </Route>

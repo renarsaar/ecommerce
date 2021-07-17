@@ -81,7 +81,9 @@ export default function LogIn() {
         {' '}
         <Link to="/account/register">Sign Up</Link>
       </h4>
-      <h4>Forgot your password?</h4>
+      <h4>
+        <Link to="/account/resetpassword">Forgot your password?</Link>
+      </h4>
     </>
   );
 }
