@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { passwordResetLink } from '../../actions/authActions';
+import { passwordResetLink, clearAuthReducer } from '../../actions/authActions';
 
 export default function ResetPassword() {
   const dispatch = useDispatch();
@@ -9,6 +9,13 @@ export default function ResetPassword() {
     authLoading, recievePasswordResetLink, recievePasswordResetLinkError,
   } = useSelector((state) => state.auth);
   const [email, setEmail] = useState('');
+
+  // Clear reset password messages
+  useEffect(() => {
+    return () => {
+      dispatch(clearAuthReducer());
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();

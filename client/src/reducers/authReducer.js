@@ -167,7 +167,9 @@ export default (state = INITIAL_STATE, action) => {
         makeAdmin: null,
         banUserError: null,
         makeAdminError: null,
+        resetPassword: null,
         resetPasswordError: null,
+        recievePasswordResetLink: null,
         recievePasswordResetLinkError: null,
       };
 

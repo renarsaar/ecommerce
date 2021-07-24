@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetUserPassword } from '../../actions/authActions';
+import { resetUserPassword, clearAuthReducer } from '../../actions/authActions';
 
 export default function ResetPasswordConfirm({ parsedUrlParams }) {
   const dispatch = useDispatch();
@@ -9,6 +9,13 @@ export default function ResetPasswordConfirm({ parsedUrlParams }) {
   } = useSelector((state) => state.auth);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+  // Clear reset password messages
+  useEffect(() => {
+    return () => {
+      dispatch(clearAuthReducer());
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
