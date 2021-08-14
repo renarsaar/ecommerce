@@ -16,11 +16,7 @@ export default function Catalog() {
   const { filteredProducts } = useSelector((state) => state.filter);
 
   useEffect(() => {
-    if (sortValue) {
-      dispatch(fetchProducts(1, sortValue));
-    } else {
-      dispatch(fetchProducts(1));
-    }
+    dispatch(fetchProducts(1, sortValue));
   }, [dispatch, sortValue]);
 
   // Handle products rendering
@@ -33,23 +29,12 @@ export default function Catalog() {
   }
 
   // Fetch previous page products
-  function handleClickPreviousPage(previousPage) {
-    if (sortValue) {
-      dispatch(fetchProducts(previousPage, sortValue));
-    } else {
-      dispatch(fetchProducts(previousPage));
-    }
-  }
+  const handleClickPreviousPage = (previousPage) => dispatch(fetchProducts(previousPage, sortValue));
 
   // Fetch next page products
-  function handleClickNextPage(nextPage) {
-    if (sortValue) {
-      dispatch(fetchProducts(nextPage, sortValue));
-    } else {
-      dispatch(fetchProducts(nextPage));
-    }
-  }
+  const handleClickNextPage = (nextPage) => dispatch(fetchProducts(nextPage, sortValue));
 
+  // Render previous, next page buttons
   function handlePreviousNextPage() {
     let currentPage;
 

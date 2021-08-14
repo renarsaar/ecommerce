@@ -1,25 +1,25 @@
 import { combineReducers } from 'redux';
 
-import productsReducer from './productsReducer';
+import authReducer from './authReducer';
+import cartReducer from './cartReducer';
+import contactReducer from './contactReducer';
+import filterReducer from './filterReducer';
 import menuReducer from './menuReducer';
 import ordersReducer from './orderReducer';
-import sortReducer from './sortReducer';
-import filterReducer from './filterReducer';
-import wishListReducer from './wishListReducer';
-import cartReducer from './cartReducer';
-import authReducer from './authReducer';
+import productsReducer from './productsReducer';
 import reviewReducer from './reviewReducer';
-import contactReducer from './contactReducer';
+import sortReducer from './sortReducer';
+import wishListReducer from './wishListReducer';
 
 export default combineReducers({
-  products: productsReducer,
+  auth: authReducer,
+  cart: cartReducer,
+  contact: contactReducer,
+  filter: filterReducer,
   menu: menuReducer,
   orders: ordersReducer,
-  sort: sortReducer,
-  filter: filterReducer,
-  wishList: wishListReducer,
-  cart: cartReducer,
-  auth: authReducer,
+  products: productsReducer,
   reviews: reviewReducer,
-  contact: contactReducer,
+  sort: sortReducer,
+  wishList: wishListReducer,
 });

@@ -95,8 +95,7 @@ export const SORT_NAME = 'SORT_NAME';
 export const SORT_DISCOUNT = 'SORT_DISCOUNT';
 
 // Filter actions
-export const SET_FILTER_APPARELTERM = 'FILTER_APPARELS';
-export const SET_FILTER_BRANDTERM = 'FILTER_BRANDS';
+export const SET_FILTER_TERM = 'SET_FILTER_TERM';
 export const RESET_FILTERS = 'RESET_FILTERS';
 
 // Review actions

@@ -102,7 +102,7 @@ h4 {
 
 .container {
   width: $page-width;
-  margin: auto;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -353,9 +353,9 @@ h4 {
   }
 
   &-actions {
-    position: relative;
     display: flex;
     align-items: center;
+    margin-right: -1rem;
 
     span {
       cursor: pointer;
@@ -370,6 +370,8 @@ h4 {
       &:hover h4, &:hover i { color: $orange; }
     }
 
+    .searchbar { padding: 0.4rem; }
+
     i {
       position: relative;
       cursor: pointer;
@@ -377,7 +379,6 @@ h4 {
       font-size: 1.65rem;
 
       &:hover { color: $orange; }
-      &:nth-child(4) { margin-right: 0; }
 
       .cart-length-number, .wishlist-length-number {
         position: absolute;

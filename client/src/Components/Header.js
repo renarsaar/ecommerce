@@ -6,6 +6,7 @@ import {
 } from '../actions/menuActions';
 import { fetchProducts } from '../actions/productsActions';
 
+import SearchBar from './SearchBar';
 import CartModal from './Modals/CartModal';
 import WishListModal from './Modals/WishListModal';
 
@@ -121,7 +122,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <i className="las la-search" />
+        <SearchBar />
 
         <i
           className={showWishList ? 'lar la-heart orange' : 'lar la-heart'}

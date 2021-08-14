@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilterApparelTerm, setFilterBrandTerm, resetFilters } from '../actions/filterActions';
+import { setFilterTerm, resetFilters } from '../actions/filterActions';
 
 export default function Filter() {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
-  const { apparelTerm, brandTerm } = useSelector((state) => state.filter);
+  const { apparelTerm, brandTerm, searchTerm } = useSelector((state) => state.filter);
   const [showApparelsMenu, setShowApparelsMenu] = useState(true);
   const [showBrandsMenu, setShowBrandsMenu] = useState(false);
   const [apparelsList, setApparelsList] = useState([]);
@@ -40,39 +40,29 @@ export default function Filter() {
     }
   }, [products]);
 
-  useEffect(() => {
-    if (apparelTerm) {
-      dispatch(setFilterApparelTerm(apparelTerm, products));
-    }
-
-    if (brandTerm) {
-      dispatch(setFilterBrandTerm(brandTerm, products));
-    }
-  }, [products]);
-
   // Reset filter terms
   function handleResetFilters() {
     dispatch(resetFilters());
   }
 
   // Handle click on appareal
-  function handleClickApparel(category, products) {
-    // Reset filtering if click on the same category
-    if (apparelTerm === category) {
-      dispatch(setFilterApparelTerm('', products));
-    } else {
-      dispatch(setFilterApparelTerm(category, products));
-    }
+  function handleClickApparel(category) {
+    let newApparelTerm;
+
+    if (category === apparelTerm) newApparelTerm = '';
+    else newApparelTerm = category;
+
+    dispatch(setFilterTerm(newApparelTerm, brandTerm, searchTerm, products));
   }
 
   // Handle click on brand
-  function handleCLickBrand(brand, products) {
-    // Reset filtering if click on the same brand
-    if (brandTerm === brand) {
-      dispatch(setFilterBrandTerm('', products));
-    } else {
-      dispatch(setFilterBrandTerm(brand, products));
-    }
+  function handleCLickBrand(brand) {
+    let newBrandTerm;
+
+    if (brand === brandTerm) newBrandTerm = '';
+    else newBrandTerm = brand;
+
+    dispatch(setFilterTerm(apparelTerm, newBrandTerm, searchTerm, products));
   }
 
   // Render apparels list

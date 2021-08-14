@@ -1,20 +1,10 @@
-import {
-  SET_FILTER_APPARELTERM,
-  SET_FILTER_BRANDTERM,
-  RESET_FILTERS,
-} from './types';
+import { SET_FILTER_TERM, RESET_FILTERS } from './types';
 
-// Filter products by category
-export const setFilterApparelTerm = (apparelTerm, products) => ({
-  type: SET_FILTER_APPARELTERM,
+export const setFilterTerm = (apparelTerm, brandTerm, searchTerm, products) => ({
+  type: SET_FILTER_TERM,
   apparelTerm,
-  products,
-});
-
-// Filter products by brand
-export const setFilterBrandTerm = (brandTerm, products) => ({
-  type: SET_FILTER_BRANDTERM,
   brandTerm,
+  searchTerm,
   products,
 });
 

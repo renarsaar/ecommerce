@@ -1,44 +1,52 @@
-import {
-  SET_FILTER_APPARELTERM,
-  SET_FILTER_BRANDTERM,
-  RESET_FILTERS,
-} from '../actions/types';
+import { SET_FILTER_TERM, RESET_FILTERS } from '../actions/types';
 
-let filteredProducts;
+// Filter all products
+function handleFiltering(apparelTerm, brandTerm, searchTerm, products) {
+  let newFilteredProducts = products;
 
-function handleFiltering(apparelTerm, brandTerm, products) {
-  if (apparelTerm && brandTerm) {
-    filteredProducts = products.filter((product) => product.brand === brandTerm)
-      .filter((product) => product.subCategory === apparelTerm);
+  if (apparelTerm)
+    newFilteredProducts = newFilteredProducts.filter((product) => product.subCategory === apparelTerm);
+
+  if (brandTerm)
+    newFilteredProducts = newFilteredProducts.filter((product) => product.brand === brandTerm);
+
+  if (searchTerm) {
+    newFilteredProducts = newFilteredProducts
+      .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
   }
 
-  if (apparelTerm && !brandTerm) {
-    filteredProducts = products.filter((product) => product.subCategory === apparelTerm);
-  }
+  if (!brandTerm && !apparelTerm && !searchTerm)
+    newFilteredProducts = null;
 
-  if (brandTerm && !apparelTerm) {
-    filteredProducts = products.filter((product) => product.brand === brandTerm);
-  }
-
-  if (!brandTerm && !apparelTerm) {
-    filteredProducts = undefined;
-  }
+  return newFilteredProducts;
 }
 
-export default (state = [], action) => {
+const INITIAL_STATE = {
+  apparelTerm: '',
+  brandTerm: '',
+  searchTerm: '',
+  filteredProducts: null,
+};
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SET_FILTER_APPARELTERM:
-      handleFiltering(action.apparelTerm, state.brandTerm, action.products);
+    case SET_FILTER_TERM:
+      const {
+        apparelTerm,
+        brandTerm,
+        searchTerm,
+        products,
+      } = action;
 
-      return { ...state, apparelTerm: action.apparelTerm, filteredProducts };
-
-    case SET_FILTER_BRANDTERM:
-      handleFiltering(state.apparelTerm, action.brandTerm, action.products);
-
-      return { ...state, brandTerm: action.brandTerm, filteredProducts };
+      return {
+        apparelTerm,
+        brandTerm,
+        searchTerm,
+        filteredProducts: handleFiltering(apparelTerm, brandTerm, searchTerm, products),
+      };
 
     case RESET_FILTERS:
-      return { state: [] };
+      return { ...INITIAL_STATE };
 
     default:
       return state;
