@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 export default function UserShow() {
+  const history = useHistory();
   const location = useLocation();
   const { orders } = useSelector((state) => state.orders);
   const { user } = location.state;
@@ -13,7 +14,7 @@ export default function UserShow() {
 
   function handleUserOrders() {
     if (userOrders.length === 0) {
-      return <h2>This user has not made any orders</h2>
+      return <h2>This user has not made any orders</h2>;
     }
 
     return userOrders.map((order) => (
@@ -40,15 +41,23 @@ export default function UserShow() {
       <h2 className="mb-1">Email: {email}</h2>
       <h2 className="mb-1">User since: {new Date(date).toLocaleDateString('en-GB')}</h2>
       {isAdmin && (
-        <h2 className="mb-1">Account Status: Admin</h2>
+        <h2 className="mb-2">Account Status: Admin</h2>
       )}
       {isBanned && (
-        <h2 className="mb-1">Account Status: Banned</h2>
+        <h2 className="mb-2">Account Status: Banned</h2>
       )}
       {banComment && (
-        <h2 className="mb-1">Reason for banned: {banComment}</h2>
+        <h2 className="mb-2">Reason for banned: {banComment}</h2>
       )}
       {orders && handleUserOrders()}
+
+      <button
+        type="button"
+        className="btn"
+        onClick={() => history.goBack()}
+      >
+        Back
+      </button>
     </div>
   );
 }
