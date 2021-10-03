@@ -42,7 +42,7 @@ export const registerUser = (values) => async (dispatch) => {
         dispatch({ type: REGISTER_ACCOUNT });
 
         // Success, push to login page
-        history.push({ pathname: '/account/login', state: { registerSuccess: true } });
+        history.push('/account/login', { registerSuccess: true });
       }
     })
     .catch((error) => dispatch({ type: REGISTER_ERROR, payload: error.response.data }));
@@ -145,9 +145,13 @@ export const passwordResetLink = (email) => async (dispatch) => {
   api.post('/auth/reset/password', {
     email,
   })
-    .then((response) => dispatch({ type: RECIEVE_PASSWORD_RESET_LINK, payload: response.data }))
-    .catch((error) => dispatch({ type: RECIEVE_PASSWORD_RESET_LINK_ERROR, payload: error.response.data }));
-}
+    .then((response) => dispatch({
+      type: RECIEVE_PASSWORD_RESET_LINK, payload: response.data,
+    }))
+    .catch((error) => dispatch({
+      type: RECIEVE_PASSWORD_RESET_LINK_ERROR, payload: error.response.data,
+    }));
+};
 
 // Reset user password
 export const resetUserPassword = (token, userId, password, confirmPassword) => async (dispatch) => {
@@ -160,7 +164,7 @@ export const resetUserPassword = (token, userId, password, confirmPassword) => a
   })
     .then((response) => dispatch({ type: RESET_PASSWORD, payload: response.data }))
     .catch((error) => dispatch({ type: RESET_PASSWORD_ERROR, payload: error.response.data }));
-}
+};
 
 // Change users password
 export const changeUserPassword = (id, token, values) => async (dispatch) => {
@@ -216,7 +220,7 @@ export const deleteAccount = (id, token) => async (dispatch) => {
       'x-auth-token': token,
     },
   })
-    .then((response) => {
+    .then(() => {
       dispatch({ type: LOG_OUT });
 
       history.push({ pathname: '/' });
