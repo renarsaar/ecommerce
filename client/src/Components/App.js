@@ -14,7 +14,11 @@ import ProductCreate from './products/ProductCreate';
 import ProductDelete from './products/ProductDelete';
 import ProductEdit from './products/ProductEdit';
 import ProductShow from './products/ProductShow';
-import Account from './account/Account';
+import LogIn from './account/LogIn';
+import Register from './account/Register';
+import ResetPassword from './account/ResetPassword';
+import ResetPasswordConfirm from './account/ResetPasswordConfirm';
+import Validation from './account/Validation';
 import User from './account/User';
 import Admin from './account/Admin';
 import OrderCreate from './orders/OrderCreate';
@@ -67,18 +71,20 @@ export default function App() {
         </Route>
         <Route path="/products/:id" exact component={ProductShow} />
         <Route path="/account/login" exact>
-          {isLoggedIn ? <Redirect to="/" /> : <Account login />}
+          {isLoggedIn ? <Redirect to="/" /> : <LogIn />}
         </Route>
         <Route path="/account/register" exact>
-          {isLoggedIn ? <Redirect to="/" /> : <Account register />}
+          {isLoggedIn ? <Redirect to="/" /> : <Register />}
         </Route>
         <Route path="/account/resetpassword" exact>
-          {isLoggedIn ? <Redirect to="/" /> : <Account resetPassword />}
+          {isLoggedIn ? <Redirect to="/" /> : <ResetPassword />}
         </Route>
         <Route
           path="/account/reset_password_confirm"
           exact
-          render={(props) => isLoggedIn ? <Redirect to="/" /> : <Account resetPasswordConfirm location={props.location} />}
+          render={(props) => (isLoggedIn
+            ? <Redirect to="/" />
+            : <ResetPasswordConfirm locationProps={props.location} />)}
         />
         <Route path="/account/dashboard/admin/:id" exact>
           {isLoggedIn && user.admin ? <Admin /> : <Redirect to="/" />}
@@ -90,7 +96,13 @@ export default function App() {
           {isLoggedIn && user.admin ? <UserShow /> : <Redirect to="/" />}
         </Route>
         <Route path="/account/dashboard/user/:id" exact component={User} />
-        <Route path="/account/validation" exact render={(props) => <Account location={props.location} validation />} />
+        <Route
+          path="/account/validation"
+          exact
+          render={
+            (props) => <Validation locationProps={props.location} />
+          }
+        />
         <Route path="/cart/checkout" exact component={OrderCreate} />
         <Route path="/cart/success" exact component={CartSuccess} />
         <Route path="/order/:id" exact component={OrderShow} />
