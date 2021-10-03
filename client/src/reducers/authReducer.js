@@ -149,7 +149,7 @@ export default (state = INITIAL_STATE, action) => {
         authLoading: false,
         recievePasswordResetLink: action.payload,
         recievePasswordResetLinkError: null,
-      }
+      };
 
     case RESET_PASSWORD:
       return {
@@ -157,7 +157,7 @@ export default (state = INITIAL_STATE, action) => {
         authLoading: false,
         resetPassword: action.payload,
         resetPasswordError: null,
-      }
+      };
 
     case CLEAR_AUTH_REDUCER:
       return {
@@ -260,7 +260,7 @@ export default (state = INITIAL_STATE, action) => {
         authLoading: false,
         resetPassword: null,
         resetPasswordError: action.payload,
-      }
+      };
 
     default:
       return state;

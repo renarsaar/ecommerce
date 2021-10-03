@@ -61,7 +61,7 @@ export default function ChangePasswordForm() {
       <input type="password" name="confirmNewPassword" placeholder="Confirm new Password" />
 
       <p className="err">{changePasswordError}</p>
-      <p>{changePassword}</p>
+      <p className="success">{changePassword}</p>
 
       <button className="btn" type="submit" onClick={handleChangePassword}>Change</button>
     </form>

@@ -18,11 +18,11 @@ export default function SearchBar() {
     const { key } = e;
     const { value } = e.target;
 
-    if (key === 'Enter' && value === '')
+    if (key === 'Enter' && value === '') {
       dispatch(setFilterTerm(apparelTerm, brandTerm, value, products));
-
-    else if (key === 'Enter')
+    } else if (key === 'Enter') {
       dispatch(setFilterTerm(apparelTerm, brandTerm, value, products));
+    }
   }
 
   return (
@@ -37,7 +37,7 @@ export default function SearchBar() {
       )}
 
       <i
-        className='las la-search'
+        className="las la-search"
         onClick={() => setSearchBar(!searchBar)}
       />
     </>

@@ -7,15 +7,9 @@ export default function ProductDelete() {
   const dispatch = useDispatch();
   const { selectedProduct, deleteProductError } = useSelector((state) => state.products);
 
-  useEffect(() => {
-    return () => {
-      if (deleteProductError) dispatch(clearProductReducer());
-    }
+  useEffect(() => () => {
+    if (deleteProductError) dispatch(clearProductReducer());
   }, []);
-
-  // useEffect(() => {
-  //   if (deleteProductError) dispatch(clearProductReducer());
-  // }, []);
 
   return (
     <div className="product-delete container-high">

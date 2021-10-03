@@ -22,7 +22,7 @@ export default class OrderCreate extends React.Component {
   // Clear Form Step
   componentWillUnmount() {
     this.setState({ step: 1 });
-  };
+  }
 
   // Proceed to next Step
   nextStep = (e) => {
