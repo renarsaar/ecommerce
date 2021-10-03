@@ -1,19 +1,11 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Footer() {
-  const location = useLocation();
+  const { hideNavigation } = useSelector((state) => state.view);
 
   // Do not render on login/register/validation page
-  if (
-    location.pathname.includes('/account/login')
-    || location.pathname.includes('/account/register')
-    || location.pathname.includes('/account/validation')
-    || location.pathname.includes('/account/resetpassword')
-    || location.pathname.includes('/account/reset_password_confirm')
-  ) {
-    return <></>;
-  }
+  if (hideNavigation) return <></>;
 
   return (
     <div className="footer">

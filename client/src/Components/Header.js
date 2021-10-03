@@ -22,6 +22,7 @@ export default function Header() {
   const { wishListProducts } = useSelector((state) => state.wishList);
   const cartProducts = useSelector((state) => state.cart);
   const { user, loading, isLoggedIn } = useSelector((state) => state.auth);
+  const { hideNavigation } = useSelector((state) => state.view);
   const [showCart, setShowCart] = useState(false);
   const [showWishList, setShowWishList] = useState(false);
   const location = useLocation();
@@ -71,16 +72,8 @@ export default function Header() {
     return '/account/login';
   }
 
-  // Do not render on login/register/validation page
-  if (
-    location.pathname.includes('/account/login')
-    || location.pathname.includes('/account/register')
-    || location.pathname.includes('/account/validation')
-    || location.pathname.includes('/account/resetpassword')
-    || location.pathname.includes('/account/reset_password_confirm')
-  ) {
-    return <></>;
-  }
+  // Do not render Header on login/register/validation page
+  if (hideNavigation) return <></>;
 
   return (
     <div className="header container">

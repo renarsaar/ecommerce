@@ -8,6 +8,7 @@ export default function SubHeader() {
   const { selectedProduct } = useSelector((state) => state.products);
   const { sortValue } = useSelector((state) => state.sort);
   const { fabric, journal, about } = useSelector((state) => state.menu);
+  const { hideNavigation } = useSelector((state) => state.view);
   const location = useLocation();
 
   // Display breadcrumb menu items
@@ -47,15 +48,7 @@ export default function SubHeader() {
   }
 
   // Do not render on login/register/validation page
-  if (
-    location.pathname.includes('/account/login')
-    || location.pathname.includes('/account/register')
-    || location.pathname.includes('/account/validation')
-    || location.pathname.includes('/account/resetpassword')
-    || location.pathname.includes('/account/reset_password_confirm')
-  ) {
-    return <></>;
-  }
+  if (hideNavigation) return <></>;
 
   return (
     <div className="subheader">

@@ -9,6 +9,7 @@ import ordersReducer from './orderReducer';
 import productsReducer from './productsReducer';
 import reviewReducer from './reviewReducer';
 import sortReducer from './sortReducer';
+import viewReducer from './viewReducer';
 import wishListReducer from './wishListReducer';
 
 export default combineReducers({
@@ -21,5 +22,6 @@ export default combineReducers({
   products: productsReducer,
   reviews: reviewReducer,
   sort: sortReducer,
+  view: viewReducer,
   wishList: wishListReducer,
 });
