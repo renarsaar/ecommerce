@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
-// import createBrowserHistory from './history';
 
 import App from './Components/App';
 import reducers from './reducers';
-import './css/main.css';
+import history from './history';
+import './scss/main.scss';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
@@ -19,7 +19,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Router>
+      <Router history={history}>
         <App />
       </Router>
     </React.StrictMode>
