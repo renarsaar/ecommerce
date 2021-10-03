@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { contactRequest, clearContactReducer } from '../actions/contactActions';
 import Modal from 'react-modal';
+import { contactRequest, clearContactReducer } from '../actions/contactActions';
 
 const customModalStyles = {
   content: {
@@ -16,22 +16,20 @@ const customModalStyles = {
 
 export default function About() {
   const dispatch = useDispatch();
-  const { contactLoading, contact, contactError } = useSelector((state) => state.contact);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [nameErr, setNameErr] = useState('');
-  const [emailErr, setEmailErr] = useState('');
-  const [messageErr, setMessageErr] = useState('');
+  const { contact, contactError } = useSelector((state) => state.contact);
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
+  const [contactNameErr, setContactNameErr] = useState('');
+  const [contactEmailErr, setContactEmailErr] = useState('');
+  const [contactMessageErr, setContactMessageErr] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const closeModal = () => setModalIsOpen(false);
 
   Modal.setAppElement('#modal');
 
-  useEffect(() => {
-    return () => {
-      dispatch(clearContactReducer());
-    }
+  useEffect(() => () => {
+    dispatch(clearContactReducer());
   }, []);
 
   useEffect(() => {
@@ -43,56 +41,56 @@ export default function About() {
     e.preventDefault();
 
     const values = {
-      name,
-      email,
-      message,
+      contactName,
+      contactEmail,
+      contactMessage,
     };
 
-    if (!name) setNameErr('Required!');
-    if (!email) setEmailErr('Required!');
-    if (!message) setMessageErr('Required!');
+    if (!contactName) setContactNameErr('Required!');
+    if (!contactEmail) setContactEmailErr('Required!');
+    if (!contactMessage) setContactMessageErr('Required!');
 
-    if (nameErr || emailErr || messageErr) {
+    if (contactNameErr || contactEmailErr || contactMessageErr) {
       return;
     }
 
     dispatch(contactRequest(values));
   }
 
-  // Handle form change 
+  // Handle form change
   function handleChange(e) {
     const { name, value } = e.target;
 
     switch (name) {
       case 'name':
         if (value === '') {
-          setName('');
-          setNameErr('Required!');
+          setContactName('');
+          setContactNameErr('Required!');
         } else {
-          setNameErr('');
-          setName(value);
+          setContactNameErr('');
+          setContactName(value);
         }
 
         break;
 
       case 'email':
         if (value === '') {
-          setEmail('');
-          setEmailErr('Required!');
+          setContactEmail('');
+          setContactEmailErr('Required!');
         } else {
-          setEmailErr('');
-          setEmail(value);
+          setContactEmailErr('');
+          setContactEmail(value);
         }
 
         break;
 
       case 'message':
         if (value === '') {
-          setMessage('');
-          setMessageErr('Required!');
+          setContactMessage('');
+          setContactMessageErr('Required!');
         } else {
-          setMessageErr('');
-          setMessage(value);
+          setContactMessageErr('');
+          setContactMessage(value);
         }
 
         break;
@@ -102,28 +100,24 @@ export default function About() {
     }
   }
 
-  // Email regex
-  function validateEmail(e) {
-    const { value } = e.target;
-    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-    if (!re.test(value)) {
-      setEmailErr('Invalid Email!');
-    } else {
-      setEmailErr('');
-    }
-  }
-
   return (
     <div className="about">
       <div className="about-container mt-1">
         <div className="about-introduction">
           <h1 className="mb-1 txt-bold">VRA E-commerce</h1>
-          <p>VRA E-commerce is a small shop that sells different appareals. Our goal is to offer our customers unforgettable fashion experiences and excellent customer service. Whole page is built and managed by Renar, who is trying his best to make the whole purchasing process as easy as possible. Feel free to register our club and start shopping. All questions, suggestions are welcomed via form down below.</p>
+          <p>
+            VRA E-commerce is a small shop that sells different appareals.
+            Our goal is to offer our customers unforgettable fashion experiences
+            and excellent customer service.
+            Whole page is built and managed by Renar,
+            who is trying his best to make the whole purchasing process as easy as possible.
+            Feel free to register our club and start shopping.
+            All questions, suggestions are welcomed via form down below.
+          </p>
           <div className="line" />
         </div>
         <div className="about-illustration">
-          <img src="./storefront_illustration.png" />
+          <img src="./storefront_illustration.png" alt="Store illustration" />
         </div>
       </div>
 
@@ -131,12 +125,12 @@ export default function About() {
         <h1 className="mb-2">Have a Question? Contact Us</h1>
         <label
           htmlFor="name"
-          className={nameErr ? 'err' : ''}
+          className={contactNameErr ? 'err' : ''}
         >
           Name*
         </label>
         <input
-          className={nameErr ? 'input-err' : ''}
+          className={contactNameErr ? 'input-err' : ''}
           type="text"
           name="name"
           placeholder="Name"
@@ -145,27 +139,26 @@ export default function About() {
 
         <label
           htmlFor="email"
-          className={emailErr ? 'err' : ''}
+          className={contactEmailErr ? 'err' : ''}
         >
           Email*
         </label>
         <input
-          className={emailErr ? 'input-err' : ''}
+          className={contactEmailErr ? 'input-err' : ''}
           type="email"
           name="email"
           placeholder="Email address"
           onChange={handleChange}
-          onBlur={validateEmail}
         />
 
         <label
           htmlFor="message"
-          className={messageErr ? 'err' : ''}
+          className={contactMessageErr ? 'err' : ''}
         >
           Message*
         </label>
         <textarea
-          className={messageErr ? 'input-err' : ''}
+          className={contactMessageErr ? 'input-err' : ''}
           name="message"
           placeholder="Your message"
           onChange={handleChange}
