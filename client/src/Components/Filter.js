@@ -73,7 +73,7 @@ export default function Filter() {
         style={{
           color: apparelTerm === category
             ? '#ff600a'
-            : '#0a0a0a'
+            : '#0a0a0a',
         }}
         key={category}
         value={category}
@@ -92,7 +92,7 @@ export default function Filter() {
         style={{
           color: brandTerm === brand
             ? '#ff600a'
-            : '#0a0a0a'
+            : '#0a0a0a',
         }}
         key={brand}
         value={brand}
