@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
+import { switchNavigation } from '../../actions/viewActions';
 import api from '../../api';
+
+import AccountLogo from './AccountLogo';
+import AccountSplashScreen from './AccountSplashScreen';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -10,6 +14,14 @@ export default function Register() {
   const [nameErr, setNameErr] = useState('');
   const [emailErr, setEmailErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
+
+  // Hide header & footer components
+  useEffect(() => {
+    dispatch(switchNavigation(true));
+    return () => {
+      dispatch(switchNavigation(false));
+    };
+  }, []);
 
   // Submit form & register account
   async function handleRegistration(e) {
@@ -71,78 +83,84 @@ export default function Register() {
   }
 
   return (
-    <>
-      <h1 className="headline mb-2">Register a new Account</h1>
+    <div className="account flex">
+      <div className="account-container">
+        <AccountLogo />
 
-      <button
-        type="button"
-        className="google-btn"
-        onClick={handleOAuth2Request}
-      >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="signin-google" />
-        <h3>Sign up with Google</h3>
-      </button>
+        <h1 className="headline mb-2">Register a new Account</h1>
 
-      <span>or</span>
+        <button
+          type="button"
+          className="google-btn"
+          onClick={handleOAuth2Request}
+        >
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="signin-google" />
+          <h3>Sign up with Google</h3>
+        </button>
 
-      <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleRegistration}>
-        <label htmlFor="name">Name</label>
-        <input
-          className={nameErr ? 'input-err' : ''}
-          type="text"
-          name="name"
-          onBlur={handleValidation}
-        />
-        <p className="err mb-1">{nameErr}</p>
+        <span>or</span>
 
-        <label htmlFor="email">Email Address</label>
-        <input
-          className={emailErr ? 'input-err' : ''}
-          type="text"
-          name="email"
-          onBlur={handleValidation}
-        />
-        <p className="err mb-1">{emailErr}</p>
+        <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleRegistration}>
+          <label htmlFor="name">Name</label>
+          <input
+            className={nameErr ? 'input-err' : ''}
+            type="text"
+            name="name"
+            onBlur={handleValidation}
+          />
+          <p className="err mb-1">{nameErr}</p>
 
-        <label htmlFor="password">Password</label>
-        <input
-          className={passwordErr ? 'input-err' : ''}
-          type="password"
-          name="password"
-          onBlur={handleValidation}
-        />
-        <p className="err mb-1">{passwordErr}</p>
+          <label htmlFor="email">Email Address</label>
+          <input
+            className={emailErr ? 'input-err' : ''}
+            type="text"
+            name="email"
+            onBlur={handleValidation}
+          />
+          <p className="err mb-1">{emailErr}</p>
 
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          className="mb-1"
-          type="password"
-          name="confirmPassword"
-        />
+          <label htmlFor="password">Password</label>
+          <input
+            className={passwordErr ? 'input-err' : ''}
+            type="password"
+            name="password"
+            onBlur={handleValidation}
+          />
+          <p className="err mb-1">{passwordErr}</p>
 
-        {registerError && (
-          <p className="error-container">{registerError}</p>
-        )}
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            className="mb-1"
+            type="password"
+            name="confirmPassword"
+          />
 
-        <input type="submit" value="Register" />
+          {registerError && (
+            <p className="error-container">{registerError}</p>
+          )}
 
-        {authLoading && (
-          <div className="loading-container">
-            <div className="loading">
-              <div />
-              <div />
-              <div />
-              <div />
+          <input type="submit" value="Register" />
+
+          {authLoading && (
+            <div className="loading-container">
+              <div className="loading">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
             </div>
-          </div>
-        )}
-      </form>
+          )}
+        </form>
 
-      <h4>
-        Have an account?
-        {' '}
-        <Link to="/account/login">Log in now</Link>
-      </h4>
-    </>
+        <h4>
+          Have an account?
+          {' '}
+          <Link to="/account/login">Log in now</Link>
+        </h4>
+      </div>
+
+      <AccountSplashScreen />
+    </div>
   );
 }

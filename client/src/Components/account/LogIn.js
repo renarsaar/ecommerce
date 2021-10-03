@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../../actions/authActions';
+import { switchNavigation } from '../../actions/viewActions';
 import api from '../../api';
+
+import AccountLogo from './AccountLogo';
+import AccountSplashScreen from './AccountSplashScreen';
 
 export default function LogIn() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [logInMessage, setLogInMessage] = useState('');
   const { authLoading, logInError } = useSelector((state) => state.auth);
+
+  // Hide header & footer components
+  useEffect(() => {
+    dispatch(switchNavigation(true));
+    return () => {
+      dispatch(switchNavigation(false));
+    };
+  }, []);
 
   // Log user in
   async function handleLogIn(e) {
@@ -35,55 +47,61 @@ export default function LogIn() {
   }
 
   return (
-    <>
-      <h2 className="headline mb-2">Log in to your account</h2>
+    <div className="account flex">
+      <div className="account-container">
+        <AccountLogo />
 
-      <button type="button" className="google-btn" onClick={handleOAuth2Request}>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="login-google" />
-        <h3>Log in with Google</h3>
-      </button>
+        <h2 className="headline mb-2">Log in to your account</h2>
 
-      <span>or</span>
+        <button type="button" className="google-btn" onClick={handleOAuth2Request}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1004px-Google_%22G%22_Logo.svg.png" alt="login-google" />
+          <h3>Log in with Google</h3>
+        </button>
 
-      {location.state && (
-        <div className="success-container">
-          Account created, you may log in now with your Email Address
-        </div>
-      )}
+        <span>or</span>
 
-      <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleLogIn}>
-        <label htmlFor="email">Email Address</label>
-        <input className="mb-1" type="text" name="email" />
-
-        <label htmlFor="password">Password</label>
-        <input className="mb-1" type="password" name="password" />
-
-        {logInMessage || logInError
-          ? <p className="error-container mb-1">{logInMessage || logInError}</p>
-          : ''}
-
-        <input type="submit" value="Login" />
-
-        {authLoading && (
-          <div className="loading-container">
-            <div className="loading">
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
+        {location.state && (
+          <div className="success-container">
+            Account created, you may log in now with your Email Address
           </div>
         )}
-      </form>
 
-      <h4>
-        Don&apos;t have an account?
-        {' '}
-        <Link to="/account/register">Sign Up</Link>
-      </h4>
-      <h4>
-        <Link to="/account/resetpassword">Forgot your password?</Link>
-      </h4>
-    </>
+        <form style={{ opacity: authLoading ? '0.4' : '1' }} onSubmit={handleLogIn}>
+          <label htmlFor="email">Email Address</label>
+          <input className="mb-1" type="text" name="email" />
+
+          <label htmlFor="password">Password</label>
+          <input className="mb-1" type="password" name="password" />
+
+          {logInMessage || logInError
+            ? <p className="error-container mb-1">{logInMessage || logInError}</p>
+            : ''}
+
+          <input type="submit" value="Login" />
+
+          {authLoading && (
+            <div className="loading-container">
+              <div className="loading">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+            </div>
+          )}
+        </form>
+
+        <h4>
+          Don&apos;t have an account?
+          {' '}
+          <Link to="/account/register">Sign Up</Link>
+        </h4>
+        <h4>
+          <Link to="/account/resetpassword">Forgot your password?</Link>
+        </h4>
+      </div>
+
+      <AccountSplashScreen />
+    </div>
   );
 }
