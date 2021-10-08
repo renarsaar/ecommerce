@@ -18,7 +18,7 @@ const {
 // @desc    Get All Users
 // @route   GET /auth/users
 // @access  admin
-router.get('/users', auth, paginatedResults(User), async (req, res) => {
+router.get('/users', paginatedResults(User), auth, async (req, res) => {
   const user = await User.findById(req.user._id);
 
   // Validate if admin

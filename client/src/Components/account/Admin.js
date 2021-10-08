@@ -54,7 +54,7 @@ export default function Admin() {
   }, [currentOrdersPage, orderStatusLoading, deleteOrderMessage]);
 
   useEffect(() => {
-    dispatch(getUsers(sessionStorage.token));
+    dispatch(getUsers(1, sessionStorage.token));
 
     return () => {
       dispatch(clearAuthReducer());
@@ -64,7 +64,7 @@ export default function Admin() {
   // Open modal on makeAdminAction
   useEffect(() => {
     setModalIsOpen(true);
-    dispatch(getUsers(sessionStorage.token));
+    dispatch(getUsers(1, sessionStorage.token));
   }, [makeAdmin, banUser]);
 
   // Change order completed status
@@ -321,13 +321,13 @@ export default function Admin() {
     dispatch(logOut());
   }
 
-  // Get previous page of orders
-  function handleClickPreviousPage(previousPage) {
+  // Get previous page of Orders
+  function handleClickPreviousOrdersPage(previousPage) {
     dispatch(getOrders(previousPage, sessionStorage.token));
   }
 
-  // Get next page of orders
-  function handleClickNextPage(nextPage) {
+  // Get next page of Orders
+  function handleClickNextOrdersPage(nextPage) {
     dispatch(getOrders(nextPage, sessionStorage.token));
   }
 
@@ -341,7 +341,7 @@ export default function Admin() {
         {previousOrders && (
           <div
             className="btn next-page"
-            onClick={() => handleClickPreviousPage(previousOrders.page)}
+            onClick={() => handleClickPreviousOrdersPage(previousOrders.page)}
           >
             {previousOrders.page}
           </div>
@@ -354,13 +354,23 @@ export default function Admin() {
         {nextOrders && (
           <div
             className="btn previous-page"
-            onClick={() => handleClickNextPage(nextOrders.page)}
+            onClick={() => handleClickNextOrdersPage(nextOrders.page)}
           >
             {nextOrders.page}
           </div>
         )}
       </div>
     );
+  }
+
+  // Get previous page of Users
+  function handleClickPreviousUsersPage(previousPage) {
+    dispatch(getUsers(previousPage, sessionStorage.token));
+  }
+
+  // Get next page of Users
+  function handleClickNextUsersPage(nextPage) {
+    dispatch(getUsers(nextPage, sessionStorage.token));
   }
 
   // Handle previous/next button for Users
@@ -373,7 +383,7 @@ export default function Admin() {
         {previousUsers && (
           <div
             className="btn next-page"
-            onClick={() => handleClickPreviousPage(previousUsers.page)}
+            onClick={() => handleClickPreviousUsersPage(previousUsers.page)}
           >
             {previousUsers.page}
           </div>
@@ -386,7 +396,7 @@ export default function Admin() {
         {nextUsers && (
           <div
             className="btn previous-page"
-            onClick={() => handleClickNextPage(nextUsers.page)}
+            onClick={() => handleClickNextUsersPage(nextUsers.page)}
           >
             {nextUsers.page}
           </div>

@@ -101,15 +101,21 @@ export const validateOAuthUser = (values) => async (dispatch) => {
 };
 
 // Get all users
-export const getUsers = (token) => async (dispatch) => {
+export const getUsers = (page, token) => async (dispatch) => {
   dispatch({ type: AUTH_LOADING });
 
   api.get('/auth/users', {
+    params: {
+      page,
+      limit: 10,
+    },
     headers: {
       'x-auth-token': token,
     },
   })
-    .then((response) => dispatch({ type: GET_USERS, payload: response.data }))
+    .then((response) => {
+      dispatch({ type: GET_USERS, payload: response.data });
+    })
     .catch((error) => dispatch({ type: GET_USERS_ERROR, payload: error.response.data }));
 };
 
