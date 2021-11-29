@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Testimonials from './Testimonials';
 
 export default function TestimonialsModal({ showTestimonials, handleClose }) {
-  const modalClassName = showTestimonials === true ? 'testimonials-modal visible' : 'testimonials-modal hidden';
+  const modalClassName = showTestimonials === true ? 'modal-container visible' : 'modal-container hidden';
 
   return ReactDOM.createPortal(
     <div className={modalClassName} onClick={handleClose}>

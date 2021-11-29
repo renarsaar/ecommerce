@@ -49,6 +49,7 @@ export default function Header() {
 
   // Handle show shopping cart
   function handleCart() {
+    // Close wishlist that's positioned in the same area
     if (showWishList) {
       setShowWishList(false);
     }
@@ -58,6 +59,7 @@ export default function Header() {
 
   // Handle show wishlist
   function handleWishlist() {
+    // Close cart that's positioned in the same area
     if (showCart) {
       setShowCart(false);
     }

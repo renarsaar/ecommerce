@@ -1412,7 +1412,7 @@ h4 {
   }
 }
 
-.testimonials-modal {
+.modal-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -1456,6 +1456,7 @@ h4 {
       }
     }
 
+    // Testimonials
     .testimonial {
       display: flex;
       background-color: $lighter;
@@ -1502,6 +1503,26 @@ h4 {
       span { 
         font-size: 1.4rem;
         margin-right: 0.6rem;
+      }
+    }
+
+    // Privacy policy
+    .privacy-policy {
+      margin: 1.5rem;
+
+      h1, h2, h3 { margin: 1rem 0; }
+      
+      p {
+        line-height: 1.6;
+      }
+
+      ul {
+        margin-top: 1rem;
+        margin-left: 1rem;
+
+        li {
+          margin-bottom: 1rem;
+        }
       }
     }
   }

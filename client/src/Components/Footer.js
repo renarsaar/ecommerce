@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { showFabric, showJournal, showAbout } from '../actions/menuActions';
+
 import TestimonialsModal from './Modals/FooterModals/TestimonialsModal';
+import PrivacyPolicyModal from './Modals/FooterModals/PrivacyPolicyModal';
 
 export default function Footer() {
   const dispatch = useDispatch();
   const [showTestimonials, setShowTestimonials] = useState(false);
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const { hideNavigation } = useSelector((state) => state.view);
 
-  // Handle show testimonials modal
+  // Handle modal opening, closing
   const handleTestimonials = () => setShowTestimonials(!showTestimonials);
+  const handlePrivacyPolicy = () => setShowPrivacyPolicy(!showPrivacyPolicy);
 
   // Do not render on login/register/validation page
   if (hideNavigation) return <></>;
@@ -23,7 +27,7 @@ export default function Footer() {
           <li className="link" onClick={() => dispatch(showJournal())}>Journal</li>
           <li className="link" onClick={() => dispatch(showAbout())}>About us &amp; Contact</li>
           <li className="link" onClick={handleTestimonials}>Testimonials</li>
-          <li>Privacy Policy</li>
+          <li className="link" onClick={handlePrivacyPolicy}>Privacy Policy</li>
         </ul>
         <ul>
           <h2>Partners</h2>
@@ -66,6 +70,11 @@ export default function Footer() {
       <TestimonialsModal
         showTestimonials={showTestimonials}
         handleClose={handleTestimonials}
+      />
+
+      <PrivacyPolicyModal
+        showPrivacyPolicy={showPrivacyPolicy}
+        handleClose={handlePrivacyPolicy}
       />
 
       <h4 className="copyright txt-center">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h4>
