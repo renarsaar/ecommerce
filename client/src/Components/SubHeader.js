@@ -44,6 +44,8 @@ export default function SubHeader() {
     if (location.pathname.includes('/order')) return 'hide';
     if (fabric || journal || about) return 'hide';
 
+    // !TODO UserShow in SubHeader
+
     return 'sort show';
   }
 

@@ -1,8 +1,15 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { showFabric, showJournal, showAbout } from '../actions/menuActions';
+import TestimonialsModal from './Modals/FooterModals/TestimonialsModal';
 
 export default function Footer() {
+  const dispatch = useDispatch();
+  const [showTestimonials, setShowTestimonials] = useState(false);
   const { hideNavigation } = useSelector((state) => state.view);
+
+  // Handle show testimonials modal
+  const handleTestimonials = () => setShowTestimonials(!showTestimonials);
 
   // Do not render on login/register/validation page
   if (hideNavigation) return <></>;
@@ -12,10 +19,10 @@ export default function Footer() {
       <div className="container">
         <ul>
           <h2>Categories</h2>
-          <li>About us</li>
-          <li>Testimonials</li>
-          <li>Contact</li>
-          <li>Journal</li>
+          <li className="link" onClick={() => dispatch(showFabric())}>Fabric</li>
+          <li className="link" onClick={() => dispatch(showJournal())}>Journal</li>
+          <li className="link" onClick={() => dispatch(showAbout())}>About us &amp; Contact</li>
+          <li className="link" onClick={handleTestimonials}>Testimonials</li>
           <li>Privacy Policy</li>
         </ul>
         <ul>
@@ -55,6 +62,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      <TestimonialsModal
+        showTestimonials={showTestimonials}
+        handleClose={handleTestimonials}
+      />
 
       <h4 className="copyright txt-center">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h4>
     </div>

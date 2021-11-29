@@ -1297,6 +1297,8 @@ h4 {
       li {
         color: $light-grey;
         line-height: 2;
+
+        &.link:hover { color: $orange;}
       }
     }
 
@@ -1351,7 +1353,7 @@ h4 {
   }
 }
 
-// CartModal, WishListModal
+// Modals
 .wishlist-modal, .cart-modal {
   @extend %modal-shared;
 
@@ -1405,6 +1407,101 @@ h4 {
               &:hover { color: $orange; }
           }
         }
+      }
+    }
+  }
+}
+
+.testimonials-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+
+  .modal-main {
+    @extend %modal-shared;
+    position: fixed;
+    width: 75%;
+    height: 85%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .close-modal {
+      position: absolute;
+      content: '';
+      top: 10px;
+      right: 10px;
+      height: 40px;
+      width: 40px;
+      border-radius: 3px;
+
+      button {
+        cursor: pointer;
+        border: none;
+        color: $black;
+        font-size: 1.5rem;
+        font-weight: 500;
+        width: 100%;
+        height: 100%;
+        background: $light-grey;
+        transition: color 0.1s;
+
+        &:hover {
+          color: $orange;
+          transition: color 0.1s;
+        }
+      }
+    }
+
+    .testimonial {
+      display: flex;
+      background-color: $lighter;
+      border: 2px solid $light-grey;
+      padding: 1rem;
+      margin: 1rem;
+
+      &::before {
+        position: absolute;
+        content: "";
+        top: 100px;
+        left: -100px;
+        width: 700px;
+        height: 5px;
+        border-radius: 4px;
+        transform: rotate(135deg);
+        background: $orange;
+        z-index: -2;
+        opacity: 0.3;
+      }
+
+      &::after {
+        position: absolute;
+        content: "";
+        top: 200px;
+        left: -200px;
+        width: 900px;
+        height: 5px;
+        border-radius: 4px;
+        transform: rotate(135deg);
+        background: $orange;
+        z-index: -2;
+        opacity: 0.3;
+      }
+
+      img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      div { margin: auto 1rem; }
+      span { 
+        font-size: 1.4rem;
+        margin-right: 0.6rem;
       }
     }
   }
