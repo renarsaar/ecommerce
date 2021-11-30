@@ -1511,7 +1511,7 @@ h4 {
       margin: 1.5rem;
 
       h1, h2, h3 { margin: 1rem 0; }
-      
+
       p {
         line-height: 1.6;
       }
@@ -1523,6 +1523,68 @@ h4 {
         li {
           margin-bottom: 1rem;
         }
+      }
+    }
+
+    .care-guide {
+      margin: 2rem;
+
+      p { line-height: 1.8; }
+
+      .line {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          content: "";
+          bottom: 25px;
+          left: 50%;
+          width: 60px;
+          height: 3px;
+          border-radius: 3px;
+          background: $grey;
+          transform: translateX(-50%);
+        }
+      }
+
+      .headline {
+        font-size: 2rem;
+        position: relative;
+        text-align: center;
+        margin: 1rem 0 3rem;
+      }
+
+      .care-container {
+        margin-top: 4rem;
+        display: flex;
+
+        &-info {
+          width: auto;
+          line-height: 1.7;
+          margin: 0 1rem;
+
+          h2 { text-align: center; }
+
+          .line::after {
+            bottom: 0;
+            top: 15px;
+          }
+        }
+
+        img {
+          width: 50%;
+          margin: 0 1rem;
+          object-fit: cover;
+        }
+      }
+
+      .guide {
+        margin-top: 5rem;
+        text-align: center;
+
+        h1 { margin-bottom: 3.5rem; }
+
+        ul li { margin-top: 2rem; }
       }
     }
   }

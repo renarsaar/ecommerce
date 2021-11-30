@@ -4,16 +4,19 @@ import { showFabric, showJournal, showAbout } from '../actions/menuActions';
 
 import TestimonialsModal from './Modals/FooterModals/TestimonialsModal';
 import PrivacyPolicyModal from './Modals/FooterModals/PrivacyPolicyModal';
+import ProductCare from './Modals/FooterModals/ProductCare';
 
 export default function Footer() {
   const dispatch = useDispatch();
   const [showTestimonials, setShowTestimonials] = useState(false);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [showProductCare, setShowProductCare] = useState(false);
   const { hideNavigation } = useSelector((state) => state.view);
 
   // Handle modal opening, closing
   const handleTestimonials = () => setShowTestimonials(!showTestimonials);
   const handlePrivacyPolicy = () => setShowPrivacyPolicy(!showPrivacyPolicy);
+  const handleProductCare = () => setShowProductCare(!showProductCare);
 
   // Do not render on login/register/validation page
   if (hideNavigation) return <></>;
@@ -34,7 +37,7 @@ export default function Footer() {
           <li>Support</li>
           <li>Shipping &amp; Returns</li>
           <li>Size Guide</li>
-          <li>Product Care</li>
+          <li className="link" onClick={handleProductCare}>Product Care</li>
         </ul>
         <ul>
           <h2>Contact us</h2>
@@ -75,6 +78,11 @@ export default function Footer() {
       <PrivacyPolicyModal
         showPrivacyPolicy={showPrivacyPolicy}
         handleClose={handlePrivacyPolicy}
+      />
+
+      <ProductCare
+        showProductCare={showProductCare}
+        handleClose={handleProductCare}
       />
 
       <h4 className="copyright txt-center">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h4>
