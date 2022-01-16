@@ -105,6 +105,10 @@ export default function Filter() {
 
   return (
     <div className="filter">
+      <div className="filter-trigger">
+        <button type="button">X</button>
+      </div>
+
       <div className="heading">
         <h4 className="txt-uppercase">Filters</h4>
         <h4 className="txt-uppercase link-orange" onClick={handleResetFilters}>

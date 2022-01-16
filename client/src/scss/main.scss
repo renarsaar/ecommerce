@@ -440,6 +440,20 @@ h4 {
     min-height: 100%;
     margin: 1rem 1rem 1rem 0;
 
+    &-trigger {
+      display: none;
+      // display: flex;
+      // justify-content: end;
+      padding: 0.5rem 1rem;
+      margin-bottom: 1rem;
+      background: $lighter;
+      
+      button {
+        font-size: 1.5rem;
+        @extend %btn-shared;
+      }
+    }
+
     .heading {
       display: flex;
       justify-content: space-between;
@@ -1312,6 +1326,7 @@ h4 {
           letter-spacing: 1px;
           width: 400px;
           background: transparent;
+          color: $lighter;
 
           &:focus { outline: 1px solid $white; }
           &::placeholder { color: $light-grey; }
@@ -1506,8 +1521,8 @@ h4 {
       }
     }
 
-    // Privacy policy
-    .privacy-policy {
+    // Privacy policy, Return policy
+    .policy {
       margin: 1.5rem;
 
       h1, h2, h3 { margin: 1rem 0; }
@@ -1585,6 +1600,26 @@ h4 {
         h1 { margin-bottom: 3.5rem; }
 
         ul li { margin-top: 2rem; }
+      }
+    }
+
+    .size-guide {
+      margin: 3rem;
+
+      .headline {
+        text-align: center;
+
+        &-text {
+          width: 70%;
+          margin: 0 auto;
+          text-align: center;
+        }
+      }
+
+      h2 { margin: 4rem 0 2rem; }
+
+      img {
+        width: 600px;
       }
     }
   }

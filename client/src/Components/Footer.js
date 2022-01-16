@@ -4,19 +4,25 @@ import { showFabric, showJournal, showAbout } from '../actions/menuActions';
 
 import TestimonialsModal from './Modals/FooterModals/TestimonialsModal';
 import PrivacyPolicyModal from './Modals/FooterModals/PrivacyPolicyModal';
-import ProductCare from './Modals/FooterModals/ProductCare';
+import ProductCareModal from './Modals/FooterModals/ProductCareModal';
+import SizeGuideModal from './Modals/FooterModals/SizeGuideModal';
+import ShippingModal from './Modals/FooterModals/ShippingModal';
 
 export default function Footer() {
   const dispatch = useDispatch();
+  const { hideNavigation } = useSelector((state) => state.view);
   const [showTestimonials, setShowTestimonials] = useState(false);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [showProductCare, setShowProductCare] = useState(false);
-  const { hideNavigation } = useSelector((state) => state.view);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [showShipping, setShowShipping] = useState(false);
 
   // Handle modal opening, closing
   const handleTestimonials = () => setShowTestimonials(!showTestimonials);
   const handlePrivacyPolicy = () => setShowPrivacyPolicy(!showPrivacyPolicy);
   const handleProductCare = () => setShowProductCare(!showProductCare);
+  const handleSizeGuide = () => setShowSizeGuide(!showSizeGuide);
+  const handleShipping = () => setShowShipping(!showShipping);
 
   // Do not render on login/register/validation page
   if (hideNavigation) return <></>;
@@ -30,13 +36,12 @@ export default function Footer() {
           <li className="link" onClick={() => dispatch(showJournal())}>Journal</li>
           <li className="link" onClick={() => dispatch(showAbout())}>About us &amp; Contact</li>
           <li className="link" onClick={handleTestimonials}>Testimonials</li>
-          <li className="link" onClick={handlePrivacyPolicy}>Privacy Policy</li>
         </ul>
         <ul>
           <h2>Partners</h2>
-          <li>Support</li>
-          <li>Shipping &amp; Returns</li>
-          <li>Size Guide</li>
+          <li className="link" onClick={handlePrivacyPolicy}>Privacy Policy</li>
+          <li className="link" onClick={handleShipping}>Shipping &amp; Returns</li>
+          <li className="link" onClick={handleSizeGuide}>Size Guide</li>
           <li className="link" onClick={handleProductCare}>Product Care</li>
         </ul>
         <ul>
@@ -80,9 +85,19 @@ export default function Footer() {
         handleClose={handlePrivacyPolicy}
       />
 
-      <ProductCare
+      <ProductCareModal
         showProductCare={showProductCare}
         handleClose={handleProductCare}
+      />
+
+      <SizeGuideModal
+        showSizeGuide={showSizeGuide}
+        handleClose={handleSizeGuide}
+      />
+
+      <ShippingModal
+        showShipping={showShipping}
+        handleClose={handleShipping}
       />
 
       <h4 className="copyright txt-center">&copy; Copyright Veebirakenduste Arendus {new Date().getFullYear()}</h4>
