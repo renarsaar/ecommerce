@@ -51,11 +51,17 @@ export default function CartModal({ showCart }) {
           {cartProducts && renderCartItems()}
         </ul>
 
-        <h3 className="price-total txt-bold mb-1">
+        <h3 className="price-total txt-bold">
           {cartProducts.length >= 1 && `Total Price: ${handleCartPrice()} €`}
         </h3>
 
-        {cartProducts.length >= 1 && <Link className="link" to="/cart/checkout">Proceed to Checkout</Link>}
+        {cartProducts.length >= 1 && (
+          <div className="mt-2">
+            <Link className="link btn" to="/cart/checkout">
+              Proceed to Checkout
+            </Link>
+          </div>
+        )}
       </div>
     </div>,
     document.getElementById('cart'),
