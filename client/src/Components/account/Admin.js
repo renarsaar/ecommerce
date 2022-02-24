@@ -47,6 +47,9 @@ export default function Admin() {
 
   Modal.setAppElement('#modal');
 
+  // Todo Admin, main.scss,
+  // Extending Ripplebutton component
+
   // Fetch orders on page change || status change
   useEffect(() => {
     if (orderType === 'All') dispatch(getOrders(currentOrdersPage, sessionStorage.token));
@@ -322,13 +325,29 @@ export default function Admin() {
   }
 
   // Get previous page of Orders
-  function handleClickPreviousOrdersPage(previousPage) {
+  function handlePreviousOrdersPage(e, previousPage) {
+    useRippleButton(e);
+
     dispatch(getOrders(previousPage, sessionStorage.token));
   }
 
   // Get next page of Orders
-  function handleClickNextOrdersPage(nextPage) {
+  function handleNextOrdersPage(e, nextPage) {
+    useRippleButton(e);
+
     dispatch(getOrders(nextPage, sessionStorage.token));
+  }
+
+  function handleAllOrders(e) {
+    useRippleButton(e);
+
+    dispatch(getOrders(currentOrdersPage, sessionStorage.token));
+  }
+
+  function handleNewOrders(e) {
+    useRippleButton(e);
+
+    dispatch(getNewOrders(currentOrdersPage, sessionStorage.token));
   }
 
   // Handle previous/next button for Orders
@@ -341,7 +360,7 @@ export default function Admin() {
         {previousOrders && (
           <div
             className="btn next-page"
-            onClick={() => handleClickPreviousOrdersPage(previousOrders.page)}
+            onClick={(e) => handlePreviousOrdersPage(e, previousOrders.page)}
           >
             {previousOrders.page}
           </div>
@@ -354,7 +373,7 @@ export default function Admin() {
         {nextOrders && (
           <div
             className="btn previous-page"
-            onClick={() => handleClickNextOrdersPage(nextOrders.page)}
+            onClick={(e) => handleNextOrdersPage(e, nextOrders.page)}
           >
             {nextOrders.page}
           </div>
@@ -364,12 +383,16 @@ export default function Admin() {
   }
 
   // Get previous page of Users
-  function handleClickPreviousUsersPage(previousPage) {
+  function handlePreviousUsersPage(e, previousPage) {
+    useRippleButton(e);
+
     dispatch(getUsers(previousPage, sessionStorage.token));
   }
 
   // Get next page of Users
-  function handleClickNextUsersPage(nextPage) {
+  function handleNextUsersPage(e, nextPage) {
+    useRippleButton(e);
+
     dispatch(getUsers(nextPage, sessionStorage.token));
   }
 
@@ -383,7 +406,7 @@ export default function Admin() {
         {previousUsers && (
           <div
             className="btn next-page"
-            onClick={() => handleClickPreviousUsersPage(previousUsers.page)}
+            onClick={(e) => handlePreviousUsersPage(e, previousUsers.page)}
           >
             {previousUsers.page}
           </div>
@@ -396,7 +419,7 @@ export default function Admin() {
         {nextUsers && (
           <div
             className="btn previous-page"
-            onClick={() => handleClickNextUsersPage(nextUsers.page)}
+            onClick={(e) => handleNextUsersPage(e, nextUsers.page)}
           >
             {nextUsers.page}
           </div>
@@ -433,7 +456,7 @@ export default function Admin() {
           <button
             type="button"
             className="btn"
-            onClick={() => dispatch(getOrders(currentOrdersPage, sessionStorage.token))}
+            onClick={(e) => handleAllOrders(e)}
             style={{ background: orderType === 'All' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
           >
             All Orders
@@ -442,7 +465,7 @@ export default function Admin() {
           <button
             type="button"
             className="btn"
-            onClick={() => dispatch(getNewOrders(currentOrdersPage, sessionStorage.token))}
+            onClick={(e) => handleNewOrders(e)}
             style={{ background: orderType === 'New' ? 'rgba(255, 96, 10, 0.2)' : '#e4e3e3' }}
           >
             New Orders
