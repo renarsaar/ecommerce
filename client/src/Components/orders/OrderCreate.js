@@ -170,7 +170,7 @@ export default class OrderCreate extends React.Component {
       case 1:
         return (
           <>
-            <ProgressBar stepNumber={1} stepInfo="Products" />
+            <ProgressBar step={1} />
             <FormCartProducts
               nextStep={this.nextStep}
               values={values}
@@ -182,7 +182,7 @@ export default class OrderCreate extends React.Component {
       case 2:
         return (
           <>
-            <ProgressBar stepNumber={2} stepInfo="Details" />
+            <ProgressBar step={2} />
             <FormPersonalDetails
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -197,7 +197,7 @@ export default class OrderCreate extends React.Component {
       case 3:
         return (
           <>
-            <ProgressBar stepNumber={3} stepInfo="Confirm" />
+            <ProgressBar step={3} />
             <FormConfirm
               prevStep={this.prevStep}
               values={values}

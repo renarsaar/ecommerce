@@ -1,25 +1,49 @@
 import React from 'react';
 
-export default function ProgressBar({ stepNumber, stepInfo }) {
-  const arr = [];
+export default function ProgressBar({ step }) {
+  const progressBarElements = [];
+  const stepData = [
+    {
+      stepValue: 1,
+      desc: 'Products',
+    },
+    {
+      stepValue: 2,
+      desc: 'Details',
+    },
+    {
+      stepValue: 3,
+      desc: 'Confirm',
+    },
+    {
+      stepValue: 4,
+      desc: 'Success',
+    },
+  ];
 
-  for (let i = 1; i <= stepNumber; i++) {
-    if (i === stepNumber) {
-      arr.push(
-        <div key={i} className="bar">
-          <h2 className="step-info">
-            {stepInfo}
+  for (let i = 1; i <= step; i++) {
+    progressBarElements.push(
+      <React.Fragment key={i}>
+        <div className="progress-step">
+          <h2 className="step-desc">
+            {stepData[i - 1].desc}
           </h2>
-        </div>,
-      );
-    } else {
-      arr.push(<div key={i} className="bar" />);
-    }
+        </div>
+
+        {i === step
+          ? <></>
+          : (
+            <div className="progress-step">
+              <div className="step-dot" />
+            </div>
+          )}
+      </React.Fragment>,
+    );
   }
 
   return (
     <div className="progress-bar flex container">
-      {arr.map((item) => item)}
+      {progressBarElements.map((item) => item)}
     </div>
   );
 }

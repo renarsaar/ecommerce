@@ -13,10 +13,13 @@ export default function CartSuccess() {
 
   return (
     <>
-      <ProgressBar stepNumber={4} stepInfo="Success" />
+      <ProgressBar step={4} />
       <div className="order-success container-high">
-        <h3 className="mb-1">Order Created</h3>
-        <Link to="/" className="link">Back to Home</Link>
+        <h1 className="mb-3 orange">Order Created</h1>
+
+        <button type="button" className="btn">
+          <Link to="/" className="link btn">Back to Home</Link>
+        </button>
       </div>
     </>
   );

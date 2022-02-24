@@ -281,7 +281,7 @@ h4 {
   }
 
   &:hover {
-    opacity: .5;
+    opacity: .8;
     transition: .3s ease;
   }
 }
@@ -293,7 +293,7 @@ h4 {
   span {
     position: absolute;
     transform: translate(-50%, -50%);
-    background: set-bg-color($white);
+    background-color: $grey;
     opacity: 0.5;
     pointer-events: none;
     border-radius: 50%;
@@ -301,14 +301,14 @@ h4 {
   }
 }
 
-// Function = Set background color
-@function set-bg-color($color) {
-  @if (lightness($color) > 50) {
-    @return $grey;
-  } @else {
-    @return $white;
-  }
-}
+// // Function = Set background color
+// @function set-bg-color($color) {
+//   @if (lightness($color) > 50) {
+//     @return $grey;
+//   } @else {
+//     @return $white;
+//   }
+// }
 
 // HEADER
 .header {
@@ -706,7 +706,7 @@ h4 {
 
         .product-actions {
           .increment, .decrement {
-            @extend %btn-shared, %btn-ripple;
+            @extend %btn-shared;
           }
 
           span {
@@ -826,6 +826,11 @@ h4 {
 
   .delete-actions .btn {
     @extend %btn-shared-large;
+  }
+
+  .btn {
+    @extend %btn-shared-large;
+    margin-left: 0;
   }
 
   &-form {
@@ -1095,49 +1100,33 @@ h4 {
 }
 
 // OrderSuccess
-.order-success { margin-top: 3rem; }
+.order-success {
+  margin-top: 3rem;
+
+  .btn {
+    @extend %btn-shared-large;
+
+    a { margin: 0; }
+  }
+}
 
 // PROGRESS BAR
 .progress-bar {
   height: 40px;
+  width: 40%;
+  margin-top: 1.5rem;
 
-  .bar {
-    position: relative;
-    margin-top: 1.5rem;
-    background: rgba($color: $orange, $alpha: 0.8);
-    height: 100%;
-    width: 25%;
-    transition: width .3s;
-    margin-right: 2rem;
+  .progress-step {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
-    &:last-child { margin-right: 0; }
-
-    &::before {
-      position: absolute;
-      content: "";
-      width: 0;
-      height: 0;
-      border-top: 20px solid transparent;
-      border-left: 25px solid $white;
-      border-bottom: 20px solid transparent;
-    }
-
-    &::after {
-      position: absolute;
-      content: "";
-      right: -25px;
-      width: 0;
-      height: 0;
-      border-top: 20px solid transparent;
-      border-left: 25px solid rgba($color: $orange, $alpha: 0.8);
-      border-bottom: 20px solid transparent;
-    }
-
-    .step-info {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-40%, -50%);
+    .step-dot {
+      background: $orange;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
     }
   }
 }
@@ -1374,6 +1363,11 @@ h4 {
 
   .modal-main {
     padding: 1rem;
+
+    .btn { 
+      @extend %btn-shared;
+      padding: 1rem;
+    }
 
     .modal-items {
       li {
@@ -1863,9 +1857,9 @@ h4 {
       justify-content: space-between;
       padding: 1rem;
       background: rgba($color: $grey, $alpha: 0.2);
-      border-bottom: 1px solid $light-grey;
       transition: border-right .3s ease;
-
+      border-bottom: 1px solid $light-grey;
+      
       .order-info {
         color: $black;
         font-size: 1.1rem;
@@ -1995,9 +1989,7 @@ h4 {
 .user-show {
   .order {
     background: $lighter;
-    border: 1px solid $grey;
-    border-bottom: 0;
-    &:last-child { border-bottom: 1px solid $grey; }
+    border-bottom: 1px solid $light-grey;
 
     &-info {
       display: flex;
