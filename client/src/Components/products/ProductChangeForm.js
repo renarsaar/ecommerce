@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function ProductChangeForm({
   product, handleChange, handleSubmit, addDescription,
@@ -9,6 +10,7 @@ export default function ProductChangeForm({
     brand, description, discountPrice, gender, name,
     price, sizes, stock, subCategory, category,
   } = product;
+  const history = useHistory();
 
   // Return select options
   function handleSubCategories() {
@@ -72,11 +74,11 @@ export default function ProductChangeForm({
           />
 
           <div className="ml-1">
-            <i className="tooltip las red la-minus-circle" onClick={() => removeDescription(index)} >
+            <i className="tooltip las red la-minus-circle" onClick={() => removeDescription(index)}>
               <span className="tooltiptext">Delete this row</span>
             </i>
 
-            <i className="tooltip las green la-plus-circle" onClick={() => addDescription(index)} >
+            <i className="tooltip las green la-plus-circle" onClick={() => addDescription(index)}>
               <span className="tooltiptext">Add a field after this row</span>
             </i>
           </div>
@@ -111,11 +113,11 @@ export default function ProductChangeForm({
                 onBlur={(e) => handleChange(e, index)}
               />
 
-              <i className="tooltip las red la-minus-circle" onClick={() => removeStockColumn(index)} >
+              <i className="tooltip las red la-minus-circle" onClick={() => removeStockColumn(index)}>
                 <span className="tooltiptext">Delete this row</span>
               </i>
 
-              <i className="tooltip las green la-plus-circle" onClick={() => addStockColumn(index)} >
+              <i className="tooltip las green la-plus-circle" onClick={() => addStockColumn(index)}>
                 <span className="tooltiptext">Add a field after this row</span>
               </i>
             </div>
@@ -201,7 +203,16 @@ export default function ProductChangeForm({
         </div>
       </div>
 
-      <input type="submit" className="btn" value="Confirm Changes" />
+      <div>
+        <button
+          type="button"
+          className="btn mr-2"
+          onClick={() => history.goBack()}
+        >
+          Back
+        </button>
+        <input type="submit" className="btn" value="Confirm Changes" />
+      </div>
     </form>
   );
 }
