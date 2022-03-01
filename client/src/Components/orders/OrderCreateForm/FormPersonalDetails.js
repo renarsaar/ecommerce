@@ -8,7 +8,7 @@ export default function FormPersonalDetails({
   values, formErrors, prevStep, nextStep, handleChange, handleValidation,
 }) {
   const dispatch = useDispatch();
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { terminals, getTerminalsError } = useSelector((state) => state.orders);
 
   // Get Omniva parcel terminal locations
@@ -78,11 +78,10 @@ export default function FormPersonalDetails({
               type="text"
               name="name"
               className={formErrors.name ? 'input-err' : ''}
-              value={values.name || ''}
+              value={values.name}
               onChange={handleChange}
               onBlur={handleValidation}
-              disabled={!!isLoggedIn}
-              placeholder={user ? user.name : ''}
+              disabled={isLoggedIn}
             />
 
             <label htmlFor="email">
@@ -94,11 +93,10 @@ export default function FormPersonalDetails({
               name="email"
               className={formErrors.email ? 'input-err' : ''}
               autoComplete="on"
-              value={values.email || ''}
+              value={values.email}
               onChange={handleChange}
               onBlur={handleValidation}
-              disabled={!!isLoggedIn}
-              placeholder={user ? user.email : ''}
+              disabled={isLoggedIn}
             />
 
             <h4 className="mt-1">Choose a delivery method</h4>

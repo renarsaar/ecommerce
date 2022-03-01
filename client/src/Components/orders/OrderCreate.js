@@ -1,13 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ProgressBar from './OrderCreateForm/ProgressBar';
 import FormCartProducts from './OrderCreateForm/FormCartProducts';
 import FormPersonalDetails from './OrderCreateForm/FormPersonalDetails';
 import FormConfirm from './OrderCreateForm/FormConfirm';
 
-export default class OrderCreate extends React.Component {
+class OrderCreate extends React.Component {
   state = {
     step: 1,
+    name: '',
+    email: '',
     totalPrice: 0,
     deliveryMethod: '',
     deliveryOmniva: 'Abja Coop Konsumi pakiautomaat',
@@ -18,6 +21,16 @@ export default class OrderCreate extends React.Component {
     cvv: '',
     formErrors: { name: '', email: '', deliveryMethod: '', deliveryCourier: '', cardHolder: '', cardNumber: '', expiryM: '', expiryY: '', cvv: '' },
   };
+
+  componentDidUpdate() {
+    const { isLoggedIn, user } = this.props;
+
+    if (isLoggedIn) {
+      this.state.name = user.name;
+      this.state.email = user.email;
+      this.state.userId = user.id;
+    }
+  }
 
   // Clear Form Step
   componentWillUnmount() {
@@ -211,3 +224,10 @@ export default class OrderCreate extends React.Component {
     }
   }
 }
+
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps, null)(OrderCreate);

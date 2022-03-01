@@ -70,10 +70,10 @@ export const getOrder = (id, token) => async (dispatch) => {
 };
 
 // Get all order made from one User
-export const getUserOrders = (userName, page, token) => async (dispatch) => {
+export const getUserOrders = (userId, page, token) => async (dispatch) => {
   dispatch({ type: ORDERS_LOADING });
 
-  api.get(`/orders/user/${userName}`, {
+  api.get(`/orders/user/${userId}`, {
     headers: {
       'x-auth-token': token,
     },
@@ -91,13 +91,17 @@ export const getUserOrders = (userName, page, token) => async (dispatch) => {
 export const createOrder = (values) => async (dispatch) => {
   dispatch({ type: ORDERS_LOADING });
 
-  api.post('/orders', {
-    user: values.user,
+  const reqBody = {
+    name: values.name,
     email: values.email,
     products: values.products,
     totalPrice: values.totalPrice,
     delivery: values.delivery,
-  })
+  };
+
+  if (values.userId) reqBody.userId = values.userId;
+
+  api.post('/orders', reqBody)
     .then((response) => {
       if (response.status === 201) {
         dispatch({ type: CREATE_ORDER });

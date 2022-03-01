@@ -18,12 +18,16 @@ export default function User() {
   const [showDeleteAccountForm, setShowDeleteAccountForm] = useState(false);
 
   useEffect(() => {
-    dispatch(getUserOrders(user.name, 1, sessionStorage.token));
+    dispatch(getUserOrders(user.id, 1, sessionStorage.token));
   }, []);
 
   // Return user orders
   function handleOrders() {
     if (orders) {
+      if (orders.length === 0) {
+        return <h2>You haven&apos;t made any orders</h2>;
+      }
+
       return orders.map((order) => (
         <Link
           to={`/order/${order._id}`}

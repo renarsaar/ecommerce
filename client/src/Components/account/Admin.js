@@ -47,9 +47,6 @@ export default function Admin() {
 
   Modal.setAppElement('#modal');
 
-  // Todo Admin, main.scss,
-  // Extending Ripplebutton component
-
   // Fetch orders on page change || status change
   useEffect(() => {
     if (orderType === 'All') dispatch(getOrders(currentOrdersPage, sessionStorage.token));

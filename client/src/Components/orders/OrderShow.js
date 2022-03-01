@@ -31,10 +31,15 @@ export default function OrderShow({ match }) {
         <div className="order-single">
           <div className="order-info mr-2">
             <h3>Order made at {new Date(selectedOrder.date).toLocaleDateString('en-GB')}</h3>
-            <h3>Orderer: {selectedOrder.user}</h3>
+            <h3>Orderer: {selectedOrder.name}</h3>
             <h3>Email: {selectedOrder.email}</h3>
             <h3>Delivery: {selectedOrder.delivery}</h3>
-            <h3>Total Price: {selectedOrder.totalPrice}€</h3>
+
+            <h3 className="mt-3">Status: {selectedOrder.status}</h3>
+
+            {selectedOrder.statusComment && (
+              <h4>{selectedOrder.statusComment}</h4>
+            )}
           </div>
 
           <div className="order-products">
@@ -54,11 +59,7 @@ export default function OrderShow({ match }) {
               </Link>
             ))}
 
-            <h3>Status: {selectedOrder.status}</h3>
-
-            {selectedOrder.statusComment && (
-              <h4>{selectedOrder.statusComment}</h4>
-            )}
+            <h3 className="mt-2">Total Price: {selectedOrder.totalPrice}€</h3>
           </div>
 
         </div>

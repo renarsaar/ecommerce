@@ -1,23 +1,33 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import { getOrders, getUserOrders } from '../../actions/orderActions';
 
 export default function UserShow() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const location = useLocation();
   const { orders } = useSelector((state) => state.orders);
   const { user } = location.state;
   const {
     isAdmin, isBanned, banComment, date, email, name,
+    _id,
   } = user;
-  const userOrders = orders.filter((order) => order.email === email);
+
+  useEffect(() => {
+    dispatch(getUserOrders(_id, 1, sessionStorage.token));
+
+    return () => {
+      dispatch(getOrders(1, sessionStorage.token));
+    };
+  }, []);
 
   function handleUserOrders() {
-    if (userOrders.length === 0) {
+    if (orders.length === 0) {
       return <h2>This user has not made any orders</h2>;
     }
 
-    return userOrders.map((order) => (
+    return orders.map((order) => (
       <div className="order" key={order._id}>
         <Link className="order-info" to={`/order/${order._id}`}>
           <div>

@@ -24,9 +24,9 @@ router.get('/', auth, paginatedResults(Order), async (req, res) => {
 });
 
 // @desc    Get all orders made from 1 user
-// @route   GET /orders/user/:username
+// @route   GET /orders/user/:userId
 // @access  private
-router.get('/user/:userName', auth, paginatedResults(Order), async (req, res) => {
+router.get('/user/:userId', auth, paginatedResults(Order), async (req, res) => {
   try {
     res.status(200).json(res.paginatedResults);
   } catch (err) {
@@ -51,7 +51,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 
   // orderer & user are the same
-  if (user.name !== order.user) {
+  if (user.name !== order.name) {
     return res.status(400).send('Unauthorized');
   }
 
@@ -71,7 +71,8 @@ router.post('/', async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const order = new Order({
-    user: req.body.user,
+    name: req.body.name,
+    userId: req.body.userId,
     email: req.body.email,
     products: req.body.products,
     totalPrice: req.body.totalPrice,
@@ -190,9 +191,9 @@ function paginatedResults(model) {
       // results.results = await model.find();
       results.paginatedResults = await model.find().limit(limit).skip(startIndex).exec();
 
-      // Filter orders by username if username in params
-      if (req.params.userName) {
-        results.paginatedResults = await model.find({ user: req.params.userName })
+      // Filter orders by userId if userId in params
+      if (req.params.userId) {
+        results.paginatedResults = await model.find({ userId: req.params.userId })
           .limit(limit)
           .skip(startIndex)
           .exec();

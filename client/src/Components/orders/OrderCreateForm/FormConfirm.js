@@ -7,9 +7,22 @@ import useFormattedCreditCardNumber from '../../Hooks/useFormattedCreditCardNumb
 export default function FormConfirm({ values, formErrors, prevStep }) {
   const dispatch = useDispatch();
   const { ordersLoading, createOrderError } = useSelector((state) => state.orders);
-  const { user } = useSelector((state) => state.auth);
   const cartProducts = useSelector((state) => state.cart);
   const [valid, setValid] = useState(true);
+  const [orderValues, setOrderValues] = useState({});
+
+  useEffect(() => {
+    setOrderValues({
+      name: values.name,
+      email: values.email,
+      userId: values.userId,
+      products: cartProducts,
+      totalPrice: values.totalPrice,
+      delivery: values.deliveryMethod === 'Omniva'
+        ? `Omniva: ${values.deliveryOmniva}`
+        : `Courier: ${values.deliveryCourier}`,
+    });
+  }, []);
 
   useEffect(() => {
     // Validate forms inputs are filled out
@@ -25,57 +38,19 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
     return () => {
       setValid(false);
     };
-  });
-
-  // Create a new order
-  function handleCreateOrder() {
-    const orderValues = {
-      products: cartProducts,
-      totalPrice: values.totalPrice,
-      delivery: values.deliveryMethod === 'Omniva'
-        ? `Omniva: ${values.deliveryOmniva}`
-        : `Courier: ${values.deliveryCourier}`,
-    };
-
-    // Set the name & email to typed or google values
-    if ('name' in values) orderValues.user = values.name;
-    if (user !== null) orderValues.user = user.name;
-
-    if ('email' in values) orderValues.email = values.email;
-    if (user !== null) orderValues.email = user.email;
-
-    dispatch(createOrder(orderValues));
-  }
-
-  // Return name in li
-  function handleRenderName() {
-    if ('name' in values) return values.name;
-    if (user !== null) return user.name;
-
-    return '';
-  }
-
-  // Return email in li
-  function handleRenderEmail() {
-    if ('email' in values) return values.email;
-    if (user !== null) return user.email;
-
-    return '';
-  }
+  }, []);
 
   return (
     <div className="order-create container">
       <div className="order-confirm">
         <div className="order-confirm-container">
           <ul>
-            <li>Name: <span>{handleRenderName()}</span></li>
-            <li>Email: <span>{handleRenderEmail()}</span></li>
+            <li>Name: <span>{orderValues.name}</span></li>
+            <li>Email: <span>{orderValues.email}</span></li>
             <li>
               Delivery:
               <span className="delivery-address">
-                {'deliveryMethod' in values && values.deliveryMethod === 'Omniva'
-                  ? values.deliveryOmniva
-                  : values.deliveryCourier}
+                {orderValues.delivery}
               </span>
             </li>
             <li>
@@ -118,7 +93,7 @@ export default function FormConfirm({ values, formErrors, prevStep }) {
 
           <input
             type="submit"
-            onClick={handleCreateOrder}
+            onClick={() => dispatch(createOrder(orderValues))}
             value="Confirm &amp; pay"
             style={{ cursor: valid ? 'pointer' : 'not-allowed' }}
             disabled={!valid}
