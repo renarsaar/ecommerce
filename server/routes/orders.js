@@ -1,8 +1,15 @@
+const jwt = require('jsonwebtoken');
 const router = require('express').Router();
+const nodemailer = require('nodemailer');
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
 const auth = require('../middleware/auth');
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const Order = require('../model/Order');
 const User = require('../model/User');
 const Product = require('../model/Product');
+const Token = require('../model/Token');
 const { makeOrderValidation } = require('../validation');
 
 // @desc    Get all orders
@@ -80,6 +87,9 @@ router.post('/', async (req, res) => {
   });
 
   try {
+    // Make a new order
+    await order.save();
+
     // Map all products and remove quantity from db
     order.products.map(async (product) => {
       const collectionProduct = await Product.findById(product.id);
@@ -95,8 +105,83 @@ router.post('/', async (req, res) => {
       });
     });
 
-    // Make a new order
-    await order.save();
+    // Send a conformation Email
+    const subject = 'VRA E-commerce order conformation';
+    const output = `<div style="padding:1.5rem 1rem; background: rgba(255, 96, 10, 0.2); color: black;">
+      <h3 style="margin-bottom: 2rem;">Hi, ${order.name} - thanks for your order, we hope you enjoyed shopping with us.</h3>
+
+      <h3>Your order #${order._id}</h3>
+      <p>Order was made on ${new Date(order.date).toLocaleDateString('en-GB')}</p>
+      <p>Delivery method: ${order.delivery}</p>
+      <p>Total price: ${order.totalPrice} €</p>
+
+      <h3 style="margin-bottom: 0;">Products:</h3>
+    ${order.products.map((product) => `<div style="display: flex; flex-direction: column; margin: 3rem, 0, 1rem, 1rem;">
+      <h3>${product.name} x ${product.quantity}</h3>
+      <h3>Size: ${product.size}</h3>
+      <h3>${product.totalPrice} €</h3>
+    </div>`)}
+
+    <a style="text-decoration: none;" href=${`http://localhost:3000/order/${order._id}`}>
+      <button style="width: 200px; height: 50px; cursor: pointer;">
+        View Your Order
+      </button>
+    </a>
+
+    <p>If you have any questions regarding to your order, please send us an E-mail info@vra.ee</p>
+    `;
+
+    // Create PDF document
+    const doc = new PDFDocument();
+    doc.pipe(fs.createWriteStream(`./orderPDF/${order._id}.pdf`));
+
+    doc
+      .fontSize(20)
+      .text(`Hi, ${order.name} - thanks for your order, we hope you enjoyed shopping with us.`, {
+        align: 'center',
+      });
+
+    doc
+      .fontSize(14)
+      .text(`
+        Your order #${order._id}
+        Order was made on ${new Date(order.date).toLocaleDateString('en-GB')}
+        Delivery method: ${order.delivery}
+        Total price: ${order.totalPrice} €
+      `, {
+        align: 'left',
+      });
+
+    doc
+      .fontSize(18)
+      .text('Products:');
+
+    order.products.map((product) => {
+      doc
+        .image(`${product.image}`, {
+          fit: [30, 90],
+          align: 'center',
+          valign: 'center',
+        })
+        .fontSize(16)
+        .text(`
+          ${product.name} x ${product.quantity}
+          Size: ${product.size}
+          ${product.totalPrice} €
+        `);
+    });
+
+    doc.end();
+
+    // Send PDF file as an attachment
+    const attachments = [{
+      filename: 'order.pdf',
+      path: `./orderPDF/${order._id}.pdf`,
+      contentType: 'application/pdf',
+    }];
+
+    sendMail(order.email, subject, output, attachments);
+
     res.status(201).send('Order created successfully');
   } catch (err) {
     res.status(400).send({ message: err.message });
@@ -128,7 +213,7 @@ router.delete('/delete/:id', auth, async (req, res) => {
 // @access  admin
 router.patch('/status/:id', auth, async (req, res) => {
   const { id } = req.params;
-  const { newStatus } = req.body;
+  const { newStatus, statusComment } = req.body;
   const order = await Order.findById(id);
   const user = await User.findById(req.user._id);
   const allowedStatuses = ['Active', 'Cancelled', 'Completed', 'Seen By Admin', 'Recieved'];
@@ -144,12 +229,11 @@ router.patch('/status/:id', auth, async (req, res) => {
   }
 
   order.status = newStatus;
-
-  if (req.body.statusComment) {
+  if (statusComment) {
     order.statusComment = req.body.statusComment;
   }
 
-  // Reset cancelled status comment if new status not cancelled
+  // Reset the status comment if new status changed from "cancelled"
   if (newStatus !== 'Cancelled' && order.statusComment) {
     order.statusComment = '';
   }
@@ -162,6 +246,28 @@ router.patch('/status/:id', auth, async (req, res) => {
     res.status(500).send('Something went wrong. Please try again later.');
   }
 });
+
+function sendMail(ordererEmail, subject, output, attachments) {
+  const transporter = nodemailer.createTransport({
+    host: 'mail.veebimajutus.ee',
+    port: 2525,
+    secure: false,
+    auth: {
+      user: 'info@vra.ee',
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    to: ordererEmail,
+    from: 'vra@info.ee',
+    subject,
+    html: output,
+    attachments,
+  };
+
+  transporter.sendMail(mailOptions);
+}
 
 function paginatedResults(model) {
   return async (req, res, next) => {
