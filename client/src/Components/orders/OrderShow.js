@@ -1,19 +1,28 @@
 import React, { useEffect } from 'react';
+import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { getOrder, changeOrderStatus } from '../../actions/orderActions';
+import { getUser } from '../../actions/authActions';
 
 export default function OrderShow({ match }) {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { id } = match.params;
   const { ordersLoading, selectedOrder, getOrderError } = useSelector((state) => state.orders);
   const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const url = queryString.parse(location.search);
 
   // Fetch single order
   useEffect(() => {
+    // Open order if user opens order via Email
+    if (!isLoggedIn && url.token) {
+      dispatch(getUser(url.token));
+    }
+
     dispatch(getOrder(id, sessionStorage.getItem('token')));
-  }, [dispatch, id]);
+  }, [dispatch, id, !isLoggedIn]);
 
   // Change order status to seen by admin
   useEffect(() => {

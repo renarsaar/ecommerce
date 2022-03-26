@@ -238,6 +238,43 @@ router.patch('/status/:id', auth, async (req, res) => {
     order.statusComment = '';
   }
 
+  // Send an informative Email to user about cancelling
+  if (newStatus === 'Cancelled') {
+    const ordererAccount = await User.findById(order.userId);
+    let redirectLink = '';
+
+    const subject = 'VRA E-commerce order has been cancelled';
+    let output = '';
+
+    // If orderer is registered account, send direct link to open the order
+    if (ordererAccount) {
+      const token = jwt.sign({ _id: ordererAccount._id }, process.env.JWT_TOKEN_SECRET);
+      redirectLink = `http://localhost:3000/order/${order._id}?token=${token}`;
+
+      output = `<div style="padding:1.5rem 1rem; background: rgba(255, 96, 10, 0.1); color: black;">
+        <h2>Hi, ${order.name} - Your order ${order._id} has been cancelled.</h3>
+        <h3>Reason for cancelling the order: ${order.statusComment}</h3>
+
+        <a style="text-decoration: none;" href=${redirectLink}>
+          <button style="width: 200px; height: 50px; cursor: pointer;">
+            View Your Order
+          </button>
+        </a>
+
+        <p>If you have any questions regarding to your order, please send us an E-mail info@vra.ee</p>
+      </div>`;
+    } else {
+      output = `<div style="padding:1.5rem 1rem; background: rgba(255, 96, 10, 0.1); color: black;">
+          <h2>Hi, ${order.name} - Your order ${order._id} has been cancelled.</h3>
+          <h3>Reason for cancelling the order: ${order.statusComment}</h3>
+
+          <p>If you have any questions regarding to your order, please send us an E-mail info@vra.ee</p>
+        </div>`;
+    }
+
+    sendMail(order.email, subject, output);
+  }
+
   try {
     await order.save();
 
