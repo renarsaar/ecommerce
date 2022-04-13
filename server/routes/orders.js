@@ -246,6 +246,7 @@ router.patch('/status/:id', auth, async (req, res) => {
     const subject = 'VRA E-commerce order has been cancelled';
     let output = '';
 
+    //
     // If orderer is registered account, send direct link to open the order
     if (ordererAccount) {
       const token = jwt.sign({ _id: ordererAccount._id }, process.env.JWT_TOKEN_SECRET);

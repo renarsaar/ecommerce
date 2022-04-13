@@ -20,6 +20,7 @@ import {
 import api from '../api';
 import history from '../history';
 
+//TODO: Orders on Admin page are not paginated
 // Get all orders
 export const getOrders = (page, token) => async (dispatch) => {
   dispatch({ type: ORDERS_LOADING });
