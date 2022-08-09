@@ -11,9 +11,8 @@ Express.js server of the applicattion is in **server** folder.<br />
 - Sending Emails & pdf files in case of order changes
 - Different User roles, option to lock accounts and give premissions
 
-## Product is still in development mode and is not finished. Therefore apologies if some bugs occur.
 ## Media Queries are not completed and currently the application is not usable with screens under 1200 px
-## Admin account for testing, please use it wisely :)
+## Admin account for testing, please use it wisely
 ```
 Username: admin@vra.ee
 Password: Admin12345
