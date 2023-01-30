@@ -1,5 +1,5 @@
 # General Info:
-Project is hosted on [Heroku](https://vra-ecommerce.herokuapp.com/).<br />
+Project is hosted on [Render](https://vra-ecommerce.onrender.com/).<br />
 React.js side of the applicattion is in **client** folder.<br />
 Express.js server of the applicattion is in **server** folder.<br />
 
